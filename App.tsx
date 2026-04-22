@@ -2,7 +2,9 @@ import { StatusBar, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppProvider from './src/provider/AppProvider';
 import CustomBtn from './src/ui/CustomBtn/CustomBtn';
-import MessageItem from './src/components/MessageItem/MessageItem';
+import MessageItem from './src/components/Chat/MessageItem/MessageItem';
+import TreatmentList from './src/components/TreatmentList/TreatmentList';
+import { treatmentsList } from './src/constants/treatments';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function AppContent() {
         name="Dr. Sarah Mitchell"
         avatar={require('./src/assets/images/dr.jpg')}
       />
+
+      <TreatmentList data={treatmentsList} />
     </View>
   );
 }
