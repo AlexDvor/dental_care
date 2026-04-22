@@ -25,6 +25,7 @@ export const Colors = {
     secondary: '#64748B', // опис
     placeholder: '#94A3B8', // input text
     inverted: '#FFFFFF', // на темному фоні
+    icon: '#058aff',
   },
 
   // === BRAND / ACTION ===

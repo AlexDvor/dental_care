@@ -20,15 +20,14 @@ function App() {
 function AppContent() {
   return (
     <View style={styles.container}>
-      <CustomBtn title="Continue" onPress={() => {}} />
+      <TreatmentList data={treatmentsList} />
       <MessageItem
         date="10:30 AM"
         message="Hello John! Your treatme.... "
         name="Dr. Sarah Mitchell"
         avatar={require('./src/assets/images/dr.jpg')}
       />
-
-      <TreatmentList data={treatmentsList} />
+      <CustomBtn title="Continue" onPress={() => {}} />
     </View>
   );
 }
@@ -36,8 +35,6 @@ function AppContent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 
