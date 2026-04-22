@@ -5,6 +5,8 @@ import CustomBtn from './src/ui/CustomBtn/CustomBtn';
 import MessageItem from './src/components/Chat/MessageItem/MessageItem';
 import TreatmentList from './src/components/TreatmentList/TreatmentList';
 import { treatmentsList } from './src/constants/treatments';
+import { Colors } from './src/constants/colors';
+import DentistCard from './src/components/DentistCard/DentistCard';
 
 const { width: deviceWidth } = Dimensions.get('window');
 
@@ -33,6 +35,7 @@ function AppContent() {
         avatar={require('./src/assets/images/dr.jpg')}
       />
       <CustomBtn title="Continue" onPress={() => {}} />
+      <DentistCard />
     </View>
   );
 }
@@ -42,6 +45,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: PADDING,
     paddingTop: 10,
+    backgroundColor: Colors.background.muted,
   },
 });
 

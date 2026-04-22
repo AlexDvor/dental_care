@@ -1,8 +1,16 @@
-import ArrowRight from '../../assets/icons/right_arrow.svg';
 import { IconProps } from './Icon.interface';
+import ArrowRight from '../../assets/icons/right_arrow.svg';
+import Star from '../../assets/icons/rating.svg';
+import Map from '../../assets/icons/map.svg';
+import Location from '../../assets/icons/location.svg';
+import Schedule from '../../assets/icons/calendario.svg';
 
 export const iconList = {
   arrow_r: ArrowRight,
+  rating: Star,
+  map: Map,
+  location: Location,
+  schedule: Schedule,
 } as const;
 
 const sizeMap = {

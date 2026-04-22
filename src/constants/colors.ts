@@ -1,41 +1,40 @@
 export const Colors = {
-  // === BASE ===
   base: {
     white: '#FFFFFF',
     dark: '#0F172A',
   },
 
-  // === BACKGROUNDS ===
   background: {
-    primary: '#F8FAFC', // основний світлий фон
-    secondary: '#FFFFFF', // картки
-    dark: '#0F172A', // темний (для кнопок / header)
+    primary: '#F8FAFC',
+    secondary: '#FFFFFF',
+    dark: '#0F172A',
+    muted: '#F2F2F2',
   },
 
-  // === SURFACE (cards, inputs) ===
   surface: {
     card: '#FFFFFF',
     input: '#F1F5F9',
     muted: '#E2E8F0',
   },
 
-  // === TEXT ===
+  button: {
+    secondary: '#058AFF14',
+  },
+
   text: {
-    primary: '#0F172A', // заголовки
-    secondary: '#64748B', // опис
-    placeholder: '#94A3B8', // input text
-    inverted: '#FFFFFF', // на темному фоні
+    primary: '#0F172A',
+    secondary: '#64748B',
+    placeholder: '#94A3B8',
+    inverted: '#FFFFFF',
     icon: '#058aff',
   },
 
-  // === BRAND / ACTION ===
   primary: {
     main: '#0C6CF2',
     light: '#0284C7',
     dark: '#0A2540',
   },
 
-  // === STATUS ===
   success: {
     main: '#22C55E',
     background: '#C6FFDA',
@@ -45,7 +44,6 @@ export const Colors = {
     main: '#FF0000',
   },
 
-  // === UI ELEMENTS ===
   border: {
     default: '#E2E8F0',
   },

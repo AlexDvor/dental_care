@@ -11,9 +11,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
   title: {
     fontWeight: 'bold',
-    lineHeight: 30,
     fontSize: 20,
     color: Colors.text.inverted,
   },
