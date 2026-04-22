@@ -1,9 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { Colors } from '../../../constants/colors';
+
+const { width } = Dimensions.get('window');
+const deviceWidth = width * 0.85;
 
 export const styles = StyleSheet.create({
   container: {
-    width: 380,
+    width: '100%',
     height: 116,
     backgroundColor: Colors.background.secondary,
     borderRadius: 16,
