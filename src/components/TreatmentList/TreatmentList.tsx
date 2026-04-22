@@ -1,17 +1,13 @@
-import { View, FlatList, Text, TouchableOpacity } from 'react-native';
+import { View, FlatList } from 'react-native';
 import TreatmentItem from '../TreatmentItem/TreatmentItem';
 import { TreatmentsListProps } from './TreatmentList.interface';
 import { styles } from './TreatmentList.style';
+import SectionHeader from '../SectionHeader/SectionHeader';
 
 const TreatmentList = ({ data }: TreatmentsListProps) => {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Dental Treatments</Text>
-        <TouchableOpacity>
-          <Text style={styles.link}>See All</Text>
-        </TouchableOpacity>
-      </View>
+      <SectionHeader title="Dental Treatments" />
       <FlatList
         data={data}
         keyExtractor={item => item.id.toString()}

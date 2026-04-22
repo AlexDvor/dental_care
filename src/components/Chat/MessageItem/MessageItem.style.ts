@@ -1,8 +1,8 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import { Colors } from '../../../constants/colors';
 
-const { width } = Dimensions.get('window');
-const deviceWidth = width * 0.85;
+// const { width } = Dimensions.get('window');
+// const deviceWidth = width * 0.85;
 
 export const styles = StyleSheet.create({
   container: {
