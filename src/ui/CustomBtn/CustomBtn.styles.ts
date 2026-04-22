@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
     width: 282,
     height: 62,
-    backgroundColor: '#0f172a',
+    backgroundColor: Colors.background.dark,
     borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
@@ -14,6 +15,6 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     lineHeight: 30,
     fontSize: 20,
-    color: '#fff',
+    color: Colors.text.inverted,
   },
 });
