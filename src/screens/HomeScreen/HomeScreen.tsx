@@ -4,6 +4,7 @@ import SectionHeader from '../../components/SectionHeader/SectionHeader';
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import QuickActionCard from '../../ui/QuickActionCard/QuickActionCard';
 import { Theme } from '../../constants/colors';
+import PromoBanner from '../../components/PromoBanner/PromoBanner';
 
 const HomeScreen = () => {
   return (
@@ -52,6 +53,13 @@ const HomeScreen = () => {
           iconColor="#14B8A6"
         />
       </View>
+      <PromoBanner
+        title="Cleaning Reminder"
+        description="It's been 6 months since your last cleaning."
+        buttonText="Book Cleaning"
+        onPress={() => {}}
+        expiresIn={86400} // 1 день
+      />
     </View>
   );
 };
