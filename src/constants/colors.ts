@@ -52,4 +52,6 @@ export const Colors = {
     default: '#64748B',
     active: '#0C6CF2',
   },
+
+  ////
 };

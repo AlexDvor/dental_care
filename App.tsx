@@ -7,6 +7,7 @@ import TreatmentList from './src/components/TreatmentList/TreatmentList';
 import { treatmentsList } from './src/constants/treatments';
 import { Colors } from './src/constants/colors';
 import DentistCard from './src/components/DentistCard/DentistCard';
+import HomeScreen from './src/screens/HomeScreen/HomeScreen';
 
 const { width: deviceWidth } = Dimensions.get('window');
 
@@ -27,7 +28,7 @@ function App() {
 function AppContent() {
   return (
     <View style={styles.container}>
-      <TreatmentList data={treatmentsList} />
+      {/* <TreatmentList data={treatmentsList} />
       <MessageItem
         date="10:30 AM"
         message="Hello John! Your treatme.... "
@@ -35,7 +36,9 @@ function AppContent() {
         avatar={require('./src/assets/images/dr.jpg')}
       />
       <CustomBtn title="Continue" onPress={() => {}} />
-      <DentistCard />
+      <DentistCard /> */}
+
+      <HomeScreen />
     </View>
   );
 }
@@ -45,7 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: PADDING,
     paddingTop: 10,
-    backgroundColor: Colors.background.muted,
+    backgroundColor: '#E8F3ED',
   },
 });
 
