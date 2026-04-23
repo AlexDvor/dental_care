@@ -1,12 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../constants/colors';
+import { Theme } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    width: 282,
-    height: 62,
-    backgroundColor: Colors.background.dark,
-    borderRadius: 24,
+    backgroundColor: Theme.colors.background.soft,
+    paddingVertical: 14,
+    borderRadius: Theme.radius.sm,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -17,8 +16,8 @@ export const styles = StyleSheet.create({
   },
 
   title: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.text.inverted,
+    fontWeight: Theme.typography.fontWeight.semibold,
+    fontSize: 14,
+    color: Theme.colors.text.badge,
   },
 });

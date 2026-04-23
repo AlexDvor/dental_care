@@ -8,6 +8,7 @@ const HomeScreen = () => {
     <View>
       <SectionHeader title="Upcoming Appointment" />
       <AppointmentCard />
+      <SectionHeader title="Quick Actions" />
     </View>
   );
 };

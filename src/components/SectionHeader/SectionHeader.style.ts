@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 30,
     color: Colors.text.primary,
+    marginBottom: 15,
   },
 });
 

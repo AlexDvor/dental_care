@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { styles } from './AppointmentCard.style';
 import { Icon } from '../../ui/Icon/Icon';
+import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 
 const AppointmentCard = () => {
   return (
@@ -38,9 +39,12 @@ const AppointmentCard = () => {
       </View>
 
       {/* Button */}
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>View Details</Text>
-      </TouchableOpacity>
+
+      <CustomBtn
+        title="View Details"
+        onPress={() => {}}
+        style={{ marginTop: 20 }}
+      />
     </View>
   );
 };

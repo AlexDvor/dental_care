@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../constants/colors';
+import { Theme } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-    backgroundColor: Colors.background.primary,
-    borderRadius: 16,
+    backgroundColor: Theme.colors.background.primary,
+    borderRadius: Theme.radius.md,
     padding: 20,
   },
 
@@ -24,8 +24,8 @@ export const styles = StyleSheet.create({
   iconWrapper: {
     width: 50,
     height: 50,
-    backgroundColor: '#E8F3ED',
-    borderRadius: 15,
+    backgroundColor: Theme.colors.background.soft,
+    borderRadius: Theme.radius.md,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -35,27 +35,27 @@ export const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#111827',
+    fontSize: Theme.typography.size.body,
+    fontWeight: Theme.typography.fontWeight.semibold,
+    color: Theme.colors.text.primary,
   },
 
   subtitle: {
-    fontSize: 14,
-    color: '#6B7280',
+    fontSize: Theme.typography.size.small,
+    color: Theme.colors.text.secondary,
   },
 
   badge: {
-    backgroundColor: '#E8F3ED',
+    backgroundColor: Theme.colors.background.soft,
     paddingHorizontal: 12,
     paddingVertical: 6,
-    borderRadius: 20,
+    borderRadius: Theme.radius.lg,
   },
 
   badgeText: {
-    color: '#0E7A4B',
-    fontSize: 12,
-    fontWeight: '500',
+    color: Theme.colors.text.badge,
+    fontSize: Theme.typography.size.caption,
+    fontWeight: Theme.typography.fontWeight.medium,
   },
 
   dateRow: {
@@ -71,21 +71,7 @@ export const styles = StyleSheet.create({
   },
 
   dateText: {
-    fontSize: 13,
-    color: '#6B7280',
-  },
-
-  button: {
-    marginTop: 20,
-    backgroundColor: '#E8F3ED',
-    paddingVertical: 14,
-    borderRadius: 12,
-    alignItems: 'center',
-  },
-
-  buttonText: {
-    color: '#0E7A4B',
-    fontWeight: '600',
-    fontSize: 14,
+    fontSize: Theme.typography.size.xs,
+    color: Theme.colors.text.secondary,
   },
 });
