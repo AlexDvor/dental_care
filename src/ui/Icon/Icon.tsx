@@ -7,6 +7,9 @@ import Schedule from '../../assets/icons/calendario.svg';
 import Chat from '../../assets/icons/chat-support.svg';
 import FindDoctor from '../../assets/icons/find_doctor.svg';
 import ViewRecords from '../../assets/icons/view-records.svg';
+import Award from '../../assets/icons/award.svg';
+import Lock from '../../assets/icons/lock.svg';
+import Verified from '../../assets/icons/verified.svg';
 
 export const iconList = {
   arrow_r: ArrowRight,
@@ -17,6 +20,9 @@ export const iconList = {
   chat: Chat,
   findDoctor: FindDoctor,
   viewRecords: ViewRecords,
+  award: Award,
+  lock: Lock,
+  verified: Verified,
 } as const;
 
 const sizeMap = {
