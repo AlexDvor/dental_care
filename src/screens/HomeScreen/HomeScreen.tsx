@@ -9,19 +9,23 @@ const HomeScreen = () => {
   return (
     <View>
       <SectionHeader title="Upcoming Appointment" />
-      <AppointmentCard />
+      <AppointmentCard style={{ marginBottom: Theme.spacing.md }} />
       <SectionHeader title="Quick Actions" />
       <View style={{ flexDirection: 'row', gap: Theme.spacing.md }}>
         <QuickActionCard
           title="Book Appointment"
-          icon="arrow_r"
-          onPress={() => console.log('Book')}
+          icon="schedule"
+          onPress={() => {}}
+          iconBackground="#E8F3ED"
+          iconColor={Theme.colors.primary.main}
         />
 
         <QuickActionCard
           title="Find Doctor"
-          icon="location"
-          onPress={() => console.log('Doctor')}
+          icon="findDoctor"
+          onPress={() => {}}
+          iconBackground="#EAF2FF"
+          iconColor="#3B82F6"
         />
       </View>
 
@@ -34,14 +38,18 @@ const HomeScreen = () => {
       >
         <QuickActionCard
           title="Chat Support"
-          icon="rating"
-          onPress={() => console.log('Chat')}
+          icon="chat"
+          onPress={() => {}}
+          iconBackground="#F3E8FF"
+          iconColor="#8B5CF6"
         />
 
         <QuickActionCard
           title="View Records"
-          icon="schedule"
-          onPress={() => console.log('Records')}
+          icon="viewRecords"
+          onPress={() => {}}
+          iconBackground="#E6FFFA"
+          iconColor="#14B8A6"
         />
       </View>
     </View>

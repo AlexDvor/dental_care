@@ -1,12 +1,13 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import React from 'react';
 import { styles } from './AppointmentCard.style';
 import { Icon } from '../../ui/Icon/Icon';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
+import { AppointmentCardProps } from './AppointmentCard.interface';
 
-const AppointmentCard = () => {
+const AppointmentCard = ({ style }: AppointmentCardProps) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       {/* Top Row */}
       <View style={styles.topRow}>
         <View style={styles.leftSection}>

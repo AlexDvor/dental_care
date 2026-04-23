@@ -4,7 +4,7 @@ import { Theme } from '../../constants/colors';
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-    backgroundColor: Theme.colors.background.primary,
+    backgroundColor: Theme.colors.background.card,
     borderRadius: Theme.radius.md,
     padding: 20,
   },

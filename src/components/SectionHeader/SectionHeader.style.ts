@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../constants/colors';
+import { Theme } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   header: {},
@@ -8,8 +8,8 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     lineHeight: 30,
-    color: Colors.text.primary,
-    marginBottom: 15,
+    color: Theme.colors.text.primary,
+    marginBottom: Theme.spacing.lg,
   },
 });
 

@@ -1,23 +1,48 @@
 import React from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import { styles } from './QuickActionCard.style';
-import { Icon } from '../../ui/Icon/Icon';
-import { IconName } from '../Icon/Icon.interface';
+import { Theme } from '../../constants/colors';
+import { Icon } from '../Icon/Icon';
 
 type Props = {
   title: string;
   onPress: () => void;
-  icon: IconName;
+  icon: keyof typeof import('../Icon/Icon').iconList;
+  iconColor?: string;
+  iconBackground?: string;
 };
 
-const QuickActionCard = ({ title, onPress, icon }: Props) => {
+const QuickActionCard = ({
+  title,
+  onPress,
+  icon,
+  iconColor,
+  iconBackground,
+}: Props) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
-      <View style={styles.iconWrapper}>
-        <Icon name={icon} size={28} color="#0E7A4B" />
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      activeOpacity={0.85}
+    >
+      <View
+        style={[
+          styles.iconWrapper,
+          {
+            backgroundColor: iconBackground || Theme.colors.background.soft,
+          },
+        ]}
+      >
+        <Icon
+          name={icon}
+          size={25}
+          color={iconColor || Theme.colors.primary.main}
+        />
       </View>
 
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title} numberOfLines={2}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
