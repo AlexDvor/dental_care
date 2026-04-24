@@ -11,6 +11,7 @@ import Award from '../../assets/icons/award.svg';
 import Lock from '../../assets/icons/lock.svg';
 import Verified from '../../assets/icons/verified.svg';
 import Check from '../../assets/icons/check.svg';
+import Search from '../../assets/icons/search.svg';
 
 export const iconList = {
   arrow_r: ArrowRight,
@@ -25,6 +26,7 @@ export const iconList = {
   lock: Lock,
   verified: Verified,
   check: Check,
+  search: Search,
 } as const;
 
 const sizeMap = {

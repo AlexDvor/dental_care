@@ -9,6 +9,7 @@ import { Colors } from './src/constants/colors';
 import DentistCard from './src/components/DentistCard/DentistCard';
 import HomeScreen from './src/screens/HomeScreen/HomeScreen';
 import ServiceScreen from './src/screens/ServiceScreen/ServiceScreen';
+import DoctorListScreen from './src/screens/DoctorListScreen/DoctorListScreen';
 
 const { width: deviceWidth } = Dimensions.get('window');
 
@@ -39,7 +40,8 @@ function AppContent() {
       <CustomBtn title="Continue" onPress={() => {}} />
       <DentistCard /> */}
       {/* <HomeScreen /> */}
-      <ServiceScreen />
+      {/* <ServiceScreen /> */}
+      <DoctorListScreen />
     </View>
   );
 }
