@@ -2,9 +2,9 @@ import { Text, View } from 'react-native';
 import { SectionHeaderProps } from './SectionHeader.interface';
 import { styles } from './SectionHeader.style';
 
-const SectionHeader = ({ title }: SectionHeaderProps) => {
+const SectionHeader = ({ title, style }: SectionHeaderProps) => {
   return (
-    <View style={styles.header}>
+    <View style={[styles.header, style]}>
       <Text style={styles.title}>{title}</Text>
     </View>
   );
