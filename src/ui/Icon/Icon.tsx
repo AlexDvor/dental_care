@@ -1,5 +1,6 @@
 import { IconProps } from './Icon.interface';
 import ArrowRight from '../../assets/icons/right_arrow.svg';
+import ArrowLeft from '../../assets/icons/left_arrow.svg';
 import Star from '../../assets/icons/rating.svg';
 import Map from '../../assets/icons/map.svg';
 import Location from '../../assets/icons/location.svg';
@@ -27,6 +28,7 @@ export const iconList = {
   verified: Verified,
   check: Check,
   search: Search,
+  arrow_l: ArrowLeft,
 } as const;
 
 const sizeMap = {

@@ -10,6 +10,7 @@ import DentistCard from './src/components/DentistCard/DentistCard';
 import HomeScreen from './src/screens/HomeScreen/HomeScreen';
 import ServiceScreen from './src/screens/ServiceScreen/ServiceScreen';
 import DoctorListScreen from './src/screens/DoctorListScreen/DoctorListScreen';
+import SelectDateScreen from './src/screens/SelectDateScreen/SelectDateScreen';
 
 const { width: deviceWidth } = Dimensions.get('window');
 
@@ -41,7 +42,8 @@ function AppContent() {
       <DentistCard /> */}
       {/* <HomeScreen /> */}
       {/* <ServiceScreen /> */}
-      <DoctorListScreen />
+      {/* <DoctorListScreen /> */}
+      <SelectDateScreen />
     </View>
   );
 }
