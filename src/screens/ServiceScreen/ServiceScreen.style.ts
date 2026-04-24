@@ -3,11 +3,12 @@ import { Theme } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    padding: Theme.spacing.lg,
+    flex: 1,
   },
 
-  sectionHeader: {
-    marginBottom: 0,
+  scrollContent: {
+    padding: Theme.spacing.lg,
+    paddingBottom: 180,
   },
 
   subtitle: {
@@ -15,18 +16,43 @@ export const styles = StyleSheet.create({
     marginBottom: Theme.spacing.lg,
   },
 
+  bottom: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+
+    padding: Theme.spacing.lg,
+    backgroundColor: Theme.colors.background.soft,
+
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+  },
+
   selectedBox: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+
     backgroundColor: Theme.colors.background.card,
     borderRadius: Theme.radius.md,
+    padding: Theme.spacing.md,
 
-    padding: 20,
+    marginBottom: Theme.spacing.md,
   },
+
   price: {
     fontSize: Theme.typography.size.body,
     fontWeight: Theme.typography.fontWeight.semibold,
-    color: Theme.colors.text.badge,
+    color: Theme.colors.primary.main,
+  },
+
+  btnWrapper: {
+    backgroundColor: Theme.colors.primary.main,
+    marginBottom: Theme.spacing.sm,
+  },
+
+  btnText: {
+    color: Theme.colors.text.inverted,
   },
 });

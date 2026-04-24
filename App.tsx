@@ -38,8 +38,8 @@ function AppContent() {
       />
       <CustomBtn title="Continue" onPress={() => {}} />
       <DentistCard /> */}
-      <HomeScreen />
-      {/* <ServiceScreen /> */}
+      {/* <HomeScreen /> */}
+      <ServiceScreen />
     </View>
   );
 }
