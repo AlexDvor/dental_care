@@ -6,8 +6,16 @@ import QuickActionCard from '../../ui/QuickActionCard/QuickActionCard';
 import { Theme } from '../../constants/colors';
 import PromoBanner from '../../components/PromoBanner/PromoBanner';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { HomeStackParamList } from '../../navigation/types';
+
+// type Navigation = NativeStackNavigationProp<HomeStackParamList, 'HomeMain'>;
 
 const HomeScreen = () => {
+  // const navigation = useNavigation<Navigation>();
+
+  // navigation.navigate()
   return (
     <ScrollView>
       <View>
