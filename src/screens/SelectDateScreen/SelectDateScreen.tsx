@@ -35,7 +35,10 @@ const SelectDateScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
         <CalendarCard
           month={mockCalendar.month}
           year={mockCalendar.year}
