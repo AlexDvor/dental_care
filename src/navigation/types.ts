@@ -10,7 +10,12 @@ export type HomeStackParamList = {
 };
 
 export type BookingStackParamList = {
-  DoctorList: undefined;
+  ServiceList: undefined;
+
+  DoctorList: {
+    serviceType: string[];
+    totalPrice: number;
+  };
 
   DoctorProfile: {
     doctorId: string;
@@ -18,12 +23,16 @@ export type BookingStackParamList = {
 
   SelectDate: {
     doctorId: string;
+    serviceType: string[];
+    totalPrice: number;
   };
 
   BookingConfirm: {
     doctorId: string;
     date: string;
     time: string;
+    serviceType: string[];
+    totalPrice: number;
   };
 };
 

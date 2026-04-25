@@ -9,7 +9,9 @@ import { styles } from './DoctorListScreen.style';
 import { DOCTORS } from '../../mockData/doctors';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BookingStackParamList } from '../../navigation/types';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+
+type Route = RouteProp<BookingStackParamList, 'DoctorList'>;
 
 type Navigation = NativeStackNavigationProp<
   BookingStackParamList,
@@ -20,12 +22,18 @@ const DoctorListScreen = () => {
   const [search, setSearch] = useState('');
 
   const navigation = useNavigation<Navigation>();
+  const route = useRoute<Route>();
+  const { serviceType, totalPrice } = route.params;
 
   const handlePressDoctorCard = (id: string) => {
     navigation.navigate('DoctorProfile', { doctorId: id });
   };
   const handlePressContinue = (id: string) => {
-    navigation.navigate('SelectDate', { doctorId: id });
+    navigation.navigate('SelectDate', {
+      doctorId: id,
+      serviceType,
+      totalPrice,
+    });
   };
 
   return (

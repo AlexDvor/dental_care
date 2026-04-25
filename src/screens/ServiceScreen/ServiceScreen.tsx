@@ -6,68 +6,19 @@ import { styles } from './ServiceScreen.style';
 import SectionHeader from '../../components/SectionHeader/SectionHeader';
 import SecurityNote from '../../ui/SecurityNote/SecurityNote';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
+import { SERVICES } from '../../mockData/services';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { BookingStackParamList } from '../../navigation/types';
 
-const SERVICES = [
-  {
-    id: '1',
-    title: 'General Checkup',
-    description: 'Routine examination',
-    price: 50,
-    icon: require('../../assets/images/services/checkup.png'),
-  },
-  {
-    id: '2',
-    title: 'Teeth Cleaning',
-    description: 'Professional cleaning',
-    price: 80,
-    icon: require('../../assets/images/services/cleaning.png'),
-  },
-  {
-    id: '3',
-    title: 'Teeth Whitening',
-    description: 'Cosmetic whitening',
-    price: 200,
-    icon: require('../../assets/images/services/whitening.png'),
-  },
-  {
-    id: '4',
-    title: 'Cavity Filling',
-    description: 'Tooth restoration',
-    price: 150,
-    icon: require('../../assets/images/services/prepar.png'),
-  },
-  {
-    id: '10',
-    title: 'General Checkup',
-    description: 'Routine examination',
-    price: 50,
-    icon: require('../../assets/images/services/checkup.png'),
-  },
-  {
-    id: '6',
-    title: 'Teeth Cleaning',
-    description: 'Professional cleaning',
-    price: 80,
-    icon: require('../../assets/images/services/cleaning.png'),
-  },
-  {
-    id: '7',
-    title: 'Teeth Whitening',
-    description: 'Cosmetic whitening',
-    price: 200,
-    icon: require('../../assets/images/services/whitening.png'),
-  },
-  {
-    id: '55',
-    title: 'Cavity Filling',
-    description: 'Tooth restoration',
-    price: 150,
-    icon: require('../../assets/images/services/prepar.png'),
-  },
-];
+type Navigation = NativeStackNavigationProp<
+  BookingStackParamList,
+  'ServiceList'
+>;
 
 const ServiceScreen = () => {
   const [selected, setSelected] = useState<string[]>([]);
+  const navigation = useNavigation<Navigation>();
 
   const toggleService = (id: string) => {
     setSelected(prev =>
@@ -79,6 +30,17 @@ const ServiceScreen = () => {
     (sum, s) => sum + s.price,
     0,
   );
+
+  const handlePressContinue = () => {
+    const selectedServices = SERVICES.filter(s => selected.includes(s.id));
+
+    const serviceTitles = selectedServices.map(i => i.title);
+
+    navigation.navigate('DoctorList', {
+      serviceType: serviceTitles,
+      totalPrice: total,
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -107,7 +69,7 @@ const ServiceScreen = () => {
 
         <CustomBtn
           title="Continue"
-          onPress={() => console.log('continue')}
+          onPress={() => handlePressContinue()}
           style={styles.btnWrapper}
           textStyle={styles.btnText}
         />

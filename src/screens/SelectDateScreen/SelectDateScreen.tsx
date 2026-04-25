@@ -23,10 +23,12 @@ const SelectDateScreen = () => {
   const [time, setTime] = useState('');
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
-  const { doctorId } = route.params;
+  const { doctorId, serviceType, totalPrice } = route.params;
 
   const handlePressContinue = () => {
     navigation.navigate('BookingConfirm', {
+      serviceType,
+      totalPrice,
       doctorId,
       date: String(day),
       time,

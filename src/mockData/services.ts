@@ -1,0 +1,58 @@
+export const SERVICES = [
+  {
+    id: '1',
+    title: 'General Checkup',
+    description: 'Routine examination',
+    price: 50,
+    icon: require('../assets/images/services/checkup.png'),
+  },
+  {
+    id: '2',
+    title: 'Teeth Cleaning',
+    description: 'Professional cleaning',
+    price: 80,
+    icon: require('../assets/images/services/cleaning.png'),
+  },
+  {
+    id: '3',
+    title: 'Teeth Whitening',
+    description: 'Cosmetic whitening',
+    price: 200,
+    icon: require('../assets/images/services/whitening.png'),
+  },
+  {
+    id: '4',
+    title: 'Cavity Filling',
+    description: 'Tooth restoration',
+    price: 150,
+    icon: require('../assets/images/services/prepar.png'),
+  },
+  {
+    id: '10',
+    title: 'General Checkup',
+    description: 'Routine examination',
+    price: 50,
+    icon: require('../assets/images/services/checkup.png'),
+  },
+  {
+    id: '6',
+    title: 'Teeth Cleaning',
+    description: 'Professional cleaning',
+    price: 80,
+    icon: require('../assets/images/services/cleaning.png'),
+  },
+  {
+    id: '7',
+    title: 'Teeth Whitening',
+    description: 'Cosmetic whitening',
+    price: 200,
+    icon: require('../assets/images/services/whitening.png'),
+  },
+  {
+    id: '55',
+    title: 'Cavity Filling',
+    description: 'Tooth restoration',
+    price: 150,
+    icon: require('../assets/images/services/prepar.png'),
+  },
+];
