@@ -10,6 +10,7 @@ import { DOCTORS } from '../../mockData/doctors';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BookingStackParamList } from '../../navigation/types';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import LayoutAreaView from '../../layout/LayoutAreaView';
 
 type Route = RouteProp<BookingStackParamList, 'DoctorList'>;
 
@@ -37,28 +38,31 @@ const DoctorListScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <SectionHeader title="Choose a Doctor" />
+    <LayoutAreaView>
+      <View style={styles.container}>
+        <ScrollView
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+        >
+          <Text style={styles.subtitle}>
+            Select a doctor for your appointment
+          </Text>
 
-        <Text style={styles.subtitle}>
-          Select a doctor for your appointment
-        </Text>
+          <SearchInput value={search} onChange={setSearch} />
 
-        <SearchInput value={search} onChange={setSearch} />
+          {DOCTORS.map(doc => (
+            <DoctorCard
+              key={doc.id}
+              {...doc}
+              onPressContinue={() => handlePressContinue(doc.id)}
+              onPressDoctorProfile={() => handlePressDoctorCard(doc.id)}
+            />
+          ))}
 
-        {DOCTORS.map(doc => (
-          <DoctorCard
-            key={doc.id}
-            {...doc}
-            onPressContinue={() => handlePressContinue(doc.id)}
-            onPressDoctorProfile={() => handlePressDoctorCard(doc.id)}
-          />
-        ))}
-
-        <SecurityNote />
-      </ScrollView>
-    </View>
+          <SecurityNote />
+        </ScrollView>
+      </View>
+    </LayoutAreaView>
   );
 };
 

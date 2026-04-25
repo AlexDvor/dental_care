@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import ServiceCard from '../../components/ServiceCard/ServiceCard';
 
-import { styles } from './ServiceScreen.style';
-import SectionHeader from '../../components/SectionHeader/SectionHeader';
-import SecurityNote from '../../ui/SecurityNote/SecurityNote';
-import CustomBtn from '../../ui/CustomBtn/CustomBtn';
-import { SERVICES } from '../../mockData/services';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import SectionHeader from '../../components/SectionHeader/SectionHeader';
+import { SERVICES } from '../../mockData/services';
 import { BookingStackParamList } from '../../navigation/types';
+import CustomBtn from '../../ui/CustomBtn/CustomBtn';
+import SecurityNote from '../../ui/SecurityNote/SecurityNote';
+import { styles } from './ServiceScreen.style';
+import LayoutAreaView from '../../layout/LayoutAreaView';
 
 type Navigation = NativeStackNavigationProp<
   BookingStackParamList,
@@ -43,40 +44,40 @@ const ServiceScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <SectionHeader title="Choose Services" />
+    <LayoutAreaView>
+      <View style={styles.container}>
+        <Text style={styles.subtitle}>You can select one or more services</Text>
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          {SERVICES.map(service => (
+            <ServiceCard
+              key={service.id}
+              {...service}
+              selected={selected.includes(service.id)}
+              onPress={() => toggleService(service.id)}
+            />
+          ))}
+        </ScrollView>
 
-      <Text style={styles.subtitle}>You can select one or more services</Text>
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        {SERVICES.map(service => (
-          <ServiceCard
-            key={service.id}
-            {...service}
-            selected={selected.includes(service.id)}
-            onPress={() => toggleService(service.id)}
+        <View style={styles.bottom}>
+          <View style={styles.selectedBox}>
+            <Text>Selected ({selected.length})</Text>
+            <Text style={styles.price}>${total}</Text>
+          </View>
+
+          <CustomBtn
+            title="Continue"
+            onPress={() => handlePressContinue()}
+            style={styles.btnWrapper}
+            textStyle={styles.btnText}
           />
-        ))}
-      </ScrollView>
 
-      <View style={styles.bottom}>
-        <View style={styles.selectedBox}>
-          <Text>Selected ({selected.length})</Text>
-          <Text style={styles.price}>${total}</Text>
+          <SecurityNote />
         </View>
-
-        <CustomBtn
-          title="Continue"
-          onPress={() => handlePressContinue()}
-          style={styles.btnWrapper}
-          textStyle={styles.btnText}
-        />
-
-        <SecurityNote />
       </View>
-    </View>
+    </LayoutAreaView>
   );
 };
 

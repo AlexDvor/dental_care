@@ -10,6 +10,7 @@ import { mockCalendar } from '../../mockData/calendar';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { BookingStackParamList } from '../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import LayoutAreaView from '../../layout/LayoutAreaView';
 
 type Route = RouteProp<BookingStackParamList, 'SelectDate'>;
 
@@ -42,38 +43,40 @@ const SelectDateScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-      >
-        <CalendarCard
-          month={mockCalendar.month}
-          year={mockCalendar.year}
-          monthIndex={mockCalendar.monthIndex}
-          availableDays={mockCalendar.availableDays}
-          selectedDay={day}
-          onSelectDay={setDay}
-        />
+    <LayoutAreaView>
+      <View style={styles.container}>
+        <ScrollView
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+        >
+          <CalendarCard
+            month={mockCalendar.month}
+            year={mockCalendar.year}
+            monthIndex={mockCalendar.monthIndex}
+            availableDays={mockCalendar.availableDays}
+            selectedDay={day}
+            onSelectDay={setDay}
+          />
 
-        <TimeSlots
-          times={mockCalendar.availableTimes}
-          selected={time}
-          onSelect={setTime}
-        />
-      </ScrollView>
+          <TimeSlots
+            times={mockCalendar.availableTimes}
+            selected={time}
+            onSelect={setTime}
+          />
+        </ScrollView>
 
-      <View style={styles.bottom}>
-        <CustomBtn
-          // title="Confirm Booking"
-          title="Continue"
-          onPress={() => handlePressContinue()}
-          style={styles.btnWrapper}
-          textStyle={styles.btnText}
-        />
-        <SecurityNote />
+        <View style={styles.bottom}>
+          <CustomBtn
+            // title="Confirm Booking"
+            title="Continue"
+            onPress={() => handlePressContinue()}
+            style={styles.btnWrapper}
+            textStyle={styles.btnText}
+          />
+          <SecurityNote />
+        </View>
       </View>
-    </View>
+    </LayoutAreaView>
   );
 };
 
