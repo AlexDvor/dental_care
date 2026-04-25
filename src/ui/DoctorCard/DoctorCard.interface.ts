@@ -5,5 +5,6 @@ export interface DoctorCardProps {
   experience: string;
   rating: number;
   image: any;
-  onPress: () => void;
+  onPressContinue: () => void;
+  onPressDoctorProfile: () => void;
 }

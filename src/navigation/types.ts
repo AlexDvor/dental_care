@@ -10,8 +10,21 @@ export type HomeStackParamList = {
 };
 
 export type BookingStackParamList = {
-  BookingMain: undefined;
-  DoctorDetails: { doctorId: string };
+  DoctorList: undefined;
+
+  DoctorProfile: {
+    doctorId: string;
+  };
+
+  SelectDate: {
+    doctorId: string;
+  };
+
+  BookingConfirm: {
+    doctorId: string;
+    date: string;
+    time: string;
+  };
 };
 
 export type ChatStackParamList = {

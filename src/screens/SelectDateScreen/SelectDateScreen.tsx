@@ -6,32 +6,38 @@ import SecurityNote from '../../ui/SecurityNote/SecurityNote';
 import { styles } from './SelectDateScreen.style';
 import CalendarCard from '../../ui/CalendarCard/CalendarCard';
 import TimeSlots from '../../ui/TimeSlots/TimeSlots';
+import { mockCalendar } from '../../mockData/calendar';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { BookingStackParamList } from '../../navigation/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-const mockCalendar = {
-  month: 'April 2026',
-  year: 2026,
-  monthIndex: 3,
-  availableDays: [10, 11, 12, 15, 16, 18, 20, 22, 25],
-  availableTimes: [
-    '09:00 AM',
-    '09:30 AM',
-    '10:00 AM',
-    '10:30 AM',
-    '11:00 AM',
-    '11:30 AM',
-    '02:00 PM',
-    '02:30 PM',
-    '03:00 PM',
-    '04:00 PM',
-    '05:00 PM',
-    '06:00 PM',
-    '07:00 PM',
-  ],
-};
+type Route = RouteProp<BookingStackParamList, 'SelectDate'>;
+
+type Navigation = NativeStackNavigationProp<
+  BookingStackParamList,
+  'DoctorList'
+>;
 
 const SelectDateScreen = () => {
   const [day, setDay] = useState(15);
   const [time, setTime] = useState('');
+  const navigation = useNavigation<Navigation>();
+  const route = useRoute<Route>();
+  const { doctorId } = route.params;
+
+  const handlePressContinue = () => {
+    navigation.navigate('BookingConfirm', {
+      doctorId,
+      date: String(day),
+      time,
+    });
+
+    console.log({
+      doctorId,
+      date: String(day),
+      time,
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -57,8 +63,9 @@ const SelectDateScreen = () => {
 
       <View style={styles.bottom}>
         <CustomBtn
-          title="Confirm Booking"
-          onPress={() => {}}
+          // title="Confirm Booking"
+          title="Continue"
+          onPress={() => handlePressContinue()}
           style={styles.btnWrapper}
           textStyle={styles.btnText}
         />

@@ -11,10 +11,15 @@ const DoctorCard = ({
   experience,
   rating,
   image,
-  onPress,
+  onPressContinue,
+  onPressDoctorProfile,
 }: DoctorCardProps) => {
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.9}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={0.9}
+      onPress={onPressDoctorProfile}
+    >
       <View style={styles.left}>
         <Image source={image} style={styles.image} />
 
@@ -43,7 +48,7 @@ const DoctorCard = ({
 
       <TouchableOpacity
         style={styles.arrowBtn}
-        onPress={onPress}
+        onPress={onPressContinue}
         activeOpacity={0.85}
       >
         <Icon name="arrow_r" size={16} color="#fff" />

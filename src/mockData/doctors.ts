@@ -1,0 +1,88 @@
+export const DOCTORS = [
+  {
+    id: '1',
+    name: 'Dr. John Smith',
+    university: 'Harvard School of Dental Medicine',
+    specialty: 'Orthodontist',
+    experience: '7 years exp.',
+    rating: 4.9,
+    image: require('../assets/images/dr.jpg'),
+  },
+
+  {
+    id: '2',
+    name: 'Dr. John Smith',
+    university: 'Harvard School of Dental Medicine',
+    specialty: 'Orthodontist',
+    experience: '7 years exp.',
+    rating: 4.9,
+    image: require('../assets/images/dr.jpg'),
+  },
+
+  {
+    id: '3',
+    name: 'Dr. John Smith',
+    university: 'Harvard School of Dental Medicine',
+    specialty: 'Orthodontist',
+    experience: '7 years exp.',
+    rating: 4.9,
+    image: require('../assets/images/dr.jpg'),
+  },
+  {
+    id: '4',
+    name: 'Dr. John Smith',
+    university: 'Harvard School of Dental Medicine',
+    specialty: 'Orthodontist',
+    experience: '7 years exp.',
+    rating: 4.9,
+    image: require('../assets/images/dr.jpg'),
+  },
+
+  {
+    id: '5',
+    name: 'Dr. John Smith',
+    university: 'Harvard School of Dental Medicine',
+    specialty: 'Orthodontist',
+    experience: '7 years exp.',
+    rating: 4.9,
+    image: require('../assets/images/dr.jpg'),
+  },
+  {
+    id: '6',
+    name: 'Dr. John Smith',
+    university: 'Harvard School of Dental Medicine',
+    specialty: 'Orthodontist',
+    experience: '7 years exp.',
+    rating: 4.9,
+    image: require('../assets/images/dr.jpg'),
+  },
+
+  {
+    id: '7',
+    name: 'Dr. John Smith',
+    university: 'Harvard School of Dental Medicine',
+    specialty: 'Orthodontist',
+    experience: '7 years exp.',
+    rating: 4.9,
+    image: require('../assets/images/dr.jpg'),
+  },
+  {
+    id: '8',
+    name: 'Dr. John Smith',
+    university: 'Harvard School of Dental Medicine',
+    specialty: 'Orthodontist',
+    experience: '7 years exp.',
+    rating: 4.9,
+    image: require('../assets/images/dr.jpg'),
+  },
+
+  {
+    id: '9',
+    name: 'Dr. John Smith',
+    university: 'Harvard School of Dental Medicine',
+    specialty: 'Orthodontist',
+    experience: '7 years exp.',
+    rating: 4.9,
+    image: require('../assets/images/dr.jpg'),
+  },
+];
