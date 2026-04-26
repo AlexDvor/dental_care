@@ -1,1 +1,1 @@
-![Опис зображення](src/assets/screenshots/screen.png)
+![Опис зображення](src/assets/screenshots/task_2.gif)
