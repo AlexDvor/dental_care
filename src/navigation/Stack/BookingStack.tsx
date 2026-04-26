@@ -37,7 +37,7 @@ export default function BookingStack() {
         name="DoctorProfile"
         component={DoctorProfileScreen}
         options={{
-          title: 'Choose Service',
+          title: 'Profile Details',
           headerStyle: { backgroundColor: Theme.colors.background.soft },
         }}
       />
