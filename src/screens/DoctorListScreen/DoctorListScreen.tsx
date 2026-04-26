@@ -25,8 +25,12 @@ const DoctorListScreen = () => {
   const route = useRoute<Route>();
   const { serviceType, totalPrice } = route.params;
 
-  const handlePressDoctorCard = (id: string) => {
-    navigation.navigate('DoctorProfile', { doctorId: id });
+  const handlePressToProfileDoctor = (id: string) => {
+    navigation.navigate('DoctorProfile', {
+      doctorId: id,
+      serviceType,
+      totalPrice,
+    });
   };
   const handlePressContinue = (id: string) => {
     navigation.navigate('SelectDate', {
@@ -54,7 +58,7 @@ const DoctorListScreen = () => {
               key={doc.id}
               {...doc}
               onPressContinue={() => handlePressContinue(doc.id)}
-              onPressDoctorProfile={() => handlePressDoctorCard(doc.id)}
+              onPressDoctorProfile={() => handlePressToProfileDoctor(doc.id)}
             />
           ))}
 

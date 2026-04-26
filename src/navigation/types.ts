@@ -19,6 +19,8 @@ export type BookingStackParamList = {
 
   DoctorProfile: {
     doctorId: string;
+    serviceType: string[];
+    totalPrice: number;
   };
 
   SelectDate: {
