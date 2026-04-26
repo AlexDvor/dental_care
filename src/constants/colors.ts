@@ -18,24 +18,24 @@ const Colors = {
     main: '#0E7A4B',
     light: '#27AE60',
   },
-  // base: {
-  //   white: '#FFFFFF',
-  //   black: '#1C1C1C',
-  // },
+  base: {
+    white: '#FFFFFF',
+    black: '#1C1C1C',
+  },
 
-  // accent: {
-  //   rating: '#F2C94C',
-  // },
-  // error: {
-  //   main: '#EB5757',
-  // },
-  // border: {
-  //   default: '#E5E7EB',
-  // },
-  // icon: {
-  //   primary: '#0E7A4B',
-  //   secondary: '#6B7280',
-  // },
+  accent: {
+    rating: '#F2C94C',
+  },
+  error: {
+    main: '#EB5757',
+  },
+  border: {
+    default: '#E5E7EB',
+  },
+  icon: {
+    primary: '#0E7A4B',
+    secondary: '#6B7280',
+  },
 };
 
 const Spacing = {

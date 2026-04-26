@@ -33,7 +33,14 @@ export default function BookingStack() {
           headerStyle: { backgroundColor: Theme.colors.background.soft },
         }}
       />
-      <Stack.Screen name="DoctorProfile" component={DoctorProfileScreen} />
+      <Stack.Screen
+        name="DoctorProfile"
+        component={DoctorProfileScreen}
+        options={{
+          title: 'Choose Service',
+          headerStyle: { backgroundColor: Theme.colors.background.soft },
+        }}
+      />
       <Stack.Screen
         name="SelectDate"
         component={SelectDateScreen}
