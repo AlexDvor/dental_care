@@ -43,7 +43,7 @@ const ServiceScreen = () => {
   };
 
   return (
-    <LayoutAreaView>
+    <LayoutAreaView withHeader>
       <View style={styles.container}>
         <Text style={styles.subtitle}>You can select one or more services</Text>
         <ScrollView

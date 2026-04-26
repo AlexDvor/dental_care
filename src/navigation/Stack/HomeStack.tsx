@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../../screens/HomeScreen/HomeScreen';
 import { HomeStackParamList } from '../types';
+import { Theme } from '../../constants/colors';
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
 
@@ -10,7 +11,9 @@ export default function HomeStack() {
       <Stack.Screen
         name="HomeMain"
         component={HomeScreen}
-        options={{ headerStyle: { backgroundColor: 'red' } }}
+        options={{
+          headerStyle: { backgroundColor: Theme.colors.background.soft },
+        }}
       />
     </Stack.Navigator>
   );

@@ -1,5 +1,3 @@
-// navigation/TabNavigator.tsx
-
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStack from './Stack/HomeStack';
 import ProfileStack from './Stack/ProfileStack';

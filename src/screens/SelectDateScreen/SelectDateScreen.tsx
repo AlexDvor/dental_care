@@ -43,7 +43,7 @@ const SelectDateScreen = () => {
   };
 
   return (
-    <LayoutAreaView>
+    <LayoutAreaView withHeader>
       <View style={styles.container}>
         <ScrollView
           contentContainerStyle={styles.content}

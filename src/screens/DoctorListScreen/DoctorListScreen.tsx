@@ -3,7 +3,6 @@ import { View, Text, ScrollView } from 'react-native';
 
 import DoctorCard from '../../ui/DoctorCard/DoctorCard';
 import SearchInput from '../../ui/SearchInput/SearchInput';
-import SectionHeader from '../../components/SectionHeader/SectionHeader';
 import SecurityNote from '../../ui/SecurityNote/SecurityNote';
 import { styles } from './DoctorListScreen.style';
 import { DOCTORS } from '../../mockData/doctors';
@@ -38,7 +37,7 @@ const DoctorListScreen = () => {
   };
 
   return (
-    <LayoutAreaView>
+    <LayoutAreaView withHeader>
       <View style={styles.container}>
         <ScrollView
           contentContainerStyle={styles.content}
