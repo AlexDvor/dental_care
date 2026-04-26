@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Theme } from '../../../constants/colors';
+import { View, Text } from 'react-native';
+import { styles } from './StatsRow.style';
 
 const Stat = ({ value, label }: any) => (
   <View style={styles.card}>
@@ -20,30 +20,3 @@ const StatsRow = () => {
 };
 
 export default StatsRow;
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    gap: Theme.spacing.md,
-    marginTop: Theme.spacing.lg,
-  },
-  card: {
-    flex: 1,
-    backgroundColor: Theme.colors.background.card,
-    borderRadius: Theme.radius.lg,
-    padding: Theme.spacing.xl,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  value: {
-    fontSize: Theme.typography.size.h3,
-    fontWeight: Theme.typography.fontWeight.semibold,
-    color: Theme.colors.primary.main,
-    textAlign: 'center',
-  },
-  label: {
-    color: Theme.colors.text.secondary,
-    fontSize: Theme.typography.size.caption,
-    textAlign: 'center',
-  },
-});
