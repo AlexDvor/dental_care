@@ -13,6 +13,7 @@ import Lock from '../../assets/icons/lock.svg';
 import Verified from '../../assets/icons/verified.svg';
 import Check from '../../assets/icons/check.svg';
 import Search from '../../assets/icons/search.svg';
+import Home from '../../assets/icons/home.svg
 
 export const iconList = {
   arrow_r: ArrowRight,
@@ -29,6 +30,7 @@ export const iconList = {
   check: Check,
   search: Search,
   arrow_l: ArrowLeft,
+  home:Home
 } as const;
 
 const sizeMap = {
