@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Theme.spacing.lg,
     paddingTop: Theme.spacing.md,
     paddingBottom: Theme.spacing.lg,
+    backgroundColor: Theme.colors.background.soft,
   },
 
   btnWrapper: {

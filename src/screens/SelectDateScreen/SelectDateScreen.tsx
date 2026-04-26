@@ -67,7 +67,6 @@ const SelectDateScreen = () => {
 
         <View style={styles.bottom}>
           <CustomBtn
-            // title="Confirm Booking"
             title="Continue"
             onPress={() => handlePressContinue()}
             style={styles.btnWrapper}

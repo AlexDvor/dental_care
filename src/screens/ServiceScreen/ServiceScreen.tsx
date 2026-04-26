@@ -4,7 +4,6 @@ import ServiceCard from '../../components/ServiceCard/ServiceCard';
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import SectionHeader from '../../components/SectionHeader/SectionHeader';
 import { SERVICES } from '../../mockData/services';
 import { BookingStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
