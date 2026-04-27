@@ -1,3 +1,5 @@
+import { DoctorType } from '../interfaces/doctor.types';
+
 export type TabParamList = {
   HomeTab: undefined;
   BookingTab: undefined;
@@ -30,7 +32,7 @@ export type BookingStackParamList = {
   };
 
   BookingConfirm: {
-    doctorId: string;
+    doctorData: DoctorType;
     date: string;
     time: string;
     serviceType: string[];

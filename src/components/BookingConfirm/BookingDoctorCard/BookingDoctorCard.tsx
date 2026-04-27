@@ -5,7 +5,10 @@ import { styles } from './BookingDoctorCard.styles';
 const BookingDoctorCard = ({ doctor }: any) => {
   return (
     <View style={styles.container}>
-      <Image source={doctor.image} style={styles.avatar} />
+      <Image
+        source={require('../../../assets/images/doctor.jpg')}
+        style={styles.avatar}
+      />
 
       <View style={styles.nameWrapper}>
         <Text style={styles.name}>{doctor.name}</Text>

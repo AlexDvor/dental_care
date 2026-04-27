@@ -29,10 +29,30 @@ const ReviewsSection = ({ reviews }: ReviewsSectionProps) => {
     setActiveIndex(index);
   };
 
+  if (!reviews || reviews.length === 0) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Patient Reviews (0)</Text>
+        </View>
+
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyText}>No reviews yet</Text>
+
+          <Text style={styles.emptySubText}>
+            Patients haven’t shared their experience
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Patient Reviews (120)</Text>
+        <Text
+          style={styles.title}
+        >{`Patient Reviews (${reviews.length})`}</Text>
         <TouchableOpacity>
           <Text style={styles.seeAll}>See All</Text>
         </TouchableOpacity>

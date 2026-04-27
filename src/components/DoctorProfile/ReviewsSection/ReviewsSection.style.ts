@@ -44,4 +44,22 @@ export const styles = StyleSheet.create({
   activeDot: {
     backgroundColor: Theme.colors.primary.main,
   },
+
+  emptyContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: Theme.spacing.xxxl,
+  },
+
+  emptyText: {
+    fontSize: Theme.typography.size.body,
+    fontWeight: Theme.typography.fontWeight.medium,
+    color: Theme.colors.text.primary,
+  },
+
+  emptySubText: {
+    marginTop: Theme.spacing.xs,
+    color: Theme.colors.text.secondary,
+    fontSize: Theme.typography.size.small,
+  },
 });

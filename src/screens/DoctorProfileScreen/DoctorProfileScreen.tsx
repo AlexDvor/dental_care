@@ -1,6 +1,6 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { BookingStackParamList } from '../../navigation/types';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, ActivityIndicator, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import DoctorHeader from '../../components/DoctorProfile/DoctorHeader/DoctorHeader';
@@ -28,12 +28,36 @@ const DoctorProfileScreen = () => {
   const navigation = useNavigation<Navigation>();
 
   const { doctorId, serviceType, totalPrice } = route.params;
-  const { data, error, loading } = useDoctorById(doctorId);
-  console.log('data', data?.stats);
+  const { data, error, loading, refetch } = useDoctorById(doctorId);
 
   const handlePressToSelectDate = () => {
     navigation.navigate('SelectDate', { doctorId, serviceType, totalPrice });
   };
+
+  if (loading) {
+    return (
+      <LayoutAreaView withHeader>
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        >
+          <ActivityIndicator size={40} />
+        </View>
+      </LayoutAreaView>
+    );
+  }
+
+  if (error) {
+    return (
+      <LayoutAreaView withHeader>
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        >
+          <Text>{error}</Text>
+          <CustomBtn title="Try again" onPress={refetch} />
+        </View>
+      </LayoutAreaView>
+    );
+  }
 
   return (
     <LayoutAreaView withHeader>
