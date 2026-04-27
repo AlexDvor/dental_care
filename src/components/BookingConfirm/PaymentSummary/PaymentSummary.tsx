@@ -1,6 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Theme } from '../../../constants/colors';
+import { Text, View } from 'react-native';
+import { styles } from './PaymentSummary.styles';
 
 const PaymentSummary = ({ total }: any) => {
   return (
@@ -20,39 +19,3 @@ const PaymentSummary = ({ total }: any) => {
 };
 
 export default PaymentSummary;
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: Theme.spacing.lg,
-    paddingHorizontal: Theme.spacing.lg,
-  },
-  title: {
-    fontWeight: Theme.typography.fontWeight.semibold,
-    marginBottom: Theme.spacing.md,
-  },
-
-  card: {
-    backgroundColor: Theme.colors.background.card,
-    borderRadius: Theme.radius.lg,
-    padding: Theme.spacing.lg,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  label: {
-    color: Theme.colors.primary.main,
-    fontWeight: Theme.typography.fontWeight.semibold,
-    fontSize: Theme.typography.size.body,
-  },
-  value: {
-    color: Theme.colors.primary.main,
-    fontWeight: Theme.typography.fontWeight.semibold,
-    fontSize: Theme.typography.size.h2,
-  },
-  secure: {
-    marginTop: Theme.spacing.md,
-    textAlign: 'center',
-    color: Theme.colors.text.secondary,
-    fontSize: Theme.typography.size.caption,
-  },
-});

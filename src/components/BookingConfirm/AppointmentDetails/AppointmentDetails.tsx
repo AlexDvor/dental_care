@@ -1,7 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Theme } from '../../../constants/colors';
+import { View, Text } from 'react-native';
 import DetailRow from '../DetailRow/DetailRow';
+import { styles } from './AppointmentDetails.style';
 
 const AppointmentDetails = ({ date, time, service, price }: any) => {
   return (
@@ -22,19 +21,3 @@ const AppointmentDetails = ({ date, time, service, price }: any) => {
 };
 
 export default AppointmentDetails;
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: Theme.spacing.lg,
-  },
-
-  title: {
-    fontWeight: Theme.typography.fontWeight.semibold,
-    marginBottom: Theme.spacing.md,
-  },
-  card: {
-    backgroundColor: Theme.colors.background.card,
-    borderRadius: Theme.radius.lg,
-    paddingHorizontal: Theme.spacing.lg,
-  },
-});

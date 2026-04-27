@@ -8,7 +8,6 @@ import { getDoctorById } from '../../utils/getDoctorById';
 import AppointmentDetails from '../../components/BookingConfirm/AppointmentDetails/AppointmentDetails';
 import PaymentSummary from '../../components/BookingConfirm/PaymentSummary/PaymentSummary';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
-import { Theme } from '../../constants/colors';
 
 type Route = RouteProp<BookingStackParamList, 'BookingConfirm'>;
 
@@ -32,8 +31,14 @@ const BookingConfirmScreen = () => {
 
         <PaymentSummary total={totalPrice} />
 
-        <View style={{ padding: Theme.spacing.lg }}>
-          <CustomBtn title="Confirm & Pay" onPress={() => {}} />
+        <View>
+          <CustomBtn
+            style={{ marginTop: 60 }}
+            title="Confirm & Pay"
+            onPress={() => {}}
+            iconPosition="left"
+            icon="lock"
+          />
         </View>
       </ScrollView>
     </LayoutAreaView>
