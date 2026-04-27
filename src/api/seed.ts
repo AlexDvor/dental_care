@@ -1,6 +1,7 @@
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from './firebase';
+import { addDoc,collection } from 'firebase/firestore';
+
 import { DOCTORS } from '../mockData/doctors';
+import { db } from './firebase';
 
 export const seedDoctors = async () => {
   try {

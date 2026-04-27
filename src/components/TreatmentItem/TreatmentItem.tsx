@@ -1,5 +1,7 @@
-import { Text, View, Image } from 'react-native';
+import { Image,Text, View } from 'react-native';
+
 import { TreatmentItemProps } from './TreatmentItem.interface';
+
 import { styles } from './TreatmentItem.style';
 
 const TreatmentItem = ({ name, image }: TreatmentItemProps) => {

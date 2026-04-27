@@ -1,11 +1,12 @@
-import { RouteProp, useRoute } from '@react-navigation/native';
 import { ScrollView, View } from 'react-native';
-import { BookingStackParamList } from '../../navigation/types';
-import LayoutAreaView from '../../layout/LayoutAreaView';
-import BookingDoctorCard from '../../components/BookingConfirm/BookingDoctorCard/BookingDoctorCard';
+
+import { RouteProp, useRoute } from '@react-navigation/native';
 
 import AppointmentDetails from '../../components/BookingConfirm/AppointmentDetails/AppointmentDetails';
+import BookingDoctorCard from '../../components/BookingConfirm/BookingDoctorCard/BookingDoctorCard';
 import PaymentSummary from '../../components/BookingConfirm/PaymentSummary/PaymentSummary';
+import LayoutAreaView from '../../layout/LayoutAreaView';
+import { BookingStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 
 type Route = RouteProp<BookingStackParamList, 'BookingConfirm'>;

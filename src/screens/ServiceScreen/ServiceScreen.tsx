@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
-import ServiceCard from '../../components/ServiceCard/ServiceCard';
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+import ServiceCard from '../../components/ServiceCard/ServiceCard';
+import LayoutAreaView from '../../layout/LayoutAreaView';
 import { SERVICES } from '../../mockData/services';
 import { BookingStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import SecurityNote from '../../ui/SecurityNote/SecurityNote';
+
 import { styles } from './ServiceScreen.style';
-import LayoutAreaView from '../../layout/LayoutAreaView';
 
 type Navigation = NativeStackNavigationProp<
   BookingStackParamList,

@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { styles } from './ServiceCard.style';
+import { Image,Text, TouchableOpacity, View } from 'react-native';
+
 import { Icon } from '../../ui/Icon/Icon';
+
+import { styles } from './ServiceCard.style';
 
 type Props = {
   title: string;

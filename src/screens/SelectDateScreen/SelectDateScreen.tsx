@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
-import { View, ScrollView, ActivityIndicator, Text } from 'react-native';
-
-import CustomBtn from '../../ui/CustomBtn/CustomBtn';
-import SecurityNote from '../../ui/SecurityNote/SecurityNote';
-import { styles } from './SelectDateScreen.style';
-import CalendarCard from '../../ui/CalendarCard/CalendarCard';
-import TimeSlots from '../../ui/TimeSlots/TimeSlots';
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { BookingStackParamList } from '../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import LayoutAreaView from '../../layout/LayoutAreaView';
 import { useDoctorById } from '../../hook/useDoctorById';
+import LayoutAreaView from '../../layout/LayoutAreaView';
+import { BookingStackParamList } from '../../navigation/types';
+import CalendarCard from '../../ui/CalendarCard/CalendarCard';
+import CustomBtn from '../../ui/CustomBtn/CustomBtn';
+import SecurityNote from '../../ui/SecurityNote/SecurityNote';
+import TimeSlots from '../../ui/TimeSlots/TimeSlots';
+
+import { styles } from './SelectDateScreen.style';
 
 type Route = RouteProp<BookingStackParamList, 'SelectDate'>;
 

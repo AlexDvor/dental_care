@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { styles } from './SecurityNote.styles';
-import { Icon } from '../Icon/Icon';
+import { Text,View } from 'react-native';
+
 import { Theme } from '../../constants/colors';
+import { Icon } from '../Icon/Icon';
+
+import { styles } from './SecurityNote.styles';
 
 type Props = {
   text?: string;

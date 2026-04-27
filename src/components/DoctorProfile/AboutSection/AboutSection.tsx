@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text,View } from 'react-native';
+
+import { AboutSectionProps } from './AboutSection.interface';
 
 import { styles } from './AboutSection.style';
-import { AboutSectionProps } from './AboutSection.interface';
 
 const AboutSection = ({ about }: AboutSectionProps) => {
   return (

@@ -1,5 +1,7 @@
-import { View, Text } from 'react-native';
+import { Text,View } from 'react-native';
+
 import DetailRow from '../DetailRow/DetailRow';
+
 import { styles } from './AppointmentDetails.style';
 
 const AppointmentDetails = ({ date, time, service, price }: any) => {

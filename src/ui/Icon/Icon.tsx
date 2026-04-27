@@ -1,24 +1,24 @@
-import { IconProps } from './Icon.interface';
-import ArrowRight from '../../assets/icons/right_arrow.svg';
-import ArrowLeft from '../../assets/icons/left_arrow.svg';
-import Star from '../../assets/icons/rating.svg';
-import Map from '../../assets/icons/map.svg';
-import Location from '../../assets/icons/location.svg';
+import Award from '../../assets/icons/award.svg';
 import Schedule from '../../assets/icons/calendario.svg';
 import Chat from '../../assets/icons/chat-support.svg';
-import FindDoctor from '../../assets/icons/find_doctor.svg';
-import ViewRecords from '../../assets/icons/view-records.svg';
-import Award from '../../assets/icons/award.svg';
-import Lock from '../../assets/icons/lock.svg';
-import Verified from '../../assets/icons/verified.svg';
 import Check from '../../assets/icons/check.svg';
-import Search from '../../assets/icons/search.svg';
-import Home from '../../assets/icons/home.svg';
-import Profile from '../../assets/icons/profile.svg';
 import Education from '../../assets/icons/education.svg';
+import FindDoctor from '../../assets/icons/find_doctor.svg';
+import Home from '../../assets/icons/home.svg';
+import ArrowLeft from '../../assets/icons/left_arrow.svg';
+import Location from '../../assets/icons/location.svg';
+import Lock from '../../assets/icons/lock.svg';
+import Map from '../../assets/icons/map.svg';
+import Price from '../../assets/icons/price.svg';
+import Profile from '../../assets/icons/profile.svg';
+import Star from '../../assets/icons/rating.svg';
+import ArrowRight from '../../assets/icons/right_arrow.svg';
+import Search from '../../assets/icons/search.svg';
 import Service from '../../assets/icons/service.svg';
 import Time from '../../assets/icons/time.svg';
-import Price from '../../assets/icons/price.svg';
+import Verified from '../../assets/icons/verified.svg';
+import ViewRecords from '../../assets/icons/view-records.svg';
+import { IconProps } from './Icon.interface';
 
 export const iconList = {
   arrow_r: ArrowRight,

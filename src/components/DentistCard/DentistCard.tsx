@@ -1,9 +1,11 @@
-import { Image, Text, View } from 'react-native';
 import React from 'react';
-import { Icon } from '../../ui/Icon/Icon';
-import { styles } from './DentistCard.style';
-import CustomBtn from '../../ui/CustomBtn/CustomBtn';
+import { Image, Text, View } from 'react-native';
+
 import { Colors } from '../../constants/colors';
+import CustomBtn from '../../ui/CustomBtn/CustomBtn';
+import { Icon } from '../../ui/Icon/Icon';
+
+import { styles } from './DentistCard.style';
 
 const DentistCard = () => {
   return (

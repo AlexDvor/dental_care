@@ -1,9 +1,11 @@
-import { View, Text } from 'react-native';
 import React from 'react';
-import { styles } from './AppointmentCard.style';
-import { Icon } from '../../ui/Icon/Icon';
+import { Text,View } from 'react-native';
+
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
+import { Icon } from '../../ui/Icon/Icon';
 import { AppointmentCardProps } from './AppointmentCard.interface';
+
+import { styles } from './AppointmentCard.style';
 
 const AppointmentCard = ({ style }: AppointmentCardProps) => {
   return (

@@ -1,20 +1,21 @@
-import { RouteProp, useRoute } from '@react-navigation/native';
-import { BookingStackParamList } from '../../navigation/types';
-import { View, ScrollView, ActivityIndicator, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { ActivityIndicator, ScrollView, Text,View } from 'react-native';
 
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+import AboutSection from '../../components/DoctorProfile/AboutSection/AboutSection';
 import DoctorHeader from '../../components/DoctorProfile/DoctorHeader/DoctorHeader';
 import EducationItem from '../../components/DoctorProfile/EducationItem/EducationItem';
-import AboutSection from '../../components/DoctorProfile/AboutSection/AboutSection';
-import StatsRow from '../../components/DoctorProfile/StatsRow/StatsRow';
-import CustomBtn from '../../ui/CustomBtn/CustomBtn';
-import LayoutAreaView from '../../layout/LayoutAreaView';
 import ReviewsSection from '../../components/DoctorProfile/ReviewsSection/ReviewsSection';
+import StatsRow from '../../components/DoctorProfile/StatsRow/StatsRow';
+import { useDoctorById } from '../../hook/useDoctorById';
+import LayoutAreaView from '../../layout/LayoutAreaView';
+import { BookingStackParamList } from '../../navigation/types';
+import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import SeparatorSection from '../../ui/SeparatorSection/SeparatorSection';
 
 import { styles } from './DoctorProfileScreen.style';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useDoctorById } from '../../hook/useDoctorById';
 
 type Navigation = NativeStackNavigationProp<
   BookingStackParamList,

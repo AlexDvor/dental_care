@@ -1,4 +1,5 @@
 import { Text, View } from 'react-native';
+
 import { styles } from './PaymentSummary.styles';
 
 const PaymentSummary = ({ total }: any) => {

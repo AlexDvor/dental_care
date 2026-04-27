@@ -1,7 +1,9 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
-import { styles } from './TimeSlotButton.style';
+import { Text,TouchableOpacity } from 'react-native';
+
 import { TimeSlotButtonProps } from './TimeSlotButton.interface';
+
+import { styles } from './TimeSlotButton.style';
 
 const TimeSlotButton = ({
   time,

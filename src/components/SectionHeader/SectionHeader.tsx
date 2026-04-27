@@ -1,5 +1,7 @@
 import { Text, View } from 'react-native';
+
 import { SectionHeaderProps } from './SectionHeader.interface';
+
 import { styles } from './SectionHeader.style';
 
 const SectionHeader = ({ title, style }: SectionHeaderProps) => {

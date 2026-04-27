@@ -1,4 +1,5 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useCallback,useEffect, useState } from 'react';
+
 import { getDoctorById } from '../api/doctors.api';
 import { DoctorType } from '../interfaces/doctor.types';
 

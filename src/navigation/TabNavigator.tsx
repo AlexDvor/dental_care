@@ -1,4 +1,7 @@
+import { View } from 'react-native';
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import { Icon, IconNameType } from '../ui/Icon/Icon';
 import BookingStack from './Stack/BookingStack';
 import ChatStack from './Stack/ChatStack';
@@ -6,7 +9,6 @@ import HomeStack from './Stack/HomeStack';
 import ProfileStack from './Stack/ProfileStack';
 import { TabParamList } from './types';
 
-import { View } from 'react-native';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 

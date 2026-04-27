@@ -1,6 +1,7 @@
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
-import { db } from './firebase';
+import { collection, doc, getDoc,getDocs } from 'firebase/firestore';
+
 import { DoctorType } from '../interfaces/doctor.types';
+import { db } from './firebase';
 
 export const getDoctors = async (): Promise<DoctorType[]> => {
   try {

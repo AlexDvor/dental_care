@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { styles } from './StatsRow.style';
+import { Text,View } from 'react-native';
+
 import { StatsRowProps } from './StatsRow.interface';
+
+import { styles } from './StatsRow.style';
 
 type StatProps = {
   value: string;

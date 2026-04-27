@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { styles } from './PromoBanner.style';
+import { Text, TouchableOpacity,View } from 'react-native';
+
 import { Icon } from '../../ui/Icon/Icon';
+
+import { styles } from './PromoBanner.style';
 
 type Props = {
   title: string;

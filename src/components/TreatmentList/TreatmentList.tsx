@@ -1,8 +1,10 @@
-import { View, FlatList } from 'react-native';
+import { FlatList,View } from 'react-native';
+
+import SectionHeader from '../SectionHeader/SectionHeader';
 import TreatmentItem from '../TreatmentItem/TreatmentItem';
 import { TreatmentsListProps } from './TreatmentList.interface';
+
 import { styles } from './TreatmentList.style';
-import SectionHeader from '../SectionHeader/SectionHeader';
 
 const TreatmentList = ({ data }: TreatmentsListProps) => {
   return (

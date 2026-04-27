@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { Image,Text, View } from 'react-native';
+
 import { styles } from './BookingDoctorCard.styles';
 
 const BookingDoctorCard = ({ doctor }: any) => {

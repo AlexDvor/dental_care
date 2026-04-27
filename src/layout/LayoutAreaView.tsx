@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { styles } from './LayoutAreaView.style';
 
 type LayoutAreaViewProps = {

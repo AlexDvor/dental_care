@@ -1,18 +1,20 @@
 import React, { useRef, useState } from 'react';
 import {
-  View,
+  Dimensions,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  ScrollView,
   Text,
   TouchableOpacity,
-  ScrollView,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-  Dimensions,
+  View,
 } from 'react-native';
+
 import { Theme } from '../../../constants/colors';
 import ReviewItem from '../ReviewItem/ReviewItem';
+import { ReviewsSectionProps } from './ReviewsSection.interface';
 
 import { styles } from './ReviewsSection.style';
-import { ReviewsSectionProps } from './ReviewsSection.interface';
+
 
 const { width } = Dimensions.get('window');
 

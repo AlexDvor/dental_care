@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, TextInput } from 'react-native';
-import { styles } from './SearchInput.style';
+import { TextInput,View } from 'react-native';
+
 import { Icon } from '../Icon/Icon';
+
+import { styles } from './SearchInput.style';
 
 type Props = {
   value: string;

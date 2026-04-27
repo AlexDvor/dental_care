@@ -1,4 +1,5 @@
 import { SvgProps } from 'react-native-svg';
+
 import { iconList } from './Icon';
 
 export type IconName = keyof typeof iconList;

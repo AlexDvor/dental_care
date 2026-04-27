@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { styles } from './TrustBlock.style';
-import { Icon } from '../Icon/Icon';
+import { Text, TouchableOpacity,View } from 'react-native';
+
 import { Theme } from '../../constants/colors';
+import { Icon } from '../Icon/Icon';
 import { TrustBlockProps } from './TrustBlock.inteface';
+
+import { styles } from './TrustBlock.style';
 
 const TrustBlock = ({
   items,

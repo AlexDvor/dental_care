@@ -1,8 +1,10 @@
 import React from 'react';
-import { TouchableOpacity, Text, View } from 'react-native';
-import { styles } from './QuickActionCard.style';
+import { Text, TouchableOpacity, View } from 'react-native';
+
 import { Theme } from '../../constants/colors';
 import { Icon } from '../Icon/Icon';
+
+import { styles } from './QuickActionCard.style';
 
 type Props = {
   title: string;

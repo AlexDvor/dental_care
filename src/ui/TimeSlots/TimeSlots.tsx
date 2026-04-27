@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { styles } from './TimeSlots.style';
+import { Text,View } from 'react-native';
+
 import TimeSlotButton from '../TimeSlotButton/TimeSlotButton';
 import { TimeSlotsProps } from './TimeSlots.interface';
+
+import { styles } from './TimeSlots.style';
 
 const TimeSlots = ({ times, selected, onSelect }: TimeSlotsProps) => {
   return (

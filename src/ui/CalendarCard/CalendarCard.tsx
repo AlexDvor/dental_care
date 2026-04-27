@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { styles } from './CalendarCard.style';
+import { Text, TouchableOpacity,View } from 'react-native';
+
 import { Icon } from '../Icon/Icon';
 import { CalendarCardProps } from './CalendarCard.interface';
+
+import { styles } from './CalendarCard.style';
 
 const WEEK_DAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 

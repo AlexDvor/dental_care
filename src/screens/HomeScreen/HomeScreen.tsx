@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
+
+import { seedDoctors } from '../../api/seed';
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import PromoBanner from '../../components/PromoBanner/PromoBanner';
 import SectionHeader from '../../components/SectionHeader/SectionHeader';
 import { Theme } from '../../constants/colors';
+import LayoutAreaView from '../../layout/LayoutAreaView';
 import QuickActionCard from '../../ui/QuickActionCard/QuickActionCard';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
-import LayoutAreaView from '../../layout/LayoutAreaView';
-import { seedDoctors } from '../../api/seed';
 
 // type Navigation = NativeStackNavigationProp<HomeStackParamList, 'HomeMain'>;
 

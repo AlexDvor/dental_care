@@ -1,20 +1,21 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
+import { ActivityIndicator,ScrollView, Text, View } from 'react-native';
 
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+import { useDoctors } from '../../hook/useDoctors';
+import LayoutAreaView from '../../layout/LayoutAreaView';
+import { BookingStackParamList } from '../../navigation/types';
+import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import DoctorCard from '../../ui/DoctorCard/DoctorCard';
 import SearchInput from '../../ui/SearchInput/SearchInput';
 import SecurityNote from '../../ui/SecurityNote/SecurityNote';
-import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 
 import { styles } from './DoctorListScreen.style';
 
-import { useDoctors } from '../../hook/useDoctors';
 
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { BookingStackParamList } from '../../navigation/types';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
-import LayoutAreaView from '../../layout/LayoutAreaView';
 
 type Route = RouteProp<BookingStackParamList, 'DoctorList'>;
 

@@ -1,8 +1,9 @@
-import { View, Text } from 'react-native';
+import { Text,View } from 'react-native';
+
+import { Theme } from '../../../constants/colors';
 import { Icon, IconNameType } from '../../../ui/Icon/Icon';
 
 import { styles } from './DetailRow.styles';
-import { Theme } from '../../../constants/colors';
 
 type Props = {
   label: string;

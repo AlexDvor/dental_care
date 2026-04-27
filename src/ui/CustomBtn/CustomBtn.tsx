@@ -1,8 +1,10 @@
 import { Text, TouchableOpacity, View } from 'react-native';
-import { CustomBtnProps } from './CustomBtn.types';
-import { styles } from './CustomBtn.styles';
-import { Icon } from '../Icon/Icon';
+
 import { Theme } from '../../constants/colors';
+import { Icon } from '../Icon/Icon';
+import { CustomBtnProps } from './CustomBtn.types';
+
+import { styles } from './CustomBtn.styles';
 
 const CustomBtn = ({
   title,

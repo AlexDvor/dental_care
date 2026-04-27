@@ -1,4 +1,5 @@
-import { View, Text, Image } from 'react-native';
+import { Image,Text, View } from 'react-native';
+
 import { ReviewItemProps } from './ReviewItem.interface';
 
 import { styles } from './ReviewItem.style';

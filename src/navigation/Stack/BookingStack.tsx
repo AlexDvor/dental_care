@@ -1,11 +1,12 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { BookingStackParamList } from '../types';
+
+import { Theme } from '../../constants/colors';
+import BookingConfirmScreen from '../../screens/BookingConfirmScreen/BookingConfirmScreen';
 import DoctorListScreen from '../../screens/DoctorListScreen/DoctorListScreen';
 import DoctorProfileScreen from '../../screens/DoctorProfileScreen/DoctorProfileScreen';
 import SelectDateScreen from '../../screens/SelectDateScreen/SelectDateScreen';
-import BookingConfirmScreen from '../../screens/BookingConfirmScreen/BookingConfirmScreen';
 import ServiceScreen from '../../screens/ServiceScreen/ServiceScreen';
-import { Theme } from '../../constants/colors';
+import { BookingStackParamList } from '../types';
 
 const Stack = createNativeStackNavigator<BookingStackParamList>();
 

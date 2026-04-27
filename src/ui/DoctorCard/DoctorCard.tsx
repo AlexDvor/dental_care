@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { DoctorCardProps } from './DoctorCard.interface';
-import { styles } from './DoctorCard.style';
+import { Image, Text, TouchableOpacity,View } from 'react-native';
+
 import { Icon } from '../Icon/Icon';
+import { DoctorCardProps } from './DoctorCard.interface';
+
+import { styles } from './DoctorCard.style';
 
 const DoctorCard = ({
   doctor,

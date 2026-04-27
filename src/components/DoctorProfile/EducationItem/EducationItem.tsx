@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text,View } from 'react-native';
+
 import { Theme } from '../../../constants/colors';
 import { Icon } from '../../../ui/Icon/Icon';
-import { styles } from './EducationItem.style';
 import { EducationItemProps } from './EducationItem.inteface';
+
+import { styles } from './EducationItem.style';
 
 const EducationItem = ({ education }: EducationItemProps) => {
   return (

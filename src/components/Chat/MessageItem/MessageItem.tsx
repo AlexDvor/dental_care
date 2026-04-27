@@ -1,6 +1,8 @@
-import { Text, View, Image } from 'react-native';
 import React from 'react';
+import { Image,Text, View } from 'react-native';
+
 import { MessageItemProps } from './MessageItem.interface';
+
 import { styles } from './MessageItem.style';
 
 const MessageItem = ({ avatar, date, message, name }: MessageItemProps) => {
