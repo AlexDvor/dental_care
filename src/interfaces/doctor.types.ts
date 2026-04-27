@@ -28,7 +28,7 @@ export type Stats = {
   satisfaction: number;
 };
 
-export type Doctor = {
+export type DoctorType = {
   id: string;
   name: string;
   specialty: string;

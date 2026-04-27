@@ -5,12 +5,7 @@ import { styles } from './DoctorCard.style';
 import { Icon } from '../Icon/Icon';
 
 const DoctorCard = ({
-  name,
-  university,
-  specialty,
-  experience,
-  rating,
-  image,
+  doctor,
   onPressContinue,
   onPressDoctorProfile,
 }: DoctorCardProps) => {
@@ -21,27 +16,30 @@ const DoctorCard = ({
       onPress={onPressDoctorProfile}
     >
       <View style={styles.left}>
-        <Image source={image} style={styles.image} />
+        <Image
+          source={require('../../assets/images/doctor.jpg')}
+          style={styles.image}
+        />
 
         <View style={styles.info}>
           <View style={styles.topRow}>
             <Text style={styles.name} numberOfLines={1}>
-              {name}
+              {doctor.name}
             </Text>
 
             <View style={styles.rating}>
               <Icon name="rating" size={14} color="#F2C94C" />
-              <Text style={styles.ratingText}>{rating}</Text>
+              <Text style={styles.ratingText}>{doctor.rating}</Text>
             </View>
           </View>
 
           <Text style={styles.university} numberOfLines={1}>
-            {university}
+            {doctor.education.university}
           </Text>
 
           <View style={styles.bottomRow}>
-            <Text style={styles.badge}>{specialty}</Text>
-            <Text style={styles.exp}>{experience}</Text>
+            <Text style={styles.badge}>{doctor.specialty}</Text>
+            <Text style={styles.exp}>{`${doctor.experience} years exp.`}</Text>
           </View>
         </View>
       </View>

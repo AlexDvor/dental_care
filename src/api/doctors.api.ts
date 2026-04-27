@@ -1,31 +1,33 @@
-import { collection, getDocs, doc, getDoc, addDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from './firebase';
+import { DoctorType } from '../interfaces/doctor.types';
 
-// 📥 GET all doctors
-export const getDoctors = async () => {
-  const snapshot = await getDocs(collection(db, 'doctors'));
+export const getDoctors = async (): Promise<DoctorType[]> => {
+  try {
+    const snapshot = await getDocs(collection(db, 'doctors'));
 
-  return snapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...(doc.data() as Omit<DoctorType, 'id'>),
+    }));
+  } catch (error) {
+    console.error('❌ getDoctors error:', error);
+    throw error;
+  }
 };
+export const getDoctorById = async (id: string): Promise<DoctorType | null> => {
+  try {
+    const docRef = doc(db, 'doctors', id);
+    const snapshot = await getDoc(docRef);
 
-// 📥 GET doctor by id
-export const getDoctorById = async (id: string) => {
-  const docRef = doc(db, 'doctors', id);
-  const snapshot = await getDoc(docRef);
+    if (!snapshot.exists()) return null;
 
-  if (!snapshot.exists()) return null;
-
-  return {
-    id: snapshot.id,
-    ...snapshot.data(),
-  };
-};
-
-// 📤 POST doctor
-export const createDoctor = async (doctor: any) => {
-  const docRef = await addDoc(collection(db, 'doctors'), doctor);
-  return docRef.id;
+    return {
+      id: snapshot.id,
+      ...(snapshot.data() as Omit<DoctorType, 'id'>),
+    };
+  } catch (error) {
+    console.error('❌ getDoctorById error:', error);
+    throw error;
+  }
 };

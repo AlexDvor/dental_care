@@ -1,13 +1,13 @@
-import { Doctor } from '../interfaces/doctor.types';
+import { DoctorType } from '../interfaces/doctor.types';
 
-export const DOCTORS: Doctor[] = [
+export const DOCTORS: DoctorType[] = [
   {
     id: '1',
     name: 'Dr. John Smith',
     specialty: 'Orthodontist',
     experience: 7,
     rating: 4.9,
-    image: require('../assets/images/dr.jpg'),
+    image: require('../assets/images/doctor.jpg'),
 
     about:
       'Dedicated orthodontist specializing in modern braces and Invisalign treatments.',
@@ -64,7 +64,7 @@ export const DOCTORS: Doctor[] = [
     experience: 5,
     rating: 4.8,
 
-    image: require('../assets/images/dr.jpg'),
+    image: require('../assets/images/doctor.jpg'),
 
     about: 'Focused on preventive care and patient comfort during every visit.',
 
@@ -111,7 +111,7 @@ export const DOCTORS: Doctor[] = [
     specialty: 'Oral Surgeon',
     experience: 10,
     rating: 4.9,
-    image: require('../assets/images/dr.jpg'),
+    image: require('../assets/images/doctor.jpg'),
     about: 'Expert in oral surgeries and complex dental procedures.',
     education: {
       university: 'UCLA School of Dentistry',
@@ -141,7 +141,7 @@ export const DOCTORS: Doctor[] = [
     specialty: 'Pediatric Dentist',
     experience: 6,
     rating: 4.7,
-    image: require('../assets/images/dr.jpg'),
+    image: require('../assets/images/doctor.jpg'),
 
     about: 'Friendly pediatric dentist who makes kids feel comfortable.',
 
@@ -174,7 +174,7 @@ export const DOCTORS: Doctor[] = [
     specialty: 'Periodontist',
     experience: 8,
     rating: 4.8,
-    image: require('../assets/images/dr.jpg'),
+    image: require('../assets/images/doctor.jpg'),
 
     about: 'Specialist in gum treatment and dental implants.',
 
@@ -215,7 +215,7 @@ export const DOCTORS: Doctor[] = [
     specialty: 'Endodontist',
     experience: 9,
     rating: 4.9,
-    image: require('../assets/images/dr.jpg'),
+    image: require('../assets/images/doctor.jpg'),
 
     about: 'Expert in root canal therapy with modern painless methods.',
 
@@ -247,7 +247,7 @@ export const DOCTORS: Doctor[] = [
     specialty: 'Prosthodontist',
     experience: 12,
     rating: 4.9,
-    image: require('../assets/images/dr.jpg'),
+    image: require('../assets/images/doctor.jpg'),
 
     about: 'Specialist in cosmetic and restorative dentistry.',
 

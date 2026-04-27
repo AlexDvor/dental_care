@@ -1,10 +1,7 @@
-export interface DoctorCardProps {
-  name: string;
-  university: string;
-  specialty: string;
-  experience: string;
-  rating: number;
-  image: any;
+import { DoctorType } from '../../interfaces/doctor.types';
+
+export type DoctorCardProps = {
+  doctor: DoctorType;
   onPressContinue: () => void;
   onPressDoctorProfile: () => void;
-}
+};
