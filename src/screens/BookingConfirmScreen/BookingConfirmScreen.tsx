@@ -8,6 +8,7 @@ import PaymentSummary from '../../components/BookingConfirm/PaymentSummary/Payme
 import LayoutAreaView from '../../layout/LayoutAreaView';
 import { BookingStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
+import SubTitle from '../../ui/SubTitle/SubTitle';
 
 type Route = RouteProp<BookingStackParamList, 'BookingConfirm'>;
 
@@ -18,6 +19,8 @@ const BookingConfirmScreen = () => {
   return (
     <LayoutAreaView withHeader>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <SubTitle title="Check and confirm appointment" />
+
         <BookingDoctorCard doctor={doctorData} />
 
         <AppointmentDetails

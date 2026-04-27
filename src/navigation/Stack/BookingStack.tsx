@@ -54,7 +54,7 @@ export default function BookingStack() {
         name="BookingConfirm"
         component={BookingConfirmScreen}
         options={{
-          title: 'Check Data',
+          title: 'Booking Confirm',
           headerStyle: { backgroundColor: Theme.colors.background.soft },
         }}
       />

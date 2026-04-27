@@ -13,6 +13,7 @@ import SecurityNote from '../../ui/SecurityNote/SecurityNote';
 import TimeSlots from '../../ui/TimeSlots/TimeSlots';
 
 import { styles } from './SelectDateScreen.style';
+import SubTitle from '../../ui/SubTitle/SubTitle';
 
 type Route = RouteProp<BookingStackParamList, 'SelectDate'>;
 
@@ -86,6 +87,7 @@ const SelectDateScreen = () => {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
+          <SubTitle title="Select date and time for your appointment" />
           <CalendarCard
             month={schedule.month}
             year={schedule.year}

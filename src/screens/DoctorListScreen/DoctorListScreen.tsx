@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { ActivityIndicator,ScrollView, Text, View } from 'react-native';
+import { useMemo, useState } from 'react';
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -13,9 +13,7 @@ import SearchInput from '../../ui/SearchInput/SearchInput';
 import SecurityNote from '../../ui/SecurityNote/SecurityNote';
 
 import { styles } from './DoctorListScreen.style';
-
-
-
+import SubTitle from '../../ui/SubTitle/SubTitle';
 
 type Route = RouteProp<BookingStackParamList, 'DoctorList'>;
 
@@ -30,7 +28,9 @@ const DoctorListScreen = () => {
   const { data: doctors, loading, error, refetch } = useDoctors();
 
   const navigation = useNavigation<Navigation>();
+
   const route = useRoute<Route>();
+
   const { serviceType, totalPrice } = route.params;
 
   const filteredDoctors = useMemo(() => {
@@ -87,9 +87,7 @@ const DoctorListScreen = () => {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.subtitle}>
-            Select a doctor for your appointment
-          </Text>
+          <SubTitle title="Select a doctor for your appointment" />
 
           <SearchInput value={search} onChange={setSearch} />
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
@@ -10,6 +10,7 @@ import { SERVICES } from '../../mockData/services';
 import { BookingStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import SecurityNote from '../../ui/SecurityNote/SecurityNote';
+import SubTitle from '../../ui/SubTitle/SubTitle';
 
 import { styles } from './ServiceScreen.style';
 
@@ -47,7 +48,7 @@ const ServiceScreen = () => {
   return (
     <LayoutAreaView withHeader>
       <View style={styles.container}>
-        <Text style={styles.subtitle}>You can select one or more services</Text>
+        <SubTitle title="You can select one or more services" />
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
