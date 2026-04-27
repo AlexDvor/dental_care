@@ -21,13 +21,4 @@ export const styles = StyleSheet.create({
     paddingBottom: Theme.spacing.lg,
     backgroundColor: Theme.colors.background.soft,
   },
-
-  btnWrapper: {
-    backgroundColor: Theme.colors.primary.main,
-    marginBottom: Theme.spacing.sm,
-  },
-
-  btnText: {
-    color: Theme.colors.text.inverted,
-  },
 });

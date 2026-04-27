@@ -45,13 +45,4 @@ export const styles = StyleSheet.create({
     fontWeight: Theme.typography.fontWeight.semibold,
     color: Theme.colors.primary.main,
   },
-
-  btnWrapper: {
-    backgroundColor: Theme.colors.primary.main,
-    marginBottom: Theme.spacing.sm,
-  },
-
-  btnText: {
-    color: Theme.colors.text.inverted,
-  },
 });

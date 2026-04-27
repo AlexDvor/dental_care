@@ -66,12 +66,7 @@ const SelectDateScreen = () => {
         </ScrollView>
 
         <View style={styles.bottom}>
-          <CustomBtn
-            title="Continue"
-            onPress={() => handlePressContinue()}
-            style={styles.btnWrapper}
-            textStyle={styles.btnText}
-          />
+          <CustomBtn title="Continue" onPress={() => handlePressContinue()} />
           <SecurityNote />
         </View>
       </View>

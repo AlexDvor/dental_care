@@ -2,6 +2,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { CustomBtnProps } from './CustomBtn.types';
 import { styles } from './CustomBtn.styles';
 import { Icon } from '../Icon/Icon';
+import { Theme } from '../../constants/colors';
 
 const CustomBtn = ({
   title,
@@ -12,10 +13,23 @@ const CustomBtn = ({
   iconPosition = 'left',
   iconSize = 20,
   iconColor = '#fff',
+  type = 'primary',
 }: CustomBtnProps) => {
+  const isPrimary = type === 'primary';
+
+  const containerTypeStyle = {
+    backgroundColor: isPrimary
+      ? Theme.colors.background.accent
+      : Theme.colors.background.soft,
+  };
+
+  const textTypeStyle = {
+    color: isPrimary ? Theme.colors.text.inverted : Theme.colors.text.badge,
+  };
+
   return (
     <TouchableOpacity
-      style={[styles.container, style]}
+      style={[styles.container, containerTypeStyle, style]}
       onPress={onPress}
       activeOpacity={0.8}
     >
@@ -29,7 +43,7 @@ const CustomBtn = ({
           />
         )}
 
-        <Text style={[styles.title, textStyle]}>{title}</Text>
+        <Text style={[styles.title, textTypeStyle, textStyle]}>{title}</Text>
 
         {icon && iconPosition === 'right' && (
           <Icon

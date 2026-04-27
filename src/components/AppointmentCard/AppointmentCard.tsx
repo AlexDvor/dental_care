@@ -8,7 +8,6 @@ import { AppointmentCardProps } from './AppointmentCard.interface';
 const AppointmentCard = ({ style }: AppointmentCardProps) => {
   return (
     <View style={[styles.container, style]}>
-      {/* Top Row */}
       <View style={styles.topRow}>
         <View style={styles.leftSection}>
           <View style={styles.iconWrapper}>
@@ -26,7 +25,6 @@ const AppointmentCard = ({ style }: AppointmentCardProps) => {
         </View>
       </View>
 
-      {/* Date Row */}
       <View style={styles.dateRow}>
         <View style={styles.dateItem}>
           <Icon name="schedule" size={16} color={'#6B7280'} />
@@ -39,12 +37,11 @@ const AppointmentCard = ({ style }: AppointmentCardProps) => {
         </View>
       </View>
 
-      {/* Button */}
-
       <CustomBtn
         title="View Details"
         onPress={() => {}}
         style={{ marginTop: 20 }}
+        type="secondary"
       />
     </View>
   );

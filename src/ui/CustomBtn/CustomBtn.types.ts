@@ -13,4 +13,5 @@ export interface CustomBtnProps {
   iconPosition?: 'left' | 'right';
   iconSize?: number;
   iconColor?: string;
+  type?: 'primary' | 'secondary';
 }

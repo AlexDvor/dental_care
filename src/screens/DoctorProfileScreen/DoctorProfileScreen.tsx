@@ -47,12 +47,7 @@ const DoctorProfileScreen = () => {
         <StatsRow />
 
         <View style={styles.footer}>
-          <CustomBtn
-            title="Choose Doctor"
-            onPress={handlePressToSelectDate}
-            style={styles.btnWrapper}
-            textStyle={styles.btnText}
-          />
+          <CustomBtn title="Choose Doctor" onPress={handlePressToSelectDate} />
         </View>
       </ScrollView>
     </LayoutAreaView>

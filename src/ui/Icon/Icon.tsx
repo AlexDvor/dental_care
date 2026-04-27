@@ -16,6 +16,9 @@ import Search from '../../assets/icons/search.svg';
 import Home from '../../assets/icons/home.svg';
 import Profile from '../../assets/icons/profile.svg';
 import Education from '../../assets/icons/education.svg';
+import Service from '../../assets/icons/service.svg';
+import Time from '../../assets/icons/time.svg';
+import Price from '../../assets/icons/price.svg';
 
 export const iconList = {
   arrow_r: ArrowRight,
@@ -35,6 +38,9 @@ export const iconList = {
   home: Home,
   profile: Profile,
   education: Education,
+  service: Service,
+  time: Time,
+  price: Price,
 } as const;
 
 export type IconNameType = keyof typeof iconList;
