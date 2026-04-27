@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import PromoBanner from '../../components/PromoBanner/PromoBanner';
@@ -7,12 +7,18 @@ import { Theme } from '../../constants/colors';
 import QuickActionCard from '../../ui/QuickActionCard/QuickActionCard';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
 import LayoutAreaView from '../../layout/LayoutAreaView';
+import { seedDoctors } from '../../api/seed';
+
 // type Navigation = NativeStackNavigationProp<HomeStackParamList, 'HomeMain'>;
 
 const HomeScreen = () => {
   // const navigation = useNavigation<Navigation>();
 
   // navigation.navigate()
+
+  // useEffect(() => {
+  //   seedDoctors();
+  // }, []);
   return (
     <LayoutAreaView>
       <ScrollView
