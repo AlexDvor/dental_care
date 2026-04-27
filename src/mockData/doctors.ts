@@ -1,8 +1,5 @@
-import { DoctorType } from '../interfaces/doctor.types';
-
-export const DOCTORS: DoctorType[] = [
+export const DOCTORS = [
   {
-    id: '1',
     name: 'Dr. John Smith',
     specialty: 'Orthodontist',
     experience: 7,
@@ -58,7 +55,6 @@ export const DOCTORS: DoctorType[] = [
   },
 
   {
-    id: '2',
     name: 'Dr. Sarah Johnson',
     specialty: 'General Dentist',
     experience: 5,
@@ -106,7 +102,6 @@ export const DOCTORS: DoctorType[] = [
   },
 
   {
-    id: '3',
     name: 'Dr. Michael Lee',
     specialty: 'Oral Surgeon',
     experience: 10,
@@ -136,7 +131,6 @@ export const DOCTORS: DoctorType[] = [
   },
 
   {
-    id: '4',
     name: 'Dr. Emily Davis',
     specialty: 'Pediatric Dentist',
     experience: 6,
@@ -169,7 +163,6 @@ export const DOCTORS: DoctorType[] = [
   },
 
   {
-    id: '5',
     name: 'Dr. David Brown',
     specialty: 'Periodontist',
     experience: 8,
@@ -210,7 +203,6 @@ export const DOCTORS: DoctorType[] = [
   },
 
   {
-    id: '6',
     name: 'Dr. Olivia Wilson',
     specialty: 'Endodontist',
     experience: 9,
@@ -242,7 +234,6 @@ export const DOCTORS: DoctorType[] = [
   },
 
   {
-    id: '7',
     name: 'Dr. James Taylor',
     specialty: 'Prosthodontist',
     experience: 12,

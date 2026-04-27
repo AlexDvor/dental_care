@@ -14,6 +14,7 @@ import SeparatorSection from '../../ui/SeparatorSection/SeparatorSection';
 
 import { styles } from './DoctorProfileScreen.style';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useDoctorById } from '../../hook/useDoctorById';
 
 type Navigation = NativeStackNavigationProp<
   BookingStackParamList,
@@ -27,24 +28,40 @@ const DoctorProfileScreen = () => {
   const navigation = useNavigation<Navigation>();
 
   const { doctorId, serviceType, totalPrice } = route.params;
+  const { data, error, loading } = useDoctorById(doctorId);
+  console.log('data', data?.stats);
 
   const handlePressToSelectDate = () => {
     navigation.navigate('SelectDate', { doctorId, serviceType, totalPrice });
   };
+
   return (
     <LayoutAreaView withHeader>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <DoctorHeader />
+        <DoctorHeader
+          name={data?.name || 'Doctor Name'}
+          rating={data?.rating || 0.0}
+          image={'https://placehold.co/100x10'}
+          reviews={data?.reviews || []}
+          specialty={data?.specialty || ''}
+        />
 
-        <AboutSection />
+        <AboutSection about={data?.about || "Doctor's about text here..."} />
 
-        <EducationItem />
+        <EducationItem
+          education={
+            data?.education || { university: '', period: '', degree: '' }
+          }
+        />
 
         <SeparatorSection spacing={15} />
 
-        <ReviewsSection />
+        <ReviewsSection reviews={data?.reviews || []} />
 
-        <StatsRow />
+        <StatsRow
+          experience={data?.experience || 0}
+          stats={data?.stats || { patients: 0, satisfaction: 0 }}
+        />
 
         <View style={styles.footer}>
           <CustomBtn title="Choose Doctor" onPress={handlePressToSelectDate} />

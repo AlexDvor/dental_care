@@ -1,6 +1,4 @@
-import { ImageSourcePropType } from 'react-native';
-
-export type Review = {
+export type ReviewProps = {
   id: string;
   name: string;
   avatar: string;
@@ -23,7 +21,7 @@ export type Education = {
   degree: string;
 };
 
-export type Stats = {
+export type StatsProps = {
   patients: number;
   satisfaction: number;
 };
@@ -35,11 +33,11 @@ export type DoctorType = {
   experience: number;
   rating: number;
 
-  image: ImageSourcePropType;
+  image: string;
   about: string;
   education: Education;
-  stats: Stats;
+  stats: StatsProps;
   schedule: Schedule;
 
-  reviews: Review[];
+  reviews: ReviewProps[];
 };

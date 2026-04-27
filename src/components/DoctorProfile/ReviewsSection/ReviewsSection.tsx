@@ -12,13 +12,14 @@ import { Theme } from '../../../constants/colors';
 import ReviewItem from '../ReviewItem/ReviewItem';
 
 import { styles } from './ReviewsSection.style';
+import { ReviewsSectionProps } from './ReviewsSection.interface';
 
 const { width } = Dimensions.get('window');
 
 const ITEM_WIDTH = width * 0.8;
 const SPACING = Theme.spacing.md;
 
-const ReviewsSection = () => {
+const ReviewsSection = ({ reviews }: ReviewsSectionProps) => {
   const scrollRef = useRef<ScrollView>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -27,8 +28,6 @@ const ReviewsSection = () => {
     const index = Math.round(offsetX / (ITEM_WIDTH + SPACING));
     setActiveIndex(index);
   };
-
-  const reviews = [1, 2, 3];
 
   return (
     <View style={styles.container}>
@@ -49,9 +48,9 @@ const ReviewsSection = () => {
         scrollEventThrottle={16}
         contentContainerStyle={styles.scrollContent}
       >
-        {reviews.map((_, index) => (
+        {reviews.map((item, index) => (
           <View key={index} style={{ width: ITEM_WIDTH, marginRight: SPACING }}>
-            <ReviewItem />
+            <ReviewItem item={item} />
           </View>
         ))}
       </ScrollView>

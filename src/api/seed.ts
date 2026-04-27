@@ -3,9 +3,17 @@ import { db } from './firebase';
 import { DOCTORS } from '../mockData/doctors';
 
 export const seedDoctors = async () => {
-  for (const doctor of DOCTORS) {
-    await addDoc(collection(db, 'doctors'), doctor);
-  }
+  try {
+    const collectionRef = collection(db, 'doctors');
 
-  console.log('🔥 Data seeded!');
+    for (const doctor of DOCTORS) {
+      const { id, ...doctorData } = doctor;
+
+      await addDoc(collectionRef, doctorData);
+    }
+
+    console.log('🔥 Data seeded!');
+  } catch (error) {
+    console.error('❌ Seed error:', error);
+  }
 };

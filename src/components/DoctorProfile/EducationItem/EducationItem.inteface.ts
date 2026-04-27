@@ -1,3 +1,3 @@
 import { DoctorType } from '../../../interfaces/doctor.types';
 
-export type AboutSectionProps = Pick<DoctorType, 'about'>;
+export type EducationItemProps = Pick<DoctorType, 'education'>;

@@ -1,10 +1,15 @@
-import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { DOCTORS } from '../../../mockData/doctors';
+import { DoctorHeaderProps } from './DoctorHeader.interface';
 
 import { styles } from './DoctorHeader.style';
 
-const DoctorHeader = () => {
+const DoctorHeader = ({
+  name,
+  rating,
+  reviews,
+  specialty,
+}: DoctorHeaderProps) => {
   return (
     <View style={styles.wrapper}>
       <Image
@@ -15,15 +20,15 @@ const DoctorHeader = () => {
       />
 
       <View style={styles.card}>
-        <Text style={styles.name}>Dr. Sarah Johnson</Text>
+        <Text style={styles.name}>{name}</Text>
 
         <View style={styles.badge}>
-          <Text style={styles.badgeText}>Orthodontist</Text>
+          <Text style={styles.badgeText}>{specialty}</Text>
         </View>
 
         <View style={styles.ratingWrapper}>
-          <Text style={styles.rating}>⭐ 4.9 </Text>
-          <Text style={styles.review}>(120 reviews)</Text>
+          <Text style={styles.rating}>⭐ {rating} </Text>
+          <Text style={styles.review}>{`(${reviews.length} reviews)`}</Text>
         </View>
       </View>
     </View>

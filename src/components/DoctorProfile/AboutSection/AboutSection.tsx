@@ -2,15 +2,13 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 import { styles } from './AboutSection.style';
+import { AboutSectionProps } from './AboutSection.interface';
 
-const AboutSection = () => {
+const AboutSection = ({ about }: AboutSectionProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>About Doctor</Text>
-      <Text style={styles.text}>
-        Dedicated orthodontist with a passion for creating healthy, confident
-        smiles using modern technologies.
-      </Text>
+      <Text style={styles.text}>{about}</Text>
     </View>
   );
 };

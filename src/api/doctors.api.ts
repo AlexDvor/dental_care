@@ -15,6 +15,7 @@ export const getDoctors = async (): Promise<DoctorType[]> => {
     throw error;
   }
 };
+
 export const getDoctorById = async (id: string): Promise<DoctorType | null> => {
   try {
     const docRef = doc(db, 'doctors', id);

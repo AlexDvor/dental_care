@@ -1,20 +1,28 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { styles } from './StatsRow.style';
+import { StatsRowProps } from './StatsRow.interface';
 
-const Stat = ({ value, label }: any) => (
+type StatProps = {
+  value: string;
+  label: string;
+};
+
+const Stat = ({ value, label }: StatProps) => (
   <View style={styles.card}>
     <Text style={styles.value}>{value}</Text>
     <Text style={styles.label}>{label}</Text>
   </View>
 );
 
-const StatsRow = () => {
+const StatsRow = ({ stats, experience }: StatsRowProps) => {
   return (
     <View style={styles.container}>
-      <Stat value="120+" label="Happy Patients" />
-      <Stat value="7+" label="Years Experience" />
-      <Stat value="98%" label="Satisfaction" />
+      <Stat value={`${stats.patients}+`} label="Happy Patients" />
+
+      <Stat value={`${experience}+`} label="Years Experience" />
+
+      <Stat value={`${stats.satisfaction}%`} label="Satisfaction" />
     </View>
   );
 };
