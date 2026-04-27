@@ -17,9 +17,8 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
 
-    paddingHorizontal: Theme.spacing.lg,
     paddingTop: Theme.spacing.md,
-    paddingBottom: Theme.spacing.lg,
-    backgroundColor: Theme.colors.background.soft,
+    paddingBottom: Theme.spacing.md,
+    marginBottom: Theme.spacing.lg,
   },
 });

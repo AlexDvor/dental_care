@@ -10,10 +10,10 @@ import { BookingStackParamList } from '../../navigation/types';
 import CalendarCard from '../../ui/CalendarCard/CalendarCard';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import SecurityNote from '../../ui/SecurityNote/SecurityNote';
+import SubTitle from '../../ui/SubTitle/SubTitle';
 import TimeSlots from '../../ui/TimeSlots/TimeSlots';
 
 import { styles } from './SelectDateScreen.style';
-import SubTitle from '../../ui/SubTitle/SubTitle';
 
 type Route = RouteProp<BookingStackParamList, 'SelectDate'>;
 
@@ -83,11 +83,11 @@ const SelectDateScreen = () => {
   return (
     <LayoutAreaView withHeader>
       <View style={styles.container}>
+        <SubTitle title="Select date and time for your appointment" />
         <ScrollView
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
-          <SubTitle title="Select date and time for your appointment" />
           <CalendarCard
             month={schedule.month}
             year={schedule.year}
@@ -106,8 +106,8 @@ const SelectDateScreen = () => {
 
         <View style={styles.bottom}>
           <CustomBtn title="Continue" onPress={handlePressContinue} />
-          <SecurityNote />
         </View>
+        <SecurityNote />
       </View>
     </LayoutAreaView>
   );

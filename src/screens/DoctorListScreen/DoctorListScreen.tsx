@@ -83,14 +83,13 @@ const DoctorListScreen = () => {
   return (
     <LayoutAreaView withHeader>
       <View style={styles.container}>
+        <SubTitle title="Select a doctor for your appointment" />
+
+        <SearchInput value={search} onChange={setSearch} />
         <ScrollView
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
-          <SubTitle title="Select a doctor for your appointment" />
-
-          <SearchInput value={search} onChange={setSearch} />
-
           {filteredDoctors.map(doc => (
             <DoctorCard
               key={doc.id}
