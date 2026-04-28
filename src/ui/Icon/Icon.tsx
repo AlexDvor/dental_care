@@ -2,13 +2,16 @@ import Award from '../../assets/icons/award.svg';
 import Schedule from '../../assets/icons/calendario.svg';
 import Chat from '../../assets/icons/chat-support.svg';
 import Check from '../../assets/icons/check.svg';
+import Edit from '../../assets/icons/edit.svg';
 import Education from '../../assets/icons/education.svg';
 import FindDoctor from '../../assets/icons/find_doctor.svg';
 import Home from '../../assets/icons/home.svg';
 import ArrowLeft from '../../assets/icons/left_arrow.svg';
 import Location from '../../assets/icons/location.svg';
 import Lock from '../../assets/icons/lock.svg';
+import LogOut from '../../assets/icons/logout.svg';
 import Map from '../../assets/icons/map.svg';
+import Notification from '../../assets/icons/notification.svg';
 import Price from '../../assets/icons/price.svg';
 import Profile from '../../assets/icons/profile.svg';
 import Star from '../../assets/icons/rating.svg';
@@ -41,6 +44,9 @@ export const iconList = {
   service: Service,
   time: Time,
   price: Price,
+  edit: Edit,
+  notification: Notification,
+  logout: LogOut,
 } as const;
 
 export type IconNameType = keyof typeof iconList;
