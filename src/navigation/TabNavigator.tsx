@@ -9,7 +9,6 @@ import HomeStack from './Stack/HomeStack';
 import ProfileStack from './Stack/ProfileStack';
 import { TabParamList } from './types';
 
-
 const Tab = createBottomTabNavigator<TabParamList>();
 
 function renderTabIcon(routeName: string, color: string, focused: boolean) {
@@ -50,7 +49,7 @@ export default function TabNavigator() {
         tabBarInactiveTintColor: '#9CA3AF',
 
         tabBarStyle: {
-          height: 80,
+          height: 90,
           paddingBottom: 8,
           paddingTop: 8,
           backgroundColor: '#fff',
@@ -62,7 +61,7 @@ export default function TabNavigator() {
 
         tabBarLabelStyle: {
           fontSize: 12,
-          marginTop: 2,
+          marginTop: 5,
         },
       })}
     >

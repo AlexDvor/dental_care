@@ -9,26 +9,30 @@ import { styles } from './ProfileHeader.styles';
 const ProfileHeader = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.avatar}>
-        {/* <Icon
+      <View style={styles.paddingContainer}>
+        <View style={styles.leftBlock}>
+          {/* <Icon
           name="findDoctor"
           size={60}
           color={Theme.colors.background.accent}
         /> */}
 
-        <Image
-          style={styles.image}
-          source={require('../../../assets/images/doctor.jpg')}
-        />
+          <Image
+            style={styles.image}
+            source={require('../../../assets/images/doctor.jpg')}
+          />
+          <View style={styles.nameContainer}>
+            <Text style={styles.name}>John Doe</Text>
+            <Text style={styles.email}>john@example.com</Text>
+          </View>
+        </View>
+
+        <View style={styles.btnContainer}>
+          <TouchableOpacity style={styles.editBtn}>
+            <Icon name="edit" size={17} color={Theme.colors.base.white} />
+          </TouchableOpacity>
+        </View>
       </View>
-
-      <Text style={styles.name}>John Doe</Text>
-      <Text style={styles.email}>john@example.com</Text>
-
-      <TouchableOpacity style={styles.editBtn}>
-        <Text style={styles.editText}>Edit Profile</Text>
-        <Icon name="edit" size={17} color={Theme.colors.base.white} />
-      </TouchableOpacity>
     </View>
   );
 };

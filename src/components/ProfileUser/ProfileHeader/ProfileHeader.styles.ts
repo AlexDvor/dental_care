@@ -1,47 +1,40 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 import { Theme } from '../../../constants/colors';
+
+const { width: deviceWidth } = Dimensions.get('window');
+
+const MAX_CONTENT_WIDTH = deviceWidth * 0.9;
+const PADDING = (deviceWidth - MAX_CONTENT_WIDTH) / 2;
 
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: Theme.colors.primary.main,
-    // paddingTop: 10,
-    paddingBottom: 60,
-    alignItems: 'center',
+
+    paddingBottom: 10,
     borderBottomLeftRadius: Theme.radius.xl,
     borderBottomRightRadius: Theme.radius.xl,
   },
 
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+  paddingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: PADDING,
+    paddingTop: 10,
+  },
+  leftBlock: {
+    flexDirection: 'row',
   },
 
-  // topRow: {
-  //   position: 'absolute',
-  //   top: 50,
-  //   left: Theme.spacing.lg,
-  //   right: Theme.spacing.lg,
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-between',
-  //   alignItems: 'center',
-  // },
+  nameContainer: {
+    marginLeft: Theme.spacing.lg,
+  },
 
-  // title: {
-  //   color: Theme.colors.base.white,
-  //   fontSize: Theme.typography.size.h3,
-  //   fontWeight: Theme.typography.fontWeight.semibold,
-  // },
-
-  avatar: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 100,
-    height: 100,
+  image: {
+    width: 70,
+    height: 70,
     borderRadius: 50,
-    backgroundColor: Theme.colors.base.white,
-    marginBottom: Theme.spacing.md,
   },
 
   name: {
@@ -55,14 +48,13 @@ export const styles = StyleSheet.create({
     marginBottom: Theme.spacing.md,
   },
 
+  btnContainer: {},
+
   editBtn: {
-    flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
     backgroundColor: 'rgba(255,255,255,0.2)',
-    paddingHorizontal: 14,
-    paddingVertical: 6,
-    borderRadius: 20,
+    padding: Theme.spacing.md,
+    borderRadius: 50,
   },
 
   editText: {
