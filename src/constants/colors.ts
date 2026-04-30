@@ -4,6 +4,9 @@ const Colors = {
     card: '#FFFFFF',
     soft: '#E8F3ED',
     accent: '#0E7A4B',
+    backTeal: '#E6FFFA',
+    backPurple: '#F3E8FF',
+    backBlue: '#EAF2FF',
   },
 
   text: {
@@ -35,6 +38,9 @@ const Colors = {
   icon: {
     primary: '#0E7A4B',
     secondary: '#6B7280',
+    teal: '#14B8A6',
+    purple: '#8B5CF6',
+    blue: '#3B82F6',
   },
 };
 

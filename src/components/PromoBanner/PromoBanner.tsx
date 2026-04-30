@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity,View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import { Icon } from '../../ui/Icon/Icon';
 
@@ -13,7 +13,7 @@ type Props = {
 
   icon?: keyof typeof import('../../ui/Icon/Icon').iconList;
 
-  // ⏱ таймер
+  // таймер
   expiresAt?: Date; // конкретна дата
   expiresIn?: number; // секунди (наприклад 3600)
 

@@ -1,5 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
+import { Theme } from '../constants/colors';
+
 const { width: deviceWidth } = Dimensions.get('window');
 
 const MAX_CONTENT_WIDTH = deviceWidth * 0.9;
@@ -10,6 +12,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: PADDING,
     paddingTop: 10,
-    backgroundColor: '#E8F3ED',
+    backgroundColor: Theme.colors.background.soft,
   },
 });
