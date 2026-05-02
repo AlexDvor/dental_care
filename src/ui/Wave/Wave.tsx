@@ -6,8 +6,17 @@ import { Theme } from '../../constants/colors';
 
 const { width } = Dimensions.get('window');
 
-/* 🔹 маленький компонент зірочки */
-const Sparkle = ({ x, y, size = 8, opacity = 0.8 }) => (
+const Sparkle = ({
+  x,
+  y,
+  size,
+  opacity,
+}: {
+  x: number;
+  y: number;
+  size: number;
+  opacity: number;
+}) => (
   <Path
     d={`
       M ${x} ${y - size}
@@ -27,26 +36,44 @@ const Sparkle = ({ x, y, size = 8, opacity = 0.8 }) => (
 
 const Wave = () => {
   return (
-    <View style={StyleSheet.absoluteFill} pointerEvents="none">
-      {/* ✨ SPARKLES */}
+    <View style={styles.container} pointerEvents="none">
+      {/* SPARKLES */}
       <Svg
         width={width}
-        height={160}
-        viewBox="0 0 375 160"
+        height={180}
+        viewBox="0 0 375 180"
         preserveAspectRatio="none"
         style={styles.sparkles}
       >
-        <Sparkle x={130} y={125} size={6} opacity={0.7} />
-        <Sparkle x={255} y={150} size={8} opacity={0.8} />
+        <Sparkle x={70} y={40} size={4} opacity={0.4} />
+        <Sparkle x={155} y={5} size={6} opacity={0.7} />
+        <Sparkle x={300} y={60} size={9} opacity={0.9} />
       </Svg>
 
-      {/* BACK LAYER */}
+      {/*  EXTRA AIR LAYER */}
+      <Svg
+        width={width}
+        height={120}
+        viewBox="0 0 375 120"
+        preserveAspectRatio="none"
+        style={[styles.wave, { bottom: 60 }]}
+      >
+        <Path
+          d="M0,50 C80,10 160,20 240,50 C320,80 350,70 375,60"
+          stroke="#A7F3D0"
+          strokeWidth={12}
+          opacity={0.15}
+          fill="none"
+        />
+      </Svg>
+
+      {/* BACK WAVE */}
       <Svg
         width={width}
         height={140}
         viewBox="0 0 375 140"
         preserveAspectRatio="none"
-        style={styles.backWave}
+        style={[styles.wave, { bottom: 10 }]}
       >
         <Path
           d="
@@ -62,13 +89,13 @@ const Wave = () => {
         />
       </Svg>
 
-      {/* FRONT LAYER */}
+      {/* FRONT WAVE */}
       <Svg
         width={width}
         height={140}
         viewBox="0 0 375 140"
         preserveAspectRatio="none"
-        style={styles.frontWave}
+        style={[styles.wave, { bottom: 0 }]}
       >
         <Path
           d="
@@ -89,18 +116,21 @@ const Wave = () => {
 export default Wave;
 
 const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: 220,
+  },
+
   sparkles: {
     position: 'absolute',
-    top: 10,
+    top: 30,
   },
 
-  backWave: {
+  wave: {
     position: 'absolute',
-    bottom: 10,
-  },
-
-  frontWave: {
-    position: 'absolute',
-    bottom: 0,
+    left: 0,
   },
 });

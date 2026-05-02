@@ -1,4 +1,4 @@
-import { ScrollView, StatusBar, Text, View } from 'react-native';
+import { ScrollView, StatusBar, View } from 'react-native';
 
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import HealthBanner from '../../components/HealthBanner/HealthBanner';
@@ -21,8 +21,6 @@ const HomeScreen = () => {
         bounces={false} // прибирає білий “відскок” на iOS
       >
         <HomeHeader />
-        <Text style={styles.userName}> John Doe</Text>
-        <Text style={styles.userEmail}>johndoe@gmail.com</Text>
 
         <View style={styles.content}>
           <StatsCard />
