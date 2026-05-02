@@ -15,6 +15,7 @@ const Colors = {
     placeholder: '#9CA3AF',
     inverted: '#FFFFFF',
     badge: '#0E7A4B',
+    invertedBadge: '#D1FAE5',
   },
 
   primary: {

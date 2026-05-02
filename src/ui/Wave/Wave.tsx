@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { Theme } from '../../constants/colors';
@@ -8,48 +8,63 @@ const { width } = Dimensions.get('window');
 
 const Wave = () => {
   return (
-    <>
-      {/* задній шар */}
+    <View style={StyleSheet.absoluteFill}>
+      {/* BACK LAYER */}
       <Svg
         width={width}
-        height={120}
-        viewBox={`0 0 ${width} 120`}
-        style={{ position: 'absolute', bottom: -10, opacity: 0.5 }}
+        height={140}
+        viewBox="0 0 375 140"
+        preserveAspectRatio="none"
+        style={styles.backWave}
       >
         <Path
-          d={`
-            M0 60 
-            Q ${width * 0.25} 20, ${width * 0.5} 60 
-            T ${width} 60 
-            L ${width} 120 
-            L 0 120 
+          d="
+            M0,60 
+            C60,20 120,20 180,50 
+            C240,80 300,80 375,50 
+            L375,140 
+            L0,140 
             Z
-          `}
+          "
           fill="#D1FAE5"
+          opacity={0.6}
         />
       </Svg>
 
-      {/* основний */}
+      {/* FRONT LAYER */}
       <Svg
         width={width}
-        height={120}
-        viewBox={`0 0 ${width} 120`}
-        style={{ position: 'absolute', bottom: -1 }}
+        height={140}
+        viewBox="0 0 375 140"
+        preserveAspectRatio="none"
+        style={styles.frontWave}
       >
         <Path
-          d={`
-            M0 60 
-            Q ${width * 0.25} 0, ${width * 0.5} 40 
-            T ${width} 60 
-            L ${width} 120 
-            L 0 120 
+          d="
+            M0,80 
+            C70,10 150,10 220,60 
+            C290,110 330,100 375,70 
+            L375,140 
+            L0,140 
             Z
-          `}
+          "
           fill={Theme.colors.background.primary}
         />
       </Svg>
-    </>
+    </View>
   );
 };
 
 export default Wave;
+
+const styles = StyleSheet.create({
+  backWave: {
+    position: 'absolute',
+    bottom: 10,
+  },
+
+  frontWave: {
+    position: 'absolute',
+    bottom: 0,
+  },
+});

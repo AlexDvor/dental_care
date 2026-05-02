@@ -38,7 +38,7 @@ const HomeHeader = () => {
 export default HomeHeader;
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 150,
+    paddingBottom: 180,
     alignItems: 'center',
     position: 'relative',
   },
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
-    color: '#D1FAE5',
+    color: Theme.colors.text.invertedBadge,
     alignSelf: 'flex-start',
     marginLeft: Theme.spacing.lg,
     marginTop: 4,
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
   avatarWrapper: {
     position: 'absolute',
     left: '50%',
-    bottom: 60,
-    transform: [{ translateX: -55 }, { translateY: 55 }],
+    bottom: 35,
+    transform: [{ translateX: -55 }],
     zIndex: 2,
   },
 
