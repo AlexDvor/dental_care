@@ -1,7 +1,9 @@
-type Item = {
+export type Item = {
+  icon: string;
   label: string;
-  icon: keyof typeof import('../Icon/Icon').iconList;
+  subLabel?: string;
   color?: string;
+  bg?: string;
 };
 
 export interface TrustBlockProps {

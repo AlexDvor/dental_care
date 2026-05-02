@@ -5,80 +5,101 @@ import { Theme } from '../../constants/colors';
 export const styles = StyleSheet.create({
   container: {
     marginTop: Theme.spacing.xl,
+    padding: Theme.spacing.xl,
+    overflow: 'hidden',
+    backgroundColor: Theme.colors.background.soft,
+    borderRadius: Theme.radius.lg,
+
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 3,
   },
 
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
   item: {
     flex: 1,
     alignItems: 'center',
-    position: 'relative',
   },
 
   iconWrapper: {
     width: 56,
     height: 56,
-    borderRadius: 28,
+    borderRadius: '50%',
     backgroundColor: Theme.colors.background.card,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: Theme.spacing.sm,
+
+    shadowColor: '#000',
+    shadowOpacity: 0.04,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2,
   },
 
-  label: {
+  title: {
     fontSize: Theme.typography.size.small,
+    fontWeight: Theme.typography.fontWeight.medium,
     color: Theme.colors.text.primary,
   },
 
+  subtitle: {
+    fontSize: Theme.typography.size.caption,
+    color: 'rgba(107,114,128,0.8)',
+    marginTop: 2,
+  },
+
   divider: {
-    position: 'absolute',
-    right: 0,
-    top: 10,
-    height: 40,
     width: 1,
-    backgroundColor: '#E5E7EB',
+    height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.06)',
   },
 
   separator: {
     height: 1,
-    backgroundColor: '#E5E7EB',
+    backgroundColor: Theme.colors.border.default,
     marginVertical: Theme.spacing.lg,
   },
 
   brandRow: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
     gap: Theme.spacing.sm,
+    marginTop: 4,
   },
 
   logo: {
-    width: 28,
-    height: 28,
-    borderRadius: 8,
+    width: 32,
+    height: 32,
+    borderRadius: Theme.radius.sm,
     backgroundColor: Theme.colors.primary.main,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   logoText: {
-    color: '#fff',
-    fontWeight: '600',
+    color: Theme.colors.base.white,
+    fontWeight: Theme.typography.fontWeight.semibold,
   },
 
   brand: {
     fontSize: Theme.typography.size.body,
-    fontWeight: Theme.typography.fontWeight.medium,
+    fontWeight: Theme.typography.fontWeight.semibold,
     color: Theme.colors.text.primary,
   },
 
   description: {
     textAlign: 'center',
     marginTop: Theme.spacing.sm,
+    fontSize: Theme.typography.size.small,
     color: Theme.colors.text.secondary,
   },
 
@@ -90,12 +111,26 @@ export const styles = StyleSheet.create({
   },
 
   link: {
-    color: Theme.colors.primary.main,
     fontSize: Theme.typography.size.small,
+    color: Theme.colors.primary.main,
+    fontWeight: Theme.typography.fontWeight.medium,
   },
 
   dot: {
     marginHorizontal: Theme.spacing.sm,
     color: Theme.colors.text.secondary,
+  },
+  waveDecor: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 60,
+
+    backgroundColor: '#D1FAE5',
+    opacity: 0.1,
+
+    borderTopLeftRadius: 100,
+    borderTopRightRadius: 100,
   },
 });
