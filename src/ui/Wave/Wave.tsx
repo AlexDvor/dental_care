@@ -6,9 +6,40 @@ import { Theme } from '../../constants/colors';
 
 const { width } = Dimensions.get('window');
 
+/* 🔹 маленький компонент зірочки */
+const Sparkle = ({ x, y, size = 8, opacity = 0.8 }) => (
+  <Path
+    d={`
+      M ${x} ${y - size}
+      L ${x + size * 0.3} ${y - size * 0.3}
+      L ${x + size} ${y}
+      L ${x + size * 0.3} ${y + size * 0.3}
+      L ${x} ${y + size}
+      L ${x - size * 0.3} ${y + size * 0.3}
+      L ${x - size} ${y}
+      L ${x - size * 0.3} ${y - size * 0.3}
+      Z
+    `}
+    fill="#D1FAE5"
+    opacity={opacity}
+  />
+);
+
 const Wave = () => {
   return (
-    <View style={StyleSheet.absoluteFill}>
+    <View style={StyleSheet.absoluteFill} pointerEvents="none">
+      {/* ✨ SPARKLES */}
+      <Svg
+        width={width}
+        height={160}
+        viewBox="0 0 375 160"
+        preserveAspectRatio="none"
+        style={styles.sparkles}
+      >
+        <Sparkle x={130} y={125} size={6} opacity={0.7} />
+        <Sparkle x={255} y={150} size={8} opacity={0.8} />
+      </Svg>
+
       {/* BACK LAYER */}
       <Svg
         width={width}
@@ -58,6 +89,11 @@ const Wave = () => {
 export default Wave;
 
 const styles = StyleSheet.create({
+  sparkles: {
+    position: 'absolute',
+    top: 10,
+  },
+
   backWave: {
     position: 'absolute',
     bottom: 10,
