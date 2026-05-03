@@ -11,7 +11,7 @@ import TrustBlock from '../../ui/TrustBlock/TrustBlock';
 
 import { styles } from './HomeScreen.style';
 
-const items = [
+const trustBlockItems = [
   {
     icon: 'verified',
     label: 'Verified',
@@ -62,29 +62,7 @@ const HomeScreen = () => {
             expiresIn={86400}
           /> */}
           <TrustBlock
-            items={[
-              {
-                icon: 'verified',
-                label: 'Verified',
-                subLabel: 'Trusted & Secure',
-                bg: '#DCFCE7',
-                color: '#16A34A',
-              },
-              {
-                icon: 'lock',
-                label: 'Encrypted',
-                subLabel: 'Data Protection',
-                bg: '#DBEAFE',
-                color: '#2563EB',
-              },
-              {
-                icon: 'award',
-                label: 'Top Tier',
-                subLabel: 'Premium Quality',
-                bg: '#F3E8FF',
-                color: '#8B5CF6',
-              },
-            ]}
+            items={[...trustBlockItems]}
             brandName="DentalCare"
             description="Premium dental care simplified."
             onPrivacyPress={() => {}}

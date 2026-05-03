@@ -16,7 +16,7 @@ const TrustBlock = ({
 }: TrustBlockProps) => {
   return (
     <View style={styles.container}>
-      {/* 🔹 TRUST ROW */}
+      {/*TRUST ROW */}
       <View style={styles.row}>
         {items.map((item, index) => (
           <React.Fragment key={index}>
@@ -38,10 +38,10 @@ const TrustBlock = ({
         ))}
       </View>
 
-      {/* 🔹 DIVIDER */}
+      {/* DIVIDER */}
       <View style={styles.separator} />
 
-      {/* 🔹 BRAND */}
+      {/*BRAND */}
       <View style={styles.brandRow}>
         <View style={styles.logo}>
           <Text style={styles.logoText}>{brandName[0]}</Text>
@@ -52,7 +52,7 @@ const TrustBlock = ({
 
       <Text style={styles.description}>{description}</Text>
 
-      {/* 🔹 LINKS */}
+      {/* LINKS */}
       <View style={styles.links}>
         <TouchableOpacity onPress={onPrivacyPress}>
           <Text style={styles.link}>Privacy Policy</Text>

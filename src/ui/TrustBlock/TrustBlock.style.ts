@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     marginTop: Theme.spacing.xl,
     padding: Theme.spacing.xl,
     overflow: 'hidden',
-    backgroundColor: Theme.colors.background.soft,
+    backgroundColor: Theme.colors.background.card,
     borderRadius: Theme.radius.lg,
 
     shadowColor: '#000',
