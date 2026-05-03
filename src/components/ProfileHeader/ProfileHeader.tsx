@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -7,11 +7,15 @@ import { Theme } from '../../constants/colors';
 import { Icon } from '../../ui/Icon/Icon';
 import Wave from '../../ui/Wave/Wave';
 
-const HomeHeader = () => {
+interface ProfileHeaderProps {
+  style?: ViewStyle;
+}
+
+const ProfileHeader = ({ style }: ProfileHeaderProps) => {
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, style]}>
       <LinearGradient
         colors={['#1F8A5B', '#0E7A4B']}
         locations={[0, 1]}
@@ -46,7 +50,7 @@ const HomeHeader = () => {
   );
 };
 
-export default HomeHeader;
+export default ProfileHeader;
 
 const styles = StyleSheet.create({
   wrapper: {

@@ -10,6 +10,7 @@ export default function ProfileStack() {
     <Stack.Navigator
       screenOptions={{
         headerShadowVisible: false,
+        headerShown: false,
       }}
     >
       <Stack.Screen

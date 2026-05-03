@@ -2,7 +2,7 @@ import { ScrollView, StatusBar, View } from 'react-native';
 
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import HealthBanner from '../../components/HealthBanner/HealthBanner';
-import HomeHeader from '../../components/HomeHeader/HomeHeader';
+import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import PromoBanner from '../../components/PromoBanner/PromoBanner';
 import QuickActionsGrid from '../../components/QuickActionsGrid/QuickActionsGrid';
 import StatsCard from '../../components/StatsCard/StatsCard';
@@ -44,7 +44,7 @@ const HomeScreen = () => {
         showsVerticalScrollIndicator={false}
         bounces={false} // прибирає білий “відскок” на iOS
       >
-        <HomeHeader />
+        <ProfileHeader />
 
         <View style={styles.content}>
           <StatsCard />
