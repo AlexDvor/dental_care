@@ -7,7 +7,8 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 2,
-      staleTime: 1000 * 60 * 5, // 5 хв кеш
+      // staleTime: 1000 * 60 * 5, // 5 хв кеш
+      staleTime: 1000 * 60 * 15, // 15 хв кеш
       refetchOnWindowFocus: false,
     },
   },

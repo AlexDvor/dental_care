@@ -7,8 +7,6 @@ export const useDoctors = () => {
   return useQuery<DoctorType[]>({
     queryKey: ['doctors'],
     queryFn: getDoctors,
-    staleTime: 1000 * 60 * 5, // 5 хв кеш
-    retry: 1,
     // select: data => data.filter(d => d.rating > 4),
   });
 };
