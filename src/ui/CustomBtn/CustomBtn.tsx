@@ -16,7 +16,9 @@ const CustomBtn = ({
   iconSize = 20,
   iconColor = '#fff',
   type = 'primary',
+  isDisabled = false,
 }: CustomBtnProps) => {
+  console.log('🚀 ~ CustomBtn ~ isDisabled:', isDisabled);
   const isPrimary = type === 'primary';
 
   const containerTypeStyle = {
@@ -34,6 +36,7 @@ const CustomBtn = ({
       style={[styles.container, containerTypeStyle, style]}
       onPress={onPress}
       activeOpacity={0.8}
+      disabled={isDisabled}
     >
       <View style={styles.content}>
         {icon && iconPosition === 'left' && (

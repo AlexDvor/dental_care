@@ -93,4 +93,13 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     color: Theme.colors.text.secondary,
   },
+  dayToday: {
+    borderWidth: 1,
+    borderColor: '#4CAF50',
+  },
+
+  dayTextToday: {
+    color: '#4CAF50',
+    fontWeight: '600',
+  },
 });

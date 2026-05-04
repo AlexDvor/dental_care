@@ -1,8 +1,13 @@
-export interface CalendarCardProps {
+export type CalendarCardProps = {
   month: string;
   year: number;
   monthIndex: number;
-  availableDays: number[];
+
   selectedDay: number;
   onSelectDay: (day: number) => void;
-}
+
+  availableDays?: number[];
+
+  onPrevMonth?: () => void;
+  onNextMonth?: () => void;
+};

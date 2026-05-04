@@ -1,4 +1,4 @@
-import { TextStyle,ViewStyle } from 'react-native';
+import { TextStyle, ViewStyle } from 'react-native';
 
 import { IconName } from '../Icon/Icon.interface';
 
@@ -14,4 +14,5 @@ export interface CustomBtnProps {
   iconSize?: number;
   iconColor?: string;
   type?: 'primary' | 'secondary';
+  isDisabled?: boolean;
 }
