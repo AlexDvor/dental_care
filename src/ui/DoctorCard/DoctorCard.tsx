@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity,View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { Icon } from '../Icon/Icon';
 import { DoctorCardProps } from './DoctorCard.interface';
@@ -19,7 +19,11 @@ const DoctorCard = ({
     >
       <View style={styles.left}>
         <Image
-          source={require('../../assets/images/doctor.jpg')}
+          source={
+            typeof doctor.image === 'string'
+              ? { uri: doctor.image }
+              : doctor.image
+          }
           style={styles.image}
         />
 

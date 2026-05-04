@@ -66,7 +66,7 @@ const DoctorProfileScreen = () => {
         <DoctorHeader
           name={data?.name || 'Doctor Name'}
           rating={data?.rating || 0.0}
-          image={'https://placehold.co/100x10'}
+          image={data?.image || ''}
           reviews={data?.reviews || []}
           specialty={data?.specialty || ''}
         />

@@ -1,6 +1,5 @@
-import { Image,Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
-import { DOCTORS } from '../../../mockData/doctors';
 import { DoctorHeaderProps } from './DoctorHeader.interface';
 
 import { styles } from './DoctorHeader.style';
@@ -10,11 +9,12 @@ const DoctorHeader = ({
   rating,
   reviews,
   specialty,
+  image,
 }: DoctorHeaderProps) => {
   return (
     <View style={styles.wrapper}>
       <Image
-        source={DOCTORS[0].image}
+        source={typeof image === 'string' ? { uri: image } : image}
         style={styles.image}
         resizeMode="cover"
         borderRadius={10}

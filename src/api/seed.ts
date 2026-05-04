@@ -1,19 +1,18 @@
-import { addDoc,collection } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 
 import { DOCTORS } from '../mockData/doctors';
 import { db } from './firebase';
 
 export const seedDoctors = async () => {
   try {
-    const collectionRef = collection(db, 'doctors');
+    const promises = DOCTORS.map(doctor => {
+      const docRef = doc(db, 'doctors', doctor.id);
+      return setDoc(docRef, doctor, { merge: true });
+    });
 
-    for (const doctor of DOCTORS) {
-      const { id, ...doctorData } = doctor;
+    await Promise.all(promises);
 
-      await addDoc(collectionRef, doctorData);
-    }
-
-    console.log('🔥 Data seeded!');
+    console.log('🔥 Doctors seeded successfully!');
   } catch (error) {
     console.error('❌ Seed error:', error);
   }

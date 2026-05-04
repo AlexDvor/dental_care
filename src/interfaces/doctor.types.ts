@@ -7,14 +7,6 @@ export type ReviewProps = {
   date: string;
 };
 
-export type Schedule = {
-  month: string;
-  year: number;
-  monthIndex: number;
-  availableDays: number[];
-  availableTimes: string[];
-};
-
 export type Education = {
   university: string;
   period: string;
@@ -26,18 +18,22 @@ export type StatsProps = {
   satisfaction: number;
 };
 
+export type WorkingHoursProps = {
+  start: string;
+  end: string;
+};
+
 export type DoctorType = {
   id: string;
   name: string;
   specialty: string;
   experience: number;
   rating: number;
-
+  slotDuration: number;
   image: string;
   about: string;
   education: Education;
   stats: StatsProps;
-  schedule: Schedule;
-
+  workingHours: WorkingHoursProps;
   reviews: ReviewProps[];
 };

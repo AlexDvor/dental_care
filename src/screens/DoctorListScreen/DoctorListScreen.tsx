@@ -73,7 +73,7 @@ const DoctorListScreen = () => {
     return (
       <LayoutAreaView withHeader>
         <View style={styles.container}>
-          <Text>{error}</Text>
+          <Text>{error.message}</Text>
           <CustomBtn title="Try again" onPress={refetch} />
         </View>
       </LayoutAreaView>

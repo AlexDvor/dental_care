@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 270,
+    height: 400,
   },
   card: {
     position: 'absolute',

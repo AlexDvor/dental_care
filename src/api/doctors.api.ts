@@ -3,17 +3,21 @@ import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { DoctorType } from '../interfaces/doctor.types';
 import { db } from './firebase';
 
+const mapDoctor = (doc: any): DoctorType => {
+  return {
+    id: doc.id,
+    ...(doc.data() as Omit<DoctorType, 'id'>),
+  };
+};
+
 export const getDoctors = async (): Promise<DoctorType[]> => {
   try {
     const snapshot = await getDocs(collection(db, 'doctors'));
 
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...(doc.data() as Omit<DoctorType, 'id'>),
-    }));
+    return snapshot.docs.map(mapDoctor);
   } catch (error) {
-    console.error('❌ getDoctors error:', error);
-    throw error;
+    console.error('❌ getDoctors failed:', error);
+    throw new Error('Failed to fetch doctors');
   }
 };
 
@@ -23,15 +27,12 @@ export const getDoctorById = async (id: string): Promise<DoctorType> => {
     const snapshot = await getDoc(docRef);
 
     if (!snapshot.exists()) {
-      throw new Error('Doctor not found');
+      throw new Error(`Doctor with id ${id} not found`);
     }
 
-    return {
-      id: snapshot.id,
-      ...(snapshot.data() as Omit<DoctorType, 'id'>),
-    };
+    return mapDoctor(snapshot);
   } catch (error) {
-    console.error('❌ getDoctorById error:', error);
-    throw error;
+    console.error('❌ getDoctorById failed:', error);
+    throw new Error('Failed to fetch doctor');
   }
 };

@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { ScrollView, StatusBar, View } from 'react-native';
 
+import { seedDoctors } from '../../api/seed';
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import HealthBanner from '../../components/HealthBanner/HealthBanner';
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
