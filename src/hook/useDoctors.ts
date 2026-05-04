@@ -1,36 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 import { getDoctors } from '../api/doctors.api';
-import { Doctor } from '../interfaces/doctor.types';
+import { DoctorType } from '../interfaces/doctor.types';
 
 export const useDoctors = () => {
-  const [data, setData] = useState<Doctor[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchDoctors = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const doctors = await getDoctors();
-      setData(doctors as Doctor[]);
-    } catch (err) {
-      console.log('🚀 ~ err:', err);
-      setError('Failed to load doctors');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchDoctors();
-  }, []);
-
-  return {
-    data,
-    loading,
-    error,
-    refetch: fetchDoctors,
-  };
+  return useQuery<DoctorType[]>({
+    queryKey: ['doctors'],
+    queryFn: getDoctors,
+    staleTime: 1000 * 60 * 5, // 5 хв кеш
+    retry: 1,
+    // select: data => data.filter(d => d.rating > 4),
+  });
 };

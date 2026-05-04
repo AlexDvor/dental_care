@@ -28,7 +28,7 @@ const SelectDateScreen = () => {
 
   const { doctorId, serviceType, totalPrice } = route.params;
 
-  const { data: doctor, loading, error } = useDoctorById(doctorId);
+  const { data: doctor, isLoading, error } = useDoctorById(doctorId);
 
   const [day, setDay] = useState<number>(0);
   const [time, setTime] = useState<string>('');
@@ -42,7 +42,7 @@ const SelectDateScreen = () => {
     setTime(schedule.availableTimes[0] || '');
   }, [doctor]);
 
-  if (loading) {
+  if (isLoading) {
     return (
       <LayoutAreaView withHeader>
         <View
@@ -60,7 +60,7 @@ const SelectDateScreen = () => {
         <View
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
-          <Text>{error}</Text>
+          <Text>{error.message}</Text>
         </View>
       </LayoutAreaView>
     );

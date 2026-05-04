@@ -1,4 +1,4 @@
-import { collection, doc, getDoc,getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 
 import { DoctorType } from '../interfaces/doctor.types';
 import { db } from './firebase';
@@ -17,12 +17,14 @@ export const getDoctors = async (): Promise<DoctorType[]> => {
   }
 };
 
-export const getDoctorById = async (id: string): Promise<DoctorType | null> => {
+export const getDoctorById = async (id: string): Promise<DoctorType> => {
   try {
     const docRef = doc(db, 'doctors', id);
     const snapshot = await getDoc(docRef);
 
-    if (!snapshot.exists()) return null;
+    if (!snapshot.exists()) {
+      throw new Error('Doctor not found');
+    }
 
     return {
       id: snapshot.id,

@@ -11,9 +11,9 @@ import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import DoctorCard from '../../ui/DoctorCard/DoctorCard';
 import SearchInput from '../../ui/SearchInput/SearchInput';
 import SecurityNote from '../../ui/SecurityNote/SecurityNote';
+import SubTitle from '../../ui/SubTitle/SubTitle';
 
 import { styles } from './DoctorListScreen.style';
-import SubTitle from '../../ui/SubTitle/SubTitle';
 
 type Route = RouteProp<BookingStackParamList, 'DoctorList'>;
 
@@ -25,7 +25,7 @@ type Navigation = NativeStackNavigationProp<
 const DoctorListScreen = () => {
   const [search, setSearch] = useState('');
 
-  const { data: doctors, loading, error, refetch } = useDoctors();
+  const { data: doctors, isLoading, error, refetch } = useDoctors();
 
   const navigation = useNavigation<Navigation>();
 
@@ -36,7 +36,7 @@ const DoctorListScreen = () => {
   const filteredDoctors = useMemo(() => {
     if (!search.trim()) return doctors;
 
-    return doctors.filter(doc =>
+    return doctors?.filter(doc =>
       doc.name.toLowerCase().includes(search.toLowerCase()),
     );
   }, [search, doctors]);
@@ -57,7 +57,7 @@ const DoctorListScreen = () => {
     });
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <LayoutAreaView withHeader>
         <View
@@ -90,7 +90,7 @@ const DoctorListScreen = () => {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
-          {filteredDoctors.map(doc => (
+          {filteredDoctors?.map(doc => (
             <DoctorCard
               key={doc.id}
               doctor={doc}
@@ -99,7 +99,7 @@ const DoctorListScreen = () => {
             />
           ))}
 
-          {!filteredDoctors.length && (
+          {!filteredDoctors?.length && (
             <Text style={{ textAlign: 'center' }}>No doctors found</Text>
           )}
         </ScrollView>

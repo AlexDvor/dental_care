@@ -1,4 +1,4 @@
-import { ActivityIndicator, ScrollView, Text,View } from 'react-native';
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
@@ -29,13 +29,13 @@ const DoctorProfileScreen = () => {
   const navigation = useNavigation<Navigation>();
 
   const { doctorId, serviceType, totalPrice } = route.params;
-  const { data, error, loading, refetch } = useDoctorById(doctorId);
+  const { data, error, isLoading, refetch } = useDoctorById(doctorId);
 
   const handlePressToSelectDate = () => {
     navigation.navigate('SelectDate', { doctorId, serviceType, totalPrice });
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <LayoutAreaView withHeader>
         <View
@@ -53,7 +53,7 @@ const DoctorProfileScreen = () => {
         <View
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
-          <Text>{error}</Text>
+          <Text>{error.message}</Text>
           <CustomBtn title="Try again" onPress={refetch} />
         </View>
       </LayoutAreaView>
