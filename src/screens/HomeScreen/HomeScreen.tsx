@@ -7,8 +7,6 @@ import PromoBanner from '../../components/PromoBanner/PromoBanner';
 import QuickActionsGrid from '../../components/QuickActionsGrid/QuickActionsGrid';
 import StatsCard from '../../components/StatsCard/StatsCard';
 import { Theme } from '../../constants/colors';
-import { useTheme } from '../../hook/useTheme';
-import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
 
 import { styles } from './HomeScreen.style';
@@ -38,15 +36,8 @@ const trustBlockItems = [
 ];
 
 const HomeScreen = () => {
-  const { theme, toggleTheme } = useTheme();
-
   return (
-    <View
-      style={[
-        styles.container,
-        { backgroundColor: theme === 'light' ? 'white' : 'black' },
-      ]}
-    >
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" translucent />
 
       <ScrollView
@@ -76,11 +67,6 @@ const HomeScreen = () => {
             description="Premium dental care simplified."
             onPrivacyPress={() => {}}
             onTermsPress={() => {}}
-          />
-
-          <CustomBtn
-            title={`Change Theme: ${theme}  `}
-            onPress={() => toggleTheme()}
           />
         </View>
       </ScrollView>
