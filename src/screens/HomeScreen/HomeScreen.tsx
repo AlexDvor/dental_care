@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { ScrollView, StatusBar, View } from 'react-native';
 
 import { seedDoctors } from '../../api/seed';
+import { seedSlots } from '../../api/seedSlots';
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import HealthBanner from '../../components/HealthBanner/HealthBanner';
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
@@ -12,6 +13,7 @@ import { Theme } from '../../constants/colors';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
 
 import { styles } from './HomeScreen.style';
+import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 
 const trustBlockItems = [
   {
@@ -38,6 +40,9 @@ const trustBlockItems = [
 ];
 
 const HomeScreen = () => {
+  // useEffect(() => {
+  //   seedSlots();
+  // }, []);
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" translucent />
@@ -71,6 +76,13 @@ const HomeScreen = () => {
             onTermsPress={() => {}}
           />
         </View>
+
+        {/* <CustomBtn
+          title="Go"
+          onPress={() => {
+            seedSlots();
+          }}
+        /> */}
       </ScrollView>
     </View>
   );

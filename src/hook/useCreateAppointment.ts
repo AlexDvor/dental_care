@@ -8,13 +8,9 @@ export const useCreateAppointment = () => {
   return useMutation({
     mutationFn: createAppointment,
 
-    onSuccess: (_, variables) => {
-      // 🔥 інвалідимо кеш (місяць)
-      const date = new Date(variables.startTime);
-      const start = new Date(date.getFullYear(), date.getMonth(), 1).getTime();
-
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['appointments-month', variables.doctorId, start],
+        queryKey: ['slots-month'],
       });
     },
   });

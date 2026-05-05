@@ -39,8 +39,7 @@ export type BookingStackParamList = {
     time: string;
     serviceType: string[];
     totalPrice: number;
-    startTime: number;
-    endTime: number;
+    slotId: string;
   };
 };
 

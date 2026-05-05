@@ -16,80 +16,55 @@ export type AppointmentType = {
   endTime: number;
 };
 
-type CreateAppointmentParams = {
-  doctorId: string;
-  userId: string;
-  startTime: number;
-  endTime: number;
-};
-
+// 🔥 залишаємо тільки якщо десь ще використовується
 export const getAppointmentsByDoctorAndDate = async (
   doctorId: string,
   startOfDay: number,
   endOfDay: number,
 ): Promise<AppointmentType[]> => {
-  try {
-    const q = query(
-      collection(db, 'appointments'),
-      where('doctorId', '==', doctorId),
-      where('startTime', '>=', startOfDay),
-      where('startTime', '<=', endOfDay),
-    );
+  const q = query(
+    collection(db, 'appointments'),
+    where('doctorId', '==', doctorId),
+    where('startTime', '>=', startOfDay),
+    where('startTime', '<=', endOfDay),
+  );
 
-    const snapshot = await getDocs(q);
+  const snapshot = await getDocs(q);
 
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...(doc.data() as Omit<AppointmentType, 'id'>),
-    }));
-  } catch (error) {
-    console.error('❌ getAppointments error:', error);
-    throw new Error('Failed to fetch appointments');
-  }
+  return snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...(doc.data() as Omit<AppointmentType, 'id'>),
+  }));
 };
 
+// ✅ SLOT-BASED
 export const createAppointment = async ({
-  doctorId,
+  slotId,
   userId,
-  startTime,
-  endTime,
-}: CreateAppointmentParams) => {
-  try {
-    const appointmentRef = doc(collection(db, 'appointments'));
+}: {
+  slotId: string;
+  userId: string;
+}) => {
+  const slotRef = doc(db, 'slots', slotId);
 
-    const snapshot = await getDocs(
-      query(
-        collection(db, 'appointments'),
-        where('doctorId', '==', doctorId),
-        where('startTime', '>=', startTime - 1000 * 60 * 60 * 24),
-        where('startTime', '<=', endTime + 1000 * 60 * 60 * 24),
-      ),
-    );
+  await runTransaction(db, async transaction => {
+    const snapshot = await transaction.get(slotRef);
 
-    const hasConflict = snapshot.docs.some(doc => {
-      const data = doc.data();
+    if (!snapshot.exists()) {
+      throw new Error('Slot not found');
+    }
 
-      return startTime < data.endTime && endTime > data.startTime;
-    });
+    const data = snapshot.data();
 
-    if (hasConflict) {
+    if (data.isBooked) {
       throw new Error('Time slot already booked');
     }
 
-    //  запис
-    await runTransaction(db, async transaction => {
-      transaction.set(appointmentRef, {
-        doctorId,
-        userId,
-        startTime,
-        endTime,
-        createdAt: Date.now(),
-      });
+    transaction.update(slotRef, {
+      isBooked: true,
+      bookedBy: userId,
     });
+  });
 
-    return { success: true };
-  } catch (error) {
-    console.error('❌ createAppointment error:', error);
-    throw error;
-  }
+  return { success: true };
 };

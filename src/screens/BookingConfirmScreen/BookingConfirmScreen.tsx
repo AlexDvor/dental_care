@@ -24,25 +24,16 @@ const BookingConfirmScreen = () => {
   const route = useRoute<Route>();
   const navigation = useNavigation<RootNav>();
 
-  const {
-    doctorData,
-    date,
-    time,
-    serviceType,
-    totalPrice,
-    endTime,
-    startTime,
-  } = route.params;
+  const { doctorData, date, time, serviceType, totalPrice, slotId } =
+    route.params;
 
   const { mutate, isPending } = useCreateAppointment();
 
   const handleConfirm = () => {
     mutate(
       {
-        doctorId: doctorData.id,
+        slotId,
         userId: MOCK_USER_ID,
-        startTime,
-        endTime,
       },
       {
         onSuccess: () => {
