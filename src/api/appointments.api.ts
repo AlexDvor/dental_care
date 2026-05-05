@@ -57,28 +57,22 @@ export const createAppointment = async ({
   try {
     const appointmentRef = doc(collection(db, 'appointments'));
 
+    const snapshot = await getDocs(
+      query(collection(db, 'appointments'), where('doctorId', '==', doctorId)),
+    );
+
+    const hasConflict = snapshot.docs.some(doc => {
+      const data = doc.data();
+
+      return startTime < data.endTime && endTime > data.startTime;
+    });
+
+    if (hasConflict) {
+      throw new Error('Time slot already booked');
+    }
+
+    //  запис
     await runTransaction(db, async transaction => {
-      // 🔍 1. перевіряємо конфлікти
-      const appointmentsRef = collection(db, 'appointments');
-
-      // ❗ тут немає query в transaction, тому беремо всі лікаря (MVP ок)
-      // production — краще через cloud function або індекси
-
-      const snapshot = await transaction.get(appointmentsRef);
-
-      const hasConflict = snapshot.docs.some(doc => {
-        const data = doc.data();
-
-        if (data.doctorId !== doctorId) return false;
-
-        return startTime < data.endTime && endTime > data.startTime;
-      });
-
-      if (hasConflict) {
-        throw new Error('Time slot already booked');
-      }
-
-      // ✅ 2. створюємо запис
       transaction.set(appointmentRef, {
         doctorId,
         userId,

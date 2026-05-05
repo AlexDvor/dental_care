@@ -1,3 +1,5 @@
+import { NavigationProp } from '@react-navigation/native';
+
 import { DoctorType } from '../interfaces/doctor.types';
 
 export type TabParamList = {
@@ -49,3 +51,5 @@ export type ChatStackParamList = {
 export type ProfileStackParamList = {
   ProfileMain: undefined;
 };
+
+export type RootNav = NavigationProp<TabParamList>;
