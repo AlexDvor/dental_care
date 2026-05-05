@@ -18,7 +18,6 @@ const CustomBtn = ({
   type = 'primary',
   isDisabled = false,
 }: CustomBtnProps) => {
-  console.log('🚀 ~ CustomBtn ~ isDisabled:', isDisabled);
   const isPrimary = type === 'primary';
 
   const containerTypeStyle = {

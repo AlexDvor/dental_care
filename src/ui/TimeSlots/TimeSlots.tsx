@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text,View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import TimeSlotButton from '../TimeSlotButton/TimeSlotButton';
 import { TimeSlotsProps } from './TimeSlots.interface';
@@ -17,11 +17,11 @@ const TimeSlots = ({ times, selected, onSelect }: TimeSlotsProps) => {
       <View style={styles.grid}>
         {times.map(time => (
           <TimeSlotButton
-            key={time}
+            key={time.id}
             time={time}
-            selected={selected === time}
-            recommended={time === '02:00 PM'}
-            onPress={() => onSelect(time)}
+            selected={selected === time.id}
+            recommended={time.label === '02:00 PM'}
+            onPress={() => onSelect(time.id)}
           />
         ))}
       </View>

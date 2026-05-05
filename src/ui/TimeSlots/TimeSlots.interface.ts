@@ -1,5 +1,11 @@
+export interface TimeSlotItem {
+  label: string;
+  id: string;
+  startTime: number;
+}
+
 export interface TimeSlotsProps {
-  times: string[];
-  selected: string;
-  onSelect: (time: string) => void;
+  times: TimeSlotItem[];
+  selected: string | null;
+  onSelect: (id: string) => void;
 }

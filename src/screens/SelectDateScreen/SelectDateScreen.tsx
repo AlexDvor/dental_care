@@ -6,8 +6,6 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { getSlotsByDoctorAndMonth } from '../../api/slots.api';
-// import { getAppointmentsByDoctorAndDate } from '../../api/appointments.api';
-// import { useAppointmentsByMonth } from '../../hook/useAppointmentsByMonth';
 import { useDoctorById } from '../../hook/useDoctorById';
 import { useSlotsByMonth } from '../../hook/useSlotsByMonth';
 import LayoutAreaView from '../../layout/LayoutAreaView';
@@ -18,8 +16,6 @@ import SecurityNote from '../../ui/SecurityNote/SecurityNote';
 import SubTitle from '../../ui/SubTitle/SubTitle';
 import TimeSlots from '../../ui/TimeSlots/TimeSlots';
 
-// import { filterAvailableSlots } from '../../utils/filterAvailableSlots';
-// import { generateTimeSlots } from '../../utils/generateTimeSlots';
 import { styles } from './SelectDateScreen.style';
 
 type Route = RouteProp<BookingStackParamList, 'SelectDate'>;
@@ -46,30 +42,17 @@ const SelectDateScreen = () => {
   const { data: doctor, isLoading, error } = useDoctorById(doctorId);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
+  const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
 
-  // 👉 appointments (місяць)
   const { data: slots = [], isLoading: isMonthLoading } = useSlotsByMonth(
     doctorId,
     selectedDate,
   );
 
-  console.log(
-    'has matching slots:',
-    slots.some(s => s.doctorId === doctorId),
-  );
-  console.log('doctorId:', doctorId);
-  console.log('SLOTS:', slots);
-
-  // 🔥 PREFETCH наступного місяця
   const prefetchNextMonth = (date: Date) => {
     if (!doctorId) return;
-
     const next = new Date(date.getFullYear(), date.getMonth() + 1, 1);
-
-    // ✅ FIX — UTC
     const start = Date.UTC(next.getFullYear(), next.getMonth(), 1);
-
     const end = Date.UTC(
       next.getFullYear(),
       next.getMonth() + 1,
@@ -79,44 +62,44 @@ const SelectDateScreen = () => {
       59,
       999,
     );
-
     queryClient.prefetchQuery({
-      // 🔥 теж краще виправити
       queryKey: ['slots-month', doctorId, start, end],
       queryFn: () => getSlotsByDoctorAndMonth(doctorId, start, end),
     });
   };
 
-  // 👉 available days
   const availableDays = useMemo(() => {
-    const days = new Set<number>();
-
+    const daysSet = new Set<number>();
     slots.forEach(slot => {
       if (!slot.isBooked) {
-        const date = new Date(slot.startTime);
-        days.add(date.getDate());
+        const slotDate = new Date(slot.startTime);
+        daysSet.add(slotDate.getDate());
       }
     });
-
-    return Array.from(days);
+    return Array.from(daysSet);
   }, [slots]);
-  // 👉 slots
+
+  // Доступні слоти для вибраної дати
   const availableSlots = useMemo(() => {
     return slots.filter(slot => {
-      const d = new Date(slot.startTime);
-
+      const dateYear = selectedDate.getFullYear();
+      const dateMonth = selectedDate.getMonth();
+      const dateDay = selectedDate.getDate();
+      const startOfDayUTC = Date.UTC(dateYear, dateMonth, dateDay, 0, 0, 0);
+      const endOfDayUTC = Date.UTC(dateYear, dateMonth, dateDay + 1, 0, 0, 0);
       return (
-        d.getDate() === selectedDate.getDate() &&
-        d.getMonth() === selectedDate.getMonth() &&
+        slot.startTime >= startOfDayUTC &&
+        slot.startTime < endOfDayUTC &&
         !slot.isBooked
       );
     });
   }, [slots, selectedDate]);
 
-  // 👉 UI
+  // Форматування даних для UI
   const formattedTimes = availableSlots.map(slot => ({
     label: formatTime(slot.startTime),
-    value: slot.startTime,
+    id: slot.id,
+    startTime: slot.startTime,
   }));
 
   if (isLoading) {
@@ -142,12 +125,11 @@ const SelectDateScreen = () => {
   if (!doctor) return null;
 
   const handlePressContinue = () => {
-    if (!selectedSlot) return;
-
-    const slot = availableSlots.find(s => s.startTime === selectedSlot);
+    if (!selectedSlotId) return;
+    const slot = availableSlots.find(s => s.id === selectedSlotId);
 
     if (!slot) {
-      setSelectedSlot(null);
+      setSelectedSlotId(null);
       return;
     }
 
@@ -180,7 +162,7 @@ const SelectDateScreen = () => {
                 day,
               );
               setSelectedDate(newDate);
-              setSelectedSlot(null);
+              setSelectedSlotId(null);
             }}
             onPrevMonth={() => {
               const newDate = new Date(
@@ -211,11 +193,10 @@ const SelectDateScreen = () => {
             </Text>
           ) : (
             <TimeSlots
-              times={formattedTimes.map(t => t.label)}
-              selected={selectedSlot ? formatTime(selectedSlot) : ''}
-              onSelect={time => {
-                const slot = formattedTimes.find(t => t.label === time);
-                setSelectedSlot(slot?.value || null);
+              times={formattedTimes}
+              selected={selectedSlotId}
+              onSelect={(slotId: string) => {
+                setSelectedSlotId(slotId);
               }}
             />
           )}
@@ -225,7 +206,7 @@ const SelectDateScreen = () => {
           <CustomBtn
             title="Continue"
             onPress={handlePressContinue}
-            isDisabled={!selectedSlot}
+            isDisabled={!selectedSlotId}
           />
         </View>
 
