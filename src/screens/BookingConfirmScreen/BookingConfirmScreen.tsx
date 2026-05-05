@@ -18,6 +18,8 @@ import SubTitle from '../../ui/SubTitle/SubTitle';
 
 type Route = RouteProp<BookingStackParamList, 'BookingConfirm'>;
 
+const MOCK_USER_ID = 'user1';
+
 const BookingConfirmScreen = () => {
   const route = useRoute<Route>();
   const navigation = useNavigation<RootNav>();
@@ -38,7 +40,7 @@ const BookingConfirmScreen = () => {
     mutate(
       {
         doctorId: doctorData.id,
-        userId: 'user1', // 🔥 поки мок
+        userId: MOCK_USER_ID,
         startTime,
         endTime,
       },

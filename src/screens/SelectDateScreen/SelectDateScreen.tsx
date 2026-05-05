@@ -85,7 +85,7 @@ const SelectDateScreen = () => {
     const result: number[] = [];
 
     for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month, day);
+      const date = new Date(Date.UTC(year, month, day));
 
       const slots = generateTimeSlots({
         date,

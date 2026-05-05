@@ -58,7 +58,12 @@ export const createAppointment = async ({
     const appointmentRef = doc(collection(db, 'appointments'));
 
     const snapshot = await getDocs(
-      query(collection(db, 'appointments'), where('doctorId', '==', doctorId)),
+      query(
+        collection(db, 'appointments'),
+        where('doctorId', '==', doctorId),
+        where('startTime', '>=', startTime - 1000 * 60 * 60 * 24),
+        where('startTime', '<=', endTime + 1000 * 60 * 60 * 24),
+      ),
     );
 
     const hasConflict = snapshot.docs.some(doc => {

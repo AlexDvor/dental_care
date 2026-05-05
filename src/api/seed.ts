@@ -7,7 +7,7 @@ export const seedDoctors = async () => {
   try {
     const promises = DOCTORS.map(doctor => {
       const docRef = doc(db, 'doctors', doctor.id);
-      return setDoc(docRef, doctor, { merge: true });
+      return setDoc(docRef, doctor);
     });
 
     await Promise.all(promises);

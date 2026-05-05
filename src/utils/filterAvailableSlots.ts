@@ -1,16 +1,16 @@
 import { TimeSlot } from './generateTimeSlots';
 
-type Appointment = {
+type AppointmentType = {
   startTime: number;
   endTime: number;
 };
 
 export const filterAvailableSlots = (
   slots: TimeSlot[],
-  appointments: Appointment[],
+  appointments: AppointmentType[],
 ): TimeSlot[] => {
   return slots.filter(slot => {
-    return !appointments.some(appt => {
+    return !appointments.some((appt: AppointmentType) => {
       return slot.start < appt.endTime && slot.end > appt.startTime;
     });
   });
