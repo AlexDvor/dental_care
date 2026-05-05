@@ -1,1 +1,2 @@
-![Опис зображення](src/assets/screenshots/task_3.gif)
+![Опис зображення](src/assets/screenshots/theme.gif)
+![Опис зображення](src/assets/screenshots/booking.gif)
