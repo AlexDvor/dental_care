@@ -6,9 +6,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { getSlotsByDoctorAndMonth } from '../../api/slots.api';
+import { Theme } from '../../constants/colors';
 import { useDoctorById } from '../../hook/useDoctorById';
 import { useSlotsByMonth } from '../../hook/useSlotsByMonth';
-import LayoutAreaView from '../../layout/LayoutAreaView';
+import LayoutAreaView from '../../layout/ScreenLayout';
+import ScreenLayout from '../../layout/ScreenLayout';
 import { BookingStackParamList } from '../../navigation/types';
 import CalendarCard from '../../ui/CalendarCard/CalendarCard';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
@@ -31,6 +33,8 @@ const formatTime = (timestamp: number) => {
   const minutes = d.getMinutes().toString().padStart(2, '0');
   return `${hours}:${minutes}`;
 };
+
+// доробити бронювання місць, максимум на 2 місяця в перед
 
 const SelectDateScreen = () => {
   const navigation = useNavigation<Navigation>();
@@ -104,21 +108,27 @@ const SelectDateScreen = () => {
 
   if (isLoading) {
     return (
-      <LayoutAreaView withHeader>
+      <ScreenLayout
+        defaultPadding
+        statusBarBackgroundColor={Theme.colors.statusBar.primary}
+      >
         <View style={styles.center}>
           <ActivityIndicator size={40} />
         </View>
-      </LayoutAreaView>
+      </ScreenLayout>
     );
   }
 
   if (error) {
     return (
-      <LayoutAreaView withHeader>
+      <ScreenLayout
+        defaultPadding
+        statusBarBackgroundColor={Theme.colors.statusBar.primary}
+      >
         <View style={styles.center}>
           <Text>{error.message}</Text>
         </View>
-      </LayoutAreaView>
+      </ScreenLayout>
     );
   }
 
@@ -144,11 +154,17 @@ const SelectDateScreen = () => {
   };
 
   return (
-    <LayoutAreaView withHeader>
+    <LayoutAreaView
+      defaultPadding
+      statusBarBackgroundColor={Theme.colors.statusBar.primary}
+    >
       <View style={styles.container}>
         <SubTitle title="Select date and time for your appointment" />
 
-        <ScrollView contentContainerStyle={styles.content}>
+        <ScrollView
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+        >
           <CalendarCard
             month={selectedDate.toLocaleString('default', { month: 'long' })}
             year={selectedDate.getFullYear()}
@@ -206,7 +222,7 @@ const SelectDateScreen = () => {
           <CustomBtn
             title="Continue"
             onPress={handlePressContinue}
-            isDisabled={!selectedSlotId}
+            // isDisabled={!selectedSlotId}
           />
         </View>
 

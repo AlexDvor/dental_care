@@ -9,8 +9,9 @@ import DoctorHeader from '../../components/DoctorProfile/DoctorHeader/DoctorHead
 import EducationItem from '../../components/DoctorProfile/EducationItem/EducationItem';
 import ReviewsSection from '../../components/DoctorProfile/ReviewsSection/ReviewsSection';
 import StatsRow from '../../components/DoctorProfile/StatsRow/StatsRow';
+import { Theme } from '../../constants/colors';
 import { useDoctorById } from '../../hook/useDoctorById';
-import LayoutAreaView from '../../layout/LayoutAreaView';
+import ScreenLayout from '../../layout/ScreenLayout';
 import { BookingStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import SeparatorSection from '../../ui/SeparatorSection/SeparatorSection';
@@ -37,31 +38,40 @@ const DoctorProfileScreen = () => {
 
   if (isLoading) {
     return (
-      <LayoutAreaView withHeader>
+      <ScreenLayout
+        defaultPadding
+        statusBarBackgroundColor={Theme.colors.statusBar.primary}
+      >
         <View
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
           <ActivityIndicator size={40} />
         </View>
-      </LayoutAreaView>
+      </ScreenLayout>
     );
   }
 
   if (error) {
     return (
-      <LayoutAreaView withHeader>
+      <ScreenLayout
+        defaultPadding
+        statusBarBackgroundColor={Theme.colors.statusBar.primary}
+      >
         <View
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
           <Text>{error.message}</Text>
           <CustomBtn title="Try again" onPress={refetch} />
         </View>
-      </LayoutAreaView>
+      </ScreenLayout>
     );
   }
 
   return (
-    <LayoutAreaView withHeader>
+    <ScreenLayout
+      defaultPadding
+      statusBarBackgroundColor={Theme.colors.statusBar.primary}
+    >
       <ScrollView showsVerticalScrollIndicator={false}>
         <DoctorHeader
           name={data?.name || 'Doctor Name'}
@@ -92,7 +102,7 @@ const DoctorProfileScreen = () => {
           <CustomBtn title="Choose Doctor" onPress={handlePressToSelectDate} />
         </View>
       </ScrollView>
-    </LayoutAreaView>
+    </ScreenLayout>
   );
 };
 

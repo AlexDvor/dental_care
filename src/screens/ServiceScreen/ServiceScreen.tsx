@@ -5,7 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import ServiceCard from '../../components/ServiceCard/ServiceCard';
-import LayoutAreaView from '../../layout/LayoutAreaView';
+import { Theme } from '../../constants/colors';
+import ScreenLayout from '../../layout/ScreenLayout';
 import { SERVICES } from '../../mockData/services';
 import { BookingStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
@@ -46,7 +47,11 @@ const ServiceScreen = () => {
   };
 
   return (
-    <LayoutAreaView withHeader>
+    <ScreenLayout
+      defaultPadding
+      statusBarBackgroundColor={Theme.colors.statusBar.primary}
+      statusBarStyle="dark-content"
+    >
       <View style={styles.container}>
         <SubTitle title="You can select one or more services" />
         <ScrollView
@@ -74,7 +79,7 @@ const ServiceScreen = () => {
           <SecurityNote />
         </View>
       </View>
-    </LayoutAreaView>
+    </ScreenLayout>
   );
 };
 

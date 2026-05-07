@@ -1,5 +1,6 @@
-import { ScrollView, StatusBar, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
+import { seedSlots } from '../../api/seedSlots';
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import HealthBanner from '../../components/HealthBanner/HealthBanner';
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
@@ -7,6 +8,8 @@ import PromoBanner from '../../components/PromoBanner/PromoBanner';
 import QuickActionsGrid from '../../components/QuickActionsGrid/QuickActionsGrid';
 import StatsCard from '../../components/StatsCard/StatsCard';
 import { Theme } from '../../constants/colors';
+import ScreenLayout from '../../layout/ScreenLayout';
+import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
 
 import { styles } from './HomeScreen.style';
@@ -37,9 +40,10 @@ const trustBlockItems = [
 
 const HomeScreen = () => {
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" translucent />
-
+    <ScreenLayout
+      statusBarBackgroundColor={Theme.colors.statusBar.secondary}
+      statusBarStyle="light-content"
+    >
       <ScrollView
         showsVerticalScrollIndicator={false}
         bounces={false} // прибирає білий “відскок” на iOS
@@ -68,9 +72,11 @@ const HomeScreen = () => {
             onPrivacyPress={() => {}}
             onTermsPress={() => {}}
           />
+
+          {/* <CustomBtn title={'Go data '} onPress={() => seedSlots()} /> */}
         </View>
       </ScrollView>
-    </View>
+    </ScreenLayout>
   );
 };
 

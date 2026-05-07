@@ -21,7 +21,7 @@ const ProfileHeader = ({ style }: ProfileHeaderProps) => {
         locations={[0, 1]}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
-        style={[styles.container, { paddingTop: insets.top }]}
+        style={[styles.container]}
       >
         <Text style={styles.title}>Hello, John 👋</Text>
         <Text style={styles.subtitle}>

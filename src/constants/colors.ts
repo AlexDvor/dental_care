@@ -43,6 +43,11 @@ const Colors = {
     purple: '#8B5CF6',
     blue: '#3B82F6',
   },
+
+  statusBar: {
+    primary: '#F3F6F4',
+    secondary: '#1F8A5B',
+  },
 };
 
 const Spacing = {

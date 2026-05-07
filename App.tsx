@@ -18,12 +18,11 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  // const isDarkMode = useColorScheme() === 'dark';
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
         <ThemeProvider>
-          <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
           <RootNavigator />
         </ThemeProvider>
       </SafeAreaProvider>

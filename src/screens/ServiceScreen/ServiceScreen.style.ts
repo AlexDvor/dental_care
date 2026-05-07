@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
 
     padding: Theme.spacing.lg,
     backgroundColor: Theme.colors.background.soft,
-
+    borderRadius: Theme.radius.lg,
     borderTopWidth: 1,
     borderTopColor: '#E5E7EB',
   },

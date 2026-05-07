@@ -16,6 +16,7 @@ export default function BookingStack() {
       initialRouteName="ServiceList"
       screenOptions={{
         headerShadowVisible: false,
+        headerStyle: { backgroundColor: Theme.colors.background.primary },
       }}
     >
       <Stack.Screen
@@ -23,7 +24,8 @@ export default function BookingStack() {
         component={ServiceScreen}
         options={{
           title: 'Choose Service',
-          headerStyle: { backgroundColor: Theme.colors.background.soft },
+
+          // headerStyle: { backgroundColor: Theme.colors.background.soft },
         }}
       />
       <Stack.Screen
@@ -31,7 +33,8 @@ export default function BookingStack() {
         component={DoctorListScreen}
         options={{
           title: 'Choose Doctor',
-          headerStyle: { backgroundColor: Theme.colors.background.soft },
+
+          // headerStyle: { backgroundColor: Theme.colors.background.soft },
         }}
       />
       <Stack.Screen
@@ -39,7 +42,7 @@ export default function BookingStack() {
         component={DoctorProfileScreen}
         options={{
           title: 'Profile Details',
-          headerStyle: { backgroundColor: Theme.colors.background.soft },
+          // headerStyle: { backgroundColor: Theme.colors.background.soft },
         }}
       />
       <Stack.Screen
@@ -47,7 +50,7 @@ export default function BookingStack() {
         component={SelectDateScreen}
         options={{
           title: 'Select Date',
-          headerStyle: { backgroundColor: Theme.colors.background.soft },
+          // headerStyle: { backgroundColor: Theme.colors.background.soft },
         }}
       />
       <Stack.Screen
@@ -55,7 +58,7 @@ export default function BookingStack() {
         component={BookingConfirmScreen}
         options={{
           title: 'Booking Confirm',
-          headerStyle: { backgroundColor: Theme.colors.background.soft },
+          // headerStyle: { backgroundColor: Theme.colors.background.soft },
         }}
       />
     </Stack.Navigator>

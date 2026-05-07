@@ -4,8 +4,9 @@ import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+import { Theme } from '../../constants/colors';
 import { useDoctors } from '../../hook/useDoctors';
-import LayoutAreaView from '../../layout/LayoutAreaView';
+import ScreenLayout from '../../layout/ScreenLayout';
 import { BookingStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import DoctorCard from '../../ui/DoctorCard/DoctorCard';
@@ -59,29 +60,38 @@ const DoctorListScreen = () => {
 
   if (isLoading) {
     return (
-      <LayoutAreaView withHeader>
+      <ScreenLayout
+        defaultPadding
+        statusBarBackgroundColor={Theme.colors.statusBar.primary}
+      >
         <View
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
           <ActivityIndicator size={40} />
         </View>
-      </LayoutAreaView>
+      </ScreenLayout>
     );
   }
 
   if (error) {
     return (
-      <LayoutAreaView withHeader>
+      <ScreenLayout
+        defaultPadding
+        statusBarBackgroundColor={Theme.colors.statusBar.primary}
+      >
         <View style={styles.container}>
           <Text>{error.message}</Text>
           <CustomBtn title="Try again" onPress={refetch} />
         </View>
-      </LayoutAreaView>
+      </ScreenLayout>
     );
   }
 
   return (
-    <LayoutAreaView withHeader>
+    <ScreenLayout
+      defaultPadding
+      statusBarBackgroundColor={Theme.colors.statusBar.primary}
+    >
       <View style={styles.container}>
         <SubTitle title="Select a doctor for your appointment" />
 
@@ -105,7 +115,7 @@ const DoctorListScreen = () => {
         </ScrollView>
         <SecurityNote />
       </View>
-    </LayoutAreaView>
+    </ScreenLayout>
   );
 };
 
