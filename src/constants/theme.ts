@@ -1,55 +1,3 @@
-// const Colors = {
-//   background: {
-//     primary: '#F3F6F4',
-//     card: '#FFFFFF',
-//     soft: '#E8F3ED',
-//     accent: '#0E7A4B',
-//     backTeal: '#E6FFFA',
-//     backPurple: '#F3E8FF',
-//     backBlue: '#EAF2FF',
-//   },
-
-//   text: {
-//     primary: '#1C1C1C',
-//     secondary: '#6B7280',
-//     placeholder: '#9CA3AF',
-//     inverted: '#FFFFFF',
-//     badge: '#0E7A4B',
-//     invertedBadge: '#D1FAE5',
-//   },
-
-//   primary: {
-//     main: '#0E7A4B',
-//     light: '#27AE60',
-//   },
-//   base: {
-//     white: '#FFFFFF',
-//     black: '#1C1C1C',
-//   },
-
-//   accent: {
-//     rating: '#F2C94C',
-//   },
-//   error: {
-//     main: '#EB5757',
-//   },
-//   border: {
-//     default: '#E5E7EB',
-//   },
-//   icon: {
-//     primary: '#0E7A4B',
-//     secondary: '#6B7280',
-//     teal: '#14B8A6',
-//     purple: '#8B5CF6',
-//     blue: '#3B82F6',
-//   },
-
-//   statusBar: {
-//     primary: '#F3F6F4',
-//     secondary: '#1F8A5B',
-//   },
-// };
-
 export const Palette = {
   green: {
     50: '#F3F6F4',
@@ -123,14 +71,6 @@ const Colors = {
   statusBar: {
     primary: Palette.green[50],
     secondary: Palette.green[800],
-  },
-
-  warning: {
-    rating: '#F2C94C',
-  },
-
-  error: {
-    main: '#EB5757',
   },
 
   border: {
