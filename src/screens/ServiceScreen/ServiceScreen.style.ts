@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
 
   bottom: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 10,
     left: 0,
     right: 0,
 
@@ -27,6 +27,8 @@ export const styles = StyleSheet.create({
     borderRadius: Theme.radius.lg,
     borderTopWidth: 1,
     borderTopColor: '#E5E7EB',
+
+    ...Theme.shadow.primary,
   },
 
   selectedBox: {

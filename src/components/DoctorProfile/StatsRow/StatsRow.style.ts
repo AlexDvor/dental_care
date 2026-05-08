@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
     padding: Theme.spacing.xl,
     alignItems: 'center',
     justifyContent: 'center',
+    ...Theme.shadow.primary,
   },
   value: {
     fontSize: Theme.typography.size.h3,

@@ -10,11 +10,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Theme.colors.background.card,
     borderRadius: Theme.radius.lg,
 
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 3,
+    ...Theme.shadow.primary,
   },
 
   row: {
@@ -37,11 +33,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: Theme.spacing.sm,
 
-    shadowColor: '#000',
-    shadowOpacity: 0.04,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 2,
+    ...Theme.shadow.primary,
   },
 
   title: {

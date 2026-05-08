@@ -7,15 +7,13 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-
     padding: Theme.spacing.lg,
     borderRadius: Theme.radius.md,
     backgroundColor: Theme.colors.background.card,
-
     marginBottom: Theme.spacing.md,
-
     borderWidth: 1,
     borderColor: 'transparent',
+    ...Theme.shadow.primary,
   },
 
   selectedContainer: {

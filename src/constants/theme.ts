@@ -125,9 +125,20 @@ const Radius = {
   xl: 28,
 };
 
+const Shadow = {
+  primary: {
+    shadowColor: Palette.gray[900],
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2,
+  },
+};
+
 export const Theme = {
   colors: Colors,
   spacing: Spacing,
   typography: Typography,
   radius: Radius,
+  shadow: Shadow,
 };

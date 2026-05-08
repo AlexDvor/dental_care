@@ -6,18 +6,11 @@ export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-
     backgroundColor: Theme.colors.background.card,
     borderRadius: Theme.radius.md,
-    padding: Theme.spacing.lg, //
-
+    padding: Theme.spacing.lg,
     marginBottom: Theme.spacing.md,
-
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 2,
+    ...Theme.shadow.primary,
   },
 
   left: {
