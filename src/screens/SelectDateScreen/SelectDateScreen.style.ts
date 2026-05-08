@@ -14,17 +14,12 @@ export const styles = StyleSheet.create({
   },
 
   content: {
-    paddingBottom: 180,
+    paddingBottom: Theme.spacing.xl,
   },
 
   bottom: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-
     paddingTop: Theme.spacing.md,
     paddingBottom: Theme.spacing.md,
-    marginBottom: Theme.spacing.lg,
+    paddingHorizontal: Theme.spacing.md,
   },
 });
