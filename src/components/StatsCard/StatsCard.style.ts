@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
   },
 
   iconWrapper: {
-    backgroundColor: Theme.colors.background.primary,
+    backgroundColor: Theme.colors.background.main,
     padding: 10,
     borderRadius: 50,
   },

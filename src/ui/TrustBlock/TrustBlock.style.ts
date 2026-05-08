@@ -80,13 +80,13 @@ export const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: Theme.radius.sm,
-    backgroundColor: Theme.colors.primary.main,
+    backgroundColor: Theme.colors.background.accent,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   logoText: {
-    color: Theme.colors.base.white,
+    color: Theme.colors.text.inverted,
     fontWeight: Theme.typography.fontWeight.semibold,
   },
 
@@ -112,7 +112,7 @@ export const styles = StyleSheet.create({
 
   link: {
     fontSize: Theme.typography.size.small,
-    color: Theme.colors.primary.main,
+    color: Theme.colors.text.badge,
     fontWeight: Theme.typography.fontWeight.medium,
   },
 

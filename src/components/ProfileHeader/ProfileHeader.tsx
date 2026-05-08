@@ -54,7 +54,7 @@ export default ProfileHeader;
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: Theme.colors.background.primary,
+    backgroundColor: Theme.colors.background.main,
   },
 
   container: {

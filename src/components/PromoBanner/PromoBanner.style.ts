@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
   button: {
     fontSize: Theme.typography.size.small,
     fontWeight: Theme.typography.fontWeight.medium,
-    color: Theme.colors.primary.main,
+    color: Theme.colors.text.badge,
   },
 
   timer: {

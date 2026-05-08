@@ -44,6 +44,6 @@ export const styles = StyleSheet.create({
   price: {
     fontSize: Theme.typography.size.body,
     fontWeight: Theme.typography.fontWeight.semibold,
-    color: Theme.colors.primary.main,
+    color: Theme.colors.text.badge,
   },
 });

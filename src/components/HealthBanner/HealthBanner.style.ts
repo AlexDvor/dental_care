@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: Theme.colors.primary.main,
+    backgroundColor: Theme.colors.background.accent,
     paddingVertical: 10,
     paddingHorizontal: 14,
     borderRadius: Theme.radius.md,
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: Theme.colors.base.white,
+    color: Theme.colors.text.inverted,
     fontWeight: Theme.typography.fontWeight.medium,
   },
 

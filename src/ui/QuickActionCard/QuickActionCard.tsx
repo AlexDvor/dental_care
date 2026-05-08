@@ -38,7 +38,7 @@ const QuickActionCard = ({
         <Icon
           name={icon}
           size={25}
-          color={iconColor || Theme.colors.primary.main}
+          color={iconColor || Theme.colors.icon.primary}
         />
       </View>
 

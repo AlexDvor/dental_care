@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
     marginTop: Theme.spacing.sm,
   },
   badgeText: {
-    color: Theme.colors.primary.main,
+    color: Theme.colors.text.badge,
     fontSize: Theme.typography.size.small,
   },
 

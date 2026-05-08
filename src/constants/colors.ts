@@ -1,52 +1,141 @@
+// const Colors = {
+//   background: {
+//     primary: '#F3F6F4',
+//     card: '#FFFFFF',
+//     soft: '#E8F3ED',
+//     accent: '#0E7A4B',
+//     backTeal: '#E6FFFA',
+//     backPurple: '#F3E8FF',
+//     backBlue: '#EAF2FF',
+//   },
+
+//   text: {
+//     primary: '#1C1C1C',
+//     secondary: '#6B7280',
+//     placeholder: '#9CA3AF',
+//     inverted: '#FFFFFF',
+//     badge: '#0E7A4B',
+//     invertedBadge: '#D1FAE5',
+//   },
+
+//   primary: {
+//     main: '#0E7A4B',
+//     light: '#27AE60',
+//   },
+//   base: {
+//     white: '#FFFFFF',
+//     black: '#1C1C1C',
+//   },
+
+//   accent: {
+//     rating: '#F2C94C',
+//   },
+//   error: {
+//     main: '#EB5757',
+//   },
+//   border: {
+//     default: '#E5E7EB',
+//   },
+//   icon: {
+//     primary: '#0E7A4B',
+//     secondary: '#6B7280',
+//     teal: '#14B8A6',
+//     purple: '#8B5CF6',
+//     blue: '#3B82F6',
+//   },
+
+//   statusBar: {
+//     primary: '#F3F6F4',
+//     secondary: '#1F8A5B',
+//   },
+// };
+
+export const Palette = {
+  green: {
+    50: '#F3F6F4',
+    100: '#E8F3ED',
+    200: '#D1FAE5',
+    500: '#27AE60',
+    700: '#0E7A4B',
+    800: '#1F8A5B',
+  },
+
+  gray: {
+    200: '#E5E7EB',
+    400: '#9CA3AF',
+    500: '#6B7280',
+    900: '#1C1C1C',
+  },
+
+  teal: {
+    50: '#E6FFFA',
+    500: '#14B8A6',
+  },
+
+  purple: {
+    50: '#F3E8FF',
+    500: '#8B5CF6',
+  },
+
+  blue: {
+    50: '#EAF2FF',
+    500: '#3B82F6',
+  },
+
+  yellow: {
+    500: '#F2C94C',
+  },
+
+  red: {
+    500: '#EB5757',
+  },
+
+  white: '#FFFFFF',
+};
+
 const Colors = {
   background: {
-    primary: '#F3F6F4',
-    card: '#FFFFFF',
-    soft: '#E8F3ED',
-    accent: '#0E7A4B',
-    backTeal: '#E6FFFA',
-    backPurple: '#F3E8FF',
-    backBlue: '#EAF2FF',
+    main: Palette.green[50],
+    card: Palette.white,
+    soft: Palette.green[100],
+    accent: Palette.green[700],
+    backTeal: Palette.teal[50],
+    backPurple: Palette.purple[50],
+    backBlue: Palette.blue[50],
   },
-
   text: {
-    primary: '#1C1C1C',
-    secondary: '#6B7280',
-    placeholder: '#9CA3AF',
-    inverted: '#FFFFFF',
-    badge: '#0E7A4B',
-    invertedBadge: '#D1FAE5',
+    primary: Palette.gray[900],
+    secondary: Palette.gray[500],
+    placeholder: Palette.gray[400],
+    inverted: Palette.white,
+    badge: Palette.green[700],
+    invertedBadge: Palette.green[200],
   },
 
-  primary: {
-    main: '#0E7A4B',
-    light: '#27AE60',
-  },
-  base: {
-    white: '#FFFFFF',
-    black: '#1C1C1C',
-  },
-
-  accent: {
-    rating: '#F2C94C',
-  },
-  error: {
-    main: '#EB5757',
-  },
-  border: {
-    default: '#E5E7EB',
-  },
   icon: {
-    primary: '#0E7A4B',
-    secondary: '#6B7280',
-    teal: '#14B8A6',
-    purple: '#8B5CF6',
-    blue: '#3B82F6',
+    primary: Palette.green[700],
+    secondary: Palette.gray[500],
+    teal: Palette.teal[500],
+    purple: Palette.purple[500],
+    blue: Palette.blue[500],
   },
 
   statusBar: {
-    primary: '#F3F6F4',
-    secondary: '#1F8A5B',
+    primary: Palette.green[50],
+    secondary: Palette.green[800],
+  },
+
+  warning: {
+    rating: '#F2C94C',
+  },
+
+  error: {
+    main: '#EB5757',
+  },
+
+  border: {
+    default: Palette.gray[200],
+    primary: Palette.green[700],
   },
 };
 

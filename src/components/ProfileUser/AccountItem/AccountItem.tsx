@@ -11,7 +11,7 @@ const AccountItem = ({ icon, label, isLast }: AccountItemProps) => {
     <TouchableOpacity style={[styles.container, !isLast && styles.border]}>
       <View style={styles.left}>
         <View style={styles.iconWrap}>
-          <Icon name={icon} size={18} color={Theme.colors.primary.main} />
+          <Icon name={icon} size={18} color={Theme.colors.icon.primary} />
         </View>
         <Text style={styles.label}>{label}</Text>
       </View>

@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   },
 
   seeAll: {
-    color: Theme.colors.primary.main,
+    color: Theme.colors.text.badge,
   },
 
   scrollContent: {
@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
   },
 
   activeDot: {
-    backgroundColor: Theme.colors.primary.main,
+    backgroundColor: Theme.colors.background.accent,
   },
 
   emptyContainer: {

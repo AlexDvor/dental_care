@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   value: {
     fontSize: Theme.typography.size.h3,
     fontWeight: Theme.typography.fontWeight.semibold,
-    color: Theme.colors.primary.main,
+    color: Theme.colors.text.badge,
     textAlign: 'center',
   },
   label: {

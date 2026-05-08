@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
     marginBottom: Theme.spacing.xs,
   },
   badgeText: {
-    color: Theme.colors.primary.main,
+    color: Theme.colors.text.badge,
     fontSize: Theme.typography.size.small,
   },
   rating: {

@@ -17,8 +17,8 @@ export const styles = StyleSheet.create({
   },
 
   active: {
-    backgroundColor: Theme.colors.primary.main,
-    borderColor: Theme.colors.primary.main,
+    backgroundColor: Theme.colors.background.accent,
+    borderColor: Theme.colors.border.primary,
   },
 
   recommended: {

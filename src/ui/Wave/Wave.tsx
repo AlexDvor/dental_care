@@ -106,7 +106,7 @@ const Wave = () => {
             L0,140 
             Z
           "
-          fill={Theme.colors.background.primary}
+          fill={Theme.colors.background.main}
         />
       </Svg>
     </View>

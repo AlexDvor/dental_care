@@ -9,7 +9,7 @@ const PADDING = (deviceWidth - MAX_CONTENT_WIDTH) / 2;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Theme.colors.background.primary,
+    backgroundColor: Theme.colors.background.main,
   },
 
   content: {

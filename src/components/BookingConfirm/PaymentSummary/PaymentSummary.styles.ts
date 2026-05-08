@@ -20,12 +20,12 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    color: Theme.colors.primary.main,
+    color: Theme.colors.text.badge,
     fontWeight: Theme.typography.fontWeight.semibold,
     fontSize: Theme.typography.size.body,
   },
   value: {
-    color: Theme.colors.primary.main,
+    color: Theme.colors.text.badge,
     fontWeight: Theme.typography.fontWeight.semibold,
     fontSize: Theme.typography.size.h2,
   },

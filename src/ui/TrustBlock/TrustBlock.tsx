@@ -25,7 +25,7 @@ const TrustBlock = ({
                 <Icon
                   name={item.icon}
                   size={28}
-                  color={item.color || Theme.colors.primary.main}
+                  color={item.color || Theme.colors.icon.primary}
                 />
               </View>
 

@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   },
 
   selectedContainer: {
-    borderColor: Theme.colors.primary.main,
+    borderColor: Theme.colors.border.primary,
   },
 
   left: {
@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
     marginTop: 6,
     fontSize: Theme.typography.size.body,
     fontWeight: Theme.typography.fontWeight.semibold,
-    color: Theme.colors.primary.main,
+    color: Theme.colors.text.badge,
   },
 
   checkbox: {
@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
   },
 
   checkboxActive: {
-    backgroundColor: Theme.colors.primary.main,
-    borderColor: Theme.colors.primary.main,
+    backgroundColor: Theme.colors.background.accent,
+    borderColor: Theme.colors.border.primary,
   },
 });

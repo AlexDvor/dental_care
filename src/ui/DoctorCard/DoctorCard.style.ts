@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 14,
-    backgroundColor: Theme.colors.primary.main,
+    backgroundColor: Theme.colors.background.accent,
     alignItems: 'center',
     justifyContent: 'center',
 

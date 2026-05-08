@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
   },
 
   dayActive: {
-    backgroundColor: Theme.colors.primary.main,
+    backgroundColor: Theme.colors.background.accent,
   },
 
   dayDisabled: {

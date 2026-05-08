@@ -10,7 +10,7 @@ const StatsCard = () => {
     <View style={styles.container}>
       <View style={styles.item}>
         <View style={styles.iconWrapper}>
-          <Icon name="schedule" size={22} color={Theme.colors.primary.main} />
+          <Icon name="schedule" size={22} color={Theme.colors.icon.primary} />
         </View>
         <Text style={styles.value}>12</Text>
         <Text style={styles.label}>Total Visits</Text>
@@ -20,7 +20,7 @@ const StatsCard = () => {
 
       <View style={styles.item}>
         <View style={styles.iconWrapper}>
-          <Icon name="schedule" size={22} color={Theme.colors.primary.main} />
+          <Icon name="schedule" size={22} color={Theme.colors.icon.primary} />
         </View>
         <Text style={styles.value}>2</Text>
         <Text style={styles.label}>Upcoming</Text>
