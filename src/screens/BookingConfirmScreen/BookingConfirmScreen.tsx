@@ -10,7 +10,7 @@ import {
 import AppointmentDetails from '../../components/BookingConfirm/AppointmentDetails/AppointmentDetails';
 import BookingDoctorCard from '../../components/BookingConfirm/BookingDoctorCard/BookingDoctorCard';
 import PaymentSummary from '../../components/BookingConfirm/PaymentSummary/PaymentSummary';
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 import { useCreateAppointment } from '../../hook/useCreateAppointment';
 import LayoutAreaView from '../../layout/ScreenLayout';
 import ScreenLayout from '../../layout/ScreenLayout';

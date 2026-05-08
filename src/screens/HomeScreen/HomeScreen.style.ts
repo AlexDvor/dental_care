@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 const { width: deviceWidth } = Dimensions.get('window');
 
 const MAX_CONTENT_WIDTH = deviceWidth * 0.9;

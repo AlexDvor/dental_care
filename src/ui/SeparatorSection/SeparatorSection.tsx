@@ -1,6 +1,6 @@
-import { StyleSheet,View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 
 type Props = {
   spacing?: number;

@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 import { Icon } from '../../ui/Icon/Icon';
 import Wave from '../../ui/Wave/Wave';
 

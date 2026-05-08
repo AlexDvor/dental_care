@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 import { Icon } from '../../ui/Icon/Icon';
 
 import { styles } from './StatsCard.style';

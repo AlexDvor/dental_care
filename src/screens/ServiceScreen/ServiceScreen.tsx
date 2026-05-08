@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import ServiceCard from '../../components/ServiceCard/ServiceCard';
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { SERVICES } from '../../mockData/services';
 import { BookingStackParamList } from '../../navigation/types';

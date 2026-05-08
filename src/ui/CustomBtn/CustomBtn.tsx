@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 import { Icon } from '../Icon/Icon';
 import { CustomBtnProps } from './CustomBtn.types';
 

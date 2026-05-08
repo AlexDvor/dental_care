@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 import BookingConfirmScreen from '../../screens/BookingConfirmScreen/BookingConfirmScreen';
 import DoctorListScreen from '../../screens/DoctorListScreen/DoctorListScreen';
 import DoctorProfileScreen from '../../screens/DoctorProfileScreen/DoctorProfileScreen';

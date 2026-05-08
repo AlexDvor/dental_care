@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 import QuickActionCard from '../../ui/QuickActionCard/QuickActionCard';
 
 import { styles } from './QuickActionsGrid.style';

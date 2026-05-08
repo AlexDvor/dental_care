@@ -9,12 +9,11 @@ import {
   View,
 } from 'react-native';
 
-import { Theme } from '../../../constants/colors';
+import { Theme } from '../../../constants/theme';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import { ReviewsSectionProps } from './ReviewsSection.interface';
 
 import { styles } from './ReviewsSection.style';
-
 
 const { width } = Dimensions.get('window');
 

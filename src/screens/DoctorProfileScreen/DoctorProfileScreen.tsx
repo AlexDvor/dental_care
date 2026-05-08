@@ -9,7 +9,7 @@ import DoctorHeader from '../../components/DoctorProfile/DoctorHeader/DoctorHead
 import EducationItem from '../../components/DoctorProfile/EducationItem/EducationItem';
 import ReviewsSection from '../../components/DoctorProfile/ReviewsSection/ReviewsSection';
 import StatsRow from '../../components/DoctorProfile/StatsRow/StatsRow';
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 import { useDoctorById } from '../../hook/useDoctorById';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { BookingStackParamList } from '../../navigation/types';

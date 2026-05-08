@@ -7,7 +7,7 @@ import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import PromoBanner from '../../components/PromoBanner/PromoBanner';
 import QuickActionsGrid from '../../components/QuickActionsGrid/QuickActionsGrid';
 import StatsCard from '../../components/StatsCard/StatsCard';
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 import ScreenLayout from '../../layout/ScreenLayout';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';

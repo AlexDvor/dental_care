@@ -3,7 +3,7 @@ import { ScrollView, View } from 'react-native';
 
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import AccountSection from '../../components/ProfileUser/AccountSection/AccountSection';
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 import ScreenLayout from '../../layout/ScreenLayout';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 

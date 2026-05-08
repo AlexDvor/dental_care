@@ -4,7 +4,7 @@ import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 import { useDoctors } from '../../hook/useDoctors';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { BookingStackParamList } from '../../navigation/types';

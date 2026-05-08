@@ -6,7 +6,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { getSlotsByDoctorAndMonth } from '../../api/slots.api';
-import { Theme } from '../../constants/colors';
+import { Theme } from '../../constants/theme';
 import { useDoctorById } from '../../hook/useDoctorById';
 import { useSlotsByMonth } from '../../hook/useSlotsByMonth';
 import LayoutAreaView from '../../layout/ScreenLayout';
