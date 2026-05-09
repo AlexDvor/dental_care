@@ -1,3 +1,4 @@
+import React from 'react';
 import { Text, View } from 'react-native';
 import Animated, {
   Extrapolation,
@@ -22,7 +23,6 @@ const COMPACT_HEADER_HEIGHT = 70;
 
 const HomeScreen = () => {
   const scrollY = useSharedValue(0);
-
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: event => {
       scrollY.value = event.contentOffset.y;
@@ -32,56 +32,78 @@ const HomeScreen = () => {
   const largeHeaderAnimatedStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       scrollY.value,
-      [HEADER_HEIGHT * 0.55, HEADER_HEIGHT * 0.8],
-      [1, 0.7, 0],
+      [HEADER_HEIGHT * 0.6, HEADER_HEIGHT * 0.82],
+      [1, 0],
       Extrapolation.CLAMP,
     );
 
     const translateY = interpolate(
       scrollY.value,
       [0, HEADER_HEIGHT],
-      [0, -HEADER_HEIGHT],
+      [0, -(HEADER_HEIGHT + 40)],
       Extrapolation.CLAMP,
     );
 
-    const scale = interpolate(
+    const shadowOpacity = interpolate(
       scrollY.value,
-      [0, HEADER_HEIGHT],
-      [1, 0.96],
+      [HEADER_HEIGHT * 0.75, HEADER_HEIGHT],
+      [0, 0.06],
+      Extrapolation.CLAMP,
+    );
+
+    const elevation = interpolate(
+      scrollY.value,
+      [HEADER_HEIGHT * 0.75, HEADER_HEIGHT],
+      [0, 8],
       Extrapolation.CLAMP,
     );
 
     return {
       opacity,
-      transform: [{ translateY }, { scale }],
+
+      transform: [{ translateY }],
+      shadowOpacity,
+      elevation,
     };
   });
 
   const compactHeaderAnimatedStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       scrollY.value,
-      [60, HEADER_HEIGHT],
+      [HEADER_HEIGHT * 0.68, HEADER_HEIGHT],
       [0, 1],
       Extrapolation.CLAMP,
     );
 
     const translateY = interpolate(
       scrollY.value,
-      [60, HEADER_HEIGHT],
-      [-20, 0],
+      [HEADER_HEIGHT * 0.68, HEADER_HEIGHT],
+      [-16, 0],
       Extrapolation.CLAMP,
     );
 
-    const scale = interpolate(
+    const shadowOpacity = interpolate(
       scrollY.value,
-      [60, HEADER_HEIGHT],
-      [0.95, 1],
+      [HEADER_HEIGHT * 0.75, HEADER_HEIGHT],
+      [0, 0.06],
+      Extrapolation.CLAMP,
+    );
+
+    const elevation = interpolate(
+      scrollY.value,
+      [HEADER_HEIGHT * 0.75, HEADER_HEIGHT],
+      [0, 8],
       Extrapolation.CLAMP,
     );
 
     return {
       opacity,
-      transform: [{ translateY }, { scale }],
+
+      elevation,
+
+      shadowOpacity,
+
+      transform: [{ translateY }],
     };
   });
 
@@ -94,6 +116,7 @@ const HomeScreen = () => {
           LARGE HEADER
       ========================== */}
       <Animated.View
+        renderToHardwareTextureAndroid
         style={[styles.largeHeaderContainer, largeHeaderAnimatedStyle]}
       >
         <ProfileHeader />
@@ -107,13 +130,17 @@ const HomeScreen = () => {
         style={[
           styles.compactHeaderContainer,
           compactHeaderAnimatedStyle,
-          { height: COMPACT_HEADER_HEIGHT },
+          {
+            height: COMPACT_HEADER_HEIGHT,
+          },
         ]}
       >
         <View style={styles.compactHeaderContent}>
           <View style={styles.compactAvatar} />
+
           <View>
             <Text style={styles.compactTitle}>Alex</Text>
+
             <Text style={styles.compactSubtitle}>DentalCare</Text>
           </View>
         </View>
@@ -129,11 +156,16 @@ const HomeScreen = () => {
         bounces={false}
         contentContainerStyle={{
           paddingTop: HEADER_HEIGHT + COMPACT_HEADER_HEIGHT,
+
           paddingBottom: Theme.spacing.massive,
         }}
       >
         <View style={styles.content}>
-          <StatsCard />
+          <StatsCard
+            style={{
+              marginTop: Theme.spacing.lg,
+            }}
+          />
 
           <AppointmentCard
             style={{

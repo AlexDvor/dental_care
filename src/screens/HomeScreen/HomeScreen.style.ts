@@ -1,12 +1,6 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { Theme } from '../../constants/theme';
-const { width: deviceWidth } = Dimensions.get('window');
-
-const MAX_CONTENT_WIDTH = deviceWidth * 0.9;
-const PADDING = (deviceWidth - MAX_CONTENT_WIDTH) / 2;
-
-const COMPACT_HEADER_HEIGHT = 70;
 
 export const styles = StyleSheet.create({
   container: {
@@ -15,22 +9,8 @@ export const styles = StyleSheet.create({
   },
 
   content: {
-    paddingHorizontal: PADDING,
+    paddingHorizontal: Theme.spacing.lg,
     paddingBottom: Theme.spacing.massive,
-    marginTop: 20,
-  },
-
-  userName: {
-    textAlign: 'center',
-    fontSize: Theme.typography.size.h2,
-    fontWeight: Theme.typography.fontWeight.semibold,
-  },
-
-  userEmail: {
-    textAlign: 'center',
-    fontSize: Theme.typography.size.xs,
-    color: Theme.colors.text.secondary,
-    fontWeight: Theme.typography.fontWeight.semibold,
   },
 
   largeHeaderContainer: {
@@ -39,9 +19,10 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 100,
-    elevation: 10,
+    elevation: 6,
     overflow: 'hidden',
     backfaceVisibility: 'hidden',
+    backgroundColor: Theme.colors.background.main,
   },
 
   compactHeaderContainer: {
@@ -49,15 +30,22 @@ export const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-
     zIndex: 200,
-    elevation: 20,
+    elevation: 8,
     justifyContent: 'flex-end',
     paddingBottom: 12,
-    paddingHorizontal: PADDING,
+    paddingHorizontal: Theme.spacing.lg,
     backgroundColor: Theme.colors.background.main,
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(0,0,0,0.04)',
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
   },
 
   compactHeaderContent: {
