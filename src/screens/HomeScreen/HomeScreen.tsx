@@ -1,81 +1,151 @@
-import { ScrollView, View } from 'react-native';
+import { Text, View } from 'react-native';
+import Animated, {
+  Extrapolation,
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 
-import { seedSlots } from '../../api/seedSlots';
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import HealthBanner from '../../components/HealthBanner/HealthBanner';
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
-import PromoBanner from '../../components/PromoBanner/PromoBanner';
 import QuickActionsGrid from '../../components/QuickActionsGrid/QuickActionsGrid';
 import StatsCard from '../../components/StatsCard/StatsCard';
 import { Theme } from '../../constants/theme';
 import ScreenLayout from '../../layout/ScreenLayout';
-import CustomBtn from '../../ui/CustomBtn/CustomBtn';
-import TrustBlock from '../../ui/TrustBlock/TrustBlock';
 
 import { styles } from './HomeScreen.style';
 
-const trustBlockItems = [
-  {
-    icon: 'verified',
-    label: 'Verified',
-    subLabel: 'Trusted & Secure',
-    bg: '#DCFCE7',
-    color: '#16A34A',
-  },
-  {
-    icon: 'lock',
-    label: 'Encrypted',
-    subLabel: 'Data Protection',
-    bg: '#DBEAFE',
-    color: '#2563EB',
-  },
-  {
-    icon: 'award',
-    label: 'Top Tier',
-    subLabel: 'Premium Quality',
-    bg: '#F3E8FF',
-    color: '#8B5CF6',
-  },
-];
+const HEADER_HEIGHT = 220;
+const COMPACT_HEADER_HEIGHT = 70;
 
 const HomeScreen = () => {
+  const scrollY = useSharedValue(0);
+
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: event => {
+      scrollY.value = event.contentOffset.y;
+    },
+  });
+
+  const largeHeaderAnimatedStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      scrollY.value,
+      [HEADER_HEIGHT * 0.55, HEADER_HEIGHT * 0.8],
+      [1, 0.7, 0],
+      Extrapolation.CLAMP,
+    );
+
+    const translateY = interpolate(
+      scrollY.value,
+      [0, HEADER_HEIGHT],
+      [0, -HEADER_HEIGHT],
+      Extrapolation.CLAMP,
+    );
+
+    const scale = interpolate(
+      scrollY.value,
+      [0, HEADER_HEIGHT],
+      [1, 0.96],
+      Extrapolation.CLAMP,
+    );
+
+    return {
+      opacity,
+      transform: [{ translateY }, { scale }],
+    };
+  });
+
+  const compactHeaderAnimatedStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      scrollY.value,
+      [60, HEADER_HEIGHT],
+      [0, 1],
+      Extrapolation.CLAMP,
+    );
+
+    const translateY = interpolate(
+      scrollY.value,
+      [60, HEADER_HEIGHT],
+      [-20, 0],
+      Extrapolation.CLAMP,
+    );
+
+    const scale = interpolate(
+      scrollY.value,
+      [60, HEADER_HEIGHT],
+      [0.95, 1],
+      Extrapolation.CLAMP,
+    );
+
+    return {
+      opacity,
+      transform: [{ translateY }, { scale }],
+    };
+  });
+
   return (
     <ScreenLayout
       statusBarBackgroundColor={Theme.colors.statusBar.secondary}
       statusBarStyle="light-content"
     >
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        bounces={false} // прибирає білий “відскок” на iOS
+      {/* =========================
+          LARGE HEADER
+      ========================== */}
+      <Animated.View
+        style={[styles.largeHeaderContainer, largeHeaderAnimatedStyle]}
       >
         <ProfileHeader />
+      </Animated.View>
 
+      {/* =========================
+          COMPACT HEADER
+      ========================== */}
+      <Animated.View
+        pointerEvents="none"
+        style={[
+          styles.compactHeaderContainer,
+          compactHeaderAnimatedStyle,
+          { height: COMPACT_HEADER_HEIGHT },
+        ]}
+      >
+        <View style={styles.compactHeaderContent}>
+          <View style={styles.compactAvatar} />
+          <View>
+            <Text style={styles.compactTitle}>Alex</Text>
+            <Text style={styles.compactSubtitle}>DentalCare</Text>
+          </View>
+        </View>
+      </Animated.View>
+
+      {/* =========================
+          SCROLL CONTENT
+      ========================== */}
+      <Animated.ScrollView
+        onScroll={scrollHandler}
+        scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+        contentContainerStyle={{
+          paddingTop: HEADER_HEIGHT + COMPACT_HEADER_HEIGHT,
+          paddingBottom: Theme.spacing.massive,
+        }}
+      >
         <View style={styles.content}>
           <StatsCard />
 
-          <AppointmentCard style={{ marginTop: Theme.spacing.lg }} />
+          <AppointmentCard
+            style={{
+              marginTop: Theme.spacing.lg,
+            }}
+          />
 
           <QuickActionsGrid />
 
           <HealthBanner />
-          {/* <PromoBanner
-            title="Cleaning Reminder"
-            description="It's been 6 months since your last cleaning."
-            buttonText="Book Cleaning"
-            onPress={() => {}}
-            expiresIn={86400}
-          /> */}
-          <TrustBlock
-            items={[...trustBlockItems]}
-            brandName="DentalCare"
-            description="Premium dental care simplified."
-            onPrivacyPress={() => {}}
-            onTermsPress={() => {}}
-          />
-
-          {/* <CustomBtn title={'Go data '} onPress={() => seedSlots()} /> */}
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </ScreenLayout>
   );
 };
