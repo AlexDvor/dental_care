@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import Animated, {
   Extrapolation,
   interpolate,
@@ -136,10 +136,15 @@ const HomeScreen = () => {
         ]}
       >
         <View style={styles.compactHeaderContent}>
-          <View style={styles.compactAvatar} />
+          {/* <View style={styles.compactAvatar} /> */}
+
+          <Image
+            source={require('../../assets/images/doctor.jpg')}
+            style={styles.compactAvatar}
+          />
 
           <View>
-            <Text style={styles.compactTitle}>Alex</Text>
+            <Text style={styles.compactTitle}>John Doe</Text>
 
             <Text style={styles.compactSubtitle}>DentalCare</Text>
           </View>
