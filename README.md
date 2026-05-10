@@ -1,2 +1,2 @@
-![Опис зображення](src/assets/screenshots/theme.gif)
-![Опис зображення](src/assets/screenshots/booking.gif)
+![Опис зображення](src/assets/screenshots/animation.gif)
+![Опис зображення](src/assets/screenshots/bandle.png)
