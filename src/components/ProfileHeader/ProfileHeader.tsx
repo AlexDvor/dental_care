@@ -24,9 +24,7 @@ const ProfileHeader = ({ style }: ProfileHeaderProps) => {
         style={[styles.container]}
       >
         <Text style={styles.title}>Hello, John 👋</Text>
-        <Text style={styles.subtitle}>
-          Here’s your dental{'\n'}health overview
-        </Text>
+        <Text style={styles.subtitle}>Your smile is in good hands</Text>
 
         <View style={styles.avatarWrapper}>
           <Image

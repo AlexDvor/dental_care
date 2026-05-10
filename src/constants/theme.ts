@@ -77,6 +77,13 @@ const Colors = {
     default: Palette.gray[200],
     primary: Palette.green[700],
   },
+
+  status: {
+    success: Palette.green[700],
+    warning: Palette.yellow[500],
+    error: Palette.red[500],
+    info: Palette.blue[500],
+  },
 };
 
 const Spacing = {
@@ -133,6 +140,29 @@ const Shadow = {
     shadowOffset: { width: 0, height: 2 },
     elevation: 2,
   },
+
+  // small: {
+  //   shadowColor: Palette.gray[900],
+  //   shadowOpacity: 0.04,
+  //   shadowRadius: 6,
+  //   shadowOffset: { width: 0, height: 2 },
+  //   elevation: 2,
+  // },
+
+  // medium: {
+  //   shadowColor: Palette.gray[900],
+  //   shadowOpacity: 0.08,
+  //   shadowRadius: 16,
+  //   shadowOffset: { width: 0, height: 6 },
+  //   elevation: 4,
+  // },
+  // large: {
+  //   shadowColor: Palette.gray[900],
+  //   shadowOpacity: 0.12,
+  //   shadowRadius: 24,
+  //   shadowOffset: { width: 0, height: 10 },
+  //   elevation: 8,
+  // },
 };
 
 export const Theme = {
