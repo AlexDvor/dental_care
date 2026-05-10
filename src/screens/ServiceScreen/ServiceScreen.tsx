@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
@@ -24,11 +24,11 @@ const ServiceScreen = () => {
   const [selected, setSelected] = useState<string[]>([]);
   const navigation = useNavigation<Navigation>();
 
-  const toggleService = (id: string) => {
+  const toggleService = useCallback((id: string) => {
     setSelected(prev =>
       prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id],
     );
-  };
+  }, []);
 
   const total = SERVICES.filter(s => selected.includes(s.id)).reduce(
     (sum, s) => sum + s.price,
@@ -63,7 +63,7 @@ const ServiceScreen = () => {
               key={service.id}
               {...service}
               selected={selected.includes(service.id)}
-              onPress={() => toggleService(service.id)}
+              onPress={toggleService}
             />
           ))}
         </ScrollView>

@@ -1,18 +1,19 @@
-import React from 'react';
-import { Image,Text, TouchableOpacity, View } from 'react-native';
+import React, { memo } from 'react';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { Icon } from '../../ui/Icon/Icon';
 
 import { styles } from './ServiceCard.style';
 
 type Props = {
+  id: string;
   title: string;
   description: string;
   price: number;
   icon: any;
 
   selected?: boolean;
-  onPress: () => void;
+  onPress: (id: string) => void;
 };
 
 const ServiceCard = ({
@@ -22,10 +23,11 @@ const ServiceCard = ({
   icon,
   selected,
   onPress,
+  id,
 }: Props) => {
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={() => onPress(id)}
       activeOpacity={0.9}
       style={[styles.container, selected && styles.selectedContainer]}
     >
@@ -46,4 +48,4 @@ const ServiceCard = ({
   );
 };
 
-export default ServiceCard;
+export default memo(ServiceCard);
