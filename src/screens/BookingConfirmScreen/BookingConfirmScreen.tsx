@@ -12,7 +12,6 @@ import BookingDoctorCard from '../../components/BookingConfirm/BookingDoctorCard
 import PaymentSummary from '../../components/BookingConfirm/PaymentSummary/PaymentSummary';
 import { Theme } from '../../constants/theme';
 import { useCreateAppointment } from '../../hook/useCreateAppointment';
-import LayoutAreaView from '../../layout/ScreenLayout';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { BookingStackParamList, RootNav } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
