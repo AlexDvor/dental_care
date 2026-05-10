@@ -15,11 +15,36 @@ import QuickActionsGrid from '../../components/QuickActionsGrid/QuickActionsGrid
 import StatsCard from '../../components/StatsCard/StatsCard';
 import { Theme } from '../../constants/theme';
 import ScreenLayout from '../../layout/ScreenLayout';
+import TrustBlock from '../../ui/TrustBlock/TrustBlock';
 
 import { styles } from './HomeScreen.style';
 
 const HEADER_HEIGHT = 220;
 const COMPACT_HEADER_HEIGHT = 70;
+
+const trustBlockItems = [
+  {
+    icon: 'verified',
+    label: 'Verified',
+    subLabel: 'Trusted & Secure',
+    bg: '#DCFCE7',
+    color: '#16A34A',
+  },
+  {
+    icon: 'lock',
+    label: 'Encrypted',
+    subLabel: 'Data Protection',
+    bg: '#DBEAFE',
+    color: '#2563EB',
+  },
+  {
+    icon: 'award',
+    label: 'Top Tier',
+    subLabel: 'Premium Quality',
+    bg: '#F3E8FF',
+    color: '#8B5CF6',
+  },
+];
 
 const HomeScreen = () => {
   const scrollY = useSharedValue(0);
@@ -181,6 +206,14 @@ const HomeScreen = () => {
           <QuickActionsGrid />
 
           <HealthBanner />
+
+          <TrustBlock
+            items={[...trustBlockItems]}
+            brandName="DentalCare"
+            description="Premium dental care simplified."
+            onPrivacyPress={() => {}}
+            onTermsPress={() => {}}
+          />
         </View>
       </Animated.ScrollView>
     </ScreenLayout>

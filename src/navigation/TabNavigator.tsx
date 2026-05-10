@@ -2,6 +2,7 @@ import { View } from 'react-native';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { Theme } from '../constants/theme';
 import { Icon, IconNameType } from '../ui/Icon/Icon';
 import BookingStack from './Stack/BookingStack';
 import ChatStack from './Stack/ChatStack';
@@ -27,12 +28,18 @@ function renderTabIcon(routeName: string, color: string, focused: boolean) {
   return (
     <View
       style={{
-        backgroundColor: focused ? '#0D7A4E20' : 'transparent',
+        backgroundColor: focused
+          ? Theme.colors.tabNavigation.tabActiveBackgroundColor
+          : 'transparent',
         padding: 8,
         borderRadius: 12,
       }}
     >
-      <Icon name={iconName} size={22} color={color} />
+      <Icon
+        name={iconName}
+        size={22}
+        color={Theme.colors.tabNavigation.iconColor}
+      />
     </View>
   );
 }
@@ -45,14 +52,15 @@ export default function TabNavigator() {
         headerShown: false,
 
         tabBarShowLabel: true,
-        tabBarActiveTintColor: '#0D7A4E',
-        tabBarInactiveTintColor: '#9CA3AF',
+        tabBarActiveTintColor: Theme.colors.tabNavigation.tabBarActiveTintColor,
+        tabBarInactiveTintColor:
+          Theme.colors.tabNavigation.tabBarActiveTintColor,
 
         tabBarStyle: {
-          height: 90,
-          paddingBottom: 8,
-          paddingTop: 8,
-          backgroundColor: '#fff',
+          height: 78,
+          paddingBottom: 10,
+          paddingTop: 10,
+          backgroundColor: Theme.colors.tabNavigation.tabBackgroundColor,
           borderTopWidth: 0,
           elevation: 0,
         },

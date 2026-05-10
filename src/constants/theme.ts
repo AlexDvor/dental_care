@@ -39,6 +39,7 @@ export const Palette = {
   },
 
   white: '#FFFFFF',
+  test: ' #E8F3ED',
 };
 
 const Colors = {
@@ -83,6 +84,14 @@ const Colors = {
     warning: Palette.yellow[500],
     error: Palette.red[500],
     info: Palette.blue[500],
+  },
+
+  tabNavigation: {
+    tabBarActiveTintColor: Palette.green[100],
+    tabBarInactiveTintColor: Palette.gray[400],
+    tabBackgroundColor: Palette.green[800],
+    tabActiveBackgroundColor: Palette.green[100],
+    iconColor: Palette.green[500],
   },
 };
 
