@@ -1,20 +1,30 @@
-import { Image, StyleProp, Text, View, ViewStyle } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Svg, { Path } from 'react-native-svg';
 
 import { Theme } from '../../constants/theme';
 import { Icon } from '../../ui/Icon/Icon';
+import { StatsCardProps } from './StatsCard.interface';
 
 import { styles } from './StatsCard.style';
 
-type StatsCard = {
-  style?: StyleProp<ViewStyle>;
-};
+const StatsCard = ({ style, layout = 'row' }: StatsCardProps) => {
+  const isColumn = layout === 'column';
 
-const StatsCard = ({ style }: StatsCard) => {
   return (
-    <View style={[styles.container, style]}>
-      <View style={styles.card}>
+    <View
+      style={[
+        styles.container,
+        isColumn && styles.containerColumn,
+        style,
+      ]}
+    >
+      <View
+        style={[
+          styles.card,
+          styles.visitsCard,
+          isColumn && styles.cardColumn,
+        ]}
+      >
         <View style={styles.content}>
           <LinearGradient
             colors={['#8CC8FF', Theme.colors.icon.blue]}
@@ -24,7 +34,7 @@ const StatsCard = ({ style }: StatsCard) => {
           >
             <Icon
               name="viewRecords"
-              size={23}
+              size={20}
               color={Theme.colors.text.inverted}
             />
           </LinearGradient>
@@ -35,18 +45,22 @@ const StatsCard = ({ style }: StatsCard) => {
           </View>
         </View>
 
-        <Svg width={96} height={48} viewBox="0 0 96 48" style={styles.chart}>
-          <Path
-            d="M3 35 C 18 37, 18 14, 32 15 C 46 16, 45 39, 59 30 C 71 22, 68 2, 81 5 C 89 7, 88 21, 94 15"
-            stroke="#9FCBFF"
-            strokeWidth={2.4}
-            strokeLinecap="round"
-            fill="none"
-          />
-        </Svg>
+        <Image
+          source={require('../../assets/images/visit_stats.png')}
+          style={[
+            styles.visitStatsImage,
+            isColumn && styles.visitStatsImageColumn,
+          ]}
+        />
       </View>
 
-      <View style={styles.card}>
+      <View
+        style={[
+          styles.card,
+          styles.upcomingCard,
+          isColumn && styles.cardColumn,
+        ]}
+      >
         <View style={styles.content}>
           <LinearGradient
             colors={['#B99BFF', Theme.colors.icon.purple]}
@@ -56,7 +70,7 @@ const StatsCard = ({ style }: StatsCard) => {
           >
             <Icon
               name="schedule"
-              size={23}
+              size={20}
               color={Theme.colors.text.inverted}
             />
           </LinearGradient>
@@ -67,10 +81,18 @@ const StatsCard = ({ style }: StatsCard) => {
           </View>
         </View>
 
-        <View style={styles.calendarWrapper}>
+        <View
+          style={[
+            styles.calendarWrapper,
+            isColumn && styles.calendarWrapperColumn,
+          ]}
+        >
           <Image
             source={require('../../assets/images/upcoming_calendar.png')}
-            style={styles.calendarImage}
+            style={[
+              styles.calendarImage,
+              isColumn && styles.calendarImageColumn,
+            ]}
           />
         </View>
       </View>

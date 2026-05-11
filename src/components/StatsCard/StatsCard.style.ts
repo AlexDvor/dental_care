@@ -9,16 +9,35 @@ export const styles = StyleSheet.create({
     gap: Theme.spacing.md,
   },
 
+  containerColumn: {
+    flex: 1,
+    flexDirection: 'column',
+    gap: Theme.spacing.lg,
+  },
+
   card: {
     flex: 1,
-    // minHeight: 100,
+    flexBasis: 0,
+    minWidth: 0,
+    minHeight: 128,
     borderRadius: Theme.radius.lg,
-    padding: Theme.spacing.md,
-    backgroundColor: Theme.colors.background.card,
+    padding: Theme.spacing.lg,
     borderWidth: 1,
-    borderColor: Theme.colors.border.default,
+    borderColor: '#EEF2F0',
     overflow: 'hidden',
     ...Theme.shadow.primary,
+  },
+
+  visitsCard: {
+    backgroundColor: '#F8FCFF',
+  },
+
+  upcomingCard: {
+    backgroundColor: '#FCFAFF',
+  },
+
+  cardColumn: {
+    minHeight: 154,
   },
 
   content: {
@@ -28,9 +47,9 @@ export const styles = StyleSheet.create({
   },
 
   iconWrapper: {
-    width: 40,
-    height: 40,
-    borderRadius: Theme.radius.sm,
+    width: 36,
+    height: 36,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: Theme.colors.text.primary,
@@ -41,12 +60,12 @@ export const styles = StyleSheet.create({
   },
 
   textBlock: {
-    marginTop: Theme.spacing.sm,
+    marginTop: Theme.spacing.md,
   },
 
   value: {
-    fontSize: Theme.typography.size.h2,
-    lineHeight: Theme.typography.lineHeight.h2,
+    fontSize: Theme.typography.size.h3,
+    lineHeight: Theme.typography.lineHeight.h3,
     color: Theme.colors.text.primary,
     fontWeight: Theme.typography.fontWeight.semibold,
   },
@@ -59,27 +78,49 @@ export const styles = StyleSheet.create({
     fontWeight: Theme.typography.fontWeight.medium,
   },
 
-  chart: {
+  visitStatsImage: {
     position: 'absolute',
-    right: Theme.spacing.sm,
+    right: Theme.spacing.md,
+    bottom: Theme.spacing.md,
+    width: 98,
+    height: 74,
+    resizeMode: 'contain',
+    opacity: 0.92,
+  },
+
+  visitStatsImageColumn: {
+    right: Theme.spacing.lg,
     bottom: Theme.spacing.lg,
-    opacity: 0.9,
+    width: 134,
+    height: 98,
   },
 
   calendarWrapper: {
     position: 'absolute',
-    right: -Theme.spacing.sm,
-    bottom: Theme.spacing.sm,
-    width: 86,
-    height: 86,
+    right: Theme.spacing.md,
+    bottom: Theme.spacing.md,
+    width: 98,
+    height: 74,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
+  calendarWrapperColumn: {
+    right: Theme.spacing.lg,
+    bottom: Theme.spacing.lg,
+    width: 134,
+    height: 98,
+  },
+
   calendarImage: {
-    width: 104,
-    height: 104,
+    width: 102,
+    height: 102,
     resizeMode: 'contain',
-    opacity: 0.88,
+    opacity: 0.92,
+  },
+
+  calendarImageColumn: {
+    width: 134,
+    height: 134,
   },
 });
