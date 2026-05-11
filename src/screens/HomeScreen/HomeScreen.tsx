@@ -60,6 +60,7 @@ const HomeScreen = () => {
   const navigation = useNavigation<Navigation>();
 
   const scrollY = useSharedValue(0);
+
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: event => {
       scrollY.value = event.contentOffset.y;
@@ -203,7 +204,10 @@ const HomeScreen = () => {
         }}
       >
         <View style={styles.content}>
-          <StatsCard
+          <StatsCard />
+
+          <MedicationReminder
+            onPress={() => navigation.navigate('MedicationsList')}
             style={{
               marginTop: Theme.spacing.lg,
             }}
@@ -214,13 +218,18 @@ const HomeScreen = () => {
               marginTop: Theme.spacing.lg,
             }}
           />
-          <MedicationReminder
-            onPress={() => navigation.navigate('MedicationsList')}
+
+          <QuickActionsGrid
+            style={{
+              marginTop: Theme.spacing.lg,
+            }}
           />
 
-          <QuickActionsGrid />
-
-          <HealthBanner />
+          <HealthBanner
+            style={{
+              marginTop: Theme.spacing.lg,
+            }}
+          />
 
           <TrustBlock
             items={[...trustBlockItems]}

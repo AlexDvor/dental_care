@@ -1,13 +1,17 @@
-import { Text, View } from 'react-native';
+import { Text, View, ViewStyle } from 'react-native';
 
 import { Theme } from '../../constants/theme';
 import { Icon } from '../../ui/Icon/Icon';
 
 import { styles } from './StatsCard.style';
 
-const StatsCard = () => {
+type StatsCard = {
+  style?: ViewStyle;
+};
+
+const StatsCard = ({ style }: StatsCard) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <View style={styles.item}>
         <View style={styles.iconWrapper}>
           <Icon name="schedule" size={22} color={Theme.colors.icon.primary} />

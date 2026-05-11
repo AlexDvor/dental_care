@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 import Svg, { Circle, Path } from 'react-native-svg';
 
 import { Theme } from '../../constants/theme';
@@ -12,6 +12,7 @@ type Props = {
   nextDoseName?: string;
   nextDoseTime?: string;
   onPress?: () => void;
+  style?: ViewStyle;
 };
 
 export function MedicationReminder({
@@ -20,13 +21,14 @@ export function MedicationReminder({
   nextDoseName = 'Amoxicillin',
   nextDoseTime = '14:00',
   onPress,
+  style,
 }: Props) {
   const radius = 44;
   const circumference = 2 * Math.PI * radius;
   const dash = circumference * (total > 0 ? taken / total : 0);
 
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
+    <TouchableOpacity style={[styles.card, style]} onPress={onPress}>
       <View style={styles.ringWrap}>
         <Svg
           width={112}

@@ -4,7 +4,6 @@ import { Theme } from '../../constants/theme';
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: Theme.spacing.lg,
     gap: Theme.spacing.md,
   },
 

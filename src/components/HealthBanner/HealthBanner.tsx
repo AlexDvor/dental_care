@@ -1,10 +1,14 @@
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { styles } from './HealthBanner.style';
 
-const HealthBanner = () => {
+type HealthBannerProps = {
+  style?: ViewStyle;
+};
+
+const HealthBanner = ({ style }: HealthBannerProps) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <View style={styles.textBlock}>
         <Text style={styles.title}>Keep your smile healthy</Text>
         <Text style={styles.desc}>

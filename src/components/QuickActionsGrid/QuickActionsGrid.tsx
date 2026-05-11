@@ -1,13 +1,16 @@
-import { View } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 
 import { Theme } from '../../constants/theme';
 import QuickActionCard from '../../ui/QuickActionCard/QuickActionCard';
 
 import { styles } from './QuickActionsGrid.style';
 
-const QuickActionsGrid = () => {
+type QuickActionsGridProps = {
+  style?: ViewStyle;
+};
+const QuickActionsGrid = ({ style }: QuickActionsGridProps) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <View style={styles.row}>
         <QuickActionCard
           title="Book Appointment"
