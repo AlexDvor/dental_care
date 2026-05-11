@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 10,
   },
-  pillIcon: {
+  pillWrapper: {
     width: 36,
     height: 36,
     borderRadius: 18,
@@ -72,6 +72,10 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 1,
+  },
+  image: {
+    width: 23,
+    height: 23,
   },
   doseLabel: {
     fontSize: 11,

@@ -1,19 +1,11 @@
 import React from 'react';
-import { Text, TouchableOpacity, View, ViewStyle } from 'react-native';
-import Svg, { Circle, Path } from 'react-native-svg';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
+import Svg, { Circle } from 'react-native-svg';
 
 import { Theme } from '../../constants/theme';
+import { MedicationReminderProps } from './MedicationReminder.interface';
 
 import { styles } from './MedicationReminder.style';
-
-type Props = {
-  taken?: number;
-  total?: number;
-  nextDoseName?: string;
-  nextDoseTime?: string;
-  onPress?: () => void;
-  style?: ViewStyle;
-};
 
 export function MedicationReminder({
   taken = 2,
@@ -22,7 +14,7 @@ export function MedicationReminder({
   nextDoseTime = '14:00',
   onPress,
   style,
-}: Props) {
+}: MedicationReminderProps) {
   const radius = 44;
   const circumference = 2 * Math.PI * radius;
   const dash = circumference * (total > 0 ? taken / total : 0);
@@ -76,16 +68,11 @@ export function MedicationReminder({
         </View>
 
         <View style={styles.doseRow}>
-          <View style={styles.pillIcon}>
-            <Svg width={16} height={16} viewBox="0 0 24 24" fill="none">
-              <Path
-                d="M10.5 20.5a7 7 0 0 1-9.9-9.9l9.9-9.9a7 7 0 0 1 9.9 9.9l-9.9 9.9ZM8.5 8.5l7 7"
-                stroke={Theme.colors.icon.primary}
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </Svg>
+          <View style={styles.pillWrapper}>
+            <Image
+              style={styles.image}
+              source={require('../../assets/images/pill.png')}
+            />
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.doseLabel}>Next dose</Text>

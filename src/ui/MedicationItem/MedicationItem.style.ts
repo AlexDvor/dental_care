@@ -39,6 +39,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 12,
   },
+  image: {
+    width: 23,
+    height: 23,
+  },
   iconWrapTaken: { backgroundColor: '#FFFFFF' },
   itemContent: { flex: 1 },
   itemName: { fontSize: 16, fontWeight: '700', color: '#0F1B14' },
