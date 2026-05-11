@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
 
   headerTitle: {
     color: Theme.colors.text.badge,
-    fontSize: 17,
+    fontSize: Theme.typography.size.body,
     fontWeight: Theme.typography.fontWeight.semibold,
     lineHeight: 22,
   },
@@ -76,7 +76,7 @@ export const styles = StyleSheet.create({
 
   doctorName: {
     color: Theme.colors.text.primary,
-    fontSize: 18,
+    fontSize: Theme.typography.size.h3,
     fontWeight: Theme.typography.fontWeight.semibold,
     lineHeight: 24,
   },
