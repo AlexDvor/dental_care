@@ -54,11 +54,11 @@ const AppointmentCard = ({ style, onPress }: AppointmentCardProps) => {
 
       <CustomBtn
         title="View Appointment"
-        onPress={() => {}}
+        onPress={onPress || (() => {})}
         type="primary"
         icon="arrow_r"
         iconPosition="right"
-        style={{ marginTop: 12 }}
+        style={styles.button}
       />
     </View>
   );

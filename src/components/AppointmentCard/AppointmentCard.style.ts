@@ -131,4 +131,8 @@ export const styles = StyleSheet.create({
     height: 170,
     resizeMode: 'contain',
   },
+
+  button: {
+    marginTop: 12,
+  },
 });
