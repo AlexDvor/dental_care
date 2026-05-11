@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     marginTop: Theme.spacing.lg,
     padding: Theme.spacing.lg,
     borderRadius: Theme.radius.md,
-    backgroundColor: '#E8F3ED',
+    backgroundColor: Theme.colors.background.soft,
     flexDirection: 'row',
     alignItems: 'center',
 

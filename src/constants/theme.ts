@@ -4,6 +4,7 @@ export const Palette = {
     100: '#E8F3ED',
     200: '#D1FAE5',
     500: '#27AE60',
+    600: '#2E9E6B',
     700: '#0E7A4B',
     800: '#1F8A5B',
   },
@@ -38,25 +39,29 @@ export const Palette = {
     500: '#EB5757',
   },
 
-  white: '#FFFFFF',
-  test: ' #E8F3ED',
+  white: {
+    100: '#FFFFFF',
+    70: '#FFFFFFB3',
+  },
 };
 
 const Colors = {
   background: {
     main: Palette.green[50],
-    card: Palette.white,
+    card: Palette.white[100],
     soft: Palette.green[100],
     accent: Palette.green[700],
     backTeal: Palette.teal[50],
     backPurple: Palette.purple[50],
     backBlue: Palette.blue[50],
+    neutralWhite: Palette.white[70],
+    accentSoftGreen: Palette.green[600],
   },
   text: {
     primary: Palette.gray[900],
     secondary: Palette.gray[500],
     placeholder: Palette.gray[400],
-    inverted: Palette.white,
+    inverted: Palette.white[100],
     badge: Palette.green[700],
     invertedBadge: Palette.green[200],
   },
@@ -67,6 +72,7 @@ const Colors = {
     teal: Palette.teal[500],
     purple: Palette.purple[500],
     blue: Palette.blue[500],
+    accentSoftGreen: Palette.green[600],
   },
 
   statusBar: {
@@ -150,28 +156,28 @@ const Shadow = {
     elevation: 2,
   },
 
-  // small: {
-  //   shadowColor: Palette.gray[900],
-  //   shadowOpacity: 0.04,
-  //   shadowRadius: 6,
-  //   shadowOffset: { width: 0, height: 2 },
-  //   elevation: 2,
-  // },
+  small: {
+    shadowColor: Palette.gray[900],
+    shadowOpacity: 0.04,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2,
+  },
 
-  // medium: {
-  //   shadowColor: Palette.gray[900],
-  //   shadowOpacity: 0.08,
-  //   shadowRadius: 16,
-  //   shadowOffset: { width: 0, height: 6 },
-  //   elevation: 4,
-  // },
-  // large: {
-  //   shadowColor: Palette.gray[900],
-  //   shadowOpacity: 0.12,
-  //   shadowRadius: 24,
-  //   shadowOffset: { width: 0, height: 10 },
-  //   elevation: 8,
-  // },
+  medium: {
+    shadowColor: Palette.gray[900],
+    shadowOpacity: 0.08,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 4,
+  },
+  large: {
+    shadowColor: Palette.gray[900],
+    shadowOpacity: 0.12,
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 8,
+  },
 };
 
 export const Theme = {

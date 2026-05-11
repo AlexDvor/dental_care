@@ -10,6 +10,7 @@ import Animated, {
 
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import HealthBanner from '../../components/HealthBanner/HealthBanner';
+import { MedicationReminder } from '../../components/MedicationReminder/MedicationReminder';
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import QuickActionsGrid from '../../components/QuickActionsGrid/QuickActionsGrid';
 import StatsCard from '../../components/StatsCard/StatsCard';
@@ -202,6 +203,7 @@ const HomeScreen = () => {
               marginTop: Theme.spacing.lg,
             }}
           />
+          <MedicationReminder />
 
           <QuickActionsGrid />
 
