@@ -1,3 +1,5 @@
+import { Button } from 'react-native/types_generated/index';
+
 export const Palette = {
   green: {
     50: '#F3F6F4',
@@ -177,6 +179,14 @@ const Shadow = {
     shadowRadius: 24,
     shadowOffset: { width: 0, height: 10 },
     elevation: 8,
+  },
+
+  button: {
+    shadowColor: Palette.gray[900],
+    shadowOpacity: 0.18,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 5 },
+    elevation: 3,
   },
 };
 

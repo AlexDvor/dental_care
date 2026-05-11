@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text,View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import { Icon } from '../../ui/Icon/Icon';
@@ -7,43 +7,58 @@ import { AppointmentCardProps } from './AppointmentCard.interface';
 
 import { styles } from './AppointmentCard.style';
 
-const AppointmentCard = ({ style }: AppointmentCardProps) => {
+const AppointmentCard = ({ style, onPress }: AppointmentCardProps) => {
   return (
     <View style={[styles.container, style]}>
-      <View style={styles.topRow}>
-        <View style={styles.leftSection}>
-          <View style={styles.iconWrapper}>
-            <Icon name="schedule" size={25} color={'#0E7A4B'} />
-          </View>
-
-          <View style={styles.textBlock}>
-            <Text style={styles.title}>Regular Checkup</Text>
-            <Text style={styles.subtitle}>Dr. Sarah Johnson</Text>
-          </View>
+      <View style={styles.headerRow}>
+        <View style={styles.iconWrapper}>
+          <Icon name="schedule" size={25} color="#0E7A4B" />
         </View>
 
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>Today</Text>
-        </View>
+        <Text style={styles.headerTitle}>Next Appointment</Text>
       </View>
 
-      <View style={styles.dateRow}>
-        <View style={styles.dateItem}>
-          <Icon name="schedule" size={16} color={'#6B7280'} />
-          <Text style={styles.dateText}>Apr 9, 2026</Text>
+      <View style={styles.contentRow}>
+        <View style={styles.infoColumn}>
+          <View style={styles.doctorRow}>
+            <Image
+              source={require('../../assets/images/doctor.jpg')}
+              style={styles.avatar}
+            />
+
+            <View style={styles.doctorTextBlock}>
+              <Text style={styles.doctorName}>Dr. Sarah Johnson</Text>
+              <Text style={styles.appointmentType}>Regular Checkup</Text>
+            </View>
+          </View>
+
+          <View style={styles.separator} />
+
+          <View style={styles.timeRow}>
+            <Icon name="schedule" size={32} color="#0E7A4B" />
+
+            <View style={styles.timeTextBlock}>
+              <Text style={styles.dateLabel}>Today</Text>
+              <Text style={styles.timeText}>10:30 AM</Text>
+            </View>
+          </View>
         </View>
 
-        <View style={styles.dateItem}>
-          <Icon name="schedule" size={16} color={'#6B7280'} />
-          <Text style={styles.dateText}>10:30 AM</Text>
+        <View style={styles.calendarPanel}>
+          <Image
+            source={require('../../assets/images/calendar.png')}
+            style={styles.calendarImage}
+          />
         </View>
       </View>
 
       <CustomBtn
-        title="View Details"
+        title="View Appointment"
         onPress={() => {}}
-        style={{ marginTop: 20 }}
-        type="secondary"
+        type="primary"
+        icon="arrow_r"
+        iconPosition="right"
+        style={{ marginTop: 12 }}
       />
     </View>
   );

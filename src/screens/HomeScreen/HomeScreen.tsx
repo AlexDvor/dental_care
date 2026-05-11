@@ -205,15 +205,14 @@ const HomeScreen = () => {
       >
         <View style={styles.content}>
           <StatsCard />
-
-          <MedicationReminder
-            onPress={() => navigation.navigate('MedicationsList')}
+          <AppointmentCard
             style={{
               marginTop: Theme.spacing.lg,
             }}
           />
 
-          <AppointmentCard
+          <MedicationReminder
+            onPress={() => navigation.navigate('MedicationsList')}
             style={{
               marginTop: Theme.spacing.lg,
             }}
