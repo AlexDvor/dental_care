@@ -87,5 +87,4 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     color: Theme.colors.text.primary,
   },
-  chevron: { color: ' rgba(27, 42, 34, 0.4)', fontSize: 20, marginTop: 2 },
 });

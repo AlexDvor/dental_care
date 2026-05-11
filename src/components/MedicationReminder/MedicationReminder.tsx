@@ -3,6 +3,7 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
 import { Theme } from '../../constants/theme';
+import { Icon } from '../../ui/Icon/Icon';
 import { MedicationReminderProps } from './MedicationReminder.interface';
 
 import { styles } from './MedicationReminder.style';
@@ -64,7 +65,7 @@ export function MedicationReminder({
             <Text style={styles.title}>Medication Reminder</Text>
             <Text style={styles.subtitle}>Stay on track with your health</Text>
           </View>
-          <Text style={styles.chevron}>›</Text>
+          <Icon name="arrow_r" color={Theme.colors.icon.secondary} />
         </View>
 
         <View style={styles.doseRow}>
