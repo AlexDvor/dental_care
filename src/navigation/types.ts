@@ -1,0 +1,55 @@
+import { NavigationProp } from '@react-navigation/native';
+
+import { DoctorType } from '../interfaces/doctor.types';
+
+export type TabParamList = {
+  HomeTab: undefined;
+  BookingTab: undefined;
+  ChatTab: undefined;
+  ProfileTab: undefined;
+};
+
+export type HomeStackParamList = {
+  HomeMain: undefined;
+  MedicationsList: undefined;
+};
+
+export type BookingStackParamList = {
+  ServiceList: undefined;
+
+  DoctorList: {
+    serviceType: string[];
+    totalPrice: number;
+  };
+
+  DoctorProfile: {
+    doctorId: string;
+    serviceType: string[];
+    totalPrice: number;
+  };
+
+  SelectDate: {
+    doctorId: string;
+    serviceType: string[];
+    totalPrice: number;
+  };
+
+  BookingConfirm: {
+    doctorData: DoctorType;
+    date: string;
+    time: string;
+    serviceType: string[];
+    totalPrice: number;
+    slotId: string;
+  };
+};
+
+export type ChatStackParamList = {
+  ChatMain: undefined;
+};
+
+export type ProfileStackParamList = {
+  ProfileMain: undefined;
+};
+
+export type RootNav = NavigationProp<TabParamList>;

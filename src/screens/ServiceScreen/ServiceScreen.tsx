@@ -1,0 +1,86 @@
+import { useCallback, useState } from 'react';
+import { ScrollView, Text, View } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+import ServiceCard from '../../components/ServiceCard/ServiceCard';
+import { Theme } from '../../constants/theme';
+import ScreenLayout from '../../layout/ScreenLayout';
+import { SERVICES } from '../../mockData/services';
+import { BookingStackParamList } from '../../navigation/types';
+import CustomBtn from '../../ui/CustomBtn/CustomBtn';
+import SecurityNote from '../../ui/SecurityNote/SecurityNote';
+import SubTitle from '../../ui/SubTitle/SubTitle';
+
+import { styles } from './ServiceScreen.style';
+
+type Navigation = NativeStackNavigationProp<
+  BookingStackParamList,
+  'ServiceList'
+>;
+
+const ServiceScreen = () => {
+  const [selected, setSelected] = useState<string[]>([]);
+  const navigation = useNavigation<Navigation>();
+
+  const toggleService = useCallback((id: string) => {
+    setSelected(prev =>
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id],
+    );
+  }, []);
+
+  const total = SERVICES.filter(s => selected.includes(s.id)).reduce(
+    (sum, s) => sum + s.price,
+    0,
+  );
+
+  const handlePressContinue = () => {
+    const selectedServices = SERVICES.filter(s => selected.includes(s.id));
+
+    const serviceTitles = selectedServices.map(i => i.title);
+
+    navigation.navigate('DoctorList', {
+      serviceType: serviceTitles,
+      totalPrice: total,
+    });
+  };
+
+  return (
+    <ScreenLayout
+      defaultPadding
+      statusBarBackgroundColor={Theme.colors.statusBar.primary}
+      statusBarStyle="dark-content"
+    >
+      <View style={styles.container}>
+        <SubTitle title="You can select one or more services" />
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          {SERVICES.map(service => (
+            <ServiceCard
+              key={service.id}
+              {...service}
+              selected={selected.includes(service.id)}
+              onPress={toggleService}
+            />
+          ))}
+        </ScrollView>
+
+        <View style={styles.bottom}>
+          <View style={styles.selectedBox}>
+            <Text>Selected ({selected.length})</Text>
+            <Text style={styles.price}>${total}</Text>
+          </View>
+
+          <CustomBtn title="Continue" onPress={() => handlePressContinue()} />
+
+          <SecurityNote />
+        </View>
+      </View>
+    </ScreenLayout>
+  );
+};
+
+export default ServiceScreen;

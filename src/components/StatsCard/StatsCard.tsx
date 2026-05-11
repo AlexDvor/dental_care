@@ -1,0 +1,36 @@
+import { Text, View, ViewStyle } from 'react-native';
+
+import { Theme } from '../../constants/theme';
+import { Icon } from '../../ui/Icon/Icon';
+
+import { styles } from './StatsCard.style';
+
+type StatsCard = {
+  style?: ViewStyle;
+};
+
+const StatsCard = ({ style }: StatsCard) => {
+  return (
+    <View style={[styles.container, style]}>
+      <View style={styles.item}>
+        <View style={styles.iconWrapper}>
+          <Icon name="schedule" size={22} color={Theme.colors.icon.primary} />
+        </View>
+        <Text style={styles.value}>12</Text>
+        <Text style={styles.label}>Total Visits</Text>
+      </View>
+
+      <View style={styles.divider} />
+
+      <View style={styles.item}>
+        <View style={styles.iconWrapper}>
+          <Icon name="schedule" size={22} color={Theme.colors.icon.primary} />
+        </View>
+        <Text style={styles.value}>2</Text>
+        <Text style={styles.label}>Upcoming</Text>
+      </View>
+    </View>
+  );
+};
+
+export default StatsCard;

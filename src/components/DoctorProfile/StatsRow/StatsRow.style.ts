@@ -1,0 +1,31 @@
+import { StyleSheet } from 'react-native';
+
+import { Theme } from '../../../constants/theme';
+
+export const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    gap: Theme.spacing.md,
+    marginTop: Theme.spacing.lg,
+  },
+  card: {
+    flex: 1,
+    backgroundColor: Theme.colors.background.card,
+    borderRadius: Theme.radius.lg,
+    padding: Theme.spacing.xl,
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...Theme.shadow.primary,
+  },
+  value: {
+    fontSize: Theme.typography.size.h3,
+    fontWeight: Theme.typography.fontWeight.semibold,
+    color: Theme.colors.text.badge,
+    textAlign: 'center',
+  },
+  label: {
+    color: Theme.colors.text.secondary,
+    fontSize: Theme.typography.size.caption,
+    textAlign: 'center',
+  },
+});
