@@ -11,6 +11,7 @@ export type TabParamList = {
 
 export type HomeStackParamList = {
   HomeMain: undefined;
+  MedicationsList: undefined;
 };
 
 export type BookingStackParamList = {

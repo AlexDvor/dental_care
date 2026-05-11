@@ -8,6 +8,9 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import HealthBanner from '../../components/HealthBanner/HealthBanner';
 import { MedicationReminder } from '../../components/MedicationReminder/MedicationReminder';
@@ -16,6 +19,7 @@ import QuickActionsGrid from '../../components/QuickActionsGrid/QuickActionsGrid
 import StatsCard from '../../components/StatsCard/StatsCard';
 import { Theme } from '../../constants/theme';
 import ScreenLayout from '../../layout/ScreenLayout';
+import { HomeStackParamList } from '../../navigation/types';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
 
 import { styles } from './HomeScreen.style';
@@ -47,7 +51,14 @@ const trustBlockItems = [
   },
 ];
 
+type Navigation = NativeStackNavigationProp<
+  HomeStackParamList,
+  'MedicationsList'
+>;
+
 const HomeScreen = () => {
+  const navigation = useNavigation<Navigation>();
+
   const scrollY = useSharedValue(0);
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: event => {
@@ -203,7 +214,9 @@ const HomeScreen = () => {
               marginTop: Theme.spacing.lg,
             }}
           />
-          <MedicationReminder />
+          <MedicationReminder
+            onPress={() => navigation.navigate('MedicationsList')}
+          />
 
           <QuickActionsGrid />
 

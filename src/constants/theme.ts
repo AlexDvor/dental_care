@@ -72,7 +72,6 @@ const Colors = {
     teal: Palette.teal[500],
     purple: Palette.purple[500],
     blue: Palette.blue[500],
-    accentSoftGreen: Palette.green[600],
   },
 
   statusBar: {

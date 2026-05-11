@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "analyze-bundle": "react-native-bundle-visualizer"
+    "analyze-bundle": "react-native-bundle-visualizer",
+    "clean:metro": "rm -rf /c/Users/$USER/AppData/Local/Temp/metro-* && rm -rf /c/Users/$USER/AppData/Local/Temp/haste-map-*"
   },
   "dependencies": {
     "@react-native/new-app-screen": "0.85.2",
