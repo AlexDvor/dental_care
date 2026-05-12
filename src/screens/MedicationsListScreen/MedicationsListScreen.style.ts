@@ -2,24 +2,11 @@ import { StyleSheet } from 'react-native';
 
 import { Theme } from '../../constants/theme';
 
-export const colors = {
-  background: '#F4FAF6',
-  foreground: '#1B2A22',
-  card: '#FFFFFF',
-  border: '#E3ECE6',
-  medicalGreen: '#2E9E6B',
-  medicalGreenSoft: '#E6F5EC',
-  medicalGreenForeground: '#FFFFFF',
-  white70: 'rgba(255,255,255,0.7)',
-  mutedText: 'rgba(27,42,34,0.7)',
-  arrow: 'rgba(27,42,34,0.4)',
-};
-
 export const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: Theme.spacing.md,
   },
   backBtn: {
     width: 40,
@@ -28,52 +15,58 @@ export const styles = StyleSheet.create({
     backgroundColor: Theme.colors.background.card,
     alignItems: 'center',
     justifyContent: 'center',
-
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 2,
+    ...Theme.shadow.small,
   },
   title: {
-    fontSize: 22,
-    fontWeight: '700',
+    fontSize: Theme.typography.size.h3,
+    lineHeight: Theme.typography.lineHeight.h3,
+    fontWeight: Theme.typography.fontWeight.semibold,
     color: Theme.colors.text.primary,
-    marginLeft: 12,
+    marginLeft: Theme.spacing.md,
   },
   subtitle: {
-    fontSize: 13,
+    fontSize: Theme.typography.size.xs,
+    lineHeight: Theme.typography.lineHeight.caption,
     color: Theme.colors.text.secondary,
-    paddingHorizontal: 16,
-    marginBottom: 12,
+    paddingHorizontal: Theme.spacing.lg,
+    marginBottom: Theme.spacing.md,
   },
   summaryCard: {
-    marginBottom: 16,
-    padding: 16,
-    borderRadius: 20,
+    marginBottom: Theme.spacing.lg,
+    padding: Theme.spacing.lg,
+    borderRadius: Theme.radius.lg,
     backgroundColor: Theme.colors.background.accentSoftGreen,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  summaryLabel: { color: '#FFFFFFCC', fontSize: 13, fontWeight: '500' },
-
+  summaryLabel: {
+    color: Theme.colors.background.neutralWhite,
+    fontSize: Theme.typography.size.xs,
+    lineHeight: Theme.typography.lineHeight.caption,
+    fontWeight: Theme.typography.fontWeight.medium,
+  },
   summaryValue: {
     color: Theme.colors.text.inverted,
-    fontSize: 26,
-    fontWeight: '800',
+    fontSize: Theme.typography.size.h2,
+    lineHeight: Theme.typography.lineHeight.h2,
+    fontWeight: Theme.typography.fontWeight.semibold,
     marginTop: 2,
   },
-  summaryRight: { alignItems: 'flex-end' },
+  summaryRight: {
+    alignItems: 'flex-end',
+  },
   sectionLabel: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: colors.mutedText,
+    fontSize: Theme.typography.size.caption,
+    lineHeight: Theme.typography.lineHeight.caption,
+    fontWeight: Theme.typography.fontWeight.semibold,
+    color: Theme.colors.text.secondary,
     letterSpacing: 1,
-
-    marginTop: 8,
-    marginBottom: 8,
+    marginTop: Theme.spacing.sm,
+    marginBottom: Theme.spacing.sm,
     textTransform: 'uppercase',
   },
-  list: { paddingBottom: 32 },
+  list: {
+    paddingBottom: Theme.spacing.xxxl,
+  },
 });

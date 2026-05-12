@@ -3,12 +3,13 @@ import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Circle, Path } from 'react-native-svg';
 
 import { Theme } from '../../constants/theme';
+import { MedicationType } from '../../interfaces/medication';
 import ScreenLayout from '../../layout/ScreenLayout';
-import { Med, MedicationItem } from '../../ui/MedicationItem/MedicationItem';
+import { MedicationItem } from '../../ui/MedicationItem/MedicationItem';
 
 import { styles } from './MedicationsListScreen.style';
 
-const INITIAL: Med[] = [
+const INITIAL: MedicationType[] = [
   {
     id: '1',
     name: 'Vitamin D3',
@@ -43,7 +44,7 @@ const BackIcon = () => (
   <Svg width={20} height={20} viewBox="0 0 24 24" fill="none">
     <Path
       d="M15 6l-6 6 6 6"
-      stroke="#0F1B14"
+      stroke={Theme.colors.text.primary}
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -52,7 +53,7 @@ const BackIcon = () => (
 );
 
 export default function MedicationsListScreen({ navigation }: any) {
-  const [meds, setMeds] = useState<Med[]>(INITIAL);
+  const [meds, setMeds] = useState<MedicationType[]>(INITIAL);
 
   const { taken, total } = useMemo(
     () => ({
@@ -62,10 +63,8 @@ export default function MedicationsListScreen({ navigation }: any) {
     [meds],
   );
 
-  const toggle = (id: string) => {
-    setMeds(prev =>
-      prev.map(m => (m.id === id ? { ...m, taken: !m.taken } : m)),
-    );
+  const markAsTaken = (id: string) => {
+    setMeds(prev => prev.map(m => (m.id === id ? { ...m, taken: true } : m)));
   };
 
   return (
@@ -102,7 +101,7 @@ export default function MedicationsListScreen({ navigation }: any) {
               cx="50"
               cy="50"
               r="44"
-              stroke="#FFFFFF40"
+              stroke={Theme.colors.background.neutralWhite}
               strokeWidth={8}
               fill="none"
             />
@@ -111,7 +110,7 @@ export default function MedicationsListScreen({ navigation }: any) {
               cx="50"
               cy="50"
               r="44"
-              stroke="#FFFFFF"
+              stroke={Theme.colors.text.inverted}
               strokeWidth={8}
               strokeLinecap="round"
               fill="none"
@@ -129,8 +128,14 @@ export default function MedicationsListScreen({ navigation }: any) {
       <FlatList
         data={meds}
         keyExtractor={i => i.id}
-        renderItem={({ item }) => (
-          <MedicationItem item={item} onToggle={toggle} />
+        renderItem={({ item, index }) => (
+          <MedicationItem
+            item={item}
+            index={index}
+            isLast={index === meds.length - 1}
+            previousTaken={meds[index - 1]?.taken ?? false}
+            onTaken={markAsTaken}
+          />
         )}
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
