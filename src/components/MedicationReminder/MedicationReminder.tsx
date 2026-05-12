@@ -1,24 +1,37 @@
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import Svg, { Circle } from 'react-native-svg';
+import Svg, { Circle, Path } from 'react-native-svg';
 
+import { getMedicationFormIcon } from '../../constants/medicationForms';
 import { Theme } from '../../constants/theme';
 import { Icon } from '../../ui/Icon/Icon';
 import { MedicationReminderProps } from './MedicationReminder.interface';
 
 import { styles } from './MedicationReminder.style';
 
+const CheckIcon = () => (
+  <Svg width={16} height={16} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M5 12.5l4.5 4.5L19 7.5"
+      stroke="#FFFFFF"
+      strokeWidth={3}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
 export function MedicationReminder({
-  taken = 2,
-  total = 3,
-  nextDoseName = 'Amoxicillin',
-  nextDoseTime = '14:00',
+  taken = 0,
+  total = 0,
+  nextDose,
   onPress,
   style,
 }: MedicationReminderProps) {
   const radius = 44;
   const circumference = 2 * Math.PI * radius;
   const dash = circumference * (total > 0 ? taken / total : 0);
+  const isCompletedToday = total > 0 && taken >= total;
 
   return (
     <TouchableOpacity style={[styles.card, style]} onPress={onPress}>
@@ -61,27 +74,47 @@ export function MedicationReminder({
 
       <View style={styles.content}>
         <View style={styles.headerRow}>
-          <View style={{ flex: 1 }}>
+          <View style={styles.headerText}>
             <Text style={styles.title}>Medication Reminder</Text>
             <Text style={styles.subtitle}>Stay on track with your health</Text>
           </View>
           <Icon name="arrow_r" color={Theme.colors.icon.secondary} />
         </View>
 
-        <View style={styles.doseRow}>
-          <View style={styles.pillWrapper}>
-            <Image
-              style={styles.image}
-              source={require('../../assets/images/pill.png')}
-            />
+        {(isCompletedToday || nextDose) && (
+          <View style={styles.doseRow}>
+            {isCompletedToday ? (
+              <View style={styles.completedIconWrapper}>
+                <CheckIcon />
+              </View>
+            ) : (
+              nextDose && (
+                <View style={styles.pillWrapper}>
+                  <Image
+                    style={styles.image}
+                    source={getMedicationFormIcon(nextDose.form)}
+                  />
+                </View>
+              )
+            )}
+
+            <View style={styles.doseContent}>
+              <Text style={styles.doseLabel}>
+                {isCompletedToday ? 'Well done' : 'Next dose'}
+              </Text>
+              <Text style={styles.doseValue} numberOfLines={1}>
+                {isCompletedToday
+                  ? "Today's medication tasks are complete"
+                  : `${nextDose?.name} · ${nextDose?.time}`}
+              </Text>
+              {!isCompletedToday && nextDose && (
+                <Text style={styles.doseMeta} numberOfLines={1}>
+                  {nextDose.dose}
+                </Text>
+              )}
+            </View>
           </View>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.doseLabel}>Next dose</Text>
-            <Text style={styles.doseValue} numberOfLines={1}>
-              {nextDoseName} · {nextDoseTime}
-            </Text>
-          </View>
-        </View>
+        )}
       </View>
     </TouchableOpacity>
   );

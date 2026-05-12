@@ -1,29 +1,16 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Circle, Path } from 'react-native-svg';
 
-import {
-  getMedicationFormIcon,
-  getMedicationFormLabel,
-} from '../../constants/medicationForms';
+import { getMedicationFormIcon } from '../../constants/medicationForms';
 import { Theme } from '../../constants/theme';
-import {
-  MedicationIntake,
-  MedicationScheduleItem,
-  TreatmentPlan,
-} from '../../interfaces/medication';
+import { useMedicationSchedule } from '../../hook/useMedicationSchedule';
+import { MedicationScheduleItem } from '../../interfaces/medication';
 import ScreenLayout from '../../layout/ScreenLayout';
-import {
-  dentalMedicationIntakes,
-  dentalTreatmentPlans,
-} from '../../mockData/dentalMedicationTreatment';
 import { MedicationItem } from '../../ui/MedicationItem/MedicationItem';
-import { getDateKey } from '../../utils/Date/getDateKey';
 import { parseDateKey } from '../../utils/Date/parseDateKey';
 
 import { styles } from './MedicationsListScreen.style';
-
-const DAY_IN_MS = 24 * 60 * 60 * 1000;
 
 const BackIcon = () => (
   <Svg width={20} height={20} viewBox="0 0 24 24" fill="none">
@@ -37,166 +24,24 @@ const BackIcon = () => (
   </Svg>
 );
 
-const addDays = (date: string, days: number) => {
-  const nextDate = parseDateKey(date);
-  nextDate.setDate(nextDate.getDate() + days);
-  return getDateKey(nextDate);
-};
-
-const getDaysBetween = (startDate: string, endDate: string) =>
-  Math.floor(
-    (parseDateKey(endDate).getTime() - parseDateKey(startDate).getTime()) /
-      DAY_IN_MS,
-  ) + 1;
-
 const formatDate = (date: string) =>
   new Intl.DateTimeFormat('en', {
     month: 'short',
     day: 'numeric',
   }).format(parseDateKey(date));
 
-const getDoseText = (plan: TreatmentPlan) =>
-  `${plan.strength} · ${plan.doseAmount} ${getMedicationFormLabel(
-    plan.form,
-  ).toLowerCase()}`;
-
-const buildSchedule = (
-  plans: TreatmentPlan[],
-  intakes: MedicationIntake[],
-): MedicationScheduleItem[] =>
-  plans
-    .filter(plan => plan.status === 'active')
-    .flatMap(plan => {
-      const daysCount = getDaysBetween(plan.startDate, plan.endDate);
-
-      return Array.from({ length: daysCount }).flatMap((_, dayIndex) => {
-        const scheduledDate = addDays(plan.startDate, dayIndex);
-
-        return plan.times.map(time => {
-          const intake = intakes.find(
-            item =>
-              item.treatmentPlanId === plan.id &&
-              item.scheduledDate === scheduledDate &&
-              item.scheduledTime === time,
-          );
-          const status: MedicationScheduleItem['status'] =
-            intake?.status ?? 'pending';
-
-          return {
-            id: `${plan.id}-${scheduledDate}-${time}`,
-            treatmentPlanId: plan.id,
-            scheduledDate,
-            scheduledAt: `${scheduledDate}T${time}:00.000Z`,
-            name: plan.medicationName,
-            dose: getDoseText(plan),
-            time,
-            taken: status === 'taken',
-            form: plan.form,
-            status,
-          };
-        });
-      });
-    })
-    .sort((a, b) => a.scheduledAt.localeCompare(b.scheduledAt));
-
-const getTreatmentRange = (plans: TreatmentPlan[]) => {
-  const startDate = plans.reduce(
-    (earliest, plan) => (plan.startDate < earliest ? plan.startDate : earliest),
-    plans[0].startDate,
-  );
-  const endDate = plans.reduce(
-    (latest, plan) => (plan.endDate > latest ? plan.endDate : latest),
-    plans[0].endDate,
-  );
-
-  return { startDate, endDate };
-};
-
-const createTakenIntake = (item: MedicationScheduleItem): MedicationIntake => ({
-  id: `intake-${item.id}`,
-  treatmentPlanId: item.treatmentPlanId,
-  scheduledDate: item.scheduledDate,
-  scheduledTime: item.time,
-  scheduledAt: item.scheduledAt,
-  status: 'taken',
-  takenAt: new Date().toISOString(),
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
-});
-
 export default function MedicationsListScreen({ navigation }: any) {
-  const today = getDateKey(new Date());
-  const [intakes, setIntakes] = useState<MedicationIntake[]>(
-    dentalMedicationIntakes,
-  );
   const [showFullTreatment, setShowFullTreatment] = useState(false);
-
-  const treatmentRange = useMemo(
-    () => getTreatmentRange(dentalTreatmentPlans),
-    [],
-  );
-
-  const allSchedule = useMemo(
-    () => buildSchedule(dentalTreatmentPlans, intakes),
-    [intakes],
-  );
-
-  const todaySchedule = useMemo(
-    () => allSchedule.filter(item => item.scheduledDate === today),
-    [allSchedule, today],
-  );
-
-  const { taken, total } = useMemo(
-    () => ({
-      taken: todaySchedule.filter(m => m.taken).length,
-      total: todaySchedule.length,
-    }),
-    [todaySchedule],
-  );
-
-  const treatmentDays = getDaysBetween(
-    treatmentRange.startDate,
-    treatmentRange.endDate,
-  );
-  const currentTreatmentDay = Math.min(
-    Math.max(getDaysBetween(treatmentRange.startDate, today), 1),
+  const {
+    allSchedule,
+    currentTreatmentDay,
+    markAsTaken,
+    todayProgress,
+    todaySchedule,
     treatmentDays,
-  );
-  const treatmentProgress = Math.round(
-    (currentTreatmentDay / treatmentDays) * 100,
-  );
-
-  const markAsTaken = (id: string) => {
-    const scheduleItem = todaySchedule.find(item => item.id === id);
-
-    if (!scheduleItem) {
-      return;
-    }
-
-    setIntakes(prev => {
-      const existingIntake = prev.find(
-        item =>
-          item.treatmentPlanId === scheduleItem.treatmentPlanId &&
-          item.scheduledDate === scheduleItem.scheduledDate &&
-          item.scheduledTime === scheduleItem.time,
-      );
-
-      if (!existingIntake) {
-        return [...prev, createTakenIntake(scheduleItem)];
-      }
-
-      return prev.map(item =>
-        item.id === existingIntake.id
-          ? {
-              ...item,
-              status: 'taken',
-              takenAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
-            }
-          : item,
-      );
-    });
-  };
+    treatmentProgress,
+    treatmentRange,
+  } = useMedicationSchedule();
 
   const renderFullScheduleItem = ({
     item,
@@ -304,7 +149,7 @@ export default function MedicationsListScreen({ navigation }: any) {
           <Text style={styles.summaryLabel}>Taken today</Text>
 
           <Text style={styles.summaryValue}>
-            {taken} / {total}
+            {todayProgress.taken} / {todayProgress.total}
           </Text>
         </View>
 
@@ -328,7 +173,8 @@ export default function MedicationsListScreen({ navigation }: any) {
               strokeLinecap="round"
               fill="none"
               strokeDasharray={`${
-                (2 * Math.PI * 44 * taken) / Math.max(total, 1)
+                (2 * Math.PI * 44 * todayProgress.taken) /
+                Math.max(todayProgress.total, 1)
               } ${2 * Math.PI * 44}`}
               transform="rotate(-90 50 50)"
             />

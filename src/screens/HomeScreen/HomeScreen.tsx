@@ -18,6 +18,7 @@ import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import QuickActionsGrid from '../../components/QuickActionsGrid/QuickActionsGrid';
 import StatsCard from '../../components/StatsCard/StatsCard';
 import { Theme } from '../../constants/theme';
+import { useMedicationSchedule } from '../../hook/useMedicationSchedule';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { HomeStackParamList } from '../../navigation/types';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
@@ -58,6 +59,7 @@ type Navigation = NativeStackNavigationProp<
 
 const HomeScreen = () => {
   const navigation = useNavigation<Navigation>();
+  const { nextDose, todayProgress } = useMedicationSchedule();
 
   const scrollY = useSharedValue(0);
 
@@ -212,6 +214,9 @@ const HomeScreen = () => {
           />
 
           <MedicationReminder
+            taken={todayProgress.taken}
+            total={todayProgress.total}
+            nextDose={nextDose}
             onPress={() => navigation.navigate('MedicationsList')}
             style={{
               marginTop: Theme.spacing.lg,
