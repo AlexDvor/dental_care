@@ -1,5 +1,3 @@
-import { Button } from 'react-native/types_generated/index';
-
 export const Palette = {
   green: {
     50: '#F3F6F4',
@@ -96,9 +94,10 @@ const Colors = {
 
   tabNavigation: {
     tabBarActiveTintColor: Palette.green[100],
-    tabBarInactiveTintColor: Palette.gray[400],
+    tabBarInactiveTintColor: Palette.white[70],
     tabBackgroundColor: Palette.green[800],
     tabActiveBackgroundColor: Palette.green[100],
+    iconActiveColor: Palette.green[700],
     iconColor: Palette.green[500],
   },
 };
