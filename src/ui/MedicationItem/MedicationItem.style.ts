@@ -116,8 +116,8 @@ export const styles = StyleSheet.create({
     marginRight: Theme.spacing.md,
   },
   image: {
-    width: 24,
-    height: 24,
+    width: 34,
+    height: 34,
   },
   itemContent: {
     flex: 1,

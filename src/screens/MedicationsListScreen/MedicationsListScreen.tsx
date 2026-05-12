@@ -1,7 +1,11 @@
 import React, { useMemo, useState } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Circle, Path } from 'react-native-svg';
 
+import {
+  getMedicationFormIcon,
+  getMedicationFormLabel,
+} from '../../constants/medicationForms';
 import { Theme } from '../../constants/theme';
 import {
   MedicationIntake,
@@ -51,6 +55,11 @@ const formatDate = (date: string) =>
     day: 'numeric',
   }).format(parseDateKey(date));
 
+const getDoseText = (plan: TreatmentPlan) =>
+  `${plan.strength} · ${plan.doseAmount} ${getMedicationFormLabel(
+    plan.form,
+  ).toLowerCase()}`;
+
 const buildSchedule = (
   plans: TreatmentPlan[],
   intakes: MedicationIntake[],
@@ -79,9 +88,10 @@ const buildSchedule = (
             scheduledDate,
             scheduledAt: `${scheduledDate}T${time}:00.000Z`,
             name: plan.medicationName,
-            dose: `${plan.strength} · ${plan.doseAmount}`,
+            dose: getDoseText(plan),
             time,
             taken: status === 'taken',
+            form: plan.form,
             status,
           };
         });
@@ -207,9 +217,18 @@ export default function MedicationsListScreen({ navigation }: any) {
         )}
 
         <View style={styles.scheduleCard}>
-          <View>
-            <Text style={styles.scheduleName}>{item.name}</Text>
-            <Text style={styles.scheduleDose}>{item.dose}</Text>
+          <View style={styles.scheduleContent}>
+            <View style={styles.scheduleIconWrap}>
+              <Image
+                style={styles.scheduleIcon}
+                source={getMedicationFormIcon(item.form)}
+              />
+            </View>
+
+            <View style={styles.scheduleText}>
+              <Text style={styles.scheduleName}>{item.name}</Text>
+              <Text style={styles.scheduleDose}>{item.dose}</Text>
+            </View>
           </View>
 
           <View style={styles.scheduleMeta}>

@@ -1,9 +1,23 @@
+export const medicationForms = [
+  { value: 'tablet', label: 'Tablet' },
+  { value: 'capsule', label: 'Capsule' },
+  { value: 'syrup', label: 'Syrup' },
+  { value: 'suspension', label: 'Suspension' },
+  { value: 'solution', label: 'Solution' },
+  { value: 'rinse', label: 'Mouth rinse' },
+  { value: 'gel', label: 'Gel' },
+  { value: 'spray', label: 'Spray' },
+] as const;
+
+export type MedicationForm = (typeof medicationForms)[number]['value'];
+
 export type MedicationType = {
   id: string;
   name: string;
   dose: string;
   time: string;
   taken: boolean;
+  form: MedicationForm;
 };
 
 export type TreatmentPlanStatus =
@@ -22,6 +36,7 @@ export type TreatmentPlan = {
   medicationName: string;
   strength: string;
   doseAmount: string;
+  form: MedicationForm;
   startDate: string;
   endDate: string;
   times: string[];

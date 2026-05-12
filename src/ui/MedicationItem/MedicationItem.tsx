@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
+import { getMedicationFormIcon } from '../../constants/medicationForms';
 import { MedicationType } from '../../interfaces/medication';
 
 import { styles } from './MedicationItem.style';
@@ -133,6 +134,7 @@ export const MedicationItem = memo(
       inputRange: [0, 1],
       outputRange: ['0%', '100%'],
     });
+    const medicationIcon = getMedicationFormIcon(item.form);
 
     return (
       <View style={styles.row}>
@@ -195,10 +197,7 @@ export const MedicationItem = memo(
               />
 
               <View style={styles.iconWrap}>
-                <Image
-                  style={styles.image}
-                  source={require('../../assets/images/pill.png')}
-                />
+                <Image style={styles.image} source={medicationIcon} />
               </View>
 
               <View style={styles.itemContent}>

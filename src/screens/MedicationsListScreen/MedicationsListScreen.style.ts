@@ -147,6 +147,27 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  scheduleContent: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  scheduleIconWrap: {
+    width: 38,
+    height: 38,
+    borderRadius: Theme.radius.sm,
+    backgroundColor: Theme.colors.background.soft,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: Theme.spacing.md,
+  },
+  scheduleIcon: {
+    width: 28,
+    height: 28,
+  },
+  scheduleText: {
+    flex: 1,
+  },
   scheduleName: {
     fontSize: Theme.typography.size.small,
     lineHeight: Theme.typography.lineHeight.small,
