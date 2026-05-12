@@ -106,23 +106,13 @@ const buildMedicationSchedule = (
     .sort((a, b) => a.scheduledAt.localeCompare(b.scheduledAt));
 
 const getNextMedicationDose = (
-  schedule: MedicationScheduleItem[],
-  from = new Date(),
-) => {
-  const today = getDateKey(from);
-  const hours = `${from.getHours()}`.padStart(2, '0');
-  const minutes = `${from.getMinutes()}`.padStart(2, '0');
-  const currentTime = `${hours}:${minutes}`;
-
-  return (
-    schedule.find(
-      item =>
-        !item.taken &&
-        (item.scheduledDate > today ||
-          (item.scheduledDate === today && item.time >= currentTime)),
-    ) ?? schedule.find(item => !item.taken)
-  );
-};
+  todaySchedule: MedicationScheduleItem[],
+  allSchedule: MedicationScheduleItem[],
+  today: string,
+) =>
+  todaySchedule.find(item => !item.taken) ??
+  allSchedule.find(item => !item.taken && item.scheduledDate > today) ??
+  allSchedule.find(item => !item.taken);
 
 const createTakenIntake = (
   item: MedicationScheduleItem,
@@ -166,8 +156,8 @@ export const useMedicationSchedule = () => {
   );
 
   const nextDose = useMemo(
-    () => getNextMedicationDose(allSchedule),
-    [allSchedule],
+    () => getNextMedicationDose(todaySchedule, allSchedule, today),
+    [allSchedule, today, todaySchedule],
   );
 
   const todayProgress = useMemo(
