@@ -52,4 +52,10 @@ export type ProfileStackParamList = {
   ProfileMain: undefined;
 };
 
+export type RootStackParamList = {
+  AppointmentOnboarding: undefined;
+  SmileCareOnboarding: undefined;
+  MainTabs: undefined;
+};
+
 export type RootNav = NavigationProp<TabParamList>;
