@@ -46,7 +46,7 @@ const StatsCard = ({ style, layout = 'row' }: StatsCardProps) => {
         </View>
 
         <Image
-          source={require('../../assets/images/visit_stats.png')}
+          source={require('../../assets/images/visit_stats_mint.png')}
           style={[
             styles.visitStatsImage,
             isColumn && styles.visitStatsImageColumn,

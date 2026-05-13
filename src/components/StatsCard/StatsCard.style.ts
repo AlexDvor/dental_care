@@ -29,11 +29,11 @@ export const styles = StyleSheet.create({
   },
 
   visitsCard: {
-    backgroundColor: '#F8FCFF',
+    backgroundColor: Theme.colors.background.card,
   },
 
   upcomingCard: {
-    backgroundColor: '#FCFAFF',
+    backgroundColor: Theme.colors.background.card,
   },
 
   cardColumn: {
@@ -81,9 +81,9 @@ export const styles = StyleSheet.create({
   visitStatsImage: {
     position: 'absolute',
     right: Theme.spacing.md,
-    bottom: Theme.spacing.md,
-    width: 98,
-    height: 74,
+    bottom: 0,
+    width: 110,
+    height: 110,
     resizeMode: 'contain',
     opacity: 0.92,
   },
@@ -113,8 +113,8 @@ export const styles = StyleSheet.create({
   },
 
   calendarImage: {
-    width: 102,
-    height: 102,
+    width: 110,
+    height: 110,
     resizeMode: 'contain',
     opacity: 0.92,
   },
