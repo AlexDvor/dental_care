@@ -18,6 +18,8 @@ import Star from '../../assets/icons/rating.svg';
 import ArrowRight from '../../assets/icons/right_arrow.svg';
 import Search from '../../assets/icons/search.svg';
 import Service from '../../assets/icons/service.svg';
+import StatsUpcoming from '../../assets/icons/stats-upcoming.svg';
+import StatsVisits from '../../assets/icons/stats-visits.svg';
 import Time from '../../assets/icons/time.svg';
 import Verified from '../../assets/icons/verified.svg';
 import ViewRecords from '../../assets/icons/view-records.svg';
@@ -47,6 +49,8 @@ export const iconList = {
   edit: Edit,
   notification: Notification,
   logout: LogOut,
+  statsVisits: StatsVisits,
+  statsUpcoming: StatsUpcoming,
 } as const;
 
 export type IconNameType = keyof typeof iconList;

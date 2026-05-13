@@ -23,17 +23,17 @@ export const styles = StyleSheet.create({
     borderRadius: Theme.radius.lg,
     padding: Theme.spacing.lg,
     borderWidth: 1,
-    borderColor: '#EEF2F0',
+    borderColor: Theme.colors.border.default,
     overflow: 'hidden',
     ...Theme.shadow.primary,
   },
 
   visitsCard: {
-    backgroundColor: Theme.colors.background.card,
+    backgroundColor: Theme.colors.background.soft,
   },
 
   upcomingCard: {
-    backgroundColor: Theme.colors.background.card,
+    backgroundColor: Theme.colors.background.backPurple,
   },
 
   cardColumn: {
@@ -49,13 +49,15 @@ export const styles = StyleSheet.create({
   iconWrapper: {
     width: 36,
     height: 36,
-    borderRadius: 12,
+    borderRadius: Theme.radius.sm,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: Theme.colors.border.default,
     shadowColor: Theme.colors.text.primary,
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.04,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
     elevation: 2,
   },
 
@@ -78,49 +80,27 @@ export const styles = StyleSheet.create({
     fontWeight: Theme.typography.fontWeight.medium,
   },
 
-  visitStatsImage: {
+  imageWrapper: {
     position: 'absolute',
-    right: Theme.spacing.md,
+    right: 0,
     bottom: 0,
-    width: 110,
-    height: 110,
-    resizeMode: 'contain',
-    opacity: 0.92,
-  },
-
-  visitStatsImageColumn: {
-    right: Theme.spacing.lg,
-    bottom: Theme.spacing.lg,
-    width: 134,
-    height: 98,
-  },
-
-  calendarWrapper: {
-    position: 'absolute',
-    right: Theme.spacing.md,
-    bottom: Theme.spacing.md,
-    width: 98,
-    height: 74,
+    width: 120,
+    height: 120,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  calendarWrapperColumn: {
+  imageWrapperColumn: {
     right: Theme.spacing.lg,
     bottom: Theme.spacing.lg,
-    width: 134,
-    height: 98,
+    width: 118,
+    height: 96,
   },
 
-  calendarImage: {
-    width: 110,
-    height: 110,
+  statImage: {
+    width: '100%',
+    height: '100%',
     resizeMode: 'contain',
-    opacity: 0.92,
-  },
-
-  calendarImageColumn: {
-    width: 134,
-    height: 134,
+    opacity: 0.9,
   },
 });

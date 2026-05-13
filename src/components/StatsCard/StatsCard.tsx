@@ -7,6 +7,16 @@ import { StatsCardProps } from './StatsCard.interface';
 
 import { styles } from './StatsCard.style';
 
+const visitsIconGradient = [
+  Theme.colors.background.soft,
+  Theme.colors.background.card,
+];
+
+const upcomingIconGradient = [
+  Theme.colors.background.backPurple,
+  Theme.colors.background.card,
+];
+
 const StatsCard = ({ style, layout = 'row' }: StatsCardProps) => {
   const isColumn = layout === 'column';
 
@@ -17,14 +27,14 @@ const StatsCard = ({ style, layout = 'row' }: StatsCardProps) => {
       >
         <View style={styles.content}>
           <LinearGradient
-            colors={['#27AE60', '#D1FAE5']}
+            colors={visitsIconGradient}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.iconWrapper}
           >
             <Icon
-              name="viewRecords"
-              size={25}
+              name="statsVisits"
+              size={24}
               color={Theme.colors.icon.primary}
             />
           </LinearGradient>
@@ -35,13 +45,14 @@ const StatsCard = ({ style, layout = 'row' }: StatsCardProps) => {
           </View>
         </View>
 
-        <Image
-          source={require('../../assets/images/visit_stats_mint.png')}
-          style={[
-            styles.visitStatsImage,
-            isColumn && styles.visitStatsImageColumn,
-          ]}
-        />
+        <View
+          style={[styles.imageWrapper, isColumn && styles.imageWrapperColumn]}
+        >
+          <Image
+            source={require('../../assets/images/visit_stats_mint.png')}
+            style={styles.statImage}
+          />
+        </View>
       </View>
 
       <View
@@ -53,15 +64,15 @@ const StatsCard = ({ style, layout = 'row' }: StatsCardProps) => {
       >
         <View style={styles.content}>
           <LinearGradient
-            colors={['#B99BFF', Theme.colors.icon.purple]}
+            colors={upcomingIconGradient}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.iconWrapper}
           >
             <Icon
-              name="schedule"
-              size={20}
-              color={Theme.colors.text.inverted}
+              name="statsUpcoming"
+              size={24}
+              color={Theme.colors.icon.purple}
             />
           </LinearGradient>
 
@@ -72,17 +83,11 @@ const StatsCard = ({ style, layout = 'row' }: StatsCardProps) => {
         </View>
 
         <View
-          style={[
-            styles.calendarWrapper,
-            isColumn && styles.calendarWrapperColumn,
-          ]}
+          style={[styles.imageWrapper, isColumn && styles.imageWrapperColumn]}
         >
           <Image
             source={require('../../assets/images/upcoming_calendar.png')}
-            style={[
-              styles.calendarImage,
-              isColumn && styles.calendarImageColumn,
-            ]}
+            style={styles.statImage}
           />
         </View>
       </View>
