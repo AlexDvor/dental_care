@@ -16,7 +16,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'SmileCareOnboarding'>;
 
 const SmileCareOnboardingScreen = ({ navigation }: Props) => {
   const handleStartPress = () => {
-    navigation.replace('MainTabs');
+    navigation.replace('Register');
   };
 
   return (

@@ -24,8 +24,8 @@ const CustomBtn = ({
   const gradientColors = isDisabled
     ? [Theme.colors.border.default, Theme.colors.border.default]
     : isPrimary
-    ? ['#2E9E6B', '#0E7A4B']
-    : ['#E8F3ED', '#F3F6F4'];
+    ? [Theme.colors.background.accentSoftGreen, Theme.colors.background.accent]
+    : [Theme.colors.background.soft, Theme.colors.background.main];
 
   const textColor = isPrimary
     ? Theme.colors.text.inverted

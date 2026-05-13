@@ -55,6 +55,9 @@ export type ProfileStackParamList = {
 export type RootStackParamList = {
   AppointmentOnboarding: undefined;
   SmileCareOnboarding: undefined;
+  Register: undefined;
+  OtpVerification: undefined;
+  Login: undefined;
   MainTabs: undefined;
 };
 
