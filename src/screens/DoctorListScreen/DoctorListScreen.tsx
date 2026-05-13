@@ -11,7 +11,6 @@ import { BookingStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import DoctorCard from '../../ui/DoctorCard/DoctorCard';
 import SearchInput from '../../ui/SearchInput/SearchInput';
-import SecurityNote from '../../ui/SecurityNote/SecurityNote';
 import SubTitle from '../../ui/SubTitle/SubTitle';
 
 import { styles } from './DoctorListScreen.style';
@@ -113,7 +112,6 @@ const DoctorListScreen = () => {
             <Text style={{ textAlign: 'center' }}>No doctors found</Text>
           )}
         </ScrollView>
-        <SecurityNote />
       </View>
     </ScreenLayout>
   );

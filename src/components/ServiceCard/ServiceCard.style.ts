@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: Theme.spacing.lg,
+    padding: Theme.spacing.md,
     borderRadius: Theme.radius.md,
     backgroundColor: Theme.colors.background.card,
     marginBottom: Theme.spacing.md,
@@ -27,8 +27,8 @@ export const styles = StyleSheet.create({
   },
 
   image: {
-    width: 56,
-    height: 56,
+    width: 60,
+    height: 60,
     marginRight: Theme.spacing.md,
   },
 

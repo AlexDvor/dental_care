@@ -75,8 +75,6 @@ const ServiceScreen = () => {
           </View>
 
           <CustomBtn title="Continue" onPress={() => handlePressContinue()} />
-
-          <SecurityNote />
         </View>
       </View>
     </ScreenLayout>

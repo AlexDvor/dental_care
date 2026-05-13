@@ -14,7 +14,6 @@ import ScreenLayout from '../../layout/ScreenLayout';
 import { BookingStackParamList } from '../../navigation/types';
 import CalendarCard from '../../ui/CalendarCard/CalendarCard';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
-import SecurityNote from '../../ui/SecurityNote/SecurityNote';
 import SubTitle from '../../ui/SubTitle/SubTitle';
 import TimeSlots from '../../ui/TimeSlots/TimeSlots';
 
@@ -225,8 +224,6 @@ const SelectDateScreen = () => {
             // isDisabled={!selectedSlotId}
           />
         </View>
-
-        <SecurityNote />
       </View>
     </LayoutAreaView>
   );
