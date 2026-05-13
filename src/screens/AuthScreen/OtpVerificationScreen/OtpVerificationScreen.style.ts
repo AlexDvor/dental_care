@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { Theme } from '../../../constants/theme';
 
-const HERO_HEIGHT = Theme.spacing.massive * 4;
+const HERO_HEIGHT = Theme.spacing.massive * 8;
 
 export const styles = StyleSheet.create({
   container: {
