@@ -11,31 +11,21 @@ const StatsCard = ({ style, layout = 'row' }: StatsCardProps) => {
   const isColumn = layout === 'column';
 
   return (
-    <View
-      style={[
-        styles.container,
-        isColumn && styles.containerColumn,
-        style,
-      ]}
-    >
+    <View style={[styles.container, isColumn && styles.containerColumn, style]}>
       <View
-        style={[
-          styles.card,
-          styles.visitsCard,
-          isColumn && styles.cardColumn,
-        ]}
+        style={[styles.card, styles.visitsCard, isColumn && styles.cardColumn]}
       >
         <View style={styles.content}>
           <LinearGradient
-            colors={['#8CC8FF', Theme.colors.icon.blue]}
+            colors={['#27AE60', '#D1FAE5']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.iconWrapper}
           >
             <Icon
               name="viewRecords"
-              size={20}
-              color={Theme.colors.text.inverted}
+              size={25}
+              color={Theme.colors.icon.primary}
             />
           </LinearGradient>
 
