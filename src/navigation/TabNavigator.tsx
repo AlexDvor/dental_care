@@ -8,6 +8,7 @@ import Animated, {
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { TAB_BAR } from '../constants/tabBar';
 import { Theme } from '../constants/theme';
 import { Icon, IconNameType } from '../ui/Icon/Icon';
 import BookingStack from './Stack/BookingStack';
@@ -104,8 +105,8 @@ const getScreenOptions = () => ({
 
   tabBarStyle: {
     position: 'absolute' as const,
-    bottom: 20,
-    height: 66,
+    bottom: TAB_BAR.bottomOffset,
+    height: TAB_BAR.height,
     paddingTop: 7,
     paddingBottom: Platform.OS === 'ios' ? 10 : 8,
     backgroundColor: Theme.colors.tabNavigation.tabBackgroundColor,

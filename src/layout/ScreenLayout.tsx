@@ -11,6 +11,8 @@ import { Edge, SafeAreaView } from 'react-native-safe-area-context';
 
 import { useIsFocused } from '@react-navigation/native';
 
+import { TAB_BAR_CONTENT_BOTTOM_INSET } from '../constants/tabBar';
+
 import { styles } from './ScreenLayout.style';
 
 const { width: deviceWidth } = Dimensions.get('window');
@@ -44,6 +46,8 @@ type ScreenLayoutProps = {
   translucent?: boolean;
 
   defaultPadding?: boolean;
+
+  avoidBottomTabBar?: boolean;
 };
 
 const ScreenLayout = ({
@@ -62,6 +66,8 @@ const ScreenLayout = ({
   translucent = false,
 
   defaultPadding = false,
+
+  avoidBottomTabBar = true,
 }: ScreenLayoutProps) => {
   const isFocused = useIsFocused();
 
@@ -95,11 +101,15 @@ const ScreenLayout = ({
       style={[
         styles.container,
 
-        style,
+        avoidBottomTabBar && {
+          paddingBottom: TAB_BAR_CONTENT_BOTTOM_INSET,
+        },
 
         defaultPadding && {
           paddingHorizontal: PADDING,
         },
+
+        style,
       ]}
     >
       {children}
