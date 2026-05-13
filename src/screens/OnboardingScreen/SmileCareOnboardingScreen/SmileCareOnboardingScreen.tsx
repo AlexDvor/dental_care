@@ -6,6 +6,7 @@ import {
   ONBOARDING_STEPS_COUNT,
   onboardingSteps,
 } from '../../../constants/onboarding.data';
+import { Theme } from '../../../constants/theme';
 import ScreenLayout from '../../../layout/ScreenLayout';
 import { RootStackParamList } from '../../../navigation/types';
 import OnboardingScreen from '../OnboardingScreen';
@@ -20,7 +21,12 @@ const SmileCareOnboardingScreen = ({ navigation }: Props) => {
   };
 
   return (
-    <ScreenLayout style={styles.container} avoidBottomTabBar={false}>
+    <ScreenLayout
+      style={styles.container}
+      avoidBottomTabBar={false}
+      statusBarBackgroundColor={Theme.colors.statusBar.primary}
+      statusBarStyle="dark-content"
+    >
       <OnboardingScreen
         step={onboardingSteps.smileCare}
         onButtonPress={handleStartPress}

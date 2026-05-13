@@ -10,6 +10,7 @@ import {
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { Theme } from '../../../constants/theme';
 import ScreenLayout from '../../../layout/ScreenLayout';
 import { RootStackParamList } from '../../../navigation/types';
 import CustomBtn from '../../../ui/CustomBtn/CustomBtn';
@@ -29,7 +30,12 @@ const RegisterScreen = ({ navigation }: Props) => {
   };
 
   return (
-    <ScreenLayout style={styles.container} avoidBottomTabBar={false}>
+    <ScreenLayout
+      style={styles.container}
+      avoidBottomTabBar={false}
+      statusBarBackgroundColor={Theme.colors.statusBar.primary}
+      statusBarStyle="dark-content"
+    >
       <ScrollView
         contentContainerStyle={styles.contentContainer}
         keyboardShouldPersistTaps="handled"

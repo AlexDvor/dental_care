@@ -1,5 +1,12 @@
 import React from 'react';
-import { Image, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -9,6 +16,7 @@ import CustomBtn from '../../../ui/CustomBtn/CustomBtn';
 import { authContent, authFields } from '../auth.data';
 
 import { styles } from './LoginScreen.style';
+import { Theme } from '../../../constants/theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
@@ -22,7 +30,12 @@ const LoginScreen = ({ navigation }: Props) => {
   };
 
   return (
-    <ScreenLayout style={styles.container} avoidBottomTabBar={false}>
+    <ScreenLayout
+      style={styles.container}
+      avoidBottomTabBar={false}
+      statusBarBackgroundColor={Theme.colors.statusBar.primary}
+      statusBarStyle="dark-content"
+    >
       <ScrollView
         contentContainerStyle={styles.contentContainer}
         keyboardShouldPersistTaps="handled"
@@ -38,7 +51,9 @@ const LoginScreen = ({ navigation }: Props) => {
 
         <View style={styles.header}>
           <Text style={styles.title}>{authContent.login.title}</Text>
-          <Text style={styles.description}>{authContent.login.description}</Text>
+          <Text style={styles.description}>
+            {authContent.login.description}
+          </Text>
         </View>
 
         <View style={styles.form}>
