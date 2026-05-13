@@ -1,6 +1,8 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
+import { Theme } from '../../constants/theme';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import { Icon } from '../../ui/Icon/Icon';
 import { AppointmentCardProps } from './AppointmentCard.interface';
@@ -11,9 +13,21 @@ const AppointmentCard = ({ style, onPress }: AppointmentCardProps) => {
   return (
     <View style={[styles.container, style]}>
       <View style={styles.headerRow}>
-        <View style={styles.iconWrapper}>
-          <Icon name="schedule" size={25} color="#0E7A4B" />
-        </View>
+        <LinearGradient
+          colors={[
+            Theme.colors.background.soft,
+            Theme.colors.background.card,
+          ]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.iconWrapper}
+        >
+          <Icon
+            name="statsUpcoming"
+            size={22}
+            color={Theme.colors.icon.primary}
+          />
+        </LinearGradient>
 
         <Text style={styles.headerTitle}>Next Appointment</Text>
       </View>
@@ -35,7 +49,13 @@ const AppointmentCard = ({ style, onPress }: AppointmentCardProps) => {
           <View style={styles.separator} />
 
           <View style={styles.timeRow}>
-            <Icon name="schedule" size={32} color="#0E7A4B" />
+            <View style={styles.timeIconWrapper}>
+              <Icon
+                name="statsUpcoming"
+                size={26}
+                color={Theme.colors.icon.primary}
+              />
+            </View>
 
             <View style={styles.timeTextBlock}>
               <Text style={styles.dateLabel}>Today</Text>

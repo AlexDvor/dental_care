@@ -6,46 +6,43 @@ export const styles = StyleSheet.create({
   container: {
     width: '100%',
     backgroundColor: Theme.colors.background.card,
-    borderRadius: 24,
-    padding: 18,
+    borderRadius: Theme.radius.lg,
+    padding: Theme.spacing.lg,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: '#EAF0ED',
-    shadowColor: '#0F172A',
-    shadowOpacity: 0.06,
-    shadowRadius: 14,
-    shadowOffset: { width: 0, height: 8 },
-    elevation: 3,
+    borderColor: Theme.colors.border.default,
+    ...Theme.shadow.medium,
   },
 
   headerRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: Theme.spacing.md,
   },
 
   headerTitle: {
     color: Theme.colors.text.badge,
     fontSize: Theme.typography.size.body,
     fontWeight: Theme.typography.fontWeight.semibold,
-    lineHeight: 22,
+    lineHeight: Theme.typography.lineHeight.body,
   },
 
   iconWrapper: {
-    width: 38,
-    height: 38,
-    backgroundColor: Theme.colors.background.soft,
-    borderRadius: 19,
+    width: 40,
+    height: 40,
+    borderRadius: Theme.radius.md,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Theme.colors.border.default,
   },
 
   contentRow: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
-    gap: 14,
-    marginTop: 18,
+    gap: Theme.spacing.md,
+    marginTop: Theme.spacing.lg,
   },
 
   infoColumn: {
@@ -56,15 +53,15 @@ export const styles = StyleSheet.create({
   doctorRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: Theme.spacing.md,
   },
 
   avatar: {
-    width: 58,
-    height: 58,
-    borderRadius: 29,
+    width: 56,
+    height: 56,
+    borderRadius: Theme.radius.xl,
     borderWidth: 1,
-    borderColor: '#E7ECEA',
+    borderColor: Theme.colors.border.default,
     backgroundColor: Theme.colors.background.soft,
   },
 
@@ -76,33 +73,40 @@ export const styles = StyleSheet.create({
 
   doctorName: {
     color: Theme.colors.text.primary,
-    fontSize: Theme.typography.size.h3,
+    fontSize: Theme.typography.size.body,
     fontWeight: Theme.typography.fontWeight.semibold,
-    lineHeight: 24,
+    lineHeight: Theme.typography.lineHeight.body,
   },
 
   appointmentType: {
     color: Theme.colors.text.secondary,
-    fontSize: 14,
-    lineHeight: 19,
+    fontSize: Theme.typography.size.small,
+    lineHeight: Theme.typography.lineHeight.small,
   },
 
   separator: {
     width: '100%',
     height: 1,
-    backgroundColor: '#EEF2F0',
-    marginTop: 18,
-    marginBottom: 16,
+    backgroundColor: Theme.colors.border.default,
+    marginTop: Theme.spacing.lg,
+    marginBottom: Theme.spacing.md,
   },
 
   timeRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: Theme.spacing.md,
+  },
+
+  timeIconWrapper: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   timeTextBlock: {
-    gap: 2,
+    gap: Theme.spacing.xs,
   },
 
   dateLabel: {
@@ -115,24 +119,25 @@ export const styles = StyleSheet.create({
     color: Theme.colors.text.badge,
     fontSize: Theme.typography.size.h3,
     fontWeight: Theme.typography.fontWeight.semibold,
-    lineHeight: 28,
+    lineHeight: Theme.typography.lineHeight.h3,
   },
 
   calendarPanel: {
-    width: 116,
-    height: 116,
-    borderRadius: 24,
+    width: 112,
+    height: 112,
+    borderRadius: Theme.radius.lg,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: Theme.spacing.lg,
   },
 
   calendarImage: {
-    width: 170,
-    height: 170,
+    width: 128,
+    height: 128,
     resizeMode: 'contain',
   },
 
   button: {
-    marginTop: 12,
+    marginTop: Theme.spacing.lg,
   },
 });
