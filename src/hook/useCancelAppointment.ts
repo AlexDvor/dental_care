@@ -1,13 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { createAppointment } from '../api/appointments.api';
+import { cancelAppointment } from '../api/appointments.api';
 
-export const useCreateAppointment = () => {
+export const useCancelAppointment = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createAppointment,
-
+    mutationFn: cancelAppointment,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['slots-month'],

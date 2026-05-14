@@ -13,6 +13,17 @@ export const styles = StyleSheet.create({
     paddingBottom: Theme.spacing.massive,
   },
 
+  appointmentLoader: {
+    minHeight: 180,
+    marginTop: Theme.spacing.lg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Theme.colors.background.card,
+    borderRadius: Theme.radius.lg,
+    borderWidth: 1,
+    borderColor: Theme.colors.border.default,
+  },
+
   largeHeaderContainer: {
     position: 'absolute',
     top: 0,

@@ -6,9 +6,13 @@ import { AccountItemProps } from './AccountItem.interface';
 
 import { styles } from './AccountItem.styles';
 
-const AccountItem = ({ icon, label, isLast }: AccountItemProps) => {
+const AccountItem = ({ icon, label, isLast, onPress }: AccountItemProps) => {
   return (
-    <TouchableOpacity style={[styles.container, !isLast && styles.border]}>
+    <TouchableOpacity
+      style={[styles.container, !isLast && styles.border]}
+      onPress={onPress}
+      disabled={!onPress}
+    >
       <View style={styles.left}>
         <View style={styles.iconWrap}>
           <Icon name={icon} size={18} color={Theme.colors.icon.primary} />

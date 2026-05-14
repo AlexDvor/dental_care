@@ -2,6 +2,8 @@ import {
   collection,
   doc,
   getDocs,
+  limit,
+  orderBy,
   query,
   runTransaction,
   where,
@@ -12,18 +14,44 @@ import { getDb, initializeFirebaseApp } from './firebase';
 const APPOINTMENTS_COLLECTION = 'appointments';
 const SLOTS_COLLECTION = 'slots';
 
-export type AppointmentType = {
+export type AppointmentStatus = 'upcoming' | 'completed' | 'cancelled';
+
+export type Appointment = {
   id: string;
+  userId: string;
   doctorId: string;
+  slotId: string;
+  doctorName: string;
+  serviceType: string[];
+  totalPrice: number;
   startTime: number;
   endTime: number;
+  status: AppointmentStatus;
+  createdAt: number;
+  updatedAt: number;
+};
+
+export type AppointmentType = Appointment;
+
+export type CreateAppointmentPayload = {
+  slotId: string;
+  userId: string;
+  doctorId: string;
+  doctorName: string;
+  serviceType: string[];
+  totalPrice: number;
+};
+
+export type CancelAppointmentPayload = {
+  appointmentId: string;
+  slotId: string;
 };
 
 export const getAppointmentsByDoctorAndDate = async (
   doctorId: string,
   startOfDay: number,
   endOfDay: number,
-): Promise<AppointmentType[]> => {
+): Promise<Appointment[]> => {
   await initializeFirebaseApp();
 
   const db = getDb();
@@ -37,21 +65,69 @@ export const getAppointmentsByDoctorAndDate = async (
 
   return snapshot.docs.map(docSnapshot => ({
     id: docSnapshot.id,
-    ...(docSnapshot.data() as Omit<AppointmentType, 'id'>),
+    ...(docSnapshot.data() as Omit<Appointment, 'id'>),
   }));
+};
+
+export const getUserAppointments = async (
+  userId: string,
+): Promise<Appointment[]> => {
+  await initializeFirebaseApp();
+
+  const db = getDb();
+  const appointmentsQuery = query(
+    collection(db, APPOINTMENTS_COLLECTION),
+    where('userId', '==', userId),
+    orderBy('startTime', 'desc'),
+  );
+  const snapshot = await getDocs(appointmentsQuery);
+
+  return snapshot.docs.map(docSnapshot => ({
+    id: docSnapshot.id,
+    ...(docSnapshot.data() as Omit<Appointment, 'id'>),
+  }));
+};
+
+export const getNextUserAppointment = async (
+  userId: string,
+): Promise<Appointment | null> => {
+  await initializeFirebaseApp();
+
+  const db = getDb();
+  const appointmentsQuery = query(
+    collection(db, APPOINTMENTS_COLLECTION),
+    where('userId', '==', userId),
+    where('status', '==', 'upcoming'),
+    where('startTime', '>=', Date.now()),
+    orderBy('startTime', 'asc'),
+    limit(1),
+  );
+  const snapshot = await getDocs(appointmentsQuery);
+  const nextAppointment = snapshot.docs[0];
+
+  if (!nextAppointment) {
+    return null;
+  }
+
+  return {
+    id: nextAppointment.id,
+    ...(nextAppointment.data() as Omit<Appointment, 'id'>),
+  };
 };
 
 export const createAppointment = async ({
   slotId,
   userId,
-}: {
-  slotId: string;
-  userId: string;
-}) => {
+  doctorId,
+  doctorName,
+  serviceType,
+  totalPrice,
+}: CreateAppointmentPayload) => {
   await initializeFirebaseApp();
 
   const db = getDb();
   const slotRef = doc(db, SLOTS_COLLECTION, slotId);
+  const appointmentRef = doc(collection(db, APPOINTMENTS_COLLECTION));
 
   await runTransaction(db, async transaction => {
     const snapshot = await transaction.get(slotRef);
@@ -66,11 +142,77 @@ export const createAppointment = async ({
       throw new Error('Time slot already booked');
     }
 
+    if (data?.doctorId && data.doctorId !== doctorId) {
+      throw new Error('Slot not found');
+    }
+
+    if (
+      typeof data?.startTime !== 'number' ||
+      typeof data?.endTime !== 'number'
+    ) {
+      throw new Error('Slot not found');
+    }
+
+    const now = Date.now();
+
     transaction.update(slotRef, {
       isBooked: true,
       bookedBy: userId,
     });
+
+    transaction.set(appointmentRef, {
+      userId,
+      doctorId,
+      slotId,
+      doctorName,
+      serviceType,
+      totalPrice,
+      startTime: data?.startTime,
+      endTime: data?.endTime,
+      status: 'upcoming',
+      createdAt: now,
+      updatedAt: now,
+    });
   });
+
+  return { id: appointmentRef.id, success: true };
+};
+
+export const cancelAppointment = async ({
+  appointmentId,
+  slotId,
+}: CancelAppointmentPayload) => {
+  await initializeFirebaseApp();
+
+  const db = getDb();
+  const appointmentRef = doc(db, APPOINTMENTS_COLLECTION, appointmentId);
+  const slotRef = doc(db, SLOTS_COLLECTION, slotId);
+
+  try {
+    await runTransaction(db, async transaction => {
+      const appointmentSnapshot = await transaction.get(appointmentRef);
+
+      if (!appointmentSnapshot.exists()) {
+        throw new Error('Appointment not found');
+      }
+
+      transaction.update(appointmentRef, {
+        status: 'cancelled',
+        updatedAt: Date.now(),
+      });
+
+      transaction.update(slotRef, {
+        isBooked: false,
+        bookedBy: null,
+      });
+    });
+  } catch (error: any) {
+    if (error?.message === 'Appointment not found') {
+      throw error;
+    }
+
+    throw new Error('Unable to cancel appointment');
+  }
 
   return { success: true };
 };

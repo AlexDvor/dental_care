@@ -9,7 +9,14 @@ import { AppointmentCardProps } from './AppointmentCard.interface';
 
 import { styles } from './AppointmentCard.style';
 
-const AppointmentCard = ({ style, onPress }: AppointmentCardProps) => {
+const AppointmentCard = ({
+  doctorName,
+  serviceType,
+  dateLabel,
+  timeLabel,
+  style,
+  onPress,
+}: AppointmentCardProps) => {
   return (
     <View style={[styles.container, style]}>
       <View style={styles.headerRow}>
@@ -41,8 +48,10 @@ const AppointmentCard = ({ style, onPress }: AppointmentCardProps) => {
             />
 
             <View style={styles.doctorTextBlock}>
-              <Text style={styles.doctorName}>Dr. Sarah Johnson</Text>
-              <Text style={styles.appointmentType}>Regular Checkup</Text>
+              <Text style={styles.doctorName}>{doctorName}</Text>
+              <Text style={styles.appointmentType}>
+                {serviceType.join(', ')}
+              </Text>
             </View>
           </View>
 
@@ -58,8 +67,8 @@ const AppointmentCard = ({ style, onPress }: AppointmentCardProps) => {
             </View>
 
             <View style={styles.timeTextBlock}>
-              <Text style={styles.dateLabel}>Today</Text>
-              <Text style={styles.timeText}>10:30 AM</Text>
+              <Text style={styles.dateLabel}>{dateLabel}</Text>
+              <Text style={styles.timeText}>{timeLabel}</Text>
             </View>
           </View>
         </View>

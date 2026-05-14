@@ -40,6 +40,10 @@ const BookingConfirmScreen = () => {
       {
         slotId,
         userId: userProfile.id,
+        doctorId: doctorData.id,
+        doctorName: doctorData.name,
+        serviceType,
+        totalPrice,
       },
       {
         onSuccess: () => {

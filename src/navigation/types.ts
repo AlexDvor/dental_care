@@ -1,12 +1,12 @@
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, NavigatorScreenParams } from '@react-navigation/native';
 
 import { DoctorType } from '../interfaces/doctor.types';
 
 export type TabParamList = {
-  HomeTab: undefined;
-  BookingTab: undefined;
-  ChatTab: undefined;
-  ProfileTab: undefined;
+  HomeTab: NavigatorScreenParams<HomeStackParamList> | undefined;
+  BookingTab: NavigatorScreenParams<BookingStackParamList> | undefined;
+  ChatTab: NavigatorScreenParams<ChatStackParamList> | undefined;
+  ProfileTab: NavigatorScreenParams<ProfileStackParamList> | undefined;
 };
 
 export type HomeStackParamList = {
@@ -50,6 +50,7 @@ export type ChatStackParamList = {
 
 export type ProfileStackParamList = {
   ProfileMain: undefined;
+  VisitHistory: undefined;
 };
 
 export type RootStackParamList = {

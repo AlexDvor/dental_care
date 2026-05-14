@@ -4,4 +4,5 @@ export interface AccountItemProps {
   icon: IconNameType;
   label: string;
   isLast?: boolean;
+  onPress?: () => void;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Text, View } from 'react-native';
 import Animated, {
   Extrapolation,
   interpolate,
@@ -8,10 +8,10 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
+import { EmptyAppointmentCard } from '../../components/EmptyAppointmentCard/EmptyAppointmentCard';
 import HealthBanner from '../../components/HealthBanner/HealthBanner';
 import { MedicationReminder } from '../../components/MedicationReminder/MedicationReminder';
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
@@ -20,11 +20,14 @@ import StatsCard from '../../components/StatsCard/StatsCard';
 import { Theme } from '../../constants/theme';
 import { useAuth } from '../../hook/useAuth';
 import { useMedicationSchedule } from '../../hook/useMedicationSchedule';
+import { useNextUserAppointment } from '../../hook/useNextUserAppointment';
 import ScreenLayout from '../../layout/ScreenLayout';
-import { HomeStackParamList } from '../../navigation/types';
+import { HomeStackParamList, TabParamList } from '../../navigation/types';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
 
 import { styles } from './HomeScreen.style';
+import CustomBtn from '../../ui/CustomBtn/CustomBtn';
+import { seedSlots } from '../../api/seedSlots';
 
 const HEADER_HEIGHT = 220;
 const COMPACT_HEADER_HEIGHT = 70;
@@ -59,15 +62,37 @@ const trustBlockItems = [
   color: string;
 }>;
 
-type Navigation = NativeStackNavigationProp<
-  HomeStackParamList,
-  'MedicationsList'
->;
+type Navigation = NavigationProp<HomeStackParamList & TabParamList>;
+
+const formatAppointmentDate = (timestamp: number) => {
+  const appointmentDate = new Date(timestamp);
+  const today = new Date();
+
+  if (appointmentDate.toDateString() === today.toDateString()) {
+    return 'Today';
+  }
+
+  return new Intl.DateTimeFormat('en', {
+    month: 'short',
+    day: 'numeric',
+  }).format(appointmentDate);
+};
+
+const formatAppointmentTime = (timestamp: number) =>
+  new Intl.DateTimeFormat('en', {
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(timestamp));
 
 const HomeScreen = () => {
   const navigation = useNavigation<Navigation>();
   const { nextDose, todayProgress } = useMedicationSchedule();
   const { userProfile } = useAuth();
+  const {
+    data: nextAppointment,
+    isLoading: isNextAppointmentLoading,
+    isError: isNextAppointmentError,
+  } = useNextUserAppointment(userProfile?.id);
 
   const scrollY = useSharedValue(0);
 
@@ -218,11 +243,31 @@ const HomeScreen = () => {
       >
         <View style={styles.content}>
           <StatsCard />
-          <AppointmentCard
-            style={{
-              marginTop: Theme.spacing.lg,
-            }}
-          />
+          {isNextAppointmentLoading ? (
+            <View style={styles.appointmentLoader}>
+              <ActivityIndicator />
+            </View>
+          ) : nextAppointment && !isNextAppointmentError ? (
+            <AppointmentCard
+              doctorName={nextAppointment.doctorName}
+              serviceType={nextAppointment.serviceType}
+              dateLabel={formatAppointmentDate(nextAppointment.startTime)}
+              timeLabel={formatAppointmentTime(nextAppointment.startTime)}
+              onPress={() =>
+                navigation.navigate('ProfileTab', { screen: 'VisitHistory' })
+              }
+              style={{
+                marginTop: Theme.spacing.lg,
+              }}
+            />
+          ) : (
+            <EmptyAppointmentCard
+              onPress={() => navigation.navigate('BookingTab')}
+              style={{
+                marginTop: Theme.spacing.lg,
+              }}
+            />
+          )}
 
           <MedicationReminder
             taken={todayProgress.taken}
@@ -255,6 +300,8 @@ const HomeScreen = () => {
           />
         </View>
       </Animated.ScrollView>
+
+      <CustomBtn title="go " onPress={() => seedSlots({ days: 5 })} />
     </ScreenLayout>
   );
 };
