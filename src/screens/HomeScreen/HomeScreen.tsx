@@ -68,7 +68,6 @@ const HomeScreen = () => {
   const navigation = useNavigation<Navigation>();
   const { nextDose, todayProgress } = useMedicationSchedule();
   const { userProfile } = useAuth();
-  console.log('🚀 ~ HomeScreen ~ user:', userProfile);
 
   const scrollY = useSharedValue(0);
 
@@ -168,7 +167,11 @@ const HomeScreen = () => {
         renderToHardwareTextureAndroid
         style={[styles.largeHeaderContainer, largeHeaderAnimatedStyle]}
       >
-        <ProfileHeader />
+        <ProfileHeader
+          name={userProfile?.firstName || ''}
+          fullName={userProfile?.fullName || ''}
+          email={userProfile?.email || ''}
+        />
       </Animated.View>
 
       {/* =========================
@@ -193,7 +196,7 @@ const HomeScreen = () => {
           />
 
           <View>
-            <Text style={styles.compactTitle}>John Doe</Text>
+            <Text style={styles.compactTitle}>{userProfile?.fullName}</Text>
 
             <Text style={styles.compactSubtitle}>DentalCare</Text>
           </View>
@@ -210,7 +213,6 @@ const HomeScreen = () => {
         bounces={false}
         contentContainerStyle={{
           paddingTop: HEADER_HEIGHT + COMPACT_HEADER_HEIGHT,
-
           paddingBottom: Theme.spacing.massive,
         }}
       >

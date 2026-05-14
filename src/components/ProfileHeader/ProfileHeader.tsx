@@ -8,9 +8,17 @@ import Wave from '../../ui/Wave/Wave';
 
 interface ProfileHeaderProps {
   style?: ViewStyle;
+  name: string;
+  fullName: string;
+  email: string;
 }
 
-const ProfileHeader = ({ style }: ProfileHeaderProps) => {
+const ProfileHeader = ({
+  name,
+  fullName,
+  email,
+  style,
+}: ProfileHeaderProps) => {
   return (
     <View style={[styles.wrapper, style]}>
       <LinearGradient
@@ -20,7 +28,7 @@ const ProfileHeader = ({ style }: ProfileHeaderProps) => {
         end={{ x: 0, y: 1 }}
         style={[styles.container]}
       >
-        <Text style={styles.title}>Hello, John 👋</Text>
+        <Text style={styles.title}>Hello, {name}👋</Text>
         <Text style={styles.subtitle}>Your smile is in good hands</Text>
 
         <View style={styles.avatarWrapper}>
@@ -38,8 +46,8 @@ const ProfileHeader = ({ style }: ProfileHeaderProps) => {
       </LinearGradient>
 
       <View style={styles.userInfo}>
-        <Text style={styles.userName}>John Doe</Text>
-        <Text style={styles.userEmail}>johndoe@gmail.com</Text>
+        <Text style={styles.userName}>{fullName}</Text>
+        <Text style={styles.userEmail}>{email}</Text>
       </View>
     </View>
   );

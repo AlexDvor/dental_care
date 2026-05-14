@@ -1,7 +1,9 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
 
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { onAuthStateChanged } from '@react-native-firebase/auth';
+import {
+  FirebaseAuthTypes,
+  onAuthStateChanged,
+} from '@react-native-firebase/auth';
 
 import {
   confirmRegistrationOtp,

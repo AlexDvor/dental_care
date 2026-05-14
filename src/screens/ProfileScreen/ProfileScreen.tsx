@@ -11,7 +11,7 @@ import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import { styles } from './ProfileScreen.styles';
 
 const ProfileScreen = () => {
-  const { logout, isSubmitting } = useAuth();
+  const { logout, isSubmitting, userProfile } = useAuth();
 
   return (
     <ScreenLayout
@@ -19,7 +19,12 @@ const ProfileScreen = () => {
       statusBarBackgroundColor={Theme.colors.statusBar.secondary}
       statusBarStyle="light-content"
     >
-      <ProfileHeader style={{ paddingBottom: 10 }} />
+      <ProfileHeader
+        name={userProfile?.firstName || ''}
+        fullName={userProfile?.fullName || ''}
+        email={userProfile?.email || ''}
+        style={{ paddingBottom: 10 }}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           <AccountSection />
