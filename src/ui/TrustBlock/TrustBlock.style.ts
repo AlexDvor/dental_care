@@ -5,124 +5,152 @@ import { Theme } from '../../constants/theme';
 export const styles = StyleSheet.create({
   container: {
     marginTop: Theme.spacing.xl,
-    padding: Theme.spacing.xl,
     overflow: 'hidden',
     backgroundColor: Theme.colors.background.card,
+    borderColor: Theme.colors.border.default,
     borderRadius: Theme.radius.lg,
-
-    ...Theme.shadow.primary,
+    borderWidth: 1,
+    paddingHorizontal: Theme.spacing.xl,
+    paddingBottom: Theme.spacing.xl,
+    paddingTop: Theme.spacing.xxxl,
+    ...Theme.shadow.medium,
   },
 
   row: {
+    alignItems: 'stretch',
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
   },
 
   item: {
     flex: 1,
-    alignItems: 'center',
+    minWidth: 0,
+    paddingTop: Theme.spacing.lg,
   },
 
-  iconWrapper: {
-    width: 56,
-    height: 56,
-    borderRadius: '50%',
-    backgroundColor: Theme.colors.background.card,
+  itemBackground: {
     alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: Theme.spacing.sm,
+    borderRadius: Theme.radius.lg,
+    minHeight: 112,
+    paddingBottom: Theme.spacing.xl,
+    paddingHorizontal: Theme.spacing.sm,
+    paddingTop: Theme.spacing.xxxl,
+  },
 
+  iconHalo: {
+    alignItems: 'center',
+    backgroundColor: Theme.colors.background.card,
+    borderColor: Theme.colors.border.default,
+    borderRadius: Theme.radius.xxl,
+    borderWidth: 1,
+    height: 65,
+    width: 65,
+    justifyContent: 'center',
+    position: 'absolute',
+    top: -Theme.spacing.lg,
     ...Theme.shadow.primary,
   },
 
+  iconWrapper: {
+    alignItems: 'center',
+    borderColor: Theme.colors.border.default,
+    borderRadius: Theme.radius.xl,
+    borderWidth: 1,
+    height: 55,
+    width: 55,
+    justifyContent: 'center',
+  },
+
+  itemTextBlock: {
+    alignItems: 'center',
+    marginTop: 30,
+  },
+
   title: {
-    fontSize: Theme.typography.size.small,
-    fontWeight: Theme.typography.fontWeight.medium,
     color: Theme.colors.text.primary,
+    fontSize: Theme.typography.size.body,
+    fontWeight: Theme.typography.fontWeight.semibold,
+    lineHeight: Theme.typography.lineHeight.body,
+    textAlign: 'center',
   },
 
   subtitle: {
-    fontSize: Theme.typography.size.caption,
-    color: 'rgba(107,114,128,0.8)',
-    marginTop: 2,
+    color: Theme.colors.text.secondary,
+    fontSize: Theme.typography.size.small,
+    lineHeight: Theme.typography.lineHeight.small,
+    marginTop: Theme.spacing.xs,
+    textAlign: 'center',
   },
 
   divider: {
+    backgroundColor: Theme.colors.border.default,
+    marginHorizontal: Theme.spacing.lg,
+    marginTop: Theme.spacing.md,
     width: 1,
-    height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.06)',
   },
 
   separator: {
-    height: 1,
     backgroundColor: Theme.colors.border.default,
-    marginVertical: Theme.spacing.lg,
+    height: 1,
+    marginTop: Theme.spacing.xxl,
+    marginBottom: Theme.spacing.xl,
   },
 
   brandRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
-    gap: Theme.spacing.sm,
-    marginTop: 4,
+    flexDirection: 'row',
+    gap: Theme.spacing.md,
+    justifyContent: 'center',
   },
 
   logo: {
-    width: 32,
-    height: 32,
-    borderRadius: Theme.radius.sm,
-    backgroundColor: Theme.colors.background.accent,
     alignItems: 'center',
+    backgroundColor: Theme.colors.background.accent,
+    borderRadius: Theme.radius.sm,
+    height: 34,
     justifyContent: 'center',
+    width: 34,
   },
 
   logoText: {
     color: Theme.colors.text.inverted,
+    fontSize: Theme.typography.size.body,
     fontWeight: Theme.typography.fontWeight.semibold,
+    lineHeight: Theme.typography.lineHeight.body,
   },
 
   brand: {
-    fontSize: Theme.typography.size.body,
-    fontWeight: Theme.typography.fontWeight.semibold,
     color: Theme.colors.text.primary,
+    fontSize: Theme.typography.size.h3,
+    fontWeight: Theme.typography.fontWeight.semibold,
+    lineHeight: Theme.typography.lineHeight.h3,
   },
 
   description: {
-    textAlign: 'center',
-    marginTop: Theme.spacing.sm,
-    fontSize: Theme.typography.size.small,
     color: Theme.colors.text.secondary,
+    fontSize: Theme.typography.size.body,
+    lineHeight: Theme.typography.lineHeight.body,
+    marginTop: Theme.spacing.md,
+    textAlign: 'center',
   },
 
   links: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
     marginTop: Theme.spacing.md,
   },
 
   link: {
-    fontSize: Theme.typography.size.small,
     color: Theme.colors.text.badge,
-    fontWeight: Theme.typography.fontWeight.medium,
+    fontSize: Theme.typography.size.body,
+    fontWeight: Theme.typography.fontWeight.semibold,
+    lineHeight: Theme.typography.lineHeight.body,
   },
 
-  dot: {
-    marginHorizontal: Theme.spacing.sm,
-    color: Theme.colors.text.secondary,
-  },
-  waveDecor: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 60,
-
-    backgroundColor: '#D1FAE5',
-    opacity: 0.1,
-
-    borderTopLeftRadius: 100,
-    borderTopRightRadius: 100,
+  linkDivider: {
+    backgroundColor: Theme.colors.border.default,
+    height: 18,
+    marginHorizontal: Theme.spacing.lg,
+    width: 1,
   },
 });

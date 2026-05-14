@@ -30,27 +30,33 @@ const COMPACT_HEADER_HEIGHT = 70;
 
 const trustBlockItems = [
   {
-    icon: 'verified',
+    icon: 'trustVerified',
     label: 'Verified',
     subLabel: 'Trusted & Secure',
-    bg: '#DCFCE7',
-    color: '#16A34A',
+    bg: Theme.colors.background.main,
+    color: Theme.colors.icon.primary,
   },
   {
-    icon: 'lock',
+    icon: 'trustEncrypted',
     label: 'Encrypted',
     subLabel: 'Data Protection',
-    bg: '#DBEAFE',
-    color: '#2563EB',
+    bg: Theme.colors.background.main,
+    color: Theme.colors.icon.blue,
   },
   {
-    icon: 'award',
+    icon: 'trustTopTier',
     label: 'Top Tier',
     subLabel: 'Premium Quality',
-    bg: '#F3E8FF',
-    color: '#8B5CF6',
+    bg: Theme.colors.background.main,
+    color: Theme.colors.icon.purple,
   },
-];
+] satisfies Array<{
+  icon: 'trustVerified' | 'trustEncrypted' | 'trustTopTier';
+  label: string;
+  subLabel: string;
+  bg: string;
+  color: string;
+}>;
 
 type Navigation = NativeStackNavigationProp<
   HomeStackParamList,

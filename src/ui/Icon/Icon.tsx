@@ -21,6 +21,9 @@ import Service from '../../assets/icons/service.svg';
 import StatsUpcoming from '../../assets/icons/stats-upcoming.svg';
 import StatsVisits from '../../assets/icons/stats-visits.svg';
 import Time from '../../assets/icons/time.svg';
+import TrustEncrypted from '../../assets/icons/trust-encrypted.svg';
+import TrustTopTier from '../../assets/icons/trust-top-tier.svg';
+import TrustVerified from '../../assets/icons/trust-verified.svg';
 import Verified from '../../assets/icons/verified.svg';
 import ViewRecords from '../../assets/icons/view-records.svg';
 import { IconProps } from './Icon.interface';
@@ -51,6 +54,9 @@ export const iconList = {
   logout: LogOut,
   statsVisits: StatsVisits,
   statsUpcoming: StatsUpcoming,
+  trustVerified: TrustVerified,
+  trustEncrypted: TrustEncrypted,
+  trustTopTier: TrustTopTier,
 } as const;
 
 export type IconNameType = keyof typeof iconList;
