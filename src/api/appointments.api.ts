@@ -45,6 +45,26 @@ export type CancelAppointmentPayload = {
   slotId: string;
 };
 
+export const sortAppointmentsByNewest = (
+  appointments: Appointment[],
+): Appointment[] =>
+  [...appointments].sort((a, b) => b.startTime - a.startTime);
+
+export const getNextUpcomingAppointment = (
+  appointments: Appointment[],
+  now = Date.now(),
+): Appointment | null =>
+  appointments
+    .filter(appointment => appointment.status === 'upcoming')
+    .filter(appointment => appointment.startTime >= now)
+    .sort((a, b) => a.startTime - b.startTime)[0] ?? null;
+
+const isAppointmentWithinRange = (
+  appointment: Appointment,
+  startTime: number,
+  endTime: number,
+) => appointment.startTime >= startTime && appointment.startTime <= endTime;
+
 export const getAppointmentsByDoctorAndDate = async (
   doctorId: string,
   startOfDay: number,
@@ -53,18 +73,27 @@ export const getAppointmentsByDoctorAndDate = async (
   await initializeFirebaseApp();
 
   const db = getDb();
-  const appointmentsQuery = query(
-    collection(db, APPOINTMENTS_COLLECTION),
-    where('doctorId', '==', doctorId),
-    where('startTime', '>=', startOfDay),
-    where('startTime', '<=', endOfDay),
-  );
-  const snapshot = await getDocs(appointmentsQuery);
 
-  return snapshot.docs.map(docSnapshot => ({
-    id: docSnapshot.id,
-    ...(docSnapshot.data() as Omit<Appointment, 'id'>),
-  }));
+  try {
+    const appointmentsQuery = query(
+      collection(db, APPOINTMENTS_COLLECTION),
+      where('doctorId', '==', doctorId),
+    );
+    const snapshot = await getDocs(appointmentsQuery);
+
+    return snapshot.docs
+      .map(docSnapshot => ({
+        id: docSnapshot.id,
+        ...(docSnapshot.data() as Omit<Appointment, 'id'>),
+      }))
+      .filter(appointment =>
+        isAppointmentWithinRange(appointment, startOfDay, endOfDay),
+      )
+      .sort((a, b) => a.startTime - b.startTime);
+  } catch (error) {
+    console.error('getAppointmentsByDoctorAndDate error:', error);
+    throw error;
+  }
 };
 
 export const getUserAppointments = async (
@@ -81,12 +110,12 @@ export const getUserAppointments = async (
     );
     const snapshot = await getDocs(appointmentsQuery);
 
-    return snapshot.docs
-      .map(docSnapshot => ({
-        id: docSnapshot.id,
-        ...(docSnapshot.data() as Omit<Appointment, 'id'>),
-      }))
-      .sort((a, b) => b.startTime - a.startTime);
+    const appointments = snapshot.docs.map(docSnapshot => ({
+      id: docSnapshot.id,
+      ...(docSnapshot.data() as Omit<Appointment, 'id'>),
+    }));
+
+    return sortAppointmentsByNewest(appointments);
   } catch (error) {
     console.error('getUserAppointments error:', error);
     throw error;
@@ -96,15 +125,9 @@ export const getUserAppointments = async (
 export const getNextUserAppointment = async (
   userId: string,
 ): Promise<Appointment | null> => {
-  const now = Date.now();
   const appointments = await getUserAppointments(userId);
 
-  return (
-    appointments
-      .filter(appointment => appointment.status === 'upcoming')
-      .filter(appointment => appointment.startTime >= now)
-      .sort((a, b) => a.startTime - b.startTime)[0] ?? null
-  );
+  return getNextUpcomingAppointment(appointments);
 };
 
 export const createAppointment = async ({

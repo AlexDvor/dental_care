@@ -14,9 +14,6 @@ export const useCancelAppointment = () => {
       queryClient.invalidateQueries({
         queryKey: ['user-appointments'],
       });
-      queryClient.invalidateQueries({
-        queryKey: ['next-user-appointment'],
-      });
     },
   });
 };
