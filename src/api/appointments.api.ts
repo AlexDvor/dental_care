@@ -2,8 +2,6 @@ import {
   collection,
   doc,
   getDocs,
-  limit,
-  orderBy,
   query,
   runTransaction,
   where,
@@ -75,44 +73,38 @@ export const getUserAppointments = async (
   await initializeFirebaseApp();
 
   const db = getDb();
-  const appointmentsQuery = query(
-    collection(db, APPOINTMENTS_COLLECTION),
-    where('userId', '==', userId),
-    orderBy('startTime', 'desc'),
-  );
-  const snapshot = await getDocs(appointmentsQuery);
 
-  return snapshot.docs.map(docSnapshot => ({
-    id: docSnapshot.id,
-    ...(docSnapshot.data() as Omit<Appointment, 'id'>),
-  }));
+  try {
+    const appointmentsQuery = query(
+      collection(db, APPOINTMENTS_COLLECTION),
+      where('userId', '==', userId),
+    );
+    const snapshot = await getDocs(appointmentsQuery);
+
+    return snapshot.docs
+      .map(docSnapshot => ({
+        id: docSnapshot.id,
+        ...(docSnapshot.data() as Omit<Appointment, 'id'>),
+      }))
+      .sort((a, b) => b.startTime - a.startTime);
+  } catch (error) {
+    console.error('getUserAppointments error:', error);
+    throw error;
+  }
 };
 
 export const getNextUserAppointment = async (
   userId: string,
 ): Promise<Appointment | null> => {
-  await initializeFirebaseApp();
+  const now = Date.now();
+  const appointments = await getUserAppointments(userId);
 
-  const db = getDb();
-  const appointmentsQuery = query(
-    collection(db, APPOINTMENTS_COLLECTION),
-    where('userId', '==', userId),
-    where('status', '==', 'upcoming'),
-    where('startTime', '>=', Date.now()),
-    orderBy('startTime', 'asc'),
-    limit(1),
+  return (
+    appointments
+      .filter(appointment => appointment.status === 'upcoming')
+      .filter(appointment => appointment.startTime >= now)
+      .sort((a, b) => a.startTime - b.startTime)[0] ?? null
   );
-  const snapshot = await getDocs(appointmentsQuery);
-  const nextAppointment = snapshot.docs[0];
-
-  if (!nextAppointment) {
-    return null;
-  }
-
-  return {
-    id: nextAppointment.id,
-    ...(nextAppointment.data() as Omit<Appointment, 'id'>),
-  };
 };
 
 export const createAppointment = async ({

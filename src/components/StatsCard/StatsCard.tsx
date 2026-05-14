@@ -17,8 +17,16 @@ const upcomingIconGradient = [
   Theme.colors.background.card,
 ];
 
-const StatsCard = ({ style, layout = 'row' }: StatsCardProps) => {
+const StatsCard = ({
+  style,
+  layout = 'row',
+  visitsCount = 0,
+  upcomingCount = 0,
+  isLoading = false,
+}: StatsCardProps) => {
   const isColumn = layout === 'column';
+  const visitsValue = isLoading ? '...' : String(visitsCount);
+  const upcomingValue = isLoading ? '...' : String(upcomingCount);
 
   return (
     <View style={[styles.container, isColumn && styles.containerColumn, style]}>
@@ -40,7 +48,7 @@ const StatsCard = ({ style, layout = 'row' }: StatsCardProps) => {
           </LinearGradient>
 
           <View style={styles.textBlock}>
-            <Text style={styles.value}>12</Text>
+            <Text style={styles.value}>{visitsValue}</Text>
             <Text style={styles.label}>Visits</Text>
           </View>
         </View>
@@ -77,7 +85,7 @@ const StatsCard = ({ style, layout = 'row' }: StatsCardProps) => {
           </LinearGradient>
 
           <View style={styles.textBlock}>
-            <Text style={styles.value}>2</Text>
+            <Text style={styles.value}>{upcomingValue}</Text>
             <Text style={styles.label}>Upcoming</Text>
           </View>
         </View>

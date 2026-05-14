@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import Animated, {
   Extrapolation,
@@ -21,13 +21,12 @@ import { Theme } from '../../constants/theme';
 import { useAuth } from '../../hook/useAuth';
 import { useMedicationSchedule } from '../../hook/useMedicationSchedule';
 import { useNextUserAppointment } from '../../hook/useNextUserAppointment';
+import { useUserAppointments } from '../../hook/useUserAppointments';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { HomeStackParamList, TabParamList } from '../../navigation/types';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
 
 import { styles } from './HomeScreen.style';
-import CustomBtn from '../../ui/CustomBtn/CustomBtn';
-import { seedSlots } from '../../api/seedSlots';
 
 const HEADER_HEIGHT = 220;
 const COMPACT_HEADER_HEIGHT = 70;
@@ -93,6 +92,29 @@ const HomeScreen = () => {
     isLoading: isNextAppointmentLoading,
     isError: isNextAppointmentError,
   } = useNextUserAppointment(userProfile?.id);
+  const {
+    data: appointments,
+    isLoading: isAppointmentsLoading,
+    isError: isAppointmentsError,
+  } = useUserAppointments(userProfile?.id);
+
+  const { visitsCount, upcomingCount } = useMemo(() => {
+    if (isAppointmentsError || !appointments) {
+      return {
+        visitsCount: 0,
+        upcomingCount: 0,
+      };
+    }
+
+    return {
+      visitsCount: appointments.filter(
+        appointment => appointment.status === 'completed',
+      ).length,
+      upcomingCount: appointments.filter(
+        appointment => appointment.status === 'upcoming',
+      ).length,
+    };
+  }, [appointments, isAppointmentsError]);
 
   const scrollY = useSharedValue(0);
 
@@ -242,7 +264,11 @@ const HomeScreen = () => {
         }}
       >
         <View style={styles.content}>
-          <StatsCard />
+          <StatsCard
+            visitsCount={visitsCount}
+            upcomingCount={upcomingCount}
+            isLoading={isAppointmentsLoading}
+          />
           {isNextAppointmentLoading ? (
             <View style={styles.appointmentLoader}>
               <ActivityIndicator />
@@ -301,7 +327,6 @@ const HomeScreen = () => {
         </View>
       </Animated.ScrollView>
 
-      <CustomBtn title="go " onPress={() => seedSlots({ days: 5 })} />
     </ScreenLayout>
   );
 };
