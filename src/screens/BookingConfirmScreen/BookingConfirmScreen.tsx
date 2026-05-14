@@ -61,8 +61,11 @@ const BookingConfirmScreen = () => {
             },
           ]);
         },
-        onError: (error: any) => {
-          if (error.message === 'Time slot already booked') {
+        onError: error => {
+          if (
+            error instanceof Error &&
+            error.message === 'Time slot already booked'
+          ) {
             Alert.alert(
               'Slot unavailable',
               'This time slot was just booked. Please choose another one.',

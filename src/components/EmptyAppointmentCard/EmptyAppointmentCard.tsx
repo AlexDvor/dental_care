@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 
+import { Theme } from '../../constants/theme';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import { Icon } from '../../ui/Icon/Icon';
 import { EmptyAppointmentCardProps } from './EmptyAppointmentCard.interface';
@@ -15,7 +16,11 @@ export const EmptyAppointmentCard = ({
     <View style={[styles.container, style]}>
       <View style={styles.headerRow}>
         <View style={styles.iconWrapper}>
-          <Icon name="schedule" size={24} color="#0E7A4B" />
+          <Icon
+            name="schedule"
+            size={24}
+            color={Theme.colors.icon.primary}
+          />
         </View>
 
         <Text style={styles.headerTitle}>No Upcoming Appointment</Text>

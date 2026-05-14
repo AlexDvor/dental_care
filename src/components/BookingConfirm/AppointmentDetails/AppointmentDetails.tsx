@@ -4,7 +4,19 @@ import DetailRow from '../DetailRow/DetailRow';
 
 import { styles } from './AppointmentDetails.style';
 
-const AppointmentDetails = ({ date, time, service, price }: any) => {
+interface AppointmentDetailsProps {
+  date: string;
+  time: string;
+  service: string;
+  price: number;
+}
+
+const AppointmentDetails = ({
+  date,
+  time,
+  service,
+  price,
+}: AppointmentDetailsProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Appointment Details</Text>

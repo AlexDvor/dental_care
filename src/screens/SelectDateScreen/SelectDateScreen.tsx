@@ -33,8 +33,6 @@ const formatTime = (timestamp: number) => {
   return `${hours}:${minutes}`;
 };
 
-// доробити бронювання місць, максимум на 2 місяця в перед
-
 const SelectDateScreen = () => {
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
@@ -82,7 +80,6 @@ const SelectDateScreen = () => {
     return Array.from(daysSet);
   }, [slots]);
 
-  // Доступні слоти для вибраної дати
   const availableSlots = useMemo(() => {
     return slots.filter(slot => {
       const dateYear = selectedDate.getFullYear();
@@ -98,7 +95,6 @@ const SelectDateScreen = () => {
     });
   }, [slots, selectedDate]);
 
-  // Форматування даних для UI
   const formattedTimes = availableSlots.map(slot => ({
     label: formatTime(slot.startTime),
     id: slot.id,
@@ -221,7 +217,7 @@ const SelectDateScreen = () => {
           <CustomBtn
             title="Continue"
             onPress={handlePressContinue}
-            // isDisabled={!selectedSlotId}
+            isDisabled={!selectedSlotId}
           />
         </View>
       </View>

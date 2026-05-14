@@ -2,7 +2,11 @@ import { Text, View } from 'react-native';
 
 import { styles } from './PaymentSummary.styles';
 
-const PaymentSummary = ({ total }: any) => {
+interface PaymentSummaryProps {
+  total: number;
+}
+
+const PaymentSummary = ({ total }: PaymentSummaryProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Payment Summary</Text>
@@ -13,7 +17,7 @@ const PaymentSummary = ({ total }: any) => {
       </View>
 
       <Text style={styles.secure}>
-        🔒 Your payment information is secure and encrypted
+        Your payment information is secure and encrypted
       </Text>
     </View>
   );

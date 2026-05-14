@@ -29,8 +29,6 @@ export type Appointment = {
   updatedAt: number;
 };
 
-export type AppointmentType = Appointment;
-
 export type CreateAppointmentPayload = {
   slotId: string;
   userId: string;
@@ -59,43 +57,6 @@ export const getNextUpcomingAppointment = (
     .filter(appointment => appointment.startTime >= now)
     .sort((a, b) => a.startTime - b.startTime)[0] ?? null;
 
-const isAppointmentWithinRange = (
-  appointment: Appointment,
-  startTime: number,
-  endTime: number,
-) => appointment.startTime >= startTime && appointment.startTime <= endTime;
-
-export const getAppointmentsByDoctorAndDate = async (
-  doctorId: string,
-  startOfDay: number,
-  endOfDay: number,
-): Promise<Appointment[]> => {
-  await initializeFirebaseApp();
-
-  const db = getDb();
-
-  try {
-    const appointmentsQuery = query(
-      collection(db, APPOINTMENTS_COLLECTION),
-      where('doctorId', '==', doctorId),
-    );
-    const snapshot = await getDocs(appointmentsQuery);
-
-    return snapshot.docs
-      .map(docSnapshot => ({
-        id: docSnapshot.id,
-        ...(docSnapshot.data() as Omit<Appointment, 'id'>),
-      }))
-      .filter(appointment =>
-        isAppointmentWithinRange(appointment, startOfDay, endOfDay),
-      )
-      .sort((a, b) => a.startTime - b.startTime);
-  } catch (error) {
-    console.error('getAppointmentsByDoctorAndDate error:', error);
-    throw error;
-  }
-};
-
 export const getUserAppointments = async (
   userId: string,
 ): Promise<Appointment[]> => {
@@ -120,14 +81,6 @@ export const getUserAppointments = async (
     console.error('getUserAppointments error:', error);
     throw error;
   }
-};
-
-export const getNextUserAppointment = async (
-  userId: string,
-): Promise<Appointment | null> => {
-  const appointments = await getUserAppointments(userId);
-
-  return getNextUpcomingAppointment(appointments);
 };
 
 export const createAppointment = async ({
@@ -221,8 +174,8 @@ export const cancelAppointment = async ({
         bookedBy: null,
       });
     });
-  } catch (error: any) {
-    if (error?.message === 'Appointment not found') {
+  } catch (error) {
+    if (error instanceof Error && error.message === 'Appointment not found') {
       throw error;
     }
 
