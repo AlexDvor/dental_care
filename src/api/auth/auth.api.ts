@@ -46,6 +46,7 @@ export const createUserProfileData = ({
     fullName: buildFullName(firstName, secondName),
     email: email.trim().toLowerCase(),
     phone: phone.trim(),
+    image: null,
     phoneVerified,
     role: 'patient',
     createdAt: now,
