@@ -50,7 +50,6 @@ export type ChatStackParamList = {
 
 export type ProfileStackParamList = {
   ProfileMain: undefined;
-  VisitHistory: undefined;
 };
 
 export type RootStackParamList = {
@@ -60,6 +59,7 @@ export type RootStackParamList = {
   OtpVerification: undefined;
   Login: undefined;
   MainTabs: undefined;
+  VisitHistory: undefined;
 };
 
-export type RootNav = NavigationProp<TabParamList>;
+export type RootNav = NavigationProp<TabParamList & RootStackParamList>;
