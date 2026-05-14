@@ -12,7 +12,6 @@ export type ThemeContextValue = {
 
 export type AuthContextValue = {
   firebaseUser: FirebaseAuthTypes.User | null;
-  user: UserProfile | null;
   userProfile: UserProfile | null;
   isAuthenticated: boolean;
   isInitializing: boolean;

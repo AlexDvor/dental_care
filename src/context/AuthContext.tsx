@@ -186,7 +186,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     <AuthContext.Provider
       value={{
         firebaseUser,
-        user: userProfile,
         userProfile,
         isAuthenticated: !!firebaseUser && !!userProfile,
         isInitializing,
