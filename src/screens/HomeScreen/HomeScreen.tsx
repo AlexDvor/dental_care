@@ -18,6 +18,7 @@ import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import QuickActionsGrid from '../../components/QuickActionsGrid/QuickActionsGrid';
 import StatsCard from '../../components/StatsCard/StatsCard';
 import { Theme } from '../../constants/theme';
+import { useAuth } from '../../hook/useAuth';
 import { useMedicationSchedule } from '../../hook/useMedicationSchedule';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { HomeStackParamList } from '../../navigation/types';
@@ -66,6 +67,8 @@ type Navigation = NativeStackNavigationProp<
 const HomeScreen = () => {
   const navigation = useNavigation<Navigation>();
   const { nextDose, todayProgress } = useMedicationSchedule();
+  const { userProfile } = useAuth();
+  console.log('🚀 ~ HomeScreen ~ user:', userProfile);
 
   const scrollY = useSharedValue(0);
 

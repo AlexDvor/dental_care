@@ -1,6 +1,13 @@
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+} from '@react-native-firebase/firestore';
 
-import { db } from './firebase';
+import { getDb, initializeFirebaseApp } from './firebase';
+
+const SLOTS_COLLECTION = 'slots';
 
 export interface SlotType {
   id: string;
@@ -16,33 +23,35 @@ export const getSlotsByDoctorAndMonth = async (
   start: number,
   end: number,
 ): Promise<SlotType[]> => {
-  console.log('🚀 Querying Firestore:', { doctorId, start, end });
+  console.log('Querying Firestore:', { doctorId, start, end });
 
-  // Перевірка: якщо діапазон невірний (start > end), це може бути помилка
   if (start > end) {
-    console.error('❌ Invalid range: start > end');
+    console.error('Invalid range: start > end');
     return [];
   }
 
-  const q = query(
-    collection(db, 'slots'),
-    where('doctorId', '==', doctorId),
-    where('startTime', '>=', start),
-    where('startTime', '<=', end),
-  );
-
   try {
-    const snapshot = await getDocs(q);
+    await initializeFirebaseApp();
+
+    const db = getDb();
+    const slotsQuery = query(
+      collection(db, SLOTS_COLLECTION),
+      where('doctorId', '==', doctorId),
+      where('startTime', '>=', start),
+      where('startTime', '<=', end),
+    );
+    const snapshot = await getDocs(slotsQuery);
 
     if (snapshot.empty) {
-      console.log('📭 No documents found for this query.');
+      console.log('No documents found for this query.');
       return [];
     }
 
-    const slots = snapshot.docs.map(docSnap => {
-      const data = docSnap.data();
+    const slots = snapshot.docs.map(docSnapshot => {
+      const data = docSnapshot.data();
+
       return {
-        id: docSnap.id,
+        id: docSnapshot.id,
         doctorId: data.doctorId,
         startTime: data.startTime,
         endTime: data.endTime,
@@ -51,10 +60,10 @@ export const getSlotsByDoctorAndMonth = async (
       } as SlotType;
     });
 
-    console.log(`✅ Found ${slots.length} slots. Sample:`, slots[0]);
+    console.log(`Found ${slots.length} slots. Sample:`, slots[0]);
     return slots;
   } catch (error: any) {
-    console.error('❌ Firestore query error:', error.message);
+    console.error('Firestore query error:', error.message);
     throw error;
   }
 };

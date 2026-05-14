@@ -10,7 +10,6 @@ import ScreenLayout from '../../layout/ScreenLayout';
 import { SERVICES } from '../../mockData/services';
 import { BookingStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
-import SecurityNote from '../../ui/SecurityNote/SecurityNote';
 import SubTitle from '../../ui/SubTitle/SubTitle';
 
 import { styles } from './ServiceScreen.style';

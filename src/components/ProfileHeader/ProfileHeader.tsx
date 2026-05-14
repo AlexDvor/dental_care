@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Theme } from '../../constants/theme';
 import { Icon } from '../../ui/Icon/Icon';
@@ -12,8 +11,6 @@ interface ProfileHeaderProps {
 }
 
 const ProfileHeader = ({ style }: ProfileHeaderProps) => {
-  const insets = useSafeAreaInsets();
-
   return (
     <View style={[styles.wrapper, style]}>
       <LinearGradient

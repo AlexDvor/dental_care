@@ -9,7 +9,7 @@ export const authContent = {
   },
   otp: {
     title: 'Verify your phone',
-    description: 'Enter the 4-digit code we sent to your number.',
+    description: 'Enter the 6-digit code we sent to your number.',
     buttonTitle: 'Confirm code',
     secondaryAction: 'Resend code',
     image: require('../../assets/images/auth/otp.png'),
@@ -26,13 +26,17 @@ export const authContent = {
 } as const;
 
 export const authFields = {
-  fullName: {
-    label: 'Full name',
-    placeholder: 'Enter your full name',
+  firstName: {
+    label: 'First name',
+    placeholder: 'Enter your first name',
+  },
+  secondName: {
+    label: 'Second name',
+    placeholder: 'Enter your second name',
   },
   phone: {
     label: 'Phone number',
-    placeholder: 'Enter your phone number',
+    placeholder: '+34612345678',
   },
   email: {
     label: 'Email',

@@ -1,26 +1,29 @@
-// src/api/seedSlots.ts
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection } from '@react-native-firebase/firestore';
 
-import { db } from '../api/firebase';
 import { DOCTORS } from '../mockData/doctors';
+import { getDb, initializeFirebaseApp } from './firebase';
+
+const SLOTS_COLLECTION = 'slots';
 
 export const seedSlots = async () => {
-  const days = 2; // ✅ Зменшено до 2 днів для швидкого тестування
+  const days = 2;
 
   console.log(
-    `🌱 Starting seed for ${DOCTORS.length} doctors for ${days} days...`,
+    `Starting seed for ${DOCTORS.length} doctors for ${days} days...`,
   );
 
   try {
+    await initializeFirebaseApp();
+
+    const db = getDb();
+
     for (const doctor of DOCTORS) {
       const startHour = parseInt(doctor.workingHours.start.split(':')[0], 10);
       const endHour = parseInt(doctor.workingHours.end.split(':')[0], 10);
-
-      // Тривалість слоту в хвилинах
       const slotDurationMinutes = doctor.slotDuration || 30;
 
       console.log(
-        `👨‍⚕️ Seeding doctor: ${doctor.id} (${doctor.name}), Duration: ${slotDurationMinutes}min`,
+        `Seeding doctor: ${doctor.id} (${doctor.name}), Duration: ${slotDurationMinutes}min`,
       );
 
       for (let day = 0; day < days; day++) {
@@ -32,20 +35,15 @@ export const seedSlots = async () => {
         const month = baseDate.getMonth();
         const date = baseDate.getDate();
 
-        // Генеруємо слоти
         for (
           let hour = startHour;
           hour < endHour;
-          // ✅ Коректна інкрементація: додаємо тривалість слота в годинах
           hour += slotDurationMinutes / 60
         ) {
           const startTime = Date.UTC(year, month, date, hour, 0, 0);
           const endTime = startTime + slotDurationMinutes * 60 * 1000;
 
-          // Firestore автоматично створить унікальний ID для документа
-          const slotRef = doc(collection(db, 'slots'));
-
-          await setDoc(slotRef, {
+          await addDoc(collection(db, SLOTS_COLLECTION), {
             doctorId: doctor.id,
             startTime,
             endTime,
@@ -57,8 +55,8 @@ export const seedSlots = async () => {
       }
     }
 
-    console.log('🔥 Slots created successfully!');
+    console.log('Slots created successfully!');
   } catch (error: any) {
-    console.error('❌ seedSlots error:', error.message, error);
+    console.error('seedSlots error:', error.message, error);
   }
 };

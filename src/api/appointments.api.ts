@@ -5,9 +5,12 @@ import {
   query,
   runTransaction,
   where,
-} from 'firebase/firestore';
+} from '@react-native-firebase/firestore';
 
-import { db } from './firebase';
+import { getDb, initializeFirebaseApp } from './firebase';
+
+const APPOINTMENTS_COLLECTION = 'appointments';
+const SLOTS_COLLECTION = 'slots';
 
 export type AppointmentType = {
   id: string;
@@ -16,28 +19,28 @@ export type AppointmentType = {
   endTime: number;
 };
 
-// 🔥 залишаємо тільки якщо десь ще використовується
 export const getAppointmentsByDoctorAndDate = async (
   doctorId: string,
   startOfDay: number,
   endOfDay: number,
 ): Promise<AppointmentType[]> => {
-  const q = query(
-    collection(db, 'appointments'),
+  await initializeFirebaseApp();
+
+  const db = getDb();
+  const appointmentsQuery = query(
+    collection(db, APPOINTMENTS_COLLECTION),
     where('doctorId', '==', doctorId),
     where('startTime', '>=', startOfDay),
     where('startTime', '<=', endOfDay),
   );
+  const snapshot = await getDocs(appointmentsQuery);
 
-  const snapshot = await getDocs(q);
-
-  return snapshot.docs.map(doc => ({
-    id: doc.id,
-    ...(doc.data() as Omit<AppointmentType, 'id'>),
+  return snapshot.docs.map(docSnapshot => ({
+    id: docSnapshot.id,
+    ...(docSnapshot.data() as Omit<AppointmentType, 'id'>),
   }));
 };
 
-// ✅ SLOT-BASED
 export const createAppointment = async ({
   slotId,
   userId,
@@ -45,7 +48,10 @@ export const createAppointment = async ({
   slotId: string;
   userId: string;
 }) => {
-  const slotRef = doc(db, 'slots', slotId);
+  await initializeFirebaseApp();
+
+  const db = getDb();
+  const slotRef = doc(db, SLOTS_COLLECTION, slotId);
 
   await runTransaction(db, async transaction => {
     const snapshot = await transaction.get(slotRef);
@@ -56,7 +62,7 @@ export const createAppointment = async ({
 
     const data = snapshot.data();
 
-    if (data.isBooked) {
+    if (data?.isBooked) {
       throw new Error('Time slot already booked');
     }
 

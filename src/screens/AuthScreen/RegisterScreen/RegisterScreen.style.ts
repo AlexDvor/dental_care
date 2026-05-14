@@ -64,6 +64,14 @@ export const styles = StyleSheet.create({
     minHeight: 56,
     paddingHorizontal: Theme.spacing.lg,
   },
+  inputError: {
+    borderColor: Theme.colors.status.error,
+  },
+  errorText: {
+    color: Theme.colors.status.error,
+    fontSize: Theme.typography.size.caption,
+    lineHeight: Theme.typography.lineHeight.caption,
+  },
   placeholder: {
     color: Theme.colors.text.placeholder,
   },

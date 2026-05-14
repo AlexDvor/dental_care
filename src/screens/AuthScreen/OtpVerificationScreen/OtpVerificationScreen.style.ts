@@ -56,11 +56,27 @@ export const styles = StyleSheet.create({
     fontSize: Theme.typography.size.h2,
     fontWeight: Theme.typography.fontWeight.semibold,
     height: 64,
-    width: 58,
+    width: 46,
+  },
+  codeInputError: {
+    borderColor: Theme.colors.status.error,
+  },
+  errorText: {
+    color: Theme.colors.status.error,
+    fontSize: Theme.typography.size.caption,
+    lineHeight: Theme.typography.lineHeight.caption,
+    marginTop: Theme.spacing.sm,
+    textAlign: 'center',
   },
   footer: {
     gap: Theme.spacing.lg,
     marginTop: Theme.spacing.xxl,
+  },
+  timerText: {
+    color: Theme.colors.text.secondary,
+    fontSize: Theme.typography.size.small,
+    lineHeight: Theme.typography.lineHeight.small,
+    textAlign: 'center',
   },
   button: {
     width: '100%',
@@ -73,5 +89,8 @@ export const styles = StyleSheet.create({
     fontSize: Theme.typography.size.small,
     fontWeight: Theme.typography.fontWeight.semibold,
     lineHeight: Theme.typography.lineHeight.small,
+  },
+  disabledAction: {
+    color: Theme.colors.text.placeholder,
   },
 });

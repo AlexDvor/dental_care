@@ -2,24 +2,38 @@ import {
   API_KEY,
   App_Id,
   AUTH_DOMAIN,
-  Measurement_Id,
   Messaging_SenderId,
   PROJECT_ID,
   Storage_Bucket,
 } from '@env';
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { getApps, initializeApp } from '@react-native-firebase/app';
+import { getAuth } from '@react-native-firebase/auth';
+import { getFirestore } from '@react-native-firebase/firestore';
 
 const firebaseConfig = {
   apiKey: API_KEY,
+  appId: App_Id,
   authDomain: AUTH_DOMAIN,
+  databaseURL: `https://${PROJECT_ID}.firebaseio.com`,
+  messagingSenderId: Messaging_SenderId,
   projectId: PROJECT_ID,
   storageBucket: Storage_Bucket,
-  messagingSenderId: Messaging_SenderId,
-  appId: App_Id,
-  measurementId: Measurement_Id,
 };
 
-const app = initializeApp(firebaseConfig);
+let firebaseInitPromise: Promise<unknown> | null = null;
 
-export const db = getFirestore(app);
+export const initializeFirebaseApp = async () => {
+  if (getApps().length > 0) {
+    return;
+  }
+
+  if (!firebaseInitPromise) {
+    // Keep this fallback until native Firebase config files are added.
+    firebaseInitPromise = initializeApp(firebaseConfig);
+  }
+
+  await firebaseInitPromise;
+};
+
+export const getDb = () => getFirestore();
+export const getAuthInstance = () => getAuth();

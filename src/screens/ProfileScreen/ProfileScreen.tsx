@@ -4,12 +4,15 @@ import { ScrollView, View } from 'react-native';
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import AccountSection from '../../components/ProfileUser/AccountSection/AccountSection';
 import { Theme } from '../../constants/theme';
+import { useAuth } from '../../hook/useAuth';
 import ScreenLayout from '../../layout/ScreenLayout';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 
 import { styles } from './ProfileScreen.styles';
 
 const ProfileScreen = () => {
+  const { logout, isSubmitting } = useAuth();
+
   return (
     <ScreenLayout
       style={styles.container}
@@ -22,11 +25,12 @@ const ProfileScreen = () => {
           <AccountSection />
 
           <CustomBtn
-            title="Log Out"
-            onPress={() => {}}
+            title={isSubmitting ? 'Logging out...' : 'Log Out'}
+            onPress={logout}
             style={{ marginTop: 'auto' }}
             icon="logout"
             iconSize={23}
+            isDisabled={isSubmitting}
           />
         </View>
       </ScrollView>

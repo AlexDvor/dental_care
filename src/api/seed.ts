@@ -1,19 +1,23 @@
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from '@react-native-firebase/firestore';
 
 import { DOCTORS } from '../mockData/doctors';
-import { db } from './firebase';
+import { getDb, initializeFirebaseApp } from './firebase';
+
+const DOCTORS_COLLECTION = 'doctors';
 
 export const seedDoctors = async () => {
   try {
-    const promises = DOCTORS.map(doctor => {
-      const docRef = doc(db, 'doctors', doctor.id);
-      return setDoc(docRef, doctor);
-    });
+    await initializeFirebaseApp();
+
+    const db = getDb();
+    const promises = DOCTORS.map(doctor =>
+      setDoc(doc(collection(db, DOCTORS_COLLECTION), doctor.id), doctor),
+    );
 
     await Promise.all(promises);
 
-    console.log('🔥 Doctors seeded successfully!');
+    console.log('Doctors seeded successfully!');
   } catch (error) {
-    console.error('❌ Seed error:', error);
+    console.error('Seed error:', error);
   }
 };

@@ -11,6 +11,7 @@ import AppointmentDetails from '../../components/BookingConfirm/AppointmentDetai
 import BookingDoctorCard from '../../components/BookingConfirm/BookingDoctorCard/BookingDoctorCard';
 import PaymentSummary from '../../components/BookingConfirm/PaymentSummary/PaymentSummary';
 import { Theme } from '../../constants/theme';
+import { useAuth } from '../../hook/useAuth';
 import { useCreateAppointment } from '../../hook/useCreateAppointment';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { BookingStackParamList, RootNav } from '../../navigation/types';
@@ -19,11 +20,10 @@ import SubTitle from '../../ui/SubTitle/SubTitle';
 
 type Route = RouteProp<BookingStackParamList, 'BookingConfirm'>;
 
-const MOCK_USER_ID = 'user1';
-
 const BookingConfirmScreen = () => {
   const route = useRoute<Route>();
   const navigation = useNavigation<RootNav>();
+  const { userProfile } = useAuth();
 
   const { doctorData, date, time, serviceType, totalPrice, slotId } =
     route.params;
@@ -31,10 +31,15 @@ const BookingConfirmScreen = () => {
   const { mutate, isPending } = useCreateAppointment();
 
   const handleConfirm = () => {
+    if (!userProfile) {
+      Alert.alert('Login required', 'Please log in before booking a visit.');
+      return;
+    }
+
     mutate(
       {
         slotId,
-        userId: MOCK_USER_ID,
+        userId: userProfile.id,
       },
       {
         onSuccess: () => {
