@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   backBtn: {
     width: 40,
     height: 40,
-    borderRadius: 20,
+    borderRadius: Theme.radius.md,
     backgroundColor: Theme.colors.background.card,
     alignItems: 'center',
     justifyContent: 'center',

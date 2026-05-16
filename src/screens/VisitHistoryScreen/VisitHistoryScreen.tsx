@@ -18,6 +18,7 @@ import { useCancelAppointment } from '../../hook/useCancelAppointment';
 import { useUserAppointments } from '../../hook/useUserAppointments';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { ProfileStackParamList } from '../../navigation/types';
+import { BackHeader } from '../../ui/BackIcon/BackHeader';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import { Icon } from '../../ui/Icon/Icon';
 
@@ -208,17 +209,7 @@ const VisitHistoryScreen = () => {
       defaultPadding
       statusBarBackgroundColor={Theme.colors.statusBar.primary}
     >
-      <View style={styles.header}>
-        <TouchableOpacity
-          activeOpacity={0.85}
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow_l" size={20} color={Theme.colors.text.primary} />
-        </TouchableOpacity>
-
-        <Text style={styles.title}>Visit History</Text>
-      </View>
+      <BackHeader title="Visit History" />
 
       {isLoading ? (
         <View style={styles.center}>
