@@ -1,4 +1,7 @@
-import { NavigationProp, NavigatorScreenParams } from '@react-navigation/native';
+import {
+  NavigationProp,
+  NavigatorScreenParams,
+} from '@react-navigation/native';
 
 import { DoctorType } from '../interfaces/doctor.types';
 
@@ -66,5 +69,14 @@ export type RootStackParamList = {
   Login: undefined;
   MainTabs: undefined;
 };
+
+export type AppParamList = RootStackParamList &
+  TabParamList &
+  HomeStackParamList &
+  BookingStackParamList &
+  ChatStackParamList &
+  ProfileStackParamList;
+
+export type AppNavigation = NavigationProp<AppParamList>;
 
 export type RootNav = NavigationProp<TabParamList & RootStackParamList>;

@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
 import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
-import Svg, { Circle, Path } from 'react-native-svg';
+import Svg, { Circle } from 'react-native-svg';
 
 import { getMedicationFormIcon } from '../../constants/medicationForms';
 import { Theme } from '../../constants/theme';
 import { useMedicationSchedule } from '../../hook/useMedicationSchedule';
 import { MedicationScheduleItem } from '../../interfaces/medication';
 import ScreenLayout from '../../layout/ScreenLayout';
+import { BackHeader, BackIcon } from '../../ui/BackIcon/BackHeader';
 import { MedicationItem } from '../../ui/MedicationItem/MedicationItem';
 import { parseDateKey } from '../../utils/Date/parseDateKey';
 
 import { styles } from './MedicationsListScreen.style';
 
-const BackIcon = () => (
-  <Svg width={20} height={20} viewBox="0 0 24 24" fill="none">
-    <Path
-      d="M15 6l-6 6 6 6"
-      stroke={Theme.colors.text.primary}
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
+// const BackIcon = () => (
+//   <Svg width={20} height={20} viewBox="0 0 24 24" fill="none">
+//     <Path
+//       d="M15 6l-6 6 6 6"
+//       stroke={Theme.colors.text.primary}
+//       strokeWidth={2}
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     />
+//   </Svg>
+// );
 
 const formatDate = (date: string) =>
   new Intl.DateTimeFormat('en', {
@@ -98,16 +99,7 @@ export default function MedicationsListScreen({ navigation }: any) {
       statusBarStyle="light-content"
       defaultPadding
     >
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <BackIcon />
-        </TouchableOpacity>
-
-        <Text style={styles.title}>Medications</Text>
-      </View>
+      <BackHeader title="Medications" />
 
       <Text style={styles.subtitle}>Post extraction treatment plan</Text>
 
