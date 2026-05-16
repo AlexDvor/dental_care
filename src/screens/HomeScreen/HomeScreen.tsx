@@ -10,6 +10,8 @@ import Animated, {
 
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 
+import { seedAppointmentTreatment } from '../../api/seedAppointmentTreatment';
+import { seedSlots } from '../../api/seedSlots';
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import { EmptyAppointmentCard } from '../../components/EmptyAppointmentCard/EmptyAppointmentCard';
 import HealthBanner from '../../components/HealthBanner/HealthBanner';
@@ -29,6 +31,7 @@ import {
   RootStackParamList,
   TabParamList,
 } from '../../navigation/types';
+import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
 import { formatAppointmentDate } from '../../utils/Date/formatAppointmentDate';
 import { formatAppointmentTime } from '../../utils/Date/formatAppointmentTime';
@@ -44,7 +47,8 @@ type Navigation = NavigationProp<
 
 const HomeScreen = () => {
   const navigation = useNavigation<Navigation>();
-  const { nextDose, todayProgress } = useMedicationSchedule();
+  const { hasActiveTreatmentPlan, nextDose, todayProgress } =
+    useMedicationSchedule();
   const { userProfile } = useAuth();
   const {
     data: nextAppointment,
@@ -254,10 +258,15 @@ const HomeScreen = () => {
           )}
 
           <MedicationReminder
+            hasActiveTreatmentPlan={hasActiveTreatmentPlan}
             taken={todayProgress.taken}
             total={todayProgress.total}
             nextDose={nextDose}
-            onPress={() => navigation.navigate('MedicationsList')}
+            onPress={
+              hasActiveTreatmentPlan
+                ? () => navigation.navigate('MedicationsList')
+                : undefined
+            }
             style={{
               marginTop: Theme.spacing.lg,
             }}
@@ -282,6 +291,26 @@ const HomeScreen = () => {
             onPrivacyPress={() => {}}
             onTermsPress={() => {}}
           />
+          {/* Teстові дані }
+          
+          {/* <CustomBtn
+            title="Go "
+            onPress={async () => {
+              try {
+                await seedAppointmentTreatment({
+                  userId: userProfile?.id || 'ReFCryvPhLOxbTGWBBCPjms6DhF2',
+                  appointmentId: '39TbiuYTSHIsu4sU1l8e',
+                  treatmentCase: 'acuteGingivitis',
+                  actorId: userProfile?.id || 'ReFCryvPhLOxbTGWBBCPjms6DhF2',
+                  startDate: new Date(),
+                });
+
+                console.log('Seeded appointment treatment');
+              } catch (error) {
+                console.log(error);
+              }
+            }}
+          /> */}
         </View>
       </Animated.ScrollView>
     </ScreenLayout>

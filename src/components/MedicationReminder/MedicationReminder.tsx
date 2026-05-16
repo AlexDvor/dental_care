@@ -22,6 +22,7 @@ const CheckIcon = () => (
 );
 
 export function MedicationReminder({
+  hasActiveTreatmentPlan,
   taken = 0,
   total = 0,
   nextDose,
@@ -32,10 +33,17 @@ export function MedicationReminder({
   const circumference = 2 * Math.PI * radius;
   const dash = circumference * (total > 0 ? taken / total : 0);
   const isCompletedToday = total > 0 && taken >= total;
-  const hasMedicationPlan = total > 0 || !!nextDose;
+  const hasMedicationPlan =
+    hasActiveTreatmentPlan ?? (total > 0 || !!nextDose);
+  const canOpenMedicationList = hasMedicationPlan && !!onPress;
 
   return (
-    <TouchableOpacity style={[styles.card, style]} onPress={onPress}>
+    <TouchableOpacity
+      activeOpacity={canOpenMedicationList ? 0.85 : 1}
+      disabled={!canOpenMedicationList}
+      style={[styles.card, style]}
+      onPress={onPress}
+    >
       <View style={styles.ringWrap}>
         <Svg
           width={112}
@@ -98,7 +106,9 @@ export function MedicationReminder({
                 : 'You do not have prescribed medication right now.'}
             </Text>
           </View>
-          <Icon name="arrow_r" color={Theme.colors.icon.secondary} />
+          {canOpenMedicationList && (
+            <Icon name="arrow_r" color={Theme.colors.icon.secondary} />
+          )}
         </View>
 
         {!hasMedicationPlan && (

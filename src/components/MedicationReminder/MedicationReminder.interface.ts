@@ -8,6 +8,7 @@ export type MedicationReminderDose = Pick<
 >;
 
 export type MedicationReminderProps = {
+  hasActiveTreatmentPlan?: boolean;
   taken?: number;
   total?: number;
   nextDose?: MedicationReminderDose;

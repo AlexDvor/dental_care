@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
 import { getMedicationFormIcon } from '../../constants/medicationForms';
@@ -24,6 +31,8 @@ export default function MedicationsListScreen() {
   const {
     allSchedule,
     currentTreatmentDay,
+    hasActiveTreatmentPlan,
+    isLoading,
     markAsTaken,
     todayProgress,
     todaySchedule,
@@ -80,6 +89,41 @@ export default function MedicationsListScreen() {
       </View>
     );
   };
+
+  if (isLoading) {
+    return (
+      <ScreenLayout
+        statusBarBackgroundColor={Theme.colors.statusBar.secondary}
+        statusBarStyle="light-content"
+        defaultPadding
+      >
+        <BackHeader title="Medications" />
+
+        <View style={styles.centeredState}>
+          <ActivityIndicator color={Theme.colors.background.accent} />
+        </View>
+      </ScreenLayout>
+    );
+  }
+
+  if (!hasActiveTreatmentPlan) {
+    return (
+      <ScreenLayout
+        statusBarBackgroundColor={Theme.colors.statusBar.secondary}
+        statusBarStyle="light-content"
+        defaultPadding
+      >
+        <BackHeader title="Medications" />
+
+        <View style={styles.centeredState}>
+          <Text style={styles.emptyTitle}>No active medication plan</Text>
+          <Text style={styles.emptyText}>
+            Medication plans from your doctor will appear here.
+          </Text>
+        </View>
+      </ScreenLayout>
+    );
+  }
 
   return (
     <ScreenLayout

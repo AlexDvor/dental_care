@@ -3,27 +3,6 @@ import { StyleSheet } from 'react-native';
 import { Theme } from '../../constants/theme';
 
 export const styles = StyleSheet.create({
-  // header: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   paddingVertical: Theme.spacing.md,
-  // },
-  // backBtn: {
-  //   width: 40,
-  //   height: 40,
-  //   borderRadius: 20,
-  //   backgroundColor: Theme.colors.background.card,
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   ...Theme.shadow.small,
-  // },
-  // title: {
-  //   fontSize: Theme.typography.size.h3,
-  //   lineHeight: Theme.typography.lineHeight.h3,
-  //   fontWeight: Theme.typography.fontWeight.semibold,
-  //   color: Theme.colors.text.primary,
-  //   marginLeft: Theme.spacing.md,
-  // },
   subtitle: {
     fontSize: Theme.typography.size.xs,
     lineHeight: Theme.typography.lineHeight.caption,
@@ -126,6 +105,26 @@ export const styles = StyleSheet.create({
   },
   list: {
     paddingBottom: Theme.spacing.xxxl,
+  },
+  centeredState: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: Theme.spacing.xl,
+  },
+  emptyTitle: {
+    fontSize: Theme.typography.size.h3,
+    lineHeight: Theme.typography.lineHeight.h3,
+    color: Theme.colors.text.primary,
+    fontWeight: Theme.typography.fontWeight.semibold,
+    textAlign: 'center',
+  },
+  emptyText: {
+    fontSize: Theme.typography.size.small,
+    lineHeight: Theme.typography.lineHeight.small,
+    color: Theme.colors.text.secondary,
+    textAlign: 'center',
+    marginTop: Theme.spacing.sm,
   },
   scheduleDate: {
     fontSize: Theme.typography.size.caption,
