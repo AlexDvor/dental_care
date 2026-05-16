@@ -17,7 +17,7 @@ import { useAuth } from '../../hook/useAuth';
 import { useCancelAppointment } from '../../hook/useCancelAppointment';
 import { useUserAppointments } from '../../hook/useUserAppointments';
 import ScreenLayout from '../../layout/ScreenLayout';
-import { ProfileStackParamList } from '../../navigation/types';
+import { RootStackParamList } from '../../navigation/types';
 import { BackHeader } from '../../ui/BackIcon/BackHeader';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import { Icon } from '../../ui/Icon/Icon';
@@ -25,7 +25,7 @@ import { Icon } from '../../ui/Icon/Icon';
 import { styles } from './VisitHistoryScreen.style';
 
 type Navigation = NativeStackNavigationProp<
-  ProfileStackParamList,
+  RootStackParamList,
   'VisitHistory'
 >;
 

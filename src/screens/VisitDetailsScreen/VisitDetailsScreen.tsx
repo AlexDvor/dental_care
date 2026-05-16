@@ -19,13 +19,13 @@ import { useCreateDoctorReview } from '../../hook/useCreateDoctorReview';
 import { useUserAppointments } from '../../hook/useUserAppointments';
 import { useVisitRecord } from '../../hook/useVisitRecord';
 import ScreenLayout from '../../layout/ScreenLayout';
-import { ProfileStackParamList } from '../../navigation/types';
+import { RootStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import { Icon } from '../../ui/Icon/Icon';
 
 import { styles } from './VisitDetailsScreen.style';
 
-type Route = RouteProp<ProfileStackParamList, 'VisitDetails'>;
+type Route = RouteProp<RootStackParamList, 'VisitDetails'>;
 
 const formatDateTime = (timestamp: number) =>
   new Intl.DateTimeFormat('en', {

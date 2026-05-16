@@ -24,7 +24,11 @@ import { useMedicationSchedule } from '../../hook/useMedicationSchedule';
 import { useNextUserAppointment } from '../../hook/useNextUserAppointment';
 import { useUserAppointments } from '../../hook/useUserAppointments';
 import ScreenLayout from '../../layout/ScreenLayout';
-import { HomeStackParamList, TabParamList } from '../../navigation/types';
+import {
+  HomeStackParamList,
+  RootStackParamList,
+  TabParamList,
+} from '../../navigation/types';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
 import { formatAppointmentDate } from '../../utils/Date/formatAppointmentDate';
 import { formatAppointmentTime } from '../../utils/Date/formatAppointmentTime';
@@ -34,7 +38,9 @@ import { styles } from './HomeScreen.style';
 const HEADER_HEIGHT = 220;
 const COMPACT_HEADER_HEIGHT = 70;
 
-type Navigation = NavigationProp<HomeStackParamList & TabParamList>;
+type Navigation = NavigationProp<
+  HomeStackParamList & TabParamList & RootStackParamList
+>;
 
 const HomeScreen = () => {
   const navigation = useNavigation<Navigation>();
@@ -232,9 +238,7 @@ const HomeScreen = () => {
               serviceType={nextAppointment.serviceType}
               dateLabel={formatAppointmentDate(nextAppointment.startTime)}
               timeLabel={formatAppointmentTime(nextAppointment.startTime)}
-              onPress={() =>
-                navigation.navigate('ProfileTab', { screen: 'VisitHistory' })
-              }
+              onPress={() => navigation.navigate('VisitHistory')}
               style={{
                 marginTop: Theme.spacing.lg,
               }}

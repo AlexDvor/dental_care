@@ -55,10 +55,6 @@ export type ChatStackParamList = {
 
 export type ProfileStackParamList = {
   ProfileMain: undefined;
-  VisitHistory: undefined;
-  VisitDetails: {
-    appointmentId: string;
-  };
 };
 
 export type RootStackParamList = {
@@ -68,6 +64,10 @@ export type RootStackParamList = {
   OtpVerification: undefined;
   Login: undefined;
   MainTabs: undefined;
+  VisitHistory: undefined;
+  VisitDetails: {
+    appointmentId: string;
+  };
 };
 
 export type AppParamList = RootStackParamList &

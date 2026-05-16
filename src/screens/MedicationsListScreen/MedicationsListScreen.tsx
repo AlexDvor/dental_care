@@ -7,23 +7,11 @@ import { Theme } from '../../constants/theme';
 import { useMedicationSchedule } from '../../hook/useMedicationSchedule';
 import { MedicationScheduleItem } from '../../interfaces/medication';
 import ScreenLayout from '../../layout/ScreenLayout';
-import { BackHeader, BackIcon } from '../../ui/BackIcon/BackHeader';
+import { BackHeader } from '../../ui/BackIcon/BackHeader';
 import { MedicationItem } from '../../ui/MedicationItem/MedicationItem';
 import { parseDateKey } from '../../utils/Date/parseDateKey';
 
 import { styles } from './MedicationsListScreen.style';
-
-// const BackIcon = () => (
-//   <Svg width={20} height={20} viewBox="0 0 24 24" fill="none">
-//     <Path
-//       d="M15 6l-6 6 6 6"
-//       stroke={Theme.colors.text.primary}
-//       strokeWidth={2}
-//       strokeLinecap="round"
-//       strokeLinejoin="round"
-//     />
-//   </Svg>
-// );
 
 const formatDate = (date: string) =>
   new Intl.DateTimeFormat('en', {
@@ -31,7 +19,7 @@ const formatDate = (date: string) =>
     day: 'numeric',
   }).format(parseDateKey(date));
 
-export default function MedicationsListScreen({ navigation }: any) {
+export default function MedicationsListScreen() {
   const [showFullTreatment, setShowFullTreatment] = useState(false);
   const {
     allSchedule,
