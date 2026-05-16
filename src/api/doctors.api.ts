@@ -6,10 +6,9 @@ import {
   getDocs,
 } from '@react-native-firebase/firestore';
 
+import { COLLECTION_NAME } from '../constants/collections';
 import { DoctorType } from '../interfaces/doctor.types';
 import { getDb, initializeFirebaseApp } from './firebase';
-
-const DOCTORS_COLLECTION = 'doctors';
 
 const mapDoctor = (id: string, data: FirebaseFirestoreTypes.DocumentData) => {
   return {
@@ -23,7 +22,7 @@ export const getDoctors = async (): Promise<DoctorType[]> => {
     await initializeFirebaseApp();
 
     const db = getDb();
-    const snapshot = await getDocs(collection(db, DOCTORS_COLLECTION));
+    const snapshot = await getDocs(collection(db, COLLECTION_NAME.DOCTORS));
 
     return snapshot.docs.map(docSnapshot =>
       mapDoctor(docSnapshot.id, docSnapshot.data()),
@@ -39,7 +38,7 @@ export const getDoctorById = async (id: string): Promise<DoctorType> => {
     await initializeFirebaseApp();
 
     const db = getDb();
-    const snapshot = await getDoc(doc(db, DOCTORS_COLLECTION, id));
+    const snapshot = await getDoc(doc(db, COLLECTION_NAME.DOCTORS, id));
 
     if (!snapshot.exists()) {
       throw new Error(`Doctor with id ${id} not found`);

@@ -7,10 +7,9 @@ import {
   where,
 } from '@react-native-firebase/firestore';
 
+import { COLLECTION_NAME } from '../constants/collections';
 import { DOCTORS } from '../mockData/doctors';
 import { getDb, initializeFirebaseApp } from './firebase';
-
-const SLOTS_COLLECTION = 'slots';
 
 type SeedSlotsOptions = {
   days?: number;
@@ -27,7 +26,7 @@ type SeedSlotsResult = {
 const hasExistingSlot = async (doctorId: string, startTime: number) => {
   const db = getDb();
   const existingSlotQuery = query(
-    collection(db, SLOTS_COLLECTION),
+    collection(db, COLLECTION_NAME.SLOTS),
     where('doctorId', '==', doctorId),
     where('startTime', '==', startTime),
     limit(1),
@@ -94,7 +93,7 @@ export const seedSlots = async (
             continue;
           }
 
-          await addDoc(collection(db, SLOTS_COLLECTION), {
+          await addDoc(collection(db, COLLECTION_NAME.SLOTS), {
             doctorId: doctor.id,
             startTime,
             endTime,

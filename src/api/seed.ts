@@ -1,9 +1,8 @@
 import { collection, doc, setDoc } from '@react-native-firebase/firestore';
 
+import { COLLECTION_NAME } from '../constants/collections';
 import { DOCTORS } from '../mockData/doctors';
 import { getDb, initializeFirebaseApp } from './firebase';
-
-const DOCTORS_COLLECTION = 'doctors';
 
 export const seedDoctors = async () => {
   try {
@@ -11,7 +10,7 @@ export const seedDoctors = async () => {
 
     const db = getDb();
     const promises = DOCTORS.map(doctor =>
-      setDoc(doc(collection(db, DOCTORS_COLLECTION), doctor.id), doctor),
+      setDoc(doc(collection(db, COLLECTION_NAME.DOCTORS), doctor.id), doctor),
     );
 
     await Promise.all(promises);

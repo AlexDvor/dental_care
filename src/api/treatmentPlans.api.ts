@@ -7,11 +7,9 @@ import {
   where,
 } from '@react-native-firebase/firestore';
 
+import { COLLECTION_NAME } from '../constants/collections';
 import { MedicationIntake, TreatmentPlan } from '../interfaces/medication';
 import { getDb, initializeFirebaseApp } from './firebase';
-
-const TREATMENT_PLANS_COLLECTION = 'treatmentPlans';
-const MEDICATION_INTAKES_COLLECTION = 'medicationIntakes';
 
 export type UserTreatmentPlan = TreatmentPlan & {
   appointmentId: string;
@@ -40,7 +38,7 @@ const mapTreatmentPlans = async (
 
   const db = getDb();
   const treatmentPlansQuery = query(
-    collection(db, TREATMENT_PLANS_COLLECTION),
+    collection(db, COLLECTION_NAME.TREATMENT_PLANS),
     where(field, '==', value),
   );
   const snapshot = await getDocs(treatmentPlansQuery);
@@ -69,7 +67,7 @@ export const getMedicationIntakesByUser = async (
 
   const db = getDb();
   const intakesQuery = query(
-    collection(db, MEDICATION_INTAKES_COLLECTION),
+    collection(db, COLLECTION_NAME.MEDICATION_INTAKES),
     where('userId', '==', userId),
   );
   const snapshot = await getDocs(intakesQuery);
@@ -97,7 +95,7 @@ export const markMedicationIntakeTaken = async ({
   )}`;
 
   await setDoc(
-    doc(db, MEDICATION_INTAKES_COLLECTION, intakeId),
+    doc(db, COLLECTION_NAME.MEDICATION_INTAKES, intakeId),
     {
       userId,
       treatmentPlanId,

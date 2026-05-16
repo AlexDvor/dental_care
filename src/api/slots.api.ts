@@ -5,9 +5,8 @@ import {
   where,
 } from '@react-native-firebase/firestore';
 
+import { COLLECTION_NAME } from '../constants/collections';
 import { getDb, initializeFirebaseApp } from './firebase';
-
-const SLOTS_COLLECTION = 'slots';
 
 export interface SlotType {
   id: string;
@@ -35,7 +34,7 @@ export const getSlotsByDoctorAndMonth = async (
 
     const db = getDb();
     const slotsQuery = query(
-      collection(db, SLOTS_COLLECTION),
+      collection(db, COLLECTION_NAME.SLOTS),
       where('doctorId', '==', doctorId),
       where('startTime', '>=', start),
       where('startTime', '<=', end),

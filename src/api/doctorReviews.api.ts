@@ -8,11 +8,9 @@ import {
   where,
 } from '@react-native-firebase/firestore';
 
+import { COLLECTION_NAME } from '../constants/collections';
 import { Appointment } from './appointments.api';
 import { getDb, initializeFirebaseApp } from './firebase';
-
-const APPOINTMENTS_COLLECTION = 'appointments';
-const DOCTOR_REVIEWS_COLLECTION = 'doctorReviews';
 
 export type ReviewRating = 1 | 2 | 3 | 4 | 5;
 
@@ -46,7 +44,7 @@ export const getDoctorReviews = async (
 
   const db = getDb();
   const reviewsQuery = query(
-    collection(db, DOCTOR_REVIEWS_COLLECTION),
+    collection(db, COLLECTION_NAME.DOCTOR_REVIEWS),
     where('doctorId', '==', doctorId),
   );
   const snapshot = await getDocs(reviewsQuery);
@@ -68,7 +66,7 @@ export const getReviewByAppointment = async (
   const db = getDb();
   const reviewRef = doc(
     db,
-    DOCTOR_REVIEWS_COLLECTION,
+    COLLECTION_NAME.DOCTOR_REVIEWS,
     getReviewId(appointmentId, userId),
   );
   const snapshot = await getDoc(reviewRef);
@@ -98,10 +96,10 @@ export const createDoctorReview = async ({
   await initializeFirebaseApp();
 
   const db = getDb();
-  const appointmentRef = doc(db, APPOINTMENTS_COLLECTION, appointmentId);
+  const appointmentRef = doc(db, COLLECTION_NAME.APPOINTMENTS, appointmentId);
   const reviewRef = doc(
     db,
-    DOCTOR_REVIEWS_COLLECTION,
+    COLLECTION_NAME.DOCTOR_REVIEWS,
     getReviewId(appointmentId, userId),
   );
 

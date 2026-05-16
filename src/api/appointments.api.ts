@@ -7,14 +7,11 @@ import {
   where,
 } from '@react-native-firebase/firestore';
 
+import { COLLECTION_NAME } from '../constants/collections';
 import { MedicationForm } from '../interfaces/medication';
 import { getDb, initializeFirebaseApp } from './firebase';
 import { VisitRecordPayload } from './visitRecords.api';
 
-const APPOINTMENTS_COLLECTION = 'appointments';
-const SLOTS_COLLECTION = 'slots';
-const VISIT_RECORDS_COLLECTION = 'visitRecords';
-const TREATMENT_PLANS_COLLECTION = 'treatmentPlans';
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
 const HOUR_IN_MS = 60 * 60 * 1000;
 
@@ -101,8 +98,7 @@ export const getAppointmentPolicyDates = (startTime: number) => ({
 
 export const sortAppointmentsByNewest = (
   appointments: Appointment[],
-): Appointment[] =>
-  [...appointments].sort((a, b) => b.startTime - a.startTime);
+): Appointment[] => [...appointments].sort((a, b) => b.startTime - a.startTime);
 
 export const getNextUpcomingAppointment = (
   appointments: Appointment[],
@@ -122,7 +118,7 @@ export const getUserAppointments = async (
 
   try {
     const appointmentsQuery = query(
-      collection(db, APPOINTMENTS_COLLECTION),
+      collection(db, COLLECTION_NAME.APPOINTMENTS),
       where('userId', '==', userId),
     );
     const snapshot = await getDocs(appointmentsQuery);
@@ -151,8 +147,8 @@ export const createAppointment = async ({
   await initializeFirebaseApp();
 
   const db = getDb();
-  const slotRef = doc(db, SLOTS_COLLECTION, slotId);
-  const appointmentRef = doc(collection(db, APPOINTMENTS_COLLECTION));
+  const slotRef = doc(db, COLLECTION_NAME.SLOTS, slotId);
+  const appointmentRef = doc(collection(db, COLLECTION_NAME.APPOINTMENTS));
 
   await runTransaction(db, async transaction => {
     const snapshot = await transaction.get(slotRef);
@@ -222,8 +218,8 @@ export const cancelAppointment = async ({
   await initializeFirebaseApp();
 
   const db = getDb();
-  const appointmentRef = doc(db, APPOINTMENTS_COLLECTION, appointmentId);
-  const slotRef = doc(db, SLOTS_COLLECTION, slotId);
+  const appointmentRef = doc(db, COLLECTION_NAME.APPOINTMENTS, appointmentId);
+  const slotRef = doc(db, COLLECTION_NAME.SLOTS, slotId);
 
   try {
     await runTransaction(db, async transaction => {
@@ -297,7 +293,7 @@ export const markAppointmentMissed = async ({
   await initializeFirebaseApp();
 
   const db = getDb();
-  const appointmentRef = doc(db, APPOINTMENTS_COLLECTION, appointmentId);
+  const appointmentRef = doc(db, COLLECTION_NAME.APPOINTMENTS, appointmentId);
 
   await runTransaction(db, async transaction => {
     const appointmentSnapshot = await transaction.get(appointmentRef);
@@ -326,7 +322,7 @@ export const markAppointmentCompleted = async ({
   await initializeFirebaseApp();
 
   const db = getDb();
-  const appointmentRef = doc(db, APPOINTMENTS_COLLECTION, appointmentId);
+  const appointmentRef = doc(db, COLLECTION_NAME.APPOINTMENTS, appointmentId);
 
   await runTransaction(db, async transaction => {
     const appointmentSnapshot = await transaction.get(appointmentRef);
@@ -349,7 +345,7 @@ export const markAppointmentCompleted = async ({
     if (visitRecord) {
       const visitRecordRef = doc(
         db,
-        VISIT_RECORDS_COLLECTION,
+        COLLECTION_NAME.VISIT_RECORDS,
         appointmentId,
       );
 
@@ -365,7 +361,9 @@ export const markAppointmentCompleted = async ({
     }
 
     treatmentPlans.forEach(plan => {
-      const treatmentPlanRef = doc(collection(db, TREATMENT_PLANS_COLLECTION));
+      const treatmentPlanRef = doc(
+        collection(db, COLLECTION_NAME.TREATMENT_PLANS),
+      );
 
       transaction.set(treatmentPlanRef, {
         ...plan,

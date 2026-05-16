@@ -5,9 +5,8 @@ import {
   where,
 } from '@react-native-firebase/firestore';
 
+import { COLLECTION_NAME } from '../constants/collections';
 import { getDb, initializeFirebaseApp } from './firebase';
-
-const VISIT_RECORDS_COLLECTION = 'visitRecords';
 
 export type VisitRecord = {
   id: string;
@@ -23,7 +22,10 @@ export type VisitRecord = {
   updatedAt: number;
 };
 
-export type VisitRecordPayload = Omit<VisitRecord, 'id' | 'createdAt' | 'updatedAt'>;
+export type VisitRecordPayload = Omit<
+  VisitRecord,
+  'id' | 'createdAt' | 'updatedAt'
+>;
 
 export const getVisitRecordByAppointment = async (
   appointmentId: string,
@@ -33,13 +35,11 @@ export const getVisitRecordByAppointment = async (
 
   const db = getDb();
   const visitRecordQuery = query(
-    collection(db, VISIT_RECORDS_COLLECTION),
+    collection(db, COLLECTION_NAME.VISIT_RECORDS),
     where('appointmentId', '==', appointmentId),
   );
   const snapshot = await getDocs(visitRecordQuery);
-  const visitRecord = snapshot.docs.find(
-    item => item.data().userId === userId,
-  );
+  const visitRecord = snapshot.docs.find(item => item.data().userId === userId);
 
   if (!visitRecord) {
     return null;
