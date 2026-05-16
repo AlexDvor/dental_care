@@ -16,6 +16,7 @@ import CalendarCard from '../../ui/CalendarCard/CalendarCard';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import SubTitle from '../../ui/SubTitle/SubTitle';
 import TimeSlots from '../../ui/TimeSlots/TimeSlots';
+import { formatTime } from '../../utils/Date/formatTime';
 
 import { styles } from './SelectDateScreen.style';
 
@@ -26,14 +27,9 @@ type Navigation = NativeStackNavigationProp<
   'DoctorList'
 >;
 
-const formatTime = (timestamp: number) => {
-  const d = new Date(timestamp);
-  const hours = d.getHours().toString().padStart(2, '0');
-  const minutes = d.getMinutes().toString().padStart(2, '0');
-  return `${hours}:${minutes}`;
-};
-
 const SelectDateScreen = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
   const queryClient = useQueryClient();
@@ -41,9 +37,6 @@ const SelectDateScreen = () => {
   const { doctorId, serviceType, totalPrice } = route.params;
 
   const { data: doctor, isLoading, error } = useDoctorById(doctorId);
-
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
 
   const { data: slots = [], isLoading: isMonthLoading } = useSlotsByMonth(
     doctorId,
