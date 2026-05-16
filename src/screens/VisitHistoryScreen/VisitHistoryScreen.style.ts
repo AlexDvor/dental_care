@@ -3,56 +3,61 @@ import { StyleSheet } from 'react-native';
 import { Theme } from '../../constants/theme';
 
 export const styles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: Theme.spacing.md,
-    marginBottom: Theme.spacing.xl,
-  },
-
-  backButton: {
-    width: 42,
-    height: 42,
-    borderRadius: Theme.radius.md,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: Theme.colors.background.card,
-    borderWidth: 1,
-    borderColor: Theme.colors.border.default,
-  },
-
-  title: {
-    color: Theme.colors.text.primary,
-    fontSize: Theme.typography.size.h2,
-    lineHeight: Theme.typography.lineHeight.h2,
-    fontWeight: Theme.typography.fontWeight.semibold,
-  },
-
   list: {
+    paddingTop: Theme.spacing.sm,
     paddingBottom: Theme.spacing.massive,
     gap: Theme.spacing.md,
   },
 
   card: {
     padding: Theme.spacing.lg,
-    borderRadius: Theme.radius.lg,
+    borderRadius: Theme.radius.xl,
     backgroundColor: Theme.colors.background.card,
     borderWidth: 1,
     borderColor: Theme.colors.border.default,
+    ...Theme.shadow.medium,
+  },
+
+  cardTop: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: Theme.spacing.md,
+  },
+
+  avatarContainer: {
+    width: 82,
+    height: 82,
+    borderRadius: 41,
+    padding: 4,
+    backgroundColor: Theme.colors.background.soft,
+    borderWidth: 1,
+    borderColor: Theme.colors.border.default,
     ...Theme.shadow.small,
+  },
+
+  doctorAvatar: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 37,
+    backgroundColor: Theme.colors.background.backBlue,
+  },
+
+  cardContent: {
+    flex: 1,
+    minWidth: 0,
+    paddingTop: Theme.spacing.xs,
   },
 
   cardHeader: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    gap: Theme.spacing.md,
+    gap: Theme.spacing.sm,
   },
 
   cardTitleBlock: {
     flex: 1,
     minWidth: 0,
-    gap: Theme.spacing.xs,
   },
 
   doctorName: {
@@ -63,12 +68,15 @@ export const styles = StyleSheet.create({
   },
 
   services: {
+    marginTop: Theme.spacing.xs,
     color: Theme.colors.text.secondary,
     fontSize: Theme.typography.size.small,
     lineHeight: Theme.typography.lineHeight.small,
+    fontWeight: Theme.typography.fontWeight.regular,
   },
 
   statusBadge: {
+    maxWidth: 112,
     paddingHorizontal: Theme.spacing.sm,
     paddingVertical: Theme.spacing.xs,
     borderRadius: Theme.radius.sm,
@@ -83,11 +91,11 @@ export const styles = StyleSheet.create({
   },
 
   statusMissed: {
-    backgroundColor: '#FEF3C7',
+    backgroundColor: Theme.colors.background.backPurple,
   },
 
   statusCancelled: {
-    backgroundColor: '#FEE2E2',
+    backgroundColor: Theme.colors.background.backTeal,
   },
 
   statusText: {
@@ -96,20 +104,31 @@ export const styles = StyleSheet.create({
     lineHeight: Theme.typography.lineHeight.caption,
     fontWeight: Theme.typography.fontWeight.semibold,
     textTransform: 'capitalize',
+    textAlign: 'center',
   },
 
   metaRow: {
+    marginTop: Theme.spacing.md,
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',
     gap: Theme.spacing.sm,
-    marginTop: Theme.spacing.md,
+  },
+
+  metaIconBox: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Theme.colors.background.soft,
   },
 
   metaText: {
     color: Theme.colors.text.primary,
     fontSize: Theme.typography.size.small,
     lineHeight: Theme.typography.lineHeight.small,
+    fontWeight: Theme.typography.fontWeight.medium,
   },
 
   metaDivider: {
@@ -119,8 +138,8 @@ export const styles = StyleSheet.create({
   },
 
   cancelButton: {
-    marginTop: Theme.spacing.md,
-    minHeight: 42,
+    marginTop: Theme.spacing.lg,
+    minHeight: 44,
     borderRadius: Theme.radius.md,
     alignItems: 'center',
     justifyContent: 'center',
@@ -154,22 +173,28 @@ export const styles = StyleSheet.create({
   },
 
   helperText: {
-    marginTop: Theme.spacing.md,
+    marginTop: Theme.spacing.lg,
+    padding: Theme.spacing.md,
+    borderRadius: Theme.radius.md,
     color: Theme.colors.text.secondary,
     fontSize: Theme.typography.size.small,
     lineHeight: Theme.typography.lineHeight.small,
+    backgroundColor: Theme.colors.background.soft,
   },
 
   warningText: {
-    marginTop: Theme.spacing.md,
+    marginTop: Theme.spacing.lg,
+    padding: Theme.spacing.md,
+    borderRadius: Theme.radius.md,
     color: Theme.colors.status.error,
     fontSize: Theme.typography.size.small,
     lineHeight: Theme.typography.lineHeight.small,
+    backgroundColor: Theme.colors.background.backPurple,
   },
 
   contactClinicBox: {
-    marginTop: Theme.spacing.md,
-    minHeight: 42,
+    marginTop: Theme.spacing.lg,
+    minHeight: 44,
     borderRadius: Theme.radius.md,
     alignItems: 'center',
     justifyContent: 'center',
@@ -197,6 +222,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Theme.colors.background.card,
     borderWidth: 1,
     borderColor: Theme.colors.border.default,
+    ...Theme.shadow.small,
   },
 
   emptyTitle: {

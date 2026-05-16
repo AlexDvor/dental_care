@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Alert,
   FlatList,
+  Image,
   Text,
   TouchableOpacity,
   View,
@@ -24,10 +25,7 @@ import { Icon } from '../../ui/Icon/Icon';
 
 import { styles } from './VisitHistoryScreen.style';
 
-type Navigation = NativeStackNavigationProp<
-  RootStackParamList,
-  'VisitHistory'
->;
+type Navigation = NativeStackNavigationProp<RootStackParamList, 'VisitHistory'>;
 
 const formatVisitDate = (timestamp: number) =>
   new Intl.DateTimeFormat('en', {
@@ -76,12 +74,14 @@ const getStatusLabel = (status: Appointment['status']) => {
 const VisitHistoryScreen = () => {
   const navigation = useNavigation<Navigation>();
   const { userProfile } = useAuth();
+
   const {
     data: appointments = [],
     isLoading,
     isError,
     refetch,
   } = useUserAppointments(userProfile?.id);
+
   const cancelMutation = useCancelAppointment();
 
   const handleCancel = (appointment: Appointment) => {
@@ -114,13 +114,16 @@ const VisitHistoryScreen = () => {
     const isCancelling =
       cancelMutation.isPending &&
       cancelMutation.variables?.appointmentId === item.id;
+
     const canCancel =
       item.status === 'upcoming' &&
       (!item.cancelAllowedUntil || Date.now() <= item.cancelAllowedUntil);
+
     const isRefundEligible =
       item.status === 'upcoming' &&
       item.refundEligibleUntil &&
       Date.now() <= item.refundEligibleUntil;
+
     const isRefundCutoffExpired =
       item.status === 'upcoming' &&
       item.refundEligibleUntil &&
@@ -137,35 +140,59 @@ const VisitHistoryScreen = () => {
           navigation.navigate('VisitDetails', { appointmentId: item.id })
         }
       >
-        <View style={styles.cardHeader}>
-          <View style={styles.cardTitleBlock}>
-            <Text style={styles.doctorName}>{item.doctorName}</Text>
-            <Text style={styles.services}>{item.serviceType.join(', ')}</Text>
+        <View style={styles.cardTop}>
+          <View style={styles.avatarContainer}>
+            <Image
+              source={
+                item.doctorImage
+                  ? { uri: item.doctorImage }
+                  : require('../../assets/images/doctor.jpg')
+              }
+              style={styles.doctorAvatar}
+              resizeMode="cover"
+            />
           </View>
 
-          <View style={[styles.statusBadge, getStatusStyle(item.status)]}>
-            <Text style={styles.statusText}>{getStatusLabel(item.status)}</Text>
-          </View>
-        </View>
+          <View style={styles.cardContent}>
+            <View style={styles.cardHeader}>
+              <View style={styles.cardTitleBlock}>
+                <Text style={styles.doctorName} numberOfLines={1}>
+                  {item.doctorName}
+                </Text>
 
-        <View style={styles.metaRow}>
-          <Icon name="schedule" size={18} color={Theme.colors.icon.primary} />
-          <Text style={styles.metaText}>{formatVisitDate(item.startTime)}</Text>
-          <Text style={styles.metaDivider}>-</Text>
-          <Text style={styles.metaText}>{formatVisitTime(item.startTime)}</Text>
-        </View>
+                <Text style={styles.services} numberOfLines={2}>
+                  {item.serviceType.join(', ')}
+                </Text>
+              </View>
 
-        {item.status === 'missed' && (
-          <View style={styles.policyNote}>
-            <Text style={styles.policyText}>You missed this appointment.</Text>
+              <View style={[styles.statusBadge, getStatusStyle(item.status)]}>
+                <Text style={styles.statusText}>
+                  {getStatusLabel(item.status)}
+                </Text>
+              </View>
+            </View>
 
-            {item.missedNonRefundable && (
-              <Text style={styles.policyText}>
-                Payment is non-refundable according to clinic policy.
+            <View style={styles.metaRow}>
+              <View style={styles.metaIconBox}>
+                <Icon
+                  name="schedule"
+                  size={16}
+                  color={Theme.colors.icon.primary}
+                />
+              </View>
+
+              <Text style={styles.metaText}>
+                {formatVisitDate(item.startTime)}
               </Text>
-            )}
+
+              <Text style={styles.metaDivider}>•</Text>
+
+              <Text style={styles.metaText}>
+                {formatVisitTime(item.startTime)}
+              </Text>
+            </View>
           </View>
-        )}
+        </View>
 
         {item.status === 'upcoming' && isRefundEligible && (
           <Text style={styles.helperText}>
@@ -219,6 +246,7 @@ const VisitHistoryScreen = () => {
         <View style={styles.center}>
           <Text style={styles.emptyTitle}>Unable to load visits</Text>
           <Text style={styles.emptyText}>Please try again in a moment.</Text>
+
           <CustomBtn
             title="Retry"
             onPress={() => refetch()}
