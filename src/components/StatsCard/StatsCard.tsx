@@ -7,13 +7,8 @@ import { StatsCardProps } from './StatsCard.interface';
 
 import { styles } from './StatsCard.style';
 
-const visitsIconGradient = [
+const iconGradient = [
   Theme.colors.background.soft,
-  Theme.colors.background.card,
-];
-
-const upcomingIconGradient = [
-  Theme.colors.background.backPurple,
   Theme.colors.background.card,
 ];
 
@@ -35,7 +30,7 @@ const StatsCard = ({
       >
         <View style={styles.content}>
           <LinearGradient
-            colors={visitsIconGradient}
+            colors={iconGradient}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.iconWrapper}
@@ -72,7 +67,7 @@ const StatsCard = ({
       >
         <View style={styles.content}>
           <LinearGradient
-            colors={upcomingIconGradient}
+            colors={iconGradient}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.iconWrapper}
@@ -80,7 +75,7 @@ const StatsCard = ({
             <Icon
               name="statsUpcoming"
               size={24}
-              color={Theme.colors.icon.purple}
+              color={Theme.colors.icon.primary}
             />
           </LinearGradient>
 
@@ -94,7 +89,7 @@ const StatsCard = ({
           style={[styles.imageWrapper, isColumn && styles.imageWrapperColumn]}
         >
           <Image
-            source={require('../../assets/images/upcoming_calendar.png')}
+            source={require('../../assets/images/upcoming_calendar_mint.png')}
             style={styles.statImage}
           />
         </View>

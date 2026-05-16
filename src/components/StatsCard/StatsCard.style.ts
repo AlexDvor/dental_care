@@ -29,11 +29,11 @@ export const styles = StyleSheet.create({
   },
 
   visitsCard: {
-    backgroundColor: Theme.colors.background.soft,
+    backgroundColor: Theme.colors.background.card,
   },
 
   upcomingCard: {
-    backgroundColor: Theme.colors.background.backPurple,
+    backgroundColor: Theme.colors.background.card,
   },
 
   cardColumn: {
