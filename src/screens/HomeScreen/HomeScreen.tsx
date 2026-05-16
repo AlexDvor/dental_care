@@ -235,6 +235,7 @@ const HomeScreen = () => {
           ) : nextAppointment && !isNextAppointmentError ? (
             <AppointmentCard
               doctorName={nextAppointment.doctorName}
+              doctorImage={nextAppointment.doctorImage}
               serviceType={nextAppointment.serviceType}
               dateLabel={formatAppointmentDate(nextAppointment.startTime)}
               timeLabel={formatAppointmentTime(nextAppointment.startTime)}

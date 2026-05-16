@@ -30,6 +30,7 @@ export type Appointment = {
   doctorId: string;
   slotId: string;
   doctorName: string;
+  doctorImage?: string;
   serviceType: string[];
   totalPrice: number;
   startTime: number;
@@ -53,6 +54,7 @@ export type CreateAppointmentPayload = {
   userId: string;
   doctorId: string;
   doctorName: string;
+  doctorImage?: string;
   serviceType: string[];
   totalPrice: number;
 };
@@ -142,6 +144,7 @@ export const createAppointment = async ({
   userId,
   doctorId,
   doctorName,
+  doctorImage,
   serviceType,
   totalPrice,
 }: CreateAppointmentPayload) => {
@@ -194,6 +197,7 @@ export const createAppointment = async ({
       doctorId,
       slotId,
       doctorName,
+      doctorImage,
       serviceType,
       totalPrice,
       startTime: data?.startTime,

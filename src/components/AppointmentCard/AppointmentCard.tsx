@@ -11,6 +11,7 @@ import { styles } from './AppointmentCard.style';
 
 const AppointmentCard = ({
   doctorName,
+  doctorImage,
   serviceType,
   dateLabel,
   timeLabel,
@@ -43,7 +44,11 @@ const AppointmentCard = ({
         <View style={styles.infoColumn}>
           <View style={styles.doctorRow}>
             <Image
-              source={require('../../assets/images/doctor.jpg')}
+              source={
+                doctorImage
+                  ? { uri: doctorImage }
+                  : require('../../assets/images/doctor.jpg')
+              }
               style={styles.avatar}
             />
 

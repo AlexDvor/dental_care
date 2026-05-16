@@ -54,6 +54,7 @@ const BookingConfirmScreen = () => {
         userId: userProfile.id,
         doctorId: doctorData.id,
         doctorName: doctorData.name,
+        doctorImage: doctorData.image,
         serviceType,
         totalPrice,
       },
