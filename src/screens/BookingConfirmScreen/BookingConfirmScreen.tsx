@@ -25,17 +25,9 @@ import ScreenLayout from '../../layout/ScreenLayout';
 import { BookingStackParamList, RootNav } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import SubTitle from '../../ui/SubTitle/SubTitle';
+import { formatPolicyDate } from '../../utils/Date/formatPolicyDate';
 
 type Route = RouteProp<BookingStackParamList, 'BookingConfirm'>;
-
-const formatPolicyDate = (timestamp: number) =>
-  new Intl.DateTimeFormat('en', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(new Date(timestamp));
 
 const BookingConfirmScreen = () => {
   const route = useRoute<Route>();
@@ -44,6 +36,7 @@ const BookingConfirmScreen = () => {
 
   const { doctorData, date, time, serviceType, totalPrice, slotId, startTime } =
     route.params;
+
   const { cancelAllowedUntil, refundEligibleUntil } =
     getAppointmentPolicyDates(startTime);
 
