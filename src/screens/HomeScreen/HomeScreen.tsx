@@ -18,6 +18,7 @@ import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import QuickActionsGrid from '../../components/QuickActionsGrid/QuickActionsGrid';
 import StatsCard from '../../components/StatsCard/StatsCard';
 import { Theme } from '../../constants/theme';
+import { trustBlockItems } from '../../constants/trustBlockItems';
 import { useAuth } from '../../hook/useAuth';
 import { useMedicationSchedule } from '../../hook/useMedicationSchedule';
 import { useNextUserAppointment } from '../../hook/useNextUserAppointment';
@@ -25,63 +26,15 @@ import { useUserAppointments } from '../../hook/useUserAppointments';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { HomeStackParamList, TabParamList } from '../../navigation/types';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
+import { formatAppointmentDate } from '../../utils/Date/formatAppointmentDate';
+import { formatAppointmentTime } from '../../utils/Date/formatAppointmentTime';
 
 import { styles } from './HomeScreen.style';
 
 const HEADER_HEIGHT = 220;
 const COMPACT_HEADER_HEIGHT = 70;
 
-const trustBlockItems = [
-  {
-    icon: 'trustVerified',
-    label: 'Verified',
-    subLabel: 'Trusted & Secure',
-    bg: Theme.colors.background.main,
-    color: Theme.colors.icon.primary,
-  },
-  {
-    icon: 'trustEncrypted',
-    label: 'Encrypted',
-    subLabel: 'Data Protection',
-    bg: Theme.colors.background.main,
-    color: Theme.colors.icon.blue,
-  },
-  {
-    icon: 'trustTopTier',
-    label: 'Top Tier',
-    subLabel: 'Premium Quality',
-    bg: Theme.colors.background.main,
-    color: Theme.colors.icon.purple,
-  },
-] satisfies Array<{
-  icon: 'trustVerified' | 'trustEncrypted' | 'trustTopTier';
-  label: string;
-  subLabel: string;
-  bg: string;
-  color: string;
-}>;
-
 type Navigation = NavigationProp<HomeStackParamList & TabParamList>;
-
-const formatAppointmentDate = (timestamp: number) => {
-  const appointmentDate = new Date(timestamp);
-  const today = new Date();
-
-  if (appointmentDate.toDateString() === today.toDateString()) {
-    return 'Today';
-  }
-
-  return new Intl.DateTimeFormat('en', {
-    month: 'short',
-    day: 'numeric',
-  }).format(appointmentDate);
-};
-
-const formatAppointmentTime = (timestamp: number) =>
-  new Intl.DateTimeFormat('en', {
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(new Date(timestamp));
 
 const HomeScreen = () => {
   const navigation = useNavigation<Navigation>();
@@ -326,7 +279,6 @@ const HomeScreen = () => {
           />
         </View>
       </Animated.ScrollView>
-
     </ScreenLayout>
   );
 };

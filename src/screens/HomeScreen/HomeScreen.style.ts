@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Theme.spacing.lg,
     backgroundColor: Theme.colors.background.main,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.04)',
+    borderBottomColor: Theme.colors.border.default,
 
     shadowColor: '#000',
     shadowOffset: {
