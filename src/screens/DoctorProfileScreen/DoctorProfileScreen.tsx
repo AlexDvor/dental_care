@@ -11,6 +11,8 @@ import ReviewsSection from '../../components/DoctorProfile/ReviewsSection/Review
 import StatsRow from '../../components/DoctorProfile/StatsRow/StatsRow';
 import { Theme } from '../../constants/theme';
 import { useDoctorById } from '../../hook/useDoctorById';
+import { useDoctorReviews } from '../../hook/useDoctorReviews';
+import { ReviewProps } from '../../interfaces/doctor.types';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { BookingStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
@@ -31,6 +33,28 @@ const DoctorProfileScreen = () => {
 
   const { doctorId, serviceType, totalPrice } = route.params;
   const { data, error, isLoading, refetch } = useDoctorById(doctorId);
+  const { data: firestoreReviews = [] } = useDoctorReviews(doctorId);
+
+  const mappedFirestoreReviews: ReviewProps[] = firestoreReviews.map(
+    review => ({
+      id: review.id,
+      name: review.userName,
+      avatar: 'https://i.pravatar.cc/100',
+      rating: review.rating,
+      text: review.text || 'No written comment.',
+      date: new Intl.DateTimeFormat('en', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }).format(new Date(review.createdAt)),
+    }),
+  );
+  const reviews = [...mappedFirestoreReviews, ...(data?.reviews || [])];
+  const rating =
+    reviews.length > 0
+      ? reviews.reduce((sum, review) => sum + review.rating, 0) /
+        reviews.length
+      : data?.rating || 0;
 
   const handlePressToSelectDate = () => {
     navigation.navigate('SelectDate', { doctorId, serviceType, totalPrice });
@@ -75,9 +99,9 @@ const DoctorProfileScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <DoctorHeader
           name={data?.name || 'Doctor Name'}
-          rating={data?.rating || 0.0}
+          rating={Number(rating.toFixed(1))}
           image={data?.image || ''}
-          reviews={data?.reviews || []}
+          reviews={reviews}
           specialty={data?.specialty || ''}
         />
 
@@ -91,7 +115,7 @@ const DoctorProfileScreen = () => {
 
         <SeparatorSection spacing={15} />
 
-        <ReviewsSection reviews={data?.reviews || []} />
+        <ReviewsSection reviews={reviews} />
 
         <StatsRow
           experience={data?.experience || 0}

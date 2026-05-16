@@ -7,10 +7,14 @@ import {
   where,
 } from '@react-native-firebase/firestore';
 
+import { MedicationForm } from '../interfaces/medication';
 import { getDb, initializeFirebaseApp } from './firebase';
+import { VisitRecordPayload } from './visitRecords.api';
 
 const APPOINTMENTS_COLLECTION = 'appointments';
 const SLOTS_COLLECTION = 'slots';
+const VISIT_RECORDS_COLLECTION = 'visitRecords';
+const TREATMENT_PLANS_COLLECTION = 'treatmentPlans';
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
 const HOUR_IN_MS = 60 * 60 * 1000;
 
@@ -62,6 +66,30 @@ export type CancelAppointmentPayload = {
 export type MarkAppointmentPayload = {
   appointmentId: string;
   actorId: string;
+};
+
+export type CompletedTreatmentPlanPayload = {
+  appointmentId: string;
+  userId: string;
+  doctorId: string;
+  title: string;
+  diagnosis: string;
+  prescribedBy: string;
+  medicationName: string;
+  strength: string;
+  doseAmount: string;
+  form: MedicationForm;
+  startDate: string;
+  endDate: string;
+  times: string[];
+  instructions?: string;
+};
+
+export type MarkAppointmentCompletedPayload = MarkAppointmentPayload & {
+  visitRecord?: Omit<VisitRecordPayload, 'appointmentId' | 'createdBy'>;
+  treatmentPlans?: Array<
+    Omit<CompletedTreatmentPlanPayload, 'appointmentId' | 'userId' | 'doctorId'>
+  >;
 };
 
 export const getAppointmentPolicyDates = (startTime: number) => ({
@@ -288,7 +316,9 @@ export const markAppointmentMissed = async ({
 export const markAppointmentCompleted = async ({
   appointmentId,
   actorId,
-}: MarkAppointmentPayload) => {
+  visitRecord,
+  treatmentPlans = [],
+}: MarkAppointmentCompletedPayload) => {
   await initializeFirebaseApp();
 
   const db = getDb();
@@ -301,11 +331,47 @@ export const markAppointmentCompleted = async ({
       throw new Error('Appointment not found');
     }
 
+    const appointment = appointmentSnapshot.data() as Appointment;
+    const now = Date.now();
+    const nowIso = new Date(now).toISOString();
+
     transaction.update(appointmentRef, {
       status: 'completed',
-      completedAt: Date.now(),
+      completedAt: now,
       completedBy: actorId,
-      updatedAt: Date.now(),
+      updatedAt: now,
+    });
+
+    if (visitRecord) {
+      const visitRecordRef = doc(
+        db,
+        VISIT_RECORDS_COLLECTION,
+        appointmentId,
+      );
+
+      transaction.set(visitRecordRef, {
+        ...visitRecord,
+        appointmentId,
+        userId: appointment.userId,
+        doctorId: appointment.doctorId,
+        createdBy: actorId,
+        createdAt: now,
+        updatedAt: now,
+      });
+    }
+
+    treatmentPlans.forEach(plan => {
+      const treatmentPlanRef = doc(collection(db, TREATMENT_PLANS_COLLECTION));
+
+      transaction.set(treatmentPlanRef, {
+        ...plan,
+        appointmentId,
+        userId: appointment.userId,
+        doctorId: appointment.doctorId,
+        status: 'active',
+        createdAt: nowIso,
+        updatedAt: nowIso,
+      });
     });
   });
 

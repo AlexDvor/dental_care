@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useSyncExternalStore } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { getMedicationFormLabel } from '../constants/medicationForms';
 import {
@@ -6,34 +6,16 @@ import {
   MedicationScheduleItem,
   TreatmentPlan,
 } from '../interfaces/medication';
-import {
-  dentalMedicationIntakes,
-  dentalTreatmentPlans,
-} from '../mockData/dentalMedicationTreatment';
 import { getDateKey } from '../utils/Date/getDateKey';
 import { parseDateKey } from '../utils/Date/parseDateKey';
+import { useAuth } from './useAuth';
+import {
+  useMarkMedicationIntakeTaken,
+  useMedicationIntakes,
+} from './useMedicationIntakes';
+import { useUserTreatmentPlans } from './useUserTreatmentPlans';
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
-
-let medicationIntakes = dentalMedicationIntakes;
-const listeners = new Set<() => void>();
-
-const subscribe = (listener: () => void) => {
-  listeners.add(listener);
-
-  return () => {
-    listeners.delete(listener);
-  };
-};
-
-const getIntakesSnapshot = () => medicationIntakes;
-
-const setMedicationIntakes = (
-  getNextIntakes: (prev: MedicationIntake[]) => MedicationIntake[],
-) => {
-  medicationIntakes = getNextIntakes(medicationIntakes);
-  listeners.forEach(listener => listener());
-};
 
 const addDays = (date: string, days: number) => {
   const nextDate = parseDateKey(date);
@@ -54,6 +36,12 @@ const getDoseText = (plan: TreatmentPlan) =>
   ).toLowerCase()}`;
 
 const getTreatmentRange = (plans: TreatmentPlan[]) => {
+  if (plans.length === 0) {
+    const today = getDateKey(new Date());
+
+    return { startDate: today, endDate: today };
+  }
+
   const startDate = plans.reduce(
     (earliest, plan) => (plan.startDate < earliest ? plan.startDate : earliest),
     plans[0].startDate,
@@ -114,40 +102,23 @@ const getNextMedicationDose = (
   allSchedule.find(item => !item.taken && item.scheduledDate > today) ??
   allSchedule.find(item => !item.taken);
 
-const createTakenIntake = (
-  item: MedicationScheduleItem,
-): MedicationIntake => {
-  const now = new Date().toISOString();
-
-  return {
-    id: `intake-${item.id}`,
-    treatmentPlanId: item.treatmentPlanId,
-    scheduledDate: item.scheduledDate,
-    scheduledTime: item.time,
-    scheduledAt: item.scheduledAt,
-    status: 'taken',
-    takenAt: now,
-    createdAt: now,
-    updatedAt: now,
-  };
-};
-
 export const useMedicationSchedule = () => {
+  const { userProfile } = useAuth();
   const today = getDateKey(new Date());
-  const intakes = useSyncExternalStore(
-    subscribe,
-    getIntakesSnapshot,
-    getIntakesSnapshot,
-  );
+  const { data: treatmentPlans = [], isLoading: isTreatmentPlansLoading } =
+    useUserTreatmentPlans(userProfile?.id);
+  const { data: intakes = [], isLoading: isIntakesLoading } =
+    useMedicationIntakes(userProfile?.id);
+  const markMedicationIntakeTaken = useMarkMedicationIntakeTaken();
 
   const treatmentRange = useMemo(
-    () => getTreatmentRange(dentalTreatmentPlans),
-    [],
+    () => getTreatmentRange(treatmentPlans),
+    [treatmentPlans],
   );
 
   const allSchedule = useMemo(
-    () => buildMedicationSchedule(dentalTreatmentPlans, intakes),
-    [intakes],
+    () => buildMedicationSchedule(treatmentPlans, intakes),
+    [intakes, treatmentPlans],
   );
 
   const todaySchedule = useMemo(
@@ -180,46 +151,33 @@ export const useMedicationSchedule = () => {
     (currentTreatmentDay / treatmentDays) * 100,
   );
 
-  const markAsTaken = useCallback((id: string) => {
-    const scheduleItem = buildMedicationSchedule(
-      dentalTreatmentPlans,
-      medicationIntakes,
-    ).find(item => item.id === id);
-
-    if (!scheduleItem) {
-      return;
-    }
-
-    setMedicationIntakes(prev => {
-      const existingIntake = prev.find(
-        item =>
-          item.treatmentPlanId === scheduleItem.treatmentPlanId &&
-          item.scheduledDate === scheduleItem.scheduledDate &&
-          item.scheduledTime === scheduleItem.time,
-      );
-
-      if (!existingIntake) {
-        return [...prev, createTakenIntake(scheduleItem)];
+  const markAsTaken = useCallback(
+    (id: string) => {
+      if (!userProfile) {
+        return;
       }
 
-      const now = new Date().toISOString();
+      const scheduleItem = allSchedule.find(item => item.id === id);
 
-      return prev.map(item =>
-        item.id === existingIntake.id
-          ? {
-              ...item,
-              status: 'taken',
-              takenAt: now,
-              updatedAt: now,
-            }
-          : item,
-      );
-    });
-  }, []);
+      if (!scheduleItem) {
+        return;
+      }
+
+      markMedicationIntakeTaken.mutate({
+        userId: userProfile.id,
+        treatmentPlanId: scheduleItem.treatmentPlanId,
+        scheduledDate: scheduleItem.scheduledDate,
+        scheduledTime: scheduleItem.time,
+        scheduledAt: scheduleItem.scheduledAt,
+      });
+    },
+    [allSchedule, markMedicationIntakeTaken, userProfile],
+  );
 
   return {
     allSchedule,
     currentTreatmentDay,
+    isLoading: isTreatmentPlansLoading || isIntakesLoading,
     markAsTaken,
     nextDose,
     today,

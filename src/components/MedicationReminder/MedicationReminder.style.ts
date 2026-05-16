@@ -89,6 +89,21 @@ export const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 1,
   },
+  emptyIconWrapper: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: Theme.colors.status.success,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 4,
+  },
+  emptyMessage: {
+    marginTop: 12,
+    backgroundColor: Theme.colors.background.neutralWhite,
+    borderRadius: 16,
+    padding: 10,
+  },
   image: {
     width: 30,
     height: 30,

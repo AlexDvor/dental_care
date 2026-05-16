@@ -53,6 +53,9 @@ export type ChatStackParamList = {
 export type ProfileStackParamList = {
   ProfileMain: undefined;
   VisitHistory: undefined;
+  VisitDetails: {
+    appointmentId: string;
+  };
 };
 
 export type RootStackParamList = {

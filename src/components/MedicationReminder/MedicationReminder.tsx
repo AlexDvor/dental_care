@@ -32,6 +32,7 @@ export function MedicationReminder({
   const circumference = 2 * Math.PI * radius;
   const dash = circumference * (total > 0 ? taken / total : 0);
   const isCompletedToday = total > 0 && taken >= total;
+  const hasMedicationPlan = total > 0 || !!nextDose;
 
   return (
     <TouchableOpacity style={[styles.card, style]} onPress={onPress}>
@@ -63,25 +64,53 @@ export function MedicationReminder({
           />
         </Svg>
         <View style={styles.ringCenter}>
-          <Text>
-            <Text style={styles.ringBig}>{taken}</Text>
-            <Text style={styles.ringSmall}> of </Text>
-            <Text style={styles.ringBig}>{total}</Text>
-          </Text>
-          <Text style={styles.ringCaption}>taken today</Text>
+          {hasMedicationPlan ? (
+            <>
+              <Text>
+                <Text style={styles.ringBig}>{taken}</Text>
+                <Text style={styles.ringSmall}> of </Text>
+                <Text style={styles.ringBig}>{total}</Text>
+              </Text>
+              <Text style={styles.ringCaption}>taken today</Text>
+            </>
+          ) : (
+            <>
+              <View style={styles.emptyIconWrapper}>
+                <CheckIcon />
+              </View>
+              <Text style={styles.ringCaption}>All clear</Text>
+            </>
+          )}
         </View>
       </View>
 
       <View style={styles.content}>
         <View style={styles.headerRow}>
           <View style={styles.headerText}>
-            <Text style={styles.title}>Medication Reminder</Text>
-            <Text style={styles.subtitle}>Stay on track with your health</Text>
+            <Text style={styles.title}>
+              {hasMedicationPlan
+                ? 'Medication Reminder'
+                : 'No active medication plan'}
+            </Text>
+            <Text style={styles.subtitle}>
+              {hasMedicationPlan
+                ? 'Stay on track with your health'
+                : 'You do not have prescribed medication right now.'}
+            </Text>
           </View>
           <Icon name="arrow_r" color={Theme.colors.icon.secondary} />
         </View>
 
-        {(isCompletedToday || nextDose) && (
+        {!hasMedicationPlan && (
+          <View style={styles.emptyMessage}>
+            <Text style={styles.doseLabel}>All clear</Text>
+            <Text style={styles.doseValue}>
+              Medication plans from your doctor will appear here.
+            </Text>
+          </View>
+        )}
+
+        {hasMedicationPlan && (isCompletedToday || nextDose) && (
           <View style={styles.doseRow}>
             {isCompletedToday ? (
               <View style={styles.completedIconWrapper}>

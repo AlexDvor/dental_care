@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { Appointment } from '../../api/appointments.api';
 import { Theme } from '../../constants/theme';
@@ -16,10 +17,16 @@ import { useAuth } from '../../hook/useAuth';
 import { useCancelAppointment } from '../../hook/useCancelAppointment';
 import { useUserAppointments } from '../../hook/useUserAppointments';
 import ScreenLayout from '../../layout/ScreenLayout';
+import { ProfileStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import { Icon } from '../../ui/Icon/Icon';
 
 import { styles } from './VisitHistoryScreen.style';
+
+type Navigation = NativeStackNavigationProp<
+  ProfileStackParamList,
+  'VisitHistory'
+>;
 
 const formatVisitDate = (timestamp: number) =>
   new Intl.DateTimeFormat('en', {
@@ -66,7 +73,7 @@ const getStatusLabel = (status: Appointment['status']) => {
 };
 
 const VisitHistoryScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<Navigation>();
   const { userProfile } = useAuth();
   const {
     data: appointments = [],
@@ -118,8 +125,17 @@ const VisitHistoryScreen = () => {
       item.refundEligibleUntil &&
       Date.now() > item.refundEligibleUntil;
 
+    const isCompleted = item.status === 'completed';
+
     return (
-      <View style={styles.card}>
+      <TouchableOpacity
+        activeOpacity={isCompleted ? 0.85 : 1}
+        style={styles.card}
+        disabled={!isCompleted}
+        onPress={() =>
+          navigation.navigate('VisitDetails', { appointmentId: item.id })
+        }
+      >
         <View style={styles.cardHeader}>
           <View style={styles.cardTitleBlock}>
             <Text style={styles.doctorName}>{item.doctorName}</Text>
@@ -183,7 +199,7 @@ const VisitHistoryScreen = () => {
             </Text>
           </View>
         )}
-      </View>
+      </TouchableOpacity>
     );
   };
 

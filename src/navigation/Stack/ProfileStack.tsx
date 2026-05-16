@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Theme } from '../../constants/theme';
 import ProfileScreen from '../../screens/ProfileScreen/ProfileScreen';
+import VisitDetailsScreen from '../../screens/VisitDetailsScreen/VisitDetailsScreen';
 import VisitHistoryScreen from '../../screens/VisitHistoryScreen/VisitHistoryScreen';
 import { ProfileStackParamList } from '../types';
 
@@ -30,6 +31,15 @@ export default function ProfileStack() {
         options={{
           headerStyle: { backgroundColor: Theme.colors.background.accent },
           headerTitle: 'Visit History',
+          headerTitleStyle: { color: Theme.colors.text.inverted },
+        }}
+      />
+      <Stack.Screen
+        name="VisitDetails"
+        component={VisitDetailsScreen}
+        options={{
+          headerStyle: { backgroundColor: Theme.colors.background.accent },
+          headerTitle: 'Visit Details',
           headerTitleStyle: { color: Theme.colors.text.inverted },
         }}
       />
