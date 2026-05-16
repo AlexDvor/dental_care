@@ -1,4 +1,11 @@
-import { ActivityIndicator, Alert, ScrollView, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 import {
   CommonActions,
@@ -7,6 +14,7 @@ import {
   useRoute,
 } from '@react-navigation/native';
 
+import { getAppointmentPolicyDates } from '../../api/appointments.api';
 import AppointmentDetails from '../../components/BookingConfirm/AppointmentDetails/AppointmentDetails';
 import BookingDoctorCard from '../../components/BookingConfirm/BookingDoctorCard/BookingDoctorCard';
 import PaymentSummary from '../../components/BookingConfirm/PaymentSummary/PaymentSummary';
@@ -20,13 +28,24 @@ import SubTitle from '../../ui/SubTitle/SubTitle';
 
 type Route = RouteProp<BookingStackParamList, 'BookingConfirm'>;
 
+const formatPolicyDate = (timestamp: number) =>
+  new Intl.DateTimeFormat('en', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(timestamp));
+
 const BookingConfirmScreen = () => {
   const route = useRoute<Route>();
   const navigation = useNavigation<RootNav>();
   const { userProfile } = useAuth();
 
-  const { doctorData, date, time, serviceType, totalPrice, slotId } =
+  const { doctorData, date, time, serviceType, totalPrice, slotId, startTime } =
     route.params;
+  const { cancelAllowedUntil, refundEligibleUntil } =
+    getAppointmentPolicyDates(startTime);
 
   const { mutate, isPending } = useCreateAppointment();
 
@@ -97,6 +116,25 @@ const BookingConfirmScreen = () => {
 
         <PaymentSummary total={totalPrice} />
 
+        <View style={styles.policyCard}>
+          <Text style={styles.policyTitle}>Cancellation policy</Text>
+
+          <Text style={styles.policyText}>
+            Free cancellation is available until{' '}
+            {formatPolicyDate(cancelAllowedUntil)}.
+          </Text>
+
+          <Text style={styles.policyText}>
+            Refund eligibility is available until{' '}
+            {formatPolicyDate(refundEligibleUntil)}.
+          </Text>
+
+          <Text style={styles.policyText}>
+            Missed appointments may be non-refundable according to clinic
+            policy.
+          </Text>
+        </View>
+
         <View>
           <CustomBtn
             style={{ marginTop: 60 }}
@@ -117,5 +155,31 @@ const BookingConfirmScreen = () => {
     </ScreenLayout>
   );
 };
+
+const styles = StyleSheet.create({
+  policyCard: {
+    marginTop: Theme.spacing.lg,
+    padding: Theme.spacing.lg,
+    borderRadius: Theme.radius.lg,
+    backgroundColor: Theme.colors.background.card,
+    borderWidth: 1,
+    borderColor: Theme.colors.border.default,
+  },
+
+  policyTitle: {
+    color: Theme.colors.text.primary,
+    fontSize: Theme.typography.size.body,
+    lineHeight: Theme.typography.lineHeight.body,
+    fontWeight: Theme.typography.fontWeight.semibold,
+    marginBottom: Theme.spacing.sm,
+  },
+
+  policyText: {
+    color: Theme.colors.text.secondary,
+    fontSize: Theme.typography.size.small,
+    lineHeight: Theme.typography.lineHeight.small,
+    marginTop: Theme.spacing.xs,
+  },
+});
 
 export default BookingConfirmScreen;

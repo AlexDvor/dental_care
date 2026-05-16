@@ -41,6 +41,8 @@ export type BookingStackParamList = {
     serviceType: string[];
     totalPrice: number;
     slotId: string;
+    startTime: number;
+    endTime: number;
   };
 };
 
@@ -50,6 +52,7 @@ export type ChatStackParamList = {
 
 export type ProfileStackParamList = {
   ProfileMain: undefined;
+  VisitHistory: undefined;
 };
 
 export type RootStackParamList = {
@@ -59,7 +62,6 @@ export type RootStackParamList = {
   OtpVerification: undefined;
   Login: undefined;
   MainTabs: undefined;
-  VisitHistory: undefined;
 };
 
 export type RootNav = NavigationProp<TabParamList & RootStackParamList>;

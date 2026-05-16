@@ -66,7 +66,7 @@ const RegisterScreen = ({ navigation }: Props) => {
   };
 
   const handleLoginPress = () => {
-    // navigation.navigate('Login');
+    navigation.navigate('Login');
   };
 
   return (

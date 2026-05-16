@@ -71,8 +71,10 @@ const SelectDateScreen = () => {
 
   const availableDays = useMemo(() => {
     const daysSet = new Set<number>();
+    const now = Date.now();
+
     slots.forEach(slot => {
-      if (!slot.isBooked) {
+      if (!slot.isBooked && slot.startTime > now) {
         const slotDate = new Date(slot.startTime);
         daysSet.add(slotDate.getDate());
       }
@@ -81,6 +83,8 @@ const SelectDateScreen = () => {
   }, [slots]);
 
   const availableSlots = useMemo(() => {
+    const now = Date.now();
+
     return slots.filter(slot => {
       const dateYear = selectedDate.getFullYear();
       const dateMonth = selectedDate.getMonth();
@@ -90,6 +94,7 @@ const SelectDateScreen = () => {
       return (
         slot.startTime >= startOfDayUTC &&
         slot.startTime < endOfDayUTC &&
+        slot.startTime > now &&
         !slot.isBooked
       );
     });
@@ -145,6 +150,8 @@ const SelectDateScreen = () => {
       date: selectedDate.toISOString(),
       time: formatTime(slot.startTime),
       slotId: slot.id,
+      startTime: slot.startTime,
+      endTime: slot.endTime,
     });
   };
 

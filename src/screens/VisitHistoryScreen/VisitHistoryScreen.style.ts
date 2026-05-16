@@ -82,6 +82,10 @@ export const styles = StyleSheet.create({
     backgroundColor: Theme.colors.background.backBlue,
   },
 
+  statusMissed: {
+    backgroundColor: '#FEF3C7',
+  },
+
   statusCancelled: {
     backgroundColor: '#FEE2E2',
   },
@@ -131,6 +135,49 @@ export const styles = StyleSheet.create({
 
   cancelButtonText: {
     color: Theme.colors.status.error,
+    fontSize: Theme.typography.size.small,
+    lineHeight: Theme.typography.lineHeight.small,
+    fontWeight: Theme.typography.fontWeight.semibold,
+  },
+
+  policyNote: {
+    marginTop: Theme.spacing.md,
+    padding: Theme.spacing.md,
+    borderRadius: Theme.radius.md,
+    backgroundColor: Theme.colors.background.soft,
+  },
+
+  policyText: {
+    color: Theme.colors.text.secondary,
+    fontSize: Theme.typography.size.small,
+    lineHeight: Theme.typography.lineHeight.small,
+  },
+
+  helperText: {
+    marginTop: Theme.spacing.md,
+    color: Theme.colors.text.secondary,
+    fontSize: Theme.typography.size.small,
+    lineHeight: Theme.typography.lineHeight.small,
+  },
+
+  warningText: {
+    marginTop: Theme.spacing.md,
+    color: Theme.colors.status.error,
+    fontSize: Theme.typography.size.small,
+    lineHeight: Theme.typography.lineHeight.small,
+  },
+
+  contactClinicBox: {
+    marginTop: Theme.spacing.md,
+    minHeight: 42,
+    borderRadius: Theme.radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Theme.colors.background.soft,
+  },
+
+  contactClinicText: {
+    color: Theme.colors.text.badge,
     fontSize: Theme.typography.size.small,
     lineHeight: Theme.typography.lineHeight.small,
     fontWeight: Theme.typography.fontWeight.semibold,

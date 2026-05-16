@@ -11,8 +11,14 @@ import { getDb, initializeFirebaseApp } from './firebase';
 
 const APPOINTMENTS_COLLECTION = 'appointments';
 const SLOTS_COLLECTION = 'slots';
+const DAY_IN_MS = 24 * 60 * 60 * 1000;
+const HOUR_IN_MS = 60 * 60 * 1000;
 
-export type AppointmentStatus = 'upcoming' | 'completed' | 'cancelled';
+export type AppointmentStatus =
+  | 'upcoming'
+  | 'completed'
+  | 'cancelled'
+  | 'missed';
 
 export type Appointment = {
   id: string;
@@ -25,6 +31,15 @@ export type Appointment = {
   startTime: number;
   endTime: number;
   status: AppointmentStatus;
+  cancelAllowedUntil: number;
+  refundEligibleUntil: number;
+  missedNonRefundable: boolean;
+  cancelledAt?: number;
+  cancelledBy?: 'patient' | 'clinic';
+  missedMarkedAt?: number;
+  missedMarkedBy?: string;
+  completedAt?: number;
+  completedBy?: string;
   createdAt: number;
   updatedAt: number;
 };
@@ -41,7 +56,18 @@ export type CreateAppointmentPayload = {
 export type CancelAppointmentPayload = {
   appointmentId: string;
   slotId: string;
+  userId: string;
 };
+
+export type MarkAppointmentPayload = {
+  appointmentId: string;
+  actorId: string;
+};
+
+export const getAppointmentPolicyDates = (startTime: number) => ({
+  refundEligibleUntil: startTime - 7 * DAY_IN_MS,
+  cancelAllowedUntil: startTime - 48 * HOUR_IN_MS,
+});
 
 export const sortAppointmentsByNewest = (
   appointments: Appointment[],
@@ -123,6 +149,13 @@ export const createAppointment = async ({
 
     const now = Date.now();
 
+    if (data.startTime <= now) {
+      throw new Error('Slot not found');
+    }
+
+    const { cancelAllowedUntil, refundEligibleUntil } =
+      getAppointmentPolicyDates(data.startTime);
+
     transaction.update(slotRef, {
       isBooked: true,
       bookedBy: userId,
@@ -138,6 +171,9 @@ export const createAppointment = async ({
       startTime: data?.startTime,
       endTime: data?.endTime,
       status: 'upcoming',
+      cancelAllowedUntil,
+      refundEligibleUntil,
+      missedNonRefundable: true,
       createdAt: now,
       updatedAt: now,
     });
@@ -149,6 +185,7 @@ export const createAppointment = async ({
 export const cancelAppointment = async ({
   appointmentId,
   slotId,
+  userId,
 }: CancelAppointmentPayload) => {
   await initializeFirebaseApp();
 
@@ -159,13 +196,42 @@ export const cancelAppointment = async ({
   try {
     await runTransaction(db, async transaction => {
       const appointmentSnapshot = await transaction.get(appointmentRef);
+      const slotSnapshot = await transaction.get(slotRef);
 
       if (!appointmentSnapshot.exists()) {
         throw new Error('Appointment not found');
       }
 
+      const appointment = appointmentSnapshot.data() as Appointment;
+
+      if (appointment.status !== 'upcoming') {
+        throw new Error('Appointment cannot be cancelled');
+      }
+
+      if (appointment.userId !== userId) {
+        throw new Error('Appointment not found');
+      }
+
+      if (appointment.slotId !== slotId) {
+        throw new Error('Appointment slot mismatch');
+      }
+
+      if (!slotSnapshot.exists()) {
+        throw new Error('Slot not found');
+      }
+
+      const cancelAllowedUntil =
+        appointment.cancelAllowedUntil ??
+        getAppointmentPolicyDates(appointment.startTime).cancelAllowedUntil;
+
+      if (Date.now() > cancelAllowedUntil) {
+        throw new Error('Cancellation period expired');
+      }
+
       transaction.update(appointmentRef, {
         status: 'cancelled',
+        cancelledAt: Date.now(),
+        cancelledBy: 'patient',
         updatedAt: Date.now(),
       });
 
@@ -175,12 +241,73 @@ export const cancelAppointment = async ({
       });
     });
   } catch (error) {
-    if (error instanceof Error && error.message === 'Appointment not found') {
+    if (
+      error instanceof Error &&
+      (error.message === 'Appointment not found' ||
+        error.message === 'Slot not found' ||
+        error.message === 'Appointment cannot be cancelled' ||
+        error.message === 'Appointment slot mismatch' ||
+        error.message === 'Cancellation period expired')
+    ) {
       throw error;
     }
 
     throw new Error('Unable to cancel appointment');
   }
+
+  return { success: true };
+};
+
+export const markAppointmentMissed = async ({
+  appointmentId,
+  actorId,
+}: MarkAppointmentPayload) => {
+  await initializeFirebaseApp();
+
+  const db = getDb();
+  const appointmentRef = doc(db, APPOINTMENTS_COLLECTION, appointmentId);
+
+  await runTransaction(db, async transaction => {
+    const appointmentSnapshot = await transaction.get(appointmentRef);
+
+    if (!appointmentSnapshot.exists()) {
+      throw new Error('Appointment not found');
+    }
+
+    transaction.update(appointmentRef, {
+      status: 'missed',
+      missedMarkedAt: Date.now(),
+      missedMarkedBy: actorId,
+      updatedAt: Date.now(),
+    });
+  });
+
+  return { success: true };
+};
+
+export const markAppointmentCompleted = async ({
+  appointmentId,
+  actorId,
+}: MarkAppointmentPayload) => {
+  await initializeFirebaseApp();
+
+  const db = getDb();
+  const appointmentRef = doc(db, APPOINTMENTS_COLLECTION, appointmentId);
+
+  await runTransaction(db, async transaction => {
+    const appointmentSnapshot = await transaction.get(appointmentRef);
+
+    if (!appointmentSnapshot.exists()) {
+      throw new Error('Appointment not found');
+    }
+
+    transaction.update(appointmentRef, {
+      status: 'completed',
+      completedAt: Date.now(),
+      completedBy: actorId,
+      updatedAt: Date.now(),
+    });
+  });
 
   return { success: true };
 };

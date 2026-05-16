@@ -34,7 +34,18 @@ const formatVisitTime = (timestamp: number) =>
     minute: '2-digit',
   }).format(new Date(timestamp));
 
+const formatPolicyDate = (timestamp: number) =>
+  new Intl.DateTimeFormat('en', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(new Date(timestamp));
+
 const getStatusStyle = (status: Appointment['status']) => {
+  if (status === 'missed') {
+    return styles.statusMissed;
+  }
+
   if (status === 'cancelled') {
     return styles.statusCancelled;
   }
@@ -44,6 +55,14 @@ const getStatusStyle = (status: Appointment['status']) => {
   }
 
   return styles.statusUpcoming;
+};
+
+const getStatusLabel = (status: Appointment['status']) => {
+  if (status === 'missed') {
+    return 'Missed appointment';
+  }
+
+  return status;
 };
 
 const VisitHistoryScreen = () => {
@@ -58,17 +77,26 @@ const VisitHistoryScreen = () => {
   const cancelMutation = useCancelAppointment();
 
   const handleCancel = (appointment: Appointment) => {
+    if (!userProfile) {
+      Alert.alert('Error', 'Please log in before cancelling an appointment.');
+      return;
+    }
+
     cancelMutation.mutate(
       {
         appointmentId: appointment.id,
         slotId: appointment.slotId,
+        userId: userProfile.id,
       },
       {
         onSuccess: () => {
           Alert.alert('Cancelled', 'Appointment cancelled successfully.');
         },
         onError: () => {
-          Alert.alert('Error', 'Unable to cancel appointment. Try again.');
+          Alert.alert(
+            'Error',
+            'Unable to cancel appointment. Contact the clinic for help.',
+          );
         },
       },
     );
@@ -78,6 +106,17 @@ const VisitHistoryScreen = () => {
     const isCancelling =
       cancelMutation.isPending &&
       cancelMutation.variables?.appointmentId === item.id;
+    const canCancel =
+      item.status === 'upcoming' &&
+      (!item.cancelAllowedUntil || Date.now() <= item.cancelAllowedUntil);
+    const isRefundEligible =
+      item.status === 'upcoming' &&
+      item.refundEligibleUntil &&
+      Date.now() <= item.refundEligibleUntil;
+    const isRefundCutoffExpired =
+      item.status === 'upcoming' &&
+      item.refundEligibleUntil &&
+      Date.now() > item.refundEligibleUntil;
 
     return (
       <View style={styles.card}>
@@ -88,18 +127,43 @@ const VisitHistoryScreen = () => {
           </View>
 
           <View style={[styles.statusBadge, getStatusStyle(item.status)]}>
-            <Text style={styles.statusText}>{item.status}</Text>
+            <Text style={styles.statusText}>{getStatusLabel(item.status)}</Text>
           </View>
         </View>
 
         <View style={styles.metaRow}>
           <Icon name="schedule" size={18} color={Theme.colors.icon.primary} />
           <Text style={styles.metaText}>{formatVisitDate(item.startTime)}</Text>
-          <Text style={styles.metaDivider}>•</Text>
+          <Text style={styles.metaDivider}>-</Text>
           <Text style={styles.metaText}>{formatVisitTime(item.startTime)}</Text>
         </View>
 
-        {item.status === 'upcoming' && (
+        {item.status === 'missed' && (
+          <View style={styles.policyNote}>
+            <Text style={styles.policyText}>You missed this appointment.</Text>
+
+            {item.missedNonRefundable && (
+              <Text style={styles.policyText}>
+                Payment is non-refundable according to clinic policy.
+              </Text>
+            )}
+          </View>
+        )}
+
+        {item.status === 'upcoming' && isRefundEligible && (
+          <Text style={styles.helperText}>
+            Refund eligible if cancelled before{' '}
+            {formatPolicyDate(item.refundEligibleUntil)}.
+          </Text>
+        )}
+
+        {item.status === 'upcoming' && isRefundCutoffExpired && canCancel && (
+          <Text style={styles.warningText}>
+            Refund may no longer be available according to clinic policy.
+          </Text>
+        )}
+
+        {item.status === 'upcoming' && canCancel && (
           <TouchableOpacity
             activeOpacity={0.85}
             style={[styles.cancelButton, isCancelling && styles.disabledButton]}
@@ -110,6 +174,14 @@ const VisitHistoryScreen = () => {
               {isCancelling ? 'Cancelling...' : 'Cancel Appointment'}
             </Text>
           </TouchableOpacity>
+        )}
+
+        {item.status === 'upcoming' && !canCancel && (
+          <View style={styles.contactClinicBox}>
+            <Text style={styles.contactClinicText}>
+              Contact clinic to make changes.
+            </Text>
+          </View>
         )}
       </View>
     );

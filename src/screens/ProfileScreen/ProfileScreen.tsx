@@ -2,19 +2,25 @@ import React from 'react';
 import { ScrollView, View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import AccountSection from '../../components/ProfileUser/AccountSection/AccountSection';
 import { Theme } from '../../constants/theme';
 import { useAuth } from '../../hook/useAuth';
 import ScreenLayout from '../../layout/ScreenLayout';
-import { RootNav } from '../../navigation/types';
+import { ProfileStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 
 import { styles } from './ProfileScreen.styles';
 
+type Navigation = NativeStackNavigationProp<
+  ProfileStackParamList,
+  'ProfileMain'
+>;
+
 const ProfileScreen = () => {
-  const navigation = useNavigation<RootNav>();
+  const navigation = useNavigation<Navigation>();
   const { logout, isSubmitting, userProfile } = useAuth();
 
   return (

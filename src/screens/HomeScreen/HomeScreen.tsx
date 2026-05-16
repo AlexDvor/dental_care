@@ -23,11 +23,7 @@ import { useMedicationSchedule } from '../../hook/useMedicationSchedule';
 import { useNextUserAppointment } from '../../hook/useNextUserAppointment';
 import { useUserAppointments } from '../../hook/useUserAppointments';
 import ScreenLayout from '../../layout/ScreenLayout';
-import {
-  HomeStackParamList,
-  RootStackParamList,
-  TabParamList,
-} from '../../navigation/types';
+import { HomeStackParamList, TabParamList } from '../../navigation/types';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
 
 import { styles } from './HomeScreen.style';
@@ -65,9 +61,7 @@ const trustBlockItems = [
   color: string;
 }>;
 
-type Navigation = NavigationProp<
-  HomeStackParamList & TabParamList & RootStackParamList
->;
+type Navigation = NavigationProp<HomeStackParamList & TabParamList>;
 
 const formatAppointmentDate = (timestamp: number) => {
   const appointmentDate = new Date(timestamp);
@@ -285,7 +279,9 @@ const HomeScreen = () => {
               serviceType={nextAppointment.serviceType}
               dateLabel={formatAppointmentDate(nextAppointment.startTime)}
               timeLabel={formatAppointmentTime(nextAppointment.startTime)}
-              onPress={() => navigation.navigate('VisitHistory')}
+              onPress={() =>
+                navigation.navigate('ProfileTab', { screen: 'VisitHistory' })
+              }
               style={{
                 marginTop: Theme.spacing.lg,
               }}

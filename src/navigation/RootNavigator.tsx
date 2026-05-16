@@ -10,7 +10,6 @@ import OtpVerificationScreen from '../screens/AuthScreen/OtpVerificationScreen/O
 import RegisterScreen from '../screens/AuthScreen/RegisterScreen/RegisterScreen';
 import AppointmentOnboardingScreen from '../screens/OnboardingScreen/AppointmentOnboardingScreen/AppointmentOnboardingScreen';
 import SmileCareOnboardingScreen from '../screens/OnboardingScreen/SmileCareOnboardingScreen/SmileCareOnboardingScreen';
-import VisitHistoryScreen from '../screens/VisitHistoryScreen/VisitHistoryScreen';
 import TabNavigator from './TabNavigator';
 import { RootStackParamList } from './types';
 
@@ -35,10 +34,7 @@ export default function RootNavigator() {
         screenOptions={{ headerShown: false }}
       >
         {isAuthenticated ? (
-          <>
-            <Stack.Screen name="MainTabs" component={TabNavigator} />
-            <Stack.Screen name="VisitHistory" component={VisitHistoryScreen} />
-          </>
+          <Stack.Screen name="MainTabs" component={TabNavigator} />
         ) : (
           <>
             <Stack.Screen
