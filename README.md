@@ -2,146 +2,142 @@
 
 **Language:** English | [Українська](README.ua.md)
 
-Dental Care App is a mobile application built with **React Native CLI**, created as an MVP solution for a dental clinic. The main goal of the application is to increase patient conversion into real appointments, simplify communication between the patient and the clinic, and make the treatment process more convenient and controlled.
+## 1. Project Overview
 
-The application helps users manage their dental care: browse doctors, choose dental services, book appointments, view visit history, and control their medication plan after treatment. This improves the user experience and helps patients follow the doctor’s recommendations more consistently after a procedure.
+Dental Care App is a **React Native CLI** mobile application created as an MVP for a dental clinic. It helps patients move through the main care journey in one place: onboarding, authentication, service selection, doctor booking, appointment history, and post-treatment medication tracking.
 
-In the future, the project is planned to be expanded with a CRM web version for the dental clinic. It will allow administrators and doctors to manage appointments, view clinic performance statistics, monitor doctors’ workload, and analyze the effectiveness of patient interaction.
+The goal of the project is to make dental care easier to manage for patients and more structured for the clinic. Users can browse doctors, choose dental services, book appointments, review previous visits, and follow a prescribed medication plan after treatment.
+
+The product can later be expanded with a CRM web version for clinic staff, where administrators and doctors would manage schedules, appointments, patients, treatment plans, and clinic performance statistics.
 
 ---
 
-## 1. Analysis of the Existing Application
+## 2. Analysis of the Existing Application
 
-The application already has a complete structure with authentication, navigation, a home screen, appointment booking, a user profile, and visit history.
+The application already has a complete mobile flow with authentication, navigation, a home dashboard, appointment booking, a user profile, visit history, and a medication tracking section.
 
 ### Key Features
 
-- **Onboarding** — introductory screens that introduce the user to the application.
-- **Authentication and Registration** — login, registration, and OTP confirmation.
-- **Home Screen** — visit statistics, upcoming appointment, quick actions, banners, and a trust block.
-- **Doctor Appointment Booking** — selection of service, doctor, date, time, and booking confirmation.
-- **Doctor Profile** — information about the doctor, rating, education, reviews, and a booking button.
-- **Visit History** — viewing past and upcoming appointments.
-- **User Profile** — personal information and main account actions.
+- **Onboarding** - introductory screens that present the purpose of the application.
+- **Authentication and Registration** - login, registration, and OTP confirmation.
+- **Home Screen** - visit statistics, upcoming appointment, quick actions, banners, and a trust block.
+- **Appointment Booking** - service, doctor, date, time, and booking confirmation flow.
+- **Doctor Profile** - doctor information, rating, education, reviews, and a booking action.
+- **Visit History** - past and upcoming appointments with access to visit details.
+- **Medications** - treatment plan overview, daily medication schedule, and progress tracking.
+- **User Profile** - personal account information and account actions.
 
 ### Main User Scenarios
 
 1. The user opens the application, completes onboarding, and signs in.
-2. On the home screen, the user sees short statistics, an upcoming appointment, and quick actions.
-3. The user goes to the booking flow, selects a dental service, doctor, date, and time.
-4. After confirmation, the appointment is saved and displayed in the visit history.
-5. If a treatment plan has been created for the user, they can see medication reminders and mark medicines as taken.
+2. The user checks the home screen for visit statistics, upcoming appointments, and quick actions.
+3. The user starts the booking flow, selects a service, chooses a doctor, and picks a date and time.
+4. After confirmation, the appointment is saved and displayed in visit history.
+5. If a treatment plan exists, the user can track medications and mark doses as taken.
 
 ### Areas for Functional Expansion
 
-1. **Navigation Improvement**  
-   Quick actions on the home screen should lead the user to the required sections: booking, chat, and visit history.
-
-2. **Adding the Medications Section**  
-   The user can view the treatment plan, medication list, dosage, intake time, and daily progress.
-
-3. **UX/UI Improvement**  
-   The application uses a consistent design system: colors, spacing, cards, icons, buttons, border radius, and shadows.
+- **Navigation improvement** - make quick actions lead directly to core flows such as booking, chat support, and visit history.
+- **Support and FAQ section** - expand the chat tab into a practical help area for common patient questions.
+- **Clinic-side CRM** - add a future web interface for managing doctors, schedules, patients, appointments, and analytics.
 
 ---
 
-## 2. Functionality Expansion
+## 3. Functionality Expansion
 
 ### Added Functionality: Medications
 
-The **Medications** section was added to display the user’s active treatment plan after a dental procedure.
+The **Medications** section was added to help patients follow a treatment plan after a dental procedure.
 
-The functionality includes:
+The feature includes:
 
 - treatment period;
 - current treatment day;
-- treatment progress;
-- list of medicines for today;
+- overall treatment progress;
+- list of medicines scheduled for today;
 - dosage and intake time;
 - ability to mark a medicine as taken;
 - full treatment plan overview.
 
-This feature improves the user experience because the user not only books an appointment with a doctor but can also control the treatment process after the visit.
+This improves the user experience because the application supports not only appointment booking but also the post-visit recovery process.
 
-### Quick Actions Navigation Improvement
+### Quick Actions Navigation
 
-On the home screen, the quick actions block was extended with callback functions:
+The home screen includes quick action cards for the main user tasks:
 
-- **Book Appointment** → navigates to appointment booking;
-- **Find Doctor** → navigates to the booking/doctor search section;
-- **Chat Support** → navigates to the chat;
-- **View Records** → navigates to visit history.
+- **Book Appointment** - entry point to appointment booking;
+- **Find Doctor** - entry point to doctor selection;
+- **Chat Support** - entry point to help and support;
+- **View Records** - entry point to visit history.
 
-This makes the home screen more practical because the user can quickly move to the main application scenarios.
+These actions make the home dashboard more practical and reduce the number of steps needed to reach important sections.
 
 ---
 
-## 3. State Management
+## 4. State Management
 
-The application uses several state management approaches depending on the type of data.
+The application uses different state management approaches depending on the type of data.
 
 ### Context API
 
-**Context API** is used for global state that is required in different parts of the application:
+**Context API** is used for global application state:
 
-- `AuthContext` — authentication state, user profile, login/logout, OTP registration;
-- `ThemeContext` — current theme and the ability to switch it.
+- `AuthContext` - authentication state, user profile, login/logout, and OTP registration flow;
+- `ThemeContext` - current theme state and theme switching.
 
-Context API was chosen because this data has a global nature and does not require a complex Redux architecture.
+Context API is suitable here because these values are shared across the application but do not require a complex Redux architecture.
 
 ### React Query
 
-**TanStack React Query** is used for server data:
+**TanStack React Query** is used for server-side data:
 
 - doctors;
 - appointments;
-- slots;
+- available slots;
 - visit history;
 - treatment plans;
 - medication intake.
 
-React Query is more suitable for this than Redux because it automatically handles caching, loading states, errors, and server data updates.
+React Query is a good fit for this project because it handles caching, loading states, errors, and server data updates without adding unnecessary global client-state complexity.
 
 ---
 
-## 4. Component-Based Approach
+## 5. Component-Based Approach
 
-The project is built using a component-based approach. Each major UI element is placed in a separate file or folder.
+The project follows a component-based structure. Reusable interface elements are separated into individual files or folders, which makes the code easier to maintain and extend.
 
 ### Component Examples
 
-- `AppointmentCard` — card for the upcoming appointment;
-- `EmptyAppointmentCard` — state when there are no appointments;
-- `MedicationReminder` — short medication reminder on the home screen;
-- `MedicationItem` — medication list item;
-- `DoctorCard` — doctor card;
-- `ServiceCard` — dental service card;
-- `QuickActionCard` — quick action on the home screen;
-- `CustomBtn` — custom button with different states;
-- `TrustBlock` — trust and security block.
-
-This structure makes the code more understandable, modular, and easier to maintain.
+- `AppointmentCard` - displays the upcoming appointment.
+- `EmptyAppointmentCard` - displays the empty state when there are no upcoming appointments.
+- `MedicationReminder` - shows a short medication summary on the home screen.
+- `MedicationItem` - renders a medication schedule item.
+- `DoctorCard` - displays doctor information in the booking flow.
+- `ServiceCard` - displays a dental service option.
+- `QuickActionCard` - renders a shortcut action on the home screen.
+- `CustomBtn` - reusable button with different visual states.
+- `TrustBlock` - displays trust and security information.
 
 ---
 
-## 5. UX/UI Improvements
+## 6. UX/UI Improvements
 
-The user experience in the application was improved through:
+The application improves the user experience through:
 
-- clear bottom navigation;
-- smooth header animation on the home screen;
-- visually separated cards;
-- consistent color palette;
-- clear loading/empty/content states;
-- passing parameters between screens, for example:
-  - `DoctorList` → `DoctorProfile`;
-  - `DoctorProfile` → `SelectDate`;
-  - `SelectDate` → `BookingConfirm`;
-  - `VisitHistory` → `VisitDetails`.
+- clear bottom tab navigation;
+- smooth animated header behavior on the home screen;
+- reusable cards for appointments, doctors, services, and medications;
+- consistent color palette, spacing, shadows, and rounded elements;
+- loading, empty, and content states for data-driven screens;
+- typed parameter passing between screens, for example:
+  - `DoctorList` -> `DoctorProfile`;
+  - `DoctorProfile` -> `SelectDate`;
+  - `SelectDate` -> `BookingConfirm`;
+  - `VisitHistory` -> `VisitDetails`.
 
 ---
 
-## 6. Project Structure
+## 7. Project Structure
 
 ```txt
 src/
@@ -158,8 +154,11 @@ src/
   screens/             # application screens
   ui/                  # small UI components
   utils/               # helper functions
+```
 
 ---
+
+## 8. Screenshots
 
 ### Onboarding and Authentication
 
@@ -172,6 +171,7 @@ src/
 | ![Register](src/assets/screenshots/register_screen.png) | ![OTP](src/assets/screenshots/otp_sreen.png) |
 
 ### Main Screens
+
 | Home                                                 | Home Empty                                                  | Profile                                               |
 | ---------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------- |
 | ![Home](src/assets/screenshots/home_full_screen.png) | ![Home Empty](src/assets/screenshots/home_empty_screen.png) | ![Profile](src/assets/screenshots/profile_screen.png) |
@@ -194,38 +194,27 @@ src/
 
 ---
 
-8. Presentation Overview
-Slide 1. Main Idea
+## 9. Presentation Overview
 
-Dental Care App is an application for organizing dental care: from choosing a doctor to controlling treatment after a visit.
+- **Slide 1: Main Idea** - Dental Care App organizes the patient journey from choosing a doctor to tracking treatment after a visit.
+- **Slide 2: Key Features** - authentication, doctor browsing, appointment booking, date and time selection, visit history, user profile, and medication reminders.
+- **Slide 3: New Functionality** - the Medications section helps users follow a treatment plan, view progress, and mark medicines as taken.
+- **Slide 4: Structure and Usability** - the modular structure separates screens, components, hooks, API logic, contexts, and utilities, making the project easier to maintain and extend.
 
-Slide 2. Key Features
-user authentication;
-appointment booking with a dentist;
-viewing doctors;
-selecting date and time;
-visit history;
-user profile;
-medication reminders.
-Slide 3. New Functionality
+---
 
-The main extension is the Medications section, which allows the user to control the treatment plan, view progress, and mark medicines as taken.
+## 10. Future Functionality
 
-Slide 4. Structure and Usability
+The application can be expanded with features that improve the experience for both patients and the dental clinic:
 
-The application has a modular structure: separate screens, components, hooks, API layer, contexts, and utilities. This makes the project easier to maintain, extend, and reuse.
+- **Push notifications** - reminders for medication intake and upcoming doctor appointments.
+- **FAQ / Chat Support** - a help section with answers to common patient questions before and after a visit.
+- **AI time recommendations** - suggested appointment slots based on doctor workload, procedure duration, and patient context.
+- **CRM web version** - a clinic-side dashboard for managing patients, doctors, schedules, appointments, and statistics.
+- **Treatment analytics** - tracking how consistently patients follow medication plans and post-treatment recommendations.
 
-9. Future Functionality
+---
 
-In the future, the application can be expanded with additional features that will make the service more useful for both patients and the dental clinic.
+## 11. Conclusion
 
-It is planned to add push notifications that will remind the user about medication intake time and upcoming doctor appointments without the need to open the application.
-
-AI-based recommendations can also be implemented in the date and time selection section. For example, when choosing an appointment time, the system will be able to highlight recommended time slots based on the doctor’s workload, the average duration of the selected procedure, and previous data provided by the patient during registration or treatment selection.
-
-Another development direction is the creation of a CRM web version for the clinic. It will allow clinic staff to manage patients, appointments, doctors, schedules, and clinic performance statistics.
-
-10. Conclusion
-
-As a result, the application was expanded with new functionality for medication intake control, quick actions navigation was improved, and the architecture, state management, components, and UX/UI decisions were described. The project became more complete and better aligned with a real-life use case of a dental application.
-```
+Dental Care App was expanded with medication tracking, structured documentation, reusable components, clear state management, and a consistent UI approach. The project now better represents a real patient-facing dental care application and has a clear direction for future growth.
