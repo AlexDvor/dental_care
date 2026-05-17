@@ -35,6 +35,9 @@ import { formatAppointmentDate } from '../../utils/Date/formatAppointmentDate';
 import { formatAppointmentTime } from '../../utils/Date/formatAppointmentTime';
 
 import { styles } from './HomeScreen.style';
+import CustomBtn from '../../ui/CustomBtn/CustomBtn';
+import { seedSlots } from '../../api/seedSlots';
+import { seedAppointmentTreatment } from '../../api/seedAppointmentTreatment';
 
 const HEADER_HEIGHT = 220;
 
@@ -252,6 +255,26 @@ const HomeScreen = () => {
             onPrivacyPress={() => {}}
             onTermsPress={() => {}}
           />
+
+          {/* <CustomBtn
+            title="Send Slots"
+            onPress={() => {
+              seedSlots({ days: 3 });
+            }}
+          /> */}
+
+          {/* <CustomBtn
+            title="Send Treatments For Appointments ID"
+            onPress={() => {
+              seedAppointmentTreatment({
+                userId: userProfile?.id || 'fff',
+                appointmentId: 'Xcfv7l9Q2vQgnK7PI3ux',
+                treatmentCase: 'postExtractionInflammation',
+                startDate: new Date(),
+                actorId: userProfile?.id || 'fff',
+              });
+            }}
+          /> */}
         </View>
       </Animated.ScrollView>
     </ScreenLayout>
