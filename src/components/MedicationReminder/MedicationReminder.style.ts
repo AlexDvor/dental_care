@@ -20,6 +20,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  ringSvg: {
+    transform: [{ rotate: '-90deg' }],
+  },
   ringCenter: {
     position: 'absolute',
     alignItems: 'center',
@@ -44,6 +47,9 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start',
     gap: 8,
   },
+  headerText: {
+    flex: 1,
+  },
   title: {
     fontSize: 17,
     fontWeight: '700',
@@ -60,7 +66,7 @@ export const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 10,
   },
-  pillIcon: {
+  pillWrapper: {
     width: 36,
     height: 36,
     borderRadius: 18,
@@ -73,6 +79,41 @@ export const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 1,
   },
+  completedIconWrapper: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: Theme.colors.status.success,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 1,
+  },
+  emptyIconWrapper: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: Theme.colors.status.success,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 4,
+  },
+  emptyMessage: {
+    marginTop: 12,
+    backgroundColor: Theme.colors.background.neutralWhite,
+    borderRadius: 16,
+    padding: 10,
+  },
+  image: {
+    width: 30,
+    height: 30,
+  },
+  doseContent: {
+    flex: 1,
+  },
   doseLabel: {
     fontSize: 11,
     fontWeight: '500',
@@ -83,5 +124,10 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     color: Theme.colors.text.primary,
   },
-  chevron: { color: ' rgba(27, 42, 34, 0.4)', fontSize: 20, marginTop: 2 },
+  doseMeta: {
+    fontSize: 11,
+    fontWeight: '500',
+    color: Theme.colors.text.secondary,
+    marginTop: 1,
+  },
 });

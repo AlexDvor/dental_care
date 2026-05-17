@@ -12,6 +12,9 @@ export const useCreateAppointment = () => {
       queryClient.invalidateQueries({
         queryKey: ['slots-month'],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['user-appointments'],
+      });
     },
   });
 };

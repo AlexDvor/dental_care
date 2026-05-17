@@ -13,6 +13,26 @@ export const styles = StyleSheet.create({
     paddingBottom: Theme.spacing.massive,
   },
 
+  scrollContent: {
+    paddingTop: 290,
+    paddingBottom: Theme.spacing.massive,
+  },
+
+  sectionSpacing: {
+    marginTop: Theme.spacing.lg,
+  },
+
+  appointmentLoader: {
+    minHeight: 180,
+    marginTop: Theme.spacing.lg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Theme.colors.background.card,
+    borderRadius: Theme.radius.lg,
+    borderWidth: 1,
+    borderColor: Theme.colors.border.default,
+  },
+
   largeHeaderContainer: {
     position: 'absolute',
     top: 0,
@@ -37,7 +57,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Theme.spacing.lg,
     backgroundColor: Theme.colors.background.main,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.04)',
+    borderBottomColor: Theme.colors.border.default,
 
     shadowColor: '#000',
     shadowOffset: {
@@ -46,6 +66,10 @@ export const styles = StyleSheet.create({
     },
     shadowOpacity: 0.06,
     shadowRadius: 8,
+  },
+
+  compactHeaderHeight: {
+    height: 70,
   },
 
   compactHeaderContent: {

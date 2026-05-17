@@ -3,20 +3,11 @@ import { Dimensions, StyleSheet, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { Theme } from '../../constants/theme';
+import { SparkleProps } from './Wave.interface';
 
 const { width } = Dimensions.get('window');
 
-const Sparkle = ({
-  x,
-  y,
-  size,
-  opacity,
-}: {
-  x: number;
-  y: number;
-  size: number;
-  opacity: number;
-}) => (
+const Sparkle = ({ x, y, size, opacity }: SparkleProps) => (
   <Path
     d={`
       M ${x} ${y - size}
@@ -37,7 +28,6 @@ const Sparkle = ({
 const Wave = () => {
   return (
     <View style={styles.container} pointerEvents="none">
-      {/* SPARKLES */}
       <Svg
         width={width}
         height={180}
@@ -50,13 +40,12 @@ const Wave = () => {
         <Sparkle x={300} y={60} size={9} opacity={0.9} />
       </Svg>
 
-      {/*  EXTRA AIR LAYER */}
       <Svg
         width={width}
         height={120}
         viewBox="0 0 375 120"
         preserveAspectRatio="none"
-        style={[styles.wave, { bottom: 60 }]}
+        style={[styles.wave, styles.airWave]}
       >
         <Path
           d="M0,50 C80,10 160,20 240,50 C320,80 350,70 375,60"
@@ -67,13 +56,12 @@ const Wave = () => {
         />
       </Svg>
 
-      {/* BACK WAVE */}
       <Svg
         width={width}
         height={140}
         viewBox="0 0 375 140"
         preserveAspectRatio="none"
-        style={[styles.wave, { bottom: 10 }]}
+        style={[styles.wave, styles.backWave]}
       >
         <Path
           d="
@@ -89,13 +77,12 @@ const Wave = () => {
         />
       </Svg>
 
-      {/* FRONT WAVE */}
       <Svg
         width={width}
         height={140}
         viewBox="0 0 375 140"
         preserveAspectRatio="none"
-        style={[styles.wave, { bottom: 0 }]}
+        style={[styles.wave, styles.frontWave]}
       >
         <Path
           d="
@@ -132,5 +119,17 @@ const styles = StyleSheet.create({
   wave: {
     position: 'absolute',
     left: 0,
+  },
+
+  airWave: {
+    bottom: 60,
+  },
+
+  backWave: {
+    bottom: 10,
+  },
+
+  frontWave: {
+    bottom: 0,
   },
 });

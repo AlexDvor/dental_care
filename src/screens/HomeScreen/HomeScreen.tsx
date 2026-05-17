@@ -1,5 +1,5 @@
-import React from 'react';
-import { Image, Text, View } from 'react-native';
+import React, { useMemo } from 'react';
+import { ActivityIndicator, Image, Text, View } from 'react-native';
 import Animated, {
   Extrapolation,
   interpolate,
@@ -8,56 +8,74 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
+import { EmptyAppointmentCard } from '../../components/EmptyAppointmentCard/EmptyAppointmentCard';
 import HealthBanner from '../../components/HealthBanner/HealthBanner';
 import { MedicationReminder } from '../../components/MedicationReminder/MedicationReminder';
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import QuickActionsGrid from '../../components/QuickActionsGrid/QuickActionsGrid';
 import StatsCard from '../../components/StatsCard/StatsCard';
 import { Theme } from '../../constants/theme';
+import { trustBlockItems } from '../../constants/trustBlockItems';
+import { useAuth } from '../../hook/useAuth';
+import { useMedicationSchedule } from '../../hook/useMedicationSchedule';
+import { useNextUserAppointment } from '../../hook/useNextUserAppointment';
+import { useUserAppointments } from '../../hook/useUserAppointments';
 import ScreenLayout from '../../layout/ScreenLayout';
-import { HomeStackParamList } from '../../navigation/types';
+import {
+  HomeStackParamList,
+  RootStackParamList,
+  TabParamList,
+} from '../../navigation/types';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
+import { getAppointmentStatusCounts } from '../../utils/Appointment/appointmentFilters';
+import { formatAppointmentDate } from '../../utils/Date/formatAppointmentDate';
+import { formatAppointmentTime } from '../../utils/Date/formatAppointmentTime';
 
 import { styles } from './HomeScreen.style';
+import CustomBtn from '../../ui/CustomBtn/CustomBtn';
+import { seedSlots } from '../../api/seedSlots';
+import { seedAppointmentTreatment } from '../../api/seedAppointmentTreatment';
 
 const HEADER_HEIGHT = 220;
-const COMPACT_HEADER_HEIGHT = 70;
 
-const trustBlockItems = [
-  {
-    icon: 'verified',
-    label: 'Verified',
-    subLabel: 'Trusted & Secure',
-    bg: '#DCFCE7',
-    color: '#16A34A',
-  },
-  {
-    icon: 'lock',
-    label: 'Encrypted',
-    subLabel: 'Data Protection',
-    bg: '#DBEAFE',
-    color: '#2563EB',
-  },
-  {
-    icon: 'award',
-    label: 'Top Tier',
-    subLabel: 'Premium Quality',
-    bg: '#F3E8FF',
-    color: '#8B5CF6',
-  },
-];
-
-type Navigation = NativeStackNavigationProp<
-  HomeStackParamList,
-  'MedicationsList'
+type Navigation = NavigationProp<
+  HomeStackParamList & TabParamList & RootStackParamList
 >;
 
 const HomeScreen = () => {
   const navigation = useNavigation<Navigation>();
+  const { hasActiveTreatmentPlan, nextDose, todayProgress } =
+    useMedicationSchedule();
+  const { userProfile } = useAuth();
+  const {
+    data: nextAppointment,
+    isLoading: isNextAppointmentLoading,
+    isError: isNextAppointmentError,
+  } = useNextUserAppointment(userProfile?.id);
+  const {
+    data: appointments,
+    isLoading: isAppointmentsLoading,
+    isError: isAppointmentsError,
+  } = useUserAppointments(userProfile?.id);
+
+  const { visitsCount, upcomingCount } = useMemo(() => {
+    if (isAppointmentsError || !appointments) {
+      return {
+        visitsCount: 0,
+        upcomingCount: 0,
+      };
+    }
+
+    const counts = getAppointmentStatusCounts(appointments);
+
+    return {
+      visitsCount: counts.completed,
+      upcomingCount: counts.upcoming,
+    };
+  }, [appointments, isAppointmentsError]);
 
   const scrollY = useSharedValue(0);
 
@@ -98,7 +116,6 @@ const HomeScreen = () => {
 
     return {
       opacity,
-
       transform: [{ translateY }],
       shadowOpacity,
       elevation,
@@ -136,11 +153,8 @@ const HomeScreen = () => {
 
     return {
       opacity,
-
       elevation,
-
       shadowOpacity,
-
       transform: [{ translateY }],
     };
   });
@@ -150,86 +164,89 @@ const HomeScreen = () => {
       statusBarBackgroundColor={Theme.colors.statusBar.secondary}
       statusBarStyle="light-content"
     >
-      {/* =========================
-          LARGE HEADER
-      ========================== */}
       <Animated.View
         renderToHardwareTextureAndroid
         style={[styles.largeHeaderContainer, largeHeaderAnimatedStyle]}
       >
-        <ProfileHeader />
+        <ProfileHeader
+          name={userProfile?.firstName || ''}
+          fullName={userProfile?.fullName || ''}
+          email={userProfile?.email || ''}
+        />
       </Animated.View>
 
-      {/* =========================
-          COMPACT HEADER
-      ========================== */}
       <Animated.View
         pointerEvents="none"
         style={[
           styles.compactHeaderContainer,
           compactHeaderAnimatedStyle,
-          {
-            height: COMPACT_HEADER_HEIGHT,
-          },
+          styles.compactHeaderHeight,
         ]}
       >
         <View style={styles.compactHeaderContent}>
-          {/* <View style={styles.compactAvatar} /> */}
-
           <Image
             source={require('../../assets/images/doctor.jpg')}
             style={styles.compactAvatar}
           />
 
           <View>
-            <Text style={styles.compactTitle}>John Doe</Text>
-
+            <Text style={styles.compactTitle}>{userProfile?.fullName}</Text>
             <Text style={styles.compactSubtitle}>DentalCare</Text>
           </View>
         </View>
       </Animated.View>
 
-      {/* =========================
-          SCROLL CONTENT
-      ========================== */}
       <Animated.ScrollView
         onScroll={scrollHandler}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
         bounces={false}
-        contentContainerStyle={{
-          paddingTop: HEADER_HEIGHT + COMPACT_HEADER_HEIGHT,
-
-          paddingBottom: Theme.spacing.massive,
-        }}
+        contentContainerStyle={styles.scrollContent}
       >
         <View style={styles.content}>
-          <StatsCard />
+          <StatsCard
+            visitsCount={visitsCount}
+            upcomingCount={upcomingCount}
+            isLoading={isAppointmentsLoading}
+          />
+
+          {isNextAppointmentLoading ? (
+            <View style={styles.appointmentLoader}>
+              <ActivityIndicator />
+            </View>
+          ) : nextAppointment && !isNextAppointmentError ? (
+            <AppointmentCard
+              doctorName={nextAppointment.doctorName}
+              doctorImage={nextAppointment.doctorImage}
+              serviceType={nextAppointment.serviceType}
+              dateLabel={formatAppointmentDate(nextAppointment.startTime)}
+              timeLabel={formatAppointmentTime(nextAppointment.startTime)}
+              onPress={() => navigation.navigate('VisitHistory')}
+              style={styles.sectionSpacing}
+            />
+          ) : (
+            <EmptyAppointmentCard
+              onPress={() => navigation.navigate('BookingTab')}
+              style={styles.sectionSpacing}
+            />
+          )}
 
           <MedicationReminder
-            onPress={() => navigation.navigate('MedicationsList')}
-            style={{
-              marginTop: Theme.spacing.lg,
-            }}
+            hasActiveTreatmentPlan={hasActiveTreatmentPlan}
+            taken={todayProgress.taken}
+            total={todayProgress.total}
+            nextDose={nextDose}
+            onPress={
+              hasActiveTreatmentPlan
+                ? () => navigation.navigate('MedicationsList')
+                : undefined
+            }
+            style={styles.sectionSpacing}
           />
 
-          <AppointmentCard
-            style={{
-              marginTop: Theme.spacing.lg,
-            }}
-          />
+          <QuickActionsGrid style={styles.sectionSpacing} />
 
-          <QuickActionsGrid
-            style={{
-              marginTop: Theme.spacing.lg,
-            }}
-          />
-
-          <HealthBanner
-            style={{
-              marginTop: Theme.spacing.lg,
-            }}
-          />
+          <HealthBanner style={styles.sectionSpacing} />
 
           <TrustBlock
             items={[...trustBlockItems]}
@@ -238,6 +255,26 @@ const HomeScreen = () => {
             onPrivacyPress={() => {}}
             onTermsPress={() => {}}
           />
+
+          {/* <CustomBtn
+            title="Send Slots"
+            onPress={() => {
+              seedSlots({ days: 3 });
+            }}
+          /> */}
+
+          {/* <CustomBtn
+            title="Send Treatments For Appointments ID"
+            onPress={() => {
+              seedAppointmentTreatment({
+                userId: userProfile?.id || 'fff',
+                appointmentId: 'Xcfv7l9Q2vQgnK7PI3ux',
+                treatmentCase: 'postExtractionInflammation',
+                startDate: new Date(),
+                actorId: userProfile?.id || 'fff',
+              });
+            }}
+          /> */}
         </View>
       </Animated.ScrollView>
     </ScreenLayout>

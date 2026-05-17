@@ -17,6 +17,19 @@ export const styles = StyleSheet.create({
     paddingBottom: Theme.spacing.xl,
   },
 
+  monthLoader: {
+    alignItems: 'center',
+    marginTop: Theme.spacing.xl,
+  },
+
+  emptySlotsText: {
+    color: Theme.colors.text.secondary,
+    fontSize: Theme.typography.size.small,
+    lineHeight: Theme.typography.lineHeight.small,
+    marginTop: Theme.spacing.xl,
+    textAlign: 'center',
+  },
+
   bottom: {
     paddingTop: Theme.spacing.md,
     paddingBottom: Theme.spacing.md,

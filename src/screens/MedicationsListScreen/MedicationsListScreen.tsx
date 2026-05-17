@@ -1,72 +1,123 @@
-import React, { useMemo, useState } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
-import Svg, { Circle, Path } from 'react-native-svg';
+import React, { useState } from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import Svg, { Circle } from 'react-native-svg';
 
+import { getMedicationFormIcon } from '../../constants/medicationForms';
 import { Theme } from '../../constants/theme';
+import { useMedicationSchedule } from '../../hook/useMedicationSchedule';
+import { MedicationScheduleItem } from '../../interfaces/medication';
 import ScreenLayout from '../../layout/ScreenLayout';
-import { Med, MedicationItem } from '../../ui/MedicationItem/MedicationItem';
+import { BackHeader } from '../../ui/BackIcon/BackHeader';
+import { MedicationItem } from '../../ui/MedicationItem/MedicationItem';
+import { formatMedicationDate } from '../../utils/Medication/formatMedicationDate';
 
 import { styles } from './MedicationsListScreen.style';
 
-const INITIAL: Med[] = [
-  {
-    id: '1',
-    name: 'Vitamin D3',
-    dose: '1000 IU · 1 tablet',
-    time: '08:00',
-    taken: true,
-  },
-  {
-    id: '2',
-    name: 'Amoxicillin',
-    dose: '500 mg · 1 capsule',
-    time: '14:00',
-    taken: false,
-  },
-  {
-    id: '3',
-    name: 'Ibuprofen',
-    dose: '200 mg · 1 tablet',
-    time: '18:00',
-    taken: false,
-  },
-  {
-    id: '4',
-    name: 'Magnesium',
-    dose: '400 mg · 1 tablet',
-    time: '21:00',
-    taken: false,
-  },
-];
+export default function MedicationsListScreen() {
+  const [showFullTreatment, setShowFullTreatment] = useState(false);
+  const {
+    allSchedule,
+    currentTreatmentDay,
+    hasActiveTreatmentPlan,
+    isLoading,
+    markAsTaken,
+    todayProgress,
+    todaySchedule,
+    treatmentDays,
+    treatmentProgress,
+    treatmentRange,
+  } = useMedicationSchedule();
 
-const BackIcon = () => (
-  <Svg width={20} height={20} viewBox="0 0 24 24" fill="none">
-    <Path
-      d="M15 6l-6 6 6 6"
-      stroke="#0F1B14"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
+  const renderFullScheduleItem = ({
+    item,
+    index,
+  }: {
+    item: MedicationScheduleItem;
+    index: number;
+  }) => {
+    const previousItem = allSchedule[index - 1];
+    const showDate = previousItem?.scheduledDate !== item.scheduledDate;
 
-export default function MedicationsListScreen({ navigation }: any) {
-  const [meds, setMeds] = useState<Med[]>(INITIAL);
+    return (
+      <View>
+        {showDate && (
+          <Text style={styles.scheduleDate}>
+            {formatMedicationDate(item.scheduledDate)}
+          </Text>
+        )}
 
-  const { taken, total } = useMemo(
-    () => ({
-      taken: meds.filter(m => m.taken).length,
-      total: meds.length,
-    }),
-    [meds],
-  );
+        <View style={styles.scheduleCard}>
+          <View style={styles.scheduleContent}>
+            <View style={styles.scheduleIconWrap}>
+              <Image
+                style={styles.scheduleIcon}
+                source={getMedicationFormIcon(item.form)}
+              />
+            </View>
 
-  const toggle = (id: string) => {
-    setMeds(prev =>
-      prev.map(m => (m.id === id ? { ...m, taken: !m.taken } : m)),
+            <View style={styles.scheduleText}>
+              <Text style={styles.scheduleName}>{item.name}</Text>
+              <Text style={styles.scheduleDose}>{item.dose}</Text>
+            </View>
+          </View>
+
+          <View style={styles.scheduleMeta}>
+            <Text style={styles.scheduleTime}>{item.time}</Text>
+            <Text
+              style={[
+                styles.scheduleStatus,
+                item.taken && styles.scheduleStatusTaken,
+              ]}
+            >
+              {item.taken ? 'Taken' : 'Planned'}
+            </Text>
+          </View>
+        </View>
+      </View>
     );
   };
+
+  if (isLoading) {
+    return (
+      <ScreenLayout
+        statusBarBackgroundColor={Theme.colors.statusBar.secondary}
+        statusBarStyle="light-content"
+        defaultPadding
+      >
+        <BackHeader title="Medications" />
+
+        <View style={styles.centeredState}>
+          <ActivityIndicator color={Theme.colors.background.accent} />
+        </View>
+      </ScreenLayout>
+    );
+  }
+
+  if (!hasActiveTreatmentPlan) {
+    return (
+      <ScreenLayout
+        statusBarBackgroundColor={Theme.colors.statusBar.secondary}
+        statusBarStyle="light-content"
+        defaultPadding
+      >
+        <BackHeader title="Medications" />
+
+        <View style={styles.centeredState}>
+          <Text style={styles.emptyTitle}>No active medication plan</Text>
+          <Text style={styles.emptyText}>
+            Medication plans from your doctor will appear here.
+          </Text>
+        </View>
+      </ScreenLayout>
+    );
+  }
 
   return (
     <ScreenLayout
@@ -74,25 +125,49 @@ export default function MedicationsListScreen({ navigation }: any) {
       statusBarStyle="light-content"
       defaultPadding
     >
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <BackIcon />
-        </TouchableOpacity>
+      <BackHeader title="Medications" />
 
-        <Text style={styles.title}>Medications</Text>
+      <Text style={styles.subtitle}>Post extraction treatment plan</Text>
+
+      <View style={styles.treatmentCard}>
+        <View style={styles.treatmentHeader}>
+          <View>
+            <Text style={styles.treatmentLabel}>Treatment period</Text>
+            <Text style={styles.treatmentTitle}>
+              {formatMedicationDate(treatmentRange.startDate)} -{' '}
+              {formatMedicationDate(treatmentRange.endDate)}
+            </Text>
+          </View>
+
+          <View style={styles.dayBadge}>
+            <Text style={styles.dayBadgeText}>
+              Day {currentTreatmentDay}/{treatmentDays}
+            </Text>
+          </View>
+        </View>
+
+        <Text style={styles.treatmentInfo}>
+          Gingivitis care prescribed after tooth extraction
+        </Text>
+
+        <View style={styles.progressTrack}>
+          <View
+            style={[
+              styles.progressFill,
+              {
+                width: `${treatmentProgress}%`,
+              },
+            ]}
+          />
+        </View>
       </View>
-
-      <Text style={styles.subtitle}>Today's schedule</Text>
 
       <View style={styles.summaryCard}>
         <View>
           <Text style={styles.summaryLabel}>Taken today</Text>
 
           <Text style={styles.summaryValue}>
-            {taken} / {total}
+            {todayProgress.taken} / {todayProgress.total}
           </Text>
         </View>
 
@@ -102,7 +177,7 @@ export default function MedicationsListScreen({ navigation }: any) {
               cx="50"
               cy="50"
               r="44"
-              stroke="#FFFFFF40"
+              stroke={Theme.colors.background.neutralWhite}
               strokeWidth={8}
               fill="none"
             />
@@ -111,12 +186,13 @@ export default function MedicationsListScreen({ navigation }: any) {
               cx="50"
               cy="50"
               r="44"
-              stroke="#FFFFFF"
+              stroke={Theme.colors.text.inverted}
               strokeWidth={8}
               strokeLinecap="round"
               fill="none"
               strokeDasharray={`${
-                (2 * Math.PI * 44 * taken) / Math.max(total, 1)
+                (2 * Math.PI * 44 * todayProgress.taken) /
+                Math.max(todayProgress.total, 1)
               } ${2 * Math.PI * 44}`}
               transform="rotate(-90 50 50)"
             />
@@ -124,14 +200,39 @@ export default function MedicationsListScreen({ navigation }: any) {
         </View>
       </View>
 
-      <Text style={styles.sectionLabel}>Today</Text>
+      <Text style={styles.sectionLabel}>
+        {showFullTreatment ? 'Full treatment' : 'Today'}
+      </Text>
 
       <FlatList
-        data={meds}
+        data={showFullTreatment ? allSchedule : todaySchedule}
         keyExtractor={i => i.id}
-        renderItem={({ item }) => (
-          <MedicationItem item={item} onToggle={toggle} />
-        )}
+        renderItem={({ item, index }) =>
+          showFullTreatment ? (
+            renderFullScheduleItem({ item, index })
+          ) : (
+            <MedicationItem
+              item={item}
+              index={index}
+              isLast={index === todaySchedule.length - 1}
+              previousTaken={todaySchedule[index - 1]?.taken ?? false}
+              onTaken={markAsTaken}
+            />
+          )
+        }
+        ListFooterComponent={
+          <TouchableOpacity
+            activeOpacity={0.85}
+            style={styles.toggleButton}
+            onPress={() => setShowFullTreatment(prev => !prev)}
+          >
+            <Text style={styles.toggleButtonText}>
+              {showFullTreatment
+                ? "Show today's medications"
+                : 'Show full treatment'}
+            </Text>
+          </TouchableOpacity>
+        }
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
       />

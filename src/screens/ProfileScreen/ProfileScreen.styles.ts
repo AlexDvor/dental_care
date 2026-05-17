@@ -15,4 +15,12 @@ export const styles = StyleSheet.create({
     paddingBottom: Theme.spacing.massive,
     marginTop: -Theme.spacing.xl,
   },
+
+  headerSpacing: {
+    paddingBottom: 10,
+  },
+
+  logoutButton: {
+    marginTop: 'auto',
+  },
 });

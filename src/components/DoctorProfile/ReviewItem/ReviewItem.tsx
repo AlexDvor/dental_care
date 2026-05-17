@@ -1,4 +1,4 @@
-import { Image,Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 import { ReviewItemProps } from './ReviewItem.interface';
 
@@ -13,7 +13,7 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
 
           <View>
             <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.stars}>{'⭐'.repeat(item.rating)}</Text>
+            <Text style={styles.stars}>{'★'.repeat(item.rating)}</Text>
           </View>
         </View>
 
@@ -24,4 +24,5 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
     </View>
   );
 };
+
 export default ReviewItem;

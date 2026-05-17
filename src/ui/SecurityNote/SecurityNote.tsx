@@ -3,16 +3,13 @@ import { Text, View } from 'react-native';
 
 import { Theme } from '../../constants/theme';
 import { Icon } from '../Icon/Icon';
+import { SecurityNoteProps } from './SecurityNote.interface';
 
 import { styles } from './SecurityNote.styles';
 
-type Props = {
-  text?: string;
-};
-
 const SecurityNote = ({
   text = 'Your information is secure and encrypted',
-}: Props) => {
+}: SecurityNoteProps) => {
   return (
     <View style={styles.container}>
       <Icon name="lock" size={15} color={Theme.colors.text.secondary} />

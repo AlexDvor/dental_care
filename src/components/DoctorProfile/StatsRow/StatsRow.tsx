@@ -1,14 +1,9 @@
 import React from 'react';
 import { Text,View } from 'react-native';
 
-import { StatsRowProps } from './StatsRow.interface';
+import { StatProps, StatsRowProps } from './StatsRow.interface';
 
 import { styles } from './StatsRow.style';
-
-type StatProps = {
-  value: string;
-  label: string;
-};
 
 const Stat = ({ value, label }: StatProps) => (
   <View style={styles.card}>

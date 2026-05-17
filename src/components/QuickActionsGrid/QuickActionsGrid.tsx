@@ -1,13 +1,11 @@
-import { View, ViewStyle } from 'react-native';
+import { View } from 'react-native';
 
 import { Theme } from '../../constants/theme';
 import QuickActionCard from '../../ui/QuickActionCard/QuickActionCard';
+import { QuickActionsGridProps } from './QuickActionsGrid.interface';
 
 import { styles } from './QuickActionsGrid.style';
 
-type QuickActionsGridProps = {
-  style?: ViewStyle;
-};
 const QuickActionsGrid = ({ style }: QuickActionsGridProps) => {
   return (
     <View style={[styles.container, style]}>

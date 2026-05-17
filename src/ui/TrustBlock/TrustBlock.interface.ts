@@ -1,5 +1,7 @@
+import { IconName } from '../Icon/Icon.interface';
+
 export type Item = {
-  icon: string;
+  icon: IconName;
   label: string;
   subLabel?: string;
   color?: string;

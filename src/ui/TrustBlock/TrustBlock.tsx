@@ -1,11 +1,14 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 import { Theme } from '../../constants/theme';
 import { Icon } from '../Icon/Icon';
-import { TrustBlockProps } from './TrustBlock.inteface';
+import { TrustBlockProps } from './TrustBlock.interface';
 
 import { styles } from './TrustBlock.style';
+
+const ICON_SIZE = 35;
 
 const TrustBlock = ({
   items,
@@ -16,21 +19,43 @@ const TrustBlock = ({
 }: TrustBlockProps) => {
   return (
     <View style={styles.container}>
-      {/*TRUST ROW */}
       <View style={styles.row}>
         {items.map((item, index) => (
-          <React.Fragment key={index}>
+          <React.Fragment key={item.label}>
             <View style={styles.item}>
-              <View style={styles.iconWrapper}>
-                <Icon
-                  name={item.icon}
-                  size={28}
-                  color={item.color || Theme.colors.icon.primary}
-                />
-              </View>
+              <View
+                style={[
+                  styles.itemBackground,
+                  {
+                    backgroundColor: item.bg || Theme.colors.background.soft,
+                  },
+                ]}
+              >
+                <View style={styles.iconHalo}>
+                  <LinearGradient
+                    colors={[
+                      Theme.colors.background.card,
+                      item.bg || Theme.colors.background.soft,
+                    ]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.iconWrapper}
+                  >
+                    <Icon
+                      name={item.icon}
+                      size={ICON_SIZE}
+                      color={item.color || Theme.colors.icon.primary}
+                    />
+                  </LinearGradient>
+                </View>
 
-              <Text style={styles.title}>{item.label}</Text>
-              <Text style={styles.subtitle}>{item.subLabel}</Text>
+                <View style={styles.itemTextBlock}>
+                  <Text style={styles.title}>{item.label}</Text>
+                  {!!item.subLabel && (
+                    <Text style={styles.subtitle}>{item.subLabel}</Text>
+                  )}
+                </View>
+              </View>
             </View>
 
             {index !== items.length - 1 && <View style={styles.divider} />}
@@ -38,10 +63,8 @@ const TrustBlock = ({
         ))}
       </View>
 
-      {/* DIVIDER */}
       <View style={styles.separator} />
 
-      {/*BRAND */}
       <View style={styles.brandRow}>
         <View style={styles.logo}>
           <Text style={styles.logoText}>{brandName[0]}</Text>
@@ -52,19 +75,17 @@ const TrustBlock = ({
 
       <Text style={styles.description}>{description}</Text>
 
-      {/* LINKS */}
       <View style={styles.links}>
-        <TouchableOpacity onPress={onPrivacyPress}>
+        <TouchableOpacity onPress={onPrivacyPress} hitSlop={8}>
           <Text style={styles.link}>Privacy Policy</Text>
         </TouchableOpacity>
 
-        <Text style={styles.dot}>|</Text>
+        <View style={styles.linkDivider} />
 
-        <TouchableOpacity onPress={onTermsPress}>
+        <TouchableOpacity onPress={onTermsPress} hitSlop={8}>
           <Text style={styles.link}>Terms of Service</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.waveDecor} />
     </View>
   );
 };

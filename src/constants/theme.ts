@@ -94,9 +94,10 @@ const Colors = {
 
   tabNavigation: {
     tabBarActiveTintColor: Palette.green[100],
-    tabBarInactiveTintColor: Palette.gray[400],
+    tabBarInactiveTintColor: Palette.white[70],
     tabBackgroundColor: Palette.green[800],
     tabActiveBackgroundColor: Palette.green[100],
+    iconActiveColor: Palette.green[700],
     iconColor: Palette.green[500],
   },
 };
@@ -145,6 +146,7 @@ const Radius = {
   md: 16,
   lg: 20,
   xl: 28,
+  xxl: '50%',
 };
 
 const Shadow = {
@@ -177,6 +179,14 @@ const Shadow = {
     shadowRadius: 24,
     shadowOffset: { width: 0, height: 10 },
     elevation: 8,
+  },
+
+  button: {
+    shadowColor: Palette.gray[900],
+    shadowOpacity: 0.18,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 5 },
+    elevation: 3,
   },
 };
 

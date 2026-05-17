@@ -1,38 +1,52 @@
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+} from '@react-native-firebase/firestore';
 
+import { COLLECTION_NAME } from '../constants/collections';
 import { DoctorType } from '../interfaces/doctor.types';
-import { db } from './firebase';
+import { getDb, initializeFirebaseApp } from './firebase';
 
-const mapDoctor = (doc: any): DoctorType => {
+const mapDoctor = (id: string, data: FirebaseFirestoreTypes.DocumentData) => {
   return {
-    id: doc.id,
-    ...(doc.data() as Omit<DoctorType, 'id'>),
+    id,
+    ...(data as Omit<DoctorType, 'id'>),
   };
 };
 
 export const getDoctors = async (): Promise<DoctorType[]> => {
   try {
-    const snapshot = await getDocs(collection(db, 'doctors'));
+    await initializeFirebaseApp();
 
-    return snapshot.docs.map(mapDoctor);
+    const db = getDb();
+    const snapshot = await getDocs(collection(db, COLLECTION_NAME.DOCTORS));
+
+    return snapshot.docs.map(docSnapshot =>
+      mapDoctor(docSnapshot.id, docSnapshot.data()),
+    );
   } catch (error) {
-    console.error('❌ getDoctors failed:', error);
+    console.error('getDoctors failed:', error);
     throw new Error('Failed to fetch doctors');
   }
 };
 
 export const getDoctorById = async (id: string): Promise<DoctorType> => {
   try {
-    const docRef = doc(db, 'doctors', id);
-    const snapshot = await getDoc(docRef);
+    await initializeFirebaseApp();
+
+    const db = getDb();
+    const snapshot = await getDoc(doc(db, COLLECTION_NAME.DOCTORS, id));
 
     if (!snapshot.exists()) {
       throw new Error(`Doctor with id ${id} not found`);
     }
 
-    return mapDoctor(snapshot);
+    return mapDoctor(snapshot.id, snapshot.data() || {});
   } catch (error) {
-    console.error('❌ getDoctorById failed:', error);
+    console.error('getDoctorById failed:', error);
     throw new Error('Failed to fetch doctor');
   }
 };

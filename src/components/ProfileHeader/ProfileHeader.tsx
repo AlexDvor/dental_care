@@ -1,19 +1,18 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Theme } from '../../constants/theme';
 import { Icon } from '../../ui/Icon/Icon';
 import Wave from '../../ui/Wave/Wave';
+import { ProfileHeaderProps } from './ProfileHeader.interface';
 
-interface ProfileHeaderProps {
-  style?: ViewStyle;
-}
-
-const ProfileHeader = ({ style }: ProfileHeaderProps) => {
-  const insets = useSafeAreaInsets();
-
+const ProfileHeader = ({
+  name,
+  fullName,
+  email,
+  style,
+}: ProfileHeaderProps) => {
   return (
     <View style={[styles.wrapper, style]}>
       <LinearGradient
@@ -23,7 +22,7 @@ const ProfileHeader = ({ style }: ProfileHeaderProps) => {
         end={{ x: 0, y: 1 }}
         style={[styles.container]}
       >
-        <Text style={styles.title}>Hello, John 👋</Text>
+        <Text style={styles.title}>Hello, {name}👋</Text>
         <Text style={styles.subtitle}>Your smile is in good hands</Text>
 
         <View style={styles.avatarWrapper}>
@@ -41,8 +40,8 @@ const ProfileHeader = ({ style }: ProfileHeaderProps) => {
       </LinearGradient>
 
       <View style={styles.userInfo}>
-        <Text style={styles.userName}>John Doe</Text>
-        <Text style={styles.userEmail}>johndoe@gmail.com</Text>
+        <Text style={styles.userName}>{fullName}</Text>
+        <Text style={styles.userEmail}>{email}</Text>
       </View>
     </View>
   );

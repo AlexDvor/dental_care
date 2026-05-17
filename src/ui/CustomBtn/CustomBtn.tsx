@@ -1,4 +1,6 @@
+import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 import { Theme } from '../../constants/theme';
 import { Icon } from '../Icon/Icon';
@@ -14,50 +16,75 @@ const CustomBtn = ({
   icon,
   iconPosition = 'left',
   iconSize = 20,
-  iconColor = '#fff',
   type = 'primary',
   isDisabled = false,
 }: CustomBtnProps) => {
   const isPrimary = type === 'primary';
 
-  const containerTypeStyle = {
-    backgroundColor: isPrimary
-      ? Theme.colors.background.accent
-      : Theme.colors.background.soft,
-  };
+  const gradientColors = isDisabled
+    ? [Theme.colors.border.default, Theme.colors.border.default]
+    : isPrimary
+    ? [Theme.colors.background.accentSoftGreen, Theme.colors.background.accent]
+    : [Theme.colors.background.soft, Theme.colors.background.main];
 
-  const textTypeStyle = {
-    color: isPrimary ? Theme.colors.text.inverted : Theme.colors.text.badge,
-  };
+  const textColor = isPrimary
+    ? Theme.colors.text.inverted
+    : Theme.colors.text.badge;
+
+  const iconColor = isPrimary
+    ? Theme.colors.text.inverted
+    : Theme.colors.icon.primary;
 
   return (
     <TouchableOpacity
-      style={[styles.container, containerTypeStyle, style]}
+      activeOpacity={0.85}
       onPress={onPress}
-      activeOpacity={0.8}
       disabled={isDisabled}
+      style={[
+        styles.touchable,
+        isPrimary && !isDisabled && Theme.shadow.small,
+
+        style,
+      ]}
     >
-      <View style={styles.content}>
-        {icon && iconPosition === 'left' && (
-          <Icon
-            name={icon}
-            size={iconSize}
-            color={iconColor}
-            style={{ marginRight: 8 }}
-          />
-        )}
+      <LinearGradient
+        colors={gradientColors}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+        style={[styles.gradient, isDisabled && styles.disabled]}
+      >
+        <View style={styles.content}>
+          {icon && iconPosition === 'left' && (
+            <Icon
+              name={icon}
+              size={iconSize}
+              color={iconColor}
+              style={styles.leftIcon}
+            />
+          )}
 
-        <Text style={[styles.title, textTypeStyle, textStyle]}>{title}</Text>
+          <Text
+            style={[
+              styles.title,
+              {
+                color: textColor,
+              },
+              textStyle,
+            ]}
+          >
+            {title}
+          </Text>
 
-        {icon && iconPosition === 'right' && (
-          <Icon
-            name={icon}
-            size={iconSize}
-            color={iconColor}
-            style={{ marginLeft: 8 }}
-          />
-        )}
-      </View>
+          {icon && iconPosition === 'right' && (
+            <Icon
+              name={icon}
+              size={iconSize}
+              color={iconColor}
+              style={styles.rightIcon}
+            />
+          )}
+        </View>
+      </LinearGradient>
     </TouchableOpacity>
   );
 };

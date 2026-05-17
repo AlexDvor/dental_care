@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from 'react-native';
 
 import { Theme } from '../../../constants/theme';
@@ -19,6 +20,7 @@ const { width } = Dimensions.get('window');
 
 const ITEM_WIDTH = width * 0.8;
 const SPACING = Theme.spacing.md;
+const reviewCardStyle: ViewStyle = { width: ITEM_WIDTH, marginRight: SPACING };
 
 const ReviewsSection = ({ reviews }: ReviewsSectionProps) => {
   const scrollRef = useRef<ScrollView>(null);
@@ -70,7 +72,7 @@ const ReviewsSection = ({ reviews }: ReviewsSectionProps) => {
         contentContainerStyle={styles.scrollContent}
       >
         {reviews.map((item, index) => (
-          <View key={index} style={{ width: ITEM_WIDTH, marginRight: SPACING }}>
+          <View key={index} style={reviewCardStyle}>
             <ReviewItem item={item} />
           </View>
         ))}

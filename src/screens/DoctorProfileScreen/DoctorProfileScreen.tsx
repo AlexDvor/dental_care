@@ -11,10 +11,15 @@ import ReviewsSection from '../../components/DoctorProfile/ReviewsSection/Review
 import StatsRow from '../../components/DoctorProfile/StatsRow/StatsRow';
 import { Theme } from '../../constants/theme';
 import { useDoctorById } from '../../hook/useDoctorById';
+import { useDoctorReviews } from '../../hook/useDoctorReviews';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { BookingStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import SeparatorSection from '../../ui/SeparatorSection/SeparatorSection';
+import {
+  getDoctorDisplayRating,
+  mapDoctorReviewsToReviewProps,
+} from '../../utils/Doctor/doctorReviewMappers';
 
 import { styles } from './DoctorProfileScreen.style';
 
@@ -31,6 +36,11 @@ const DoctorProfileScreen = () => {
 
   const { doctorId, serviceType, totalPrice } = route.params;
   const { data, error, isLoading, refetch } = useDoctorById(doctorId);
+  const { data: firestoreReviews = [] } = useDoctorReviews(doctorId);
+
+  const mappedFirestoreReviews = mapDoctorReviewsToReviewProps(firestoreReviews);
+  const reviews = [...mappedFirestoreReviews, ...(data?.reviews || [])];
+  const rating = getDoctorDisplayRating(reviews, data?.rating || 0);
 
   const handlePressToSelectDate = () => {
     navigation.navigate('SelectDate', { doctorId, serviceType, totalPrice });
@@ -42,9 +52,7 @@ const DoctorProfileScreen = () => {
         defaultPadding
         statusBarBackgroundColor={Theme.colors.statusBar.primary}
       >
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
+        <View style={styles.center}>
           <ActivityIndicator size={40} />
         </View>
       </ScreenLayout>
@@ -57,9 +65,7 @@ const DoctorProfileScreen = () => {
         defaultPadding
         statusBarBackgroundColor={Theme.colors.statusBar.primary}
       >
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
+        <View style={styles.center}>
           <Text>{error.message}</Text>
           <CustomBtn title="Try again" onPress={refetch} />
         </View>
@@ -75,9 +81,9 @@ const DoctorProfileScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <DoctorHeader
           name={data?.name || 'Doctor Name'}
-          rating={data?.rating || 0.0}
+          rating={Number(rating.toFixed(1))}
           image={data?.image || ''}
-          reviews={data?.reviews || []}
+          reviews={reviews}
           specialty={data?.specialty || ''}
         />
 
@@ -91,7 +97,7 @@ const DoctorProfileScreen = () => {
 
         <SeparatorSection spacing={15} />
 
-        <ReviewsSection reviews={data?.reviews || []} />
+        <ReviewsSection reviews={reviews} />
 
         <StatsRow
           experience={data?.experience || 0}

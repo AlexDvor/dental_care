@@ -1,12 +1,15 @@
-import { NavigationProp } from '@react-navigation/native';
+import {
+  NavigationProp,
+  NavigatorScreenParams,
+} from '@react-navigation/native';
 
 import { DoctorType } from '../interfaces/doctor.types';
 
 export type TabParamList = {
-  HomeTab: undefined;
-  BookingTab: undefined;
-  ChatTab: undefined;
-  ProfileTab: undefined;
+  HomeTab: NavigatorScreenParams<HomeStackParamList> | undefined;
+  BookingTab: NavigatorScreenParams<BookingStackParamList> | undefined;
+  ChatTab: NavigatorScreenParams<ChatStackParamList> | undefined;
+  ProfileTab: NavigatorScreenParams<ProfileStackParamList> | undefined;
 };
 
 export type HomeStackParamList = {
@@ -41,6 +44,8 @@ export type BookingStackParamList = {
     serviceType: string[];
     totalPrice: number;
     slotId: string;
+    startTime: number;
+    endTime: number;
   };
 };
 
@@ -52,4 +57,26 @@ export type ProfileStackParamList = {
   ProfileMain: undefined;
 };
 
-export type RootNav = NavigationProp<TabParamList>;
+export type RootStackParamList = {
+  AppointmentOnboarding: undefined;
+  SmileCareOnboarding: undefined;
+  Register: undefined;
+  OtpVerification: undefined;
+  Login: undefined;
+  MainTabs: undefined;
+  VisitHistory: undefined;
+  VisitDetails: {
+    appointmentId: string;
+  };
+};
+
+export type AppParamList = RootStackParamList &
+  TabParamList &
+  HomeStackParamList &
+  BookingStackParamList &
+  ChatStackParamList &
+  ProfileStackParamList;
+
+export type AppNavigation = NavigationProp<AppParamList>;
+
+export type RootNav = NavigationProp<TabParamList & RootStackParamList>;

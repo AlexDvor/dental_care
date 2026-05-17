@@ -1,5 +1,11 @@
-import { ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
 
 export interface AppointmentCardProps {
-  style?: ViewStyle;
+  doctorName: string;
+  doctorImage?: string;
+  serviceType: string[];
+  dateLabel: string;
+  timeLabel: string;
+  style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
 }

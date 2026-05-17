@@ -1,49 +1,98 @@
 import React from 'react';
-import { Text,View } from 'react-native';
+import { Image, Text, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
+import { Theme } from '../../constants/theme';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import { Icon } from '../../ui/Icon/Icon';
 import { AppointmentCardProps } from './AppointmentCard.interface';
 
 import { styles } from './AppointmentCard.style';
 
-const AppointmentCard = ({ style }: AppointmentCardProps) => {
+const AppointmentCard = ({
+  doctorName,
+  doctorImage,
+  serviceType,
+  dateLabel,
+  timeLabel,
+  style,
+  onPress,
+}: AppointmentCardProps) => {
   return (
     <View style={[styles.container, style]}>
-      <View style={styles.topRow}>
-        <View style={styles.leftSection}>
-          <View style={styles.iconWrapper}>
-            <Icon name="schedule" size={25} color={'#0E7A4B'} />
-          </View>
+      <View style={styles.headerRow}>
+        <LinearGradient
+          colors={[
+            Theme.colors.background.soft,
+            Theme.colors.background.card,
+          ]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.iconWrapper}
+        >
+          <Icon
+            name="statsUpcoming"
+            size={22}
+            color={Theme.colors.icon.primary}
+          />
+        </LinearGradient>
 
-          <View style={styles.textBlock}>
-            <Text style={styles.title}>Regular Checkup</Text>
-            <Text style={styles.subtitle}>Dr. Sarah Johnson</Text>
-          </View>
-        </View>
-
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>Today</Text>
-        </View>
+        <Text style={styles.headerTitle}>Next Appointment</Text>
       </View>
 
-      <View style={styles.dateRow}>
-        <View style={styles.dateItem}>
-          <Icon name="schedule" size={16} color={'#6B7280'} />
-          <Text style={styles.dateText}>Apr 9, 2026</Text>
+      <View style={styles.contentRow}>
+        <View style={styles.infoColumn}>
+          <View style={styles.doctorRow}>
+            <Image
+              source={
+                doctorImage
+                  ? { uri: doctorImage }
+                  : require('../../assets/images/doctor.jpg')
+              }
+              style={styles.avatar}
+            />
+
+            <View style={styles.doctorTextBlock}>
+              <Text style={styles.doctorName}>{doctorName}</Text>
+              <Text style={styles.appointmentType}>
+                {serviceType.join(', ')}
+              </Text>
+            </View>
+          </View>
+
+          <View style={styles.separator} />
+
+          <View style={styles.timeRow}>
+            <View style={styles.timeIconWrapper}>
+              <Icon
+                name="statsUpcoming"
+                size={26}
+                color={Theme.colors.icon.primary}
+              />
+            </View>
+
+            <View style={styles.timeTextBlock}>
+              <Text style={styles.dateLabel}>{dateLabel}</Text>
+              <Text style={styles.timeText}>{timeLabel}</Text>
+            </View>
+          </View>
         </View>
 
-        <View style={styles.dateItem}>
-          <Icon name="schedule" size={16} color={'#6B7280'} />
-          <Text style={styles.dateText}>10:30 AM</Text>
+        <View style={styles.calendarPanel}>
+          <Image
+            source={require('../../assets/images/calendar.png')}
+            style={styles.calendarImage}
+          />
         </View>
       </View>
 
       <CustomBtn
-        title="View Details"
-        onPress={() => {}}
-        style={{ marginTop: 20 }}
-        type="secondary"
+        title="View Appointment"
+        onPress={onPress || (() => {})}
+        type="primary"
+        icon="arrow_r"
+        iconPosition="right"
+        style={styles.button}
       />
     </View>
   );

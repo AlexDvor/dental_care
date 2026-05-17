@@ -1,10 +1,16 @@
 import { Text, View } from 'react-native';
 
 import DetailRow from '../DetailRow/DetailRow';
+import { AppointmentDetailsProps } from './AppointmentDetails.interface';
 
 import { styles } from './AppointmentDetails.style';
 
-const AppointmentDetails = ({ date, time, service, price }: any) => {
+const AppointmentDetails = ({
+  date,
+  time,
+  service,
+  price,
+}: AppointmentDetailsProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Appointment Details</Text>

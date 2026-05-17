@@ -1,8 +1,10 @@
-import { Text,View } from 'react-native';
+import { Text, View } from 'react-native';
+
+import { styles } from './ChatScreen.style';
 
 const ChatScreen = () => {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={styles.container}>
       <Text>Chat</Text>
     </View>
   );

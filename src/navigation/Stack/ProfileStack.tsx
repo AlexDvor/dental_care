@@ -2,8 +2,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Theme } from '../../constants/theme';
 import ProfileScreen from '../../screens/ProfileScreen/ProfileScreen';
+import { ProfileStackParamList } from '../types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<ProfileStackParamList>();
 
 export default function ProfileStack() {
   return (
