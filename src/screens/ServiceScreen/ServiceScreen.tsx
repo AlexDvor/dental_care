@@ -73,7 +73,11 @@ const ServiceScreen = () => {
             <Text style={styles.price}>${total}</Text>
           </View>
 
-          <CustomBtn title="Continue" onPress={() => handlePressContinue()} />
+          <CustomBtn
+            title="Continue"
+            onPress={() => handlePressContinue()}
+            isDisabled={selected.length > 0 ? false : true}
+          />
         </View>
       </View>
     </ScreenLayout>
