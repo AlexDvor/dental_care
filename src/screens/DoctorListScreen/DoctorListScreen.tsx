@@ -63,9 +63,7 @@ const DoctorListScreen = () => {
         defaultPadding
         statusBarBackgroundColor={Theme.colors.statusBar.primary}
       >
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
+        <View style={styles.center}>
           <ActivityIndicator size={40} />
         </View>
       </ScreenLayout>
@@ -109,7 +107,7 @@ const DoctorListScreen = () => {
           ))}
 
           {!filteredDoctors?.length && (
-            <Text style={{ textAlign: 'center' }}>No doctors found</Text>
+            <Text style={styles.emptyText}>No doctors found</Text>
           )}
         </ScrollView>
       </View>

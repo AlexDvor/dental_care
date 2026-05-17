@@ -5,12 +5,9 @@ import { useNavigation } from '@react-navigation/native';
 
 import { AppNavigation } from '../../navigation/types';
 import { Icon } from '../Icon/Icon';
+import { BackHeaderProps } from './BackHeader.interface';
 
 import { styles } from './BackHeader.style';
-
-type BackHeaderProps = {
-  title?: string;
-};
 
 export const BackHeader = ({ title }: BackHeaderProps) => {
   const navigation = useNavigation<AppNavigation>();

@@ -16,15 +16,9 @@ import { MedicationScheduleItem } from '../../interfaces/medication';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { BackHeader } from '../../ui/BackIcon/BackHeader';
 import { MedicationItem } from '../../ui/MedicationItem/MedicationItem';
-import { parseDateKey } from '../../utils/Date/parseDateKey';
+import { formatMedicationDate } from '../../utils/Medication/formatMedicationDate';
 
 import { styles } from './MedicationsListScreen.style';
-
-const formatDate = (date: string) =>
-  new Intl.DateTimeFormat('en', {
-    month: 'short',
-    day: 'numeric',
-  }).format(parseDateKey(date));
 
 export default function MedicationsListScreen() {
   const [showFullTreatment, setShowFullTreatment] = useState(false);
@@ -55,7 +49,7 @@ export default function MedicationsListScreen() {
       <View>
         {showDate && (
           <Text style={styles.scheduleDate}>
-            {formatDate(item.scheduledDate)}
+            {formatMedicationDate(item.scheduledDate)}
           </Text>
         )}
 
@@ -140,8 +134,8 @@ export default function MedicationsListScreen() {
           <View>
             <Text style={styles.treatmentLabel}>Treatment period</Text>
             <Text style={styles.treatmentTitle}>
-              {formatDate(treatmentRange.startDate)} -{' '}
-              {formatDate(treatmentRange.endDate)}
+              {formatMedicationDate(treatmentRange.startDate)} -{' '}
+              {formatMedicationDate(treatmentRange.endDate)}
             </Text>
           </View>
 

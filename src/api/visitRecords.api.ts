@@ -6,26 +6,10 @@ import {
 } from '@react-native-firebase/firestore';
 
 import { COLLECTION_NAME } from '../constants/collections';
+import { VisitRecord } from '../interfaces/visit.types';
 import { getDb, initializeFirebaseApp } from './firebase';
 
-export type VisitRecord = {
-  id: string;
-  appointmentId: string;
-  userId: string;
-  doctorId: string;
-  diagnosis: string;
-  procedures: string[];
-  toothNumbers: string[];
-  notes?: string;
-  createdBy: string;
-  createdAt: number;
-  updatedAt: number;
-};
-
-export type VisitRecordPayload = Omit<
-  VisitRecord,
-  'id' | 'createdAt' | 'updatedAt'
->;
+export type { VisitRecord, VisitRecordPayload } from '../interfaces/visit.types';
 
 export const getVisitRecordByAppointment = async (
   appointmentId: string,

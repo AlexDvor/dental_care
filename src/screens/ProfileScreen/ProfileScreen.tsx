@@ -27,7 +27,7 @@ const ProfileScreen = () => {
         name={userProfile?.firstName || ''}
         fullName={userProfile?.fullName || ''}
         email={userProfile?.email || ''}
-        style={{ paddingBottom: 10 }}
+        style={styles.headerSpacing}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
@@ -38,7 +38,7 @@ const ProfileScreen = () => {
           <CustomBtn
             title={isSubmitting ? 'Logging out...' : 'Log Out'}
             onPress={logout}
-            style={{ marginTop: 'auto' }}
+            style={styles.logoutButton}
             icon="logout"
             iconSize={23}
             isDisabled={isSubmitting}

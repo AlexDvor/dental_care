@@ -1,13 +1,9 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 
-import { DoctorType } from '../../../interfaces/doctor.types';
+import { BookingDoctorCardProps } from './BookingDoctorCard.interface';
 
 import { styles } from './BookingDoctorCard.styles';
-
-interface BookingDoctorCardProps {
-  doctor: DoctorType;
-}
 
 const BookingDoctorCard = ({ doctor }: BookingDoctorCardProps) => {
   return (

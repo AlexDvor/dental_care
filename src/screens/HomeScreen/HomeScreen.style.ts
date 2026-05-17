@@ -13,6 +13,15 @@ export const styles = StyleSheet.create({
     paddingBottom: Theme.spacing.massive,
   },
 
+  scrollContent: {
+    paddingTop: 290,
+    paddingBottom: Theme.spacing.massive,
+  },
+
+  sectionSpacing: {
+    marginTop: Theme.spacing.lg,
+  },
+
   appointmentLoader: {
     minHeight: 180,
     marginTop: Theme.spacing.lg,
@@ -57,6 +66,10 @@ export const styles = StyleSheet.create({
     },
     shadowOpacity: 0.06,
     shadowRadius: 8,
+  },
+
+  compactHeaderHeight: {
+    height: 70,
   },
 
   compactHeaderContent: {

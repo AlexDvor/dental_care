@@ -13,49 +13,39 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { Appointment, AppointmentStatus } from '../../api/appointments.api';
 import { Theme } from '../../constants/theme';
 import { useAuth } from '../../hook/useAuth';
 import { useCancelAppointment } from '../../hook/useCancelAppointment';
 import { useUserAppointments } from '../../hook/useUserAppointments';
+import { Appointment } from '../../interfaces/appointment.types';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { RootStackParamList } from '../../navigation/types';
 import { BackHeader } from '../../ui/BackIcon/BackHeader';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import { Icon } from '../../ui/Icon/Icon';
+import {
+  AppointmentStatusFilter,
+  filterAppointmentsByStatus,
+  getAppointmentStatusCounts,
+  getAppointmentStatusLabel,
+} from '../../utils/Appointment/appointmentFilters';
+import { formatPolicyDate } from '../../utils/Date/formatPolicyDate';
+import {
+  formatVisitDate,
+  formatVisitTime,
+} from '../../utils/Visit/visitFormatters';
 
 import { styles } from './VisitHistoryScreen.style';
 
 type Navigation = NativeStackNavigationProp<RootStackParamList, 'VisitHistory'>;
-type VisitStatusFilter = AppointmentStatus | 'all';
 
-const STATUS_FILTERS: Array<{ label: string; value: VisitStatusFilter }> = [
+const STATUS_FILTERS: Array<{ label: string; value: AppointmentStatusFilter }> = [
   { label: 'All', value: 'all' },
   { label: 'Upcoming', value: 'upcoming' },
   { label: 'Completed', value: 'completed' },
   { label: 'Cancelled', value: 'cancelled' },
   { label: 'Missed', value: 'missed' },
 ];
-
-const formatVisitDate = (timestamp: number) =>
-  new Intl.DateTimeFormat('en', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(new Date(timestamp));
-
-const formatVisitTime = (timestamp: number) =>
-  new Intl.DateTimeFormat('en', {
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(new Date(timestamp));
-
-const formatPolicyDate = (timestamp: number) =>
-  new Intl.DateTimeFormat('en', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(new Date(timestamp));
 
 const getStatusStyle = (status: Appointment['status']) => {
   if (status === 'missed') {
@@ -105,19 +95,11 @@ const getTimelineMarkerStyle = (status: Appointment['status']) => {
   return styles.timelineMarkerUpcoming;
 };
 
-const getStatusLabel = (status: Appointment['status']) => {
-  if (status === 'missed') {
-    return 'Missed';
-  }
-
-  return status;
-};
-
 const VisitHistoryScreen = () => {
   const navigation = useNavigation<Navigation>();
   const { userProfile } = useAuth();
   const [selectedStatus, setSelectedStatus] =
-    useState<VisitStatusFilter>('all');
+    useState<AppointmentStatusFilter>('all');
 
   const {
     data: appointments = [],
@@ -129,34 +111,12 @@ const VisitHistoryScreen = () => {
   const cancelMutation = useCancelAppointment();
 
   const statusCounts = useMemo(
-    () =>
-      STATUS_FILTERS.reduce<Record<VisitStatusFilter, number>>(
-        (counts, filter) => {
-          counts[filter.value] =
-            filter.value === 'all'
-              ? appointments.length
-              : appointments.filter(
-                  appointment => appointment.status === filter.value,
-                ).length;
-
-          return counts;
-        },
-        {
-          all: 0,
-          upcoming: 0,
-          completed: 0,
-          cancelled: 0,
-          missed: 0,
-        },
-      ),
+    () => getAppointmentStatusCounts(appointments),
     [appointments],
   );
 
   const filteredAppointments = useMemo(
-    () =>
-      selectedStatus === 'all'
-        ? appointments
-        : appointments.filter(appointment => appointment.status === selectedStatus),
+    () => filterAppointmentsByStatus(appointments, selectedStatus),
     [appointments, selectedStatus],
   );
 
@@ -256,7 +216,7 @@ const VisitHistoryScreen = () => {
                       getStatusTextStyle(item.status),
                     ]}
                   >
-                    {getStatusLabel(item.status)}
+                    {getAppointmentStatusLabel(item.status)}
                   </Text>
                 </View>
               </View>

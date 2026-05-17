@@ -1,3 +1,4 @@
+// Formats a policy cutoff timestamp for appointment policy copy.
 export const formatPolicyDate = (timestamp: number) =>
   new Intl.DateTimeFormat('en', {
     month: 'short',

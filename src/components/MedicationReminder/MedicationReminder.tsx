@@ -49,7 +49,7 @@ export function MedicationReminder({
           width={112}
           height={112}
           viewBox="0 0 100 100"
-          style={{ transform: [{ rotate: '-90deg' }] }}
+          style={styles.ringSvg}
         >
           <Circle
             cx="50"

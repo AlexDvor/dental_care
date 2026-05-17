@@ -20,6 +20,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  ringSvg: {
+    transform: [{ rotate: '-90deg' }],
+  },
   ringCenter: {
     position: 'absolute',
     alignItems: 'center',

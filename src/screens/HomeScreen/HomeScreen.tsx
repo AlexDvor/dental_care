@@ -10,8 +10,6 @@ import Animated, {
 
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 
-import { seedAppointmentTreatment } from '../../api/seedAppointmentTreatment';
-import { seedSlots } from '../../api/seedSlots';
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import { EmptyAppointmentCard } from '../../components/EmptyAppointmentCard/EmptyAppointmentCard';
 import HealthBanner from '../../components/HealthBanner/HealthBanner';
@@ -31,15 +29,14 @@ import {
   RootStackParamList,
   TabParamList,
 } from '../../navigation/types';
-import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import TrustBlock from '../../ui/TrustBlock/TrustBlock';
+import { getAppointmentStatusCounts } from '../../utils/Appointment/appointmentFilters';
 import { formatAppointmentDate } from '../../utils/Date/formatAppointmentDate';
 import { formatAppointmentTime } from '../../utils/Date/formatAppointmentTime';
 
 import { styles } from './HomeScreen.style';
 
 const HEADER_HEIGHT = 220;
-const COMPACT_HEADER_HEIGHT = 70;
 
 type Navigation = NavigationProp<
   HomeStackParamList & TabParamList & RootStackParamList
@@ -69,13 +66,11 @@ const HomeScreen = () => {
       };
     }
 
+    const counts = getAppointmentStatusCounts(appointments);
+
     return {
-      visitsCount: appointments.filter(
-        appointment => appointment.status === 'completed',
-      ).length,
-      upcomingCount: appointments.filter(
-        appointment => appointment.status === 'upcoming',
-      ).length,
+      visitsCount: counts.completed,
+      upcomingCount: counts.upcoming,
     };
   }, [appointments, isAppointmentsError]);
 
@@ -118,7 +113,6 @@ const HomeScreen = () => {
 
     return {
       opacity,
-
       transform: [{ translateY }],
       shadowOpacity,
       elevation,
@@ -156,11 +150,8 @@ const HomeScreen = () => {
 
     return {
       opacity,
-
       elevation,
-
       shadowOpacity,
-
       transform: [{ translateY }],
     };
   });
@@ -170,9 +161,6 @@ const HomeScreen = () => {
       statusBarBackgroundColor={Theme.colors.statusBar.secondary}
       statusBarStyle="light-content"
     >
-      {/* =========================
-          LARGE HEADER
-      ========================== */}
       <Animated.View
         renderToHardwareTextureAndroid
         style={[styles.largeHeaderContainer, largeHeaderAnimatedStyle]}
@@ -184,22 +172,15 @@ const HomeScreen = () => {
         />
       </Animated.View>
 
-      {/* =========================
-          COMPACT HEADER
-      ========================== */}
       <Animated.View
         pointerEvents="none"
         style={[
           styles.compactHeaderContainer,
           compactHeaderAnimatedStyle,
-          {
-            height: COMPACT_HEADER_HEIGHT,
-          },
+          styles.compactHeaderHeight,
         ]}
       >
         <View style={styles.compactHeaderContent}>
-          {/* <View style={styles.compactAvatar} /> */}
-
           <Image
             source={require('../../assets/images/doctor.jpg')}
             style={styles.compactAvatar}
@@ -207,24 +188,17 @@ const HomeScreen = () => {
 
           <View>
             <Text style={styles.compactTitle}>{userProfile?.fullName}</Text>
-
             <Text style={styles.compactSubtitle}>DentalCare</Text>
           </View>
         </View>
       </Animated.View>
 
-      {/* =========================
-          SCROLL CONTENT
-      ========================== */}
       <Animated.ScrollView
         onScroll={scrollHandler}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
         bounces={false}
-        contentContainerStyle={{
-          paddingTop: HEADER_HEIGHT + COMPACT_HEADER_HEIGHT,
-          paddingBottom: Theme.spacing.massive,
-        }}
+        contentContainerStyle={styles.scrollContent}
       >
         <View style={styles.content}>
           <StatsCard
@@ -232,6 +206,7 @@ const HomeScreen = () => {
             upcomingCount={upcomingCount}
             isLoading={isAppointmentsLoading}
           />
+
           {isNextAppointmentLoading ? (
             <View style={styles.appointmentLoader}>
               <ActivityIndicator />
@@ -244,16 +219,12 @@ const HomeScreen = () => {
               dateLabel={formatAppointmentDate(nextAppointment.startTime)}
               timeLabel={formatAppointmentTime(nextAppointment.startTime)}
               onPress={() => navigation.navigate('VisitHistory')}
-              style={{
-                marginTop: Theme.spacing.lg,
-              }}
+              style={styles.sectionSpacing}
             />
           ) : (
             <EmptyAppointmentCard
               onPress={() => navigation.navigate('BookingTab')}
-              style={{
-                marginTop: Theme.spacing.lg,
-              }}
+              style={styles.sectionSpacing}
             />
           )}
 
@@ -267,22 +238,12 @@ const HomeScreen = () => {
                 ? () => navigation.navigate('MedicationsList')
                 : undefined
             }
-            style={{
-              marginTop: Theme.spacing.lg,
-            }}
+            style={styles.sectionSpacing}
           />
 
-          <QuickActionsGrid
-            style={{
-              marginTop: Theme.spacing.lg,
-            }}
-          />
+          <QuickActionsGrid style={styles.sectionSpacing} />
 
-          <HealthBanner
-            style={{
-              marginTop: Theme.spacing.lg,
-            }}
-          />
+          <HealthBanner style={styles.sectionSpacing} />
 
           <TrustBlock
             items={[...trustBlockItems]}
@@ -291,26 +252,6 @@ const HomeScreen = () => {
             onPrivacyPress={() => {}}
             onTermsPress={() => {}}
           />
-          {/* Teстові дані }
-          
-          {/* <CustomBtn
-            title="Go "
-            onPress={async () => {
-              try {
-                await seedAppointmentTreatment({
-                  userId: userProfile?.id || 'ReFCryvPhLOxbTGWBBCPjms6DhF2',
-                  appointmentId: '39TbiuYTSHIsu4sU1l8e',
-                  treatmentCase: 'acuteGingivitis',
-                  actorId: userProfile?.id || 'ReFCryvPhLOxbTGWBBCPjms6DhF2',
-                  startDate: new Date(),
-                });
-
-                console.log('Seeded appointment treatment');
-              } catch (error) {
-                console.log(error);
-              }
-            }}
-          /> */}
         </View>
       </Animated.ScrollView>
     </ScreenLayout>

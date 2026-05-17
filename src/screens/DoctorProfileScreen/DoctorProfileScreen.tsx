@@ -12,11 +12,14 @@ import StatsRow from '../../components/DoctorProfile/StatsRow/StatsRow';
 import { Theme } from '../../constants/theme';
 import { useDoctorById } from '../../hook/useDoctorById';
 import { useDoctorReviews } from '../../hook/useDoctorReviews';
-import { ReviewProps } from '../../interfaces/doctor.types';
 import ScreenLayout from '../../layout/ScreenLayout';
 import { BookingStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import SeparatorSection from '../../ui/SeparatorSection/SeparatorSection';
+import {
+  getDoctorDisplayRating,
+  mapDoctorReviewsToReviewProps,
+} from '../../utils/Doctor/doctorReviewMappers';
 
 import { styles } from './DoctorProfileScreen.style';
 
@@ -35,26 +38,9 @@ const DoctorProfileScreen = () => {
   const { data, error, isLoading, refetch } = useDoctorById(doctorId);
   const { data: firestoreReviews = [] } = useDoctorReviews(doctorId);
 
-  const mappedFirestoreReviews: ReviewProps[] = firestoreReviews.map(
-    review => ({
-      id: review.id,
-      name: review.userName,
-      avatar: 'https://i.pravatar.cc/100',
-      rating: review.rating,
-      text: review.text || 'No written comment.',
-      date: new Intl.DateTimeFormat('en', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      }).format(new Date(review.createdAt)),
-    }),
-  );
+  const mappedFirestoreReviews = mapDoctorReviewsToReviewProps(firestoreReviews);
   const reviews = [...mappedFirestoreReviews, ...(data?.reviews || [])];
-  const rating =
-    reviews.length > 0
-      ? reviews.reduce((sum, review) => sum + review.rating, 0) /
-        reviews.length
-      : data?.rating || 0;
+  const rating = getDoctorDisplayRating(reviews, data?.rating || 0);
 
   const handlePressToSelectDate = () => {
     navigation.navigate('SelectDate', { doctorId, serviceType, totalPrice });
@@ -66,9 +52,7 @@ const DoctorProfileScreen = () => {
         defaultPadding
         statusBarBackgroundColor={Theme.colors.statusBar.primary}
       >
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
+        <View style={styles.center}>
           <ActivityIndicator size={40} />
         </View>
       </ScreenLayout>
@@ -81,9 +65,7 @@ const DoctorProfileScreen = () => {
         defaultPadding
         statusBarBackgroundColor={Theme.colors.statusBar.primary}
       >
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
+        <View style={styles.center}>
           <Text>{error.message}</Text>
           <CustomBtn title="Try again" onPress={refetch} />
         </View>

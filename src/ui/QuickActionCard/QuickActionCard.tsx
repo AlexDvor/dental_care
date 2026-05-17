@@ -3,16 +3,9 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import { Theme } from '../../constants/theme';
 import { Icon } from '../Icon/Icon';
+import { QuickActionCardProps } from './QuickActionCard.interface';
 
 import { styles } from './QuickActionCard.style';
-
-type Props = {
-  title: string;
-  onPress: () => void;
-  icon: keyof typeof import('../Icon/Icon').iconList;
-  iconColor?: string;
-  iconBackground?: string;
-};
 
 const QuickActionCard = ({
   title,
@@ -20,7 +13,7 @@ const QuickActionCard = ({
   icon,
   iconColor,
   iconBackground,
-}: Props) => {
+}: QuickActionCardProps) => {
   return (
     <TouchableOpacity
       style={styles.container}

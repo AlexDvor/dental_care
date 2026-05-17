@@ -9,30 +9,19 @@ import {
 } from '@react-native-firebase/firestore';
 
 import { COLLECTION_NAME } from '../constants/collections';
-import { Appointment } from './appointments.api';
+import { Appointment } from '../interfaces/appointment.types';
+import {
+  CreateDoctorReviewPayload,
+  DoctorReview,
+  ReviewRating,
+} from '../interfaces/doctorReview.types';
 import { getDb, initializeFirebaseApp } from './firebase';
 
-export type ReviewRating = 1 | 2 | 3 | 4 | 5;
-
-export type DoctorReview = {
-  id: string;
-  appointmentId: string;
-  userId: string;
-  doctorId: string;
-  userName: string;
-  rating: ReviewRating;
-  text: string;
-  createdAt: number;
-};
-
-export type CreateDoctorReviewPayload = {
-  appointmentId: string;
-  userId: string;
-  doctorId: string;
-  userName: string;
-  rating: number;
-  text: string;
-};
+export type {
+  CreateDoctorReviewPayload,
+  DoctorReview,
+  ReviewRating,
+} from '../interfaces/doctorReview.types';
 
 const getReviewId = (appointmentId: string, userId: string) =>
   `${appointmentId}_${userId}`;

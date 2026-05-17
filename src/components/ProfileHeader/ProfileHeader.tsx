@@ -1,17 +1,11 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { Theme } from '../../constants/theme';
 import { Icon } from '../../ui/Icon/Icon';
 import Wave from '../../ui/Wave/Wave';
-
-interface ProfileHeaderProps {
-  style?: ViewStyle;
-  name: string;
-  fullName: string;
-  email: string;
-}
+import { ProfileHeaderProps } from './ProfileHeader.interface';
 
 const ProfileHeader = ({
   name,

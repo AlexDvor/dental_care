@@ -1,10 +1,8 @@
 import { Text, View } from 'react-native';
 
-import { styles } from './PaymentSummary.styles';
+import { PaymentSummaryProps } from './PaymentSummary.interface';
 
-interface PaymentSummaryProps {
-  total: number;
-}
+import { styles } from './PaymentSummary.styles';
 
 const PaymentSummary = ({ total }: PaymentSummaryProps) => {
   return (

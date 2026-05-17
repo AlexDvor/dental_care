@@ -1,9 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import {
-  getNextUpcomingAppointment,
-  getUserAppointments,
-} from '../api/appointments.api';
+import { getUserAppointments } from '../api/appointments.api';
+import { getNextUpcomingAppointment } from '../utils/Appointment/appointmentSort';
 
 export const useNextUserAppointment = (userId?: string) => {
   return useQuery({

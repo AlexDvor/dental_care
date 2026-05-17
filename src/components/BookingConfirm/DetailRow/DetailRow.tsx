@@ -1,18 +1,12 @@
 import { Text, View } from 'react-native';
 
 import { Theme } from '../../../constants/theme';
-import { Icon, IconNameType } from '../../../ui/Icon/Icon';
+import { Icon } from '../../../ui/Icon/Icon';
+import { DetailRowProps } from './DetailRow.interface';
 
 import { styles } from './DetailRow.styles';
 
-type Props = {
-  label: string;
-  value: string;
-  icon: IconNameType;
-  isLast?: boolean;
-};
-
-const DetailRow = ({ label, value, icon, isLast }: Props) => {
+const DetailRow = ({ label, value, icon, isLast }: DetailRowProps) => {
   return (
     <View style={[styles.row, isLast && styles.lastRow]}>
       <View style={styles.left}>

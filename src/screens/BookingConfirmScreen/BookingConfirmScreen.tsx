@@ -14,7 +14,6 @@ import {
   useRoute,
 } from '@react-navigation/native';
 
-import { getAppointmentPolicyDates } from '../../api/appointments.api';
 import AppointmentDetails from '../../components/BookingConfirm/AppointmentDetails/AppointmentDetails';
 import BookingDoctorCard from '../../components/BookingConfirm/BookingDoctorCard/BookingDoctorCard';
 import PaymentSummary from '../../components/BookingConfirm/PaymentSummary/PaymentSummary';
@@ -25,6 +24,7 @@ import ScreenLayout from '../../layout/ScreenLayout';
 import { BookingStackParamList, RootNav } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import SubTitle from '../../ui/SubTitle/SubTitle';
+import { getAppointmentPolicyDates } from '../../utils/Appointment/appointmentPolicy';
 import { formatPolicyDate } from '../../utils/Date/formatPolicyDate';
 
 type Route = RouteProp<BookingStackParamList, 'BookingConfirm'>;
@@ -131,7 +131,7 @@ const BookingConfirmScreen = () => {
 
         <View>
           <CustomBtn
-            style={{ marginTop: 60 }}
+            style={styles.confirmButton}
             title={isPending ? 'Processing...' : 'Confirm & Pay'}
             onPress={handleConfirm}
             iconPosition="left"
@@ -140,7 +140,7 @@ const BookingConfirmScreen = () => {
           />
 
           {isPending && (
-            <View style={{ marginTop: 12 }}>
+            <View style={styles.confirmLoader}>
               <ActivityIndicator />
             </View>
           )}
@@ -173,6 +173,14 @@ const styles = StyleSheet.create({
     fontSize: Theme.typography.size.small,
     lineHeight: Theme.typography.lineHeight.small,
     marginTop: Theme.spacing.xs,
+  },
+
+  confirmButton: {
+    marginTop: 60,
+  },
+
+  confirmLoader: {
+    marginTop: Theme.spacing.md,
   },
 });
 

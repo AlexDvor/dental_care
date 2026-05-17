@@ -1,3 +1,4 @@
+// Converts a Date object to a YYYY-MM-DD local date key.
 export const getDateKey = (date: Date) => {
   const year = date.getFullYear();
   const month = `${date.getMonth() + 1}`.padStart(2, '0');

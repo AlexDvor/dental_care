@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 import { Theme } from '../../../constants/theme';
 import { Icon } from '../../../ui/Icon/Icon';
-import { EducationItemProps } from './EducationItem.inteface';
+import { EducationItemProps } from './EducationItem.interface';
 
 import { styles } from './EducationItem.style';
 

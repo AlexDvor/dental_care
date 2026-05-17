@@ -23,19 +23,12 @@ import ScreenLayout from '../../layout/ScreenLayout';
 import { RootStackParamList } from '../../navigation/types';
 import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import { Icon } from '../../ui/Icon/Icon';
+import { formatVisitDateTime } from '../../utils/Visit/visitFormatters';
+import { getVisitSummaryItems } from '../../utils/Visit/visitSummary';
 
 import { styles } from './VisitDetailsScreen.style';
 
 type Route = RouteProp<RootStackParamList, 'VisitDetails'>;
-
-const formatDateTime = (timestamp: number) =>
-  new Intl.DateTimeFormat('en', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(new Date(timestamp));
 
 const VisitDetailsScreen = () => {
   const navigation = useNavigation();
@@ -60,25 +53,7 @@ const VisitDetailsScreen = () => {
   const createReview = useCreateDoctorReview();
 
   const summaryItems = useMemo(
-    () => [
-      {
-        label: 'Diagnosis',
-        value: visitRecord?.diagnosis || 'No diagnosis recorded yet.',
-      },
-      {
-        label: 'Procedures',
-        value:
-          visitRecord?.procedures?.join(', ') || 'No procedures recorded yet.',
-      },
-      {
-        label: 'Teeth',
-        value: visitRecord?.toothNumbers || [],
-      },
-      {
-        label: 'Doctor notes',
-        value: visitRecord?.notes || 'No notes recorded yet.',
-      },
-    ],
+    () => getVisitSummaryItems(visitRecord),
     [visitRecord],
   );
 
@@ -186,7 +161,7 @@ const VisitDetailsScreen = () => {
                 />
               </View>
               <Text style={styles.appointmentMetaText}>
-                {formatDateTime(appointment.startTime)}
+                {formatVisitDateTime(appointment.startTime)}
               </Text>
             </View>
           </View>

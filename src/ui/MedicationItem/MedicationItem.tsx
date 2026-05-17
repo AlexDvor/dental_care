@@ -11,7 +11,7 @@ import {
 import Svg, { Path } from 'react-native-svg';
 
 import { getMedicationFormIcon } from '../../constants/medicationForms';
-import { MedicationType } from '../../interfaces/medication';
+import { MedicationItemProps } from './MedicationItem.interface';
 
 import { styles } from './MedicationItem.style';
 
@@ -30,14 +30,6 @@ const CheckIcon = () => (
     />
   </Svg>
 );
-
-type MedicationItemProps = {
-  item: MedicationType;
-  index: number;
-  isLast: boolean;
-  previousTaken: boolean;
-  onTaken: (id: string) => void;
-};
 
 export const MedicationItem = memo(
   ({ item, index, isLast, previousTaken, onTaken }: MedicationItemProps) => {

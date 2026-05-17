@@ -1,10 +1,8 @@
-import { Image, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
+
+import { HealthBannerProps } from './HealthBanner.interface';
 
 import { styles } from './HealthBanner.style';
-
-type HealthBannerProps = {
-  style?: ViewStyle;
-};
 
 const HealthBanner = ({ style }: HealthBannerProps) => {
   return (

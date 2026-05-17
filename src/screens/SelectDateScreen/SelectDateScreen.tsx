@@ -17,6 +17,11 @@ import CustomBtn from '../../ui/CustomBtn/CustomBtn';
 import SubTitle from '../../ui/SubTitle/SubTitle';
 import TimeSlots from '../../ui/TimeSlots/TimeSlots';
 import { formatTime } from '../../utils/Date/formatTime';
+import {
+  getAvailableSlotDays,
+  getAvailableSlotsForDate,
+  getNextMonthSlotRange,
+} from '../../utils/Slots/slotAvailability';
 
 import { styles } from './SelectDateScreen.style';
 
@@ -45,53 +50,20 @@ const SelectDateScreen = () => {
 
   const prefetchNextMonth = (date: Date) => {
     if (!doctorId) return;
-    const next = new Date(date.getFullYear(), date.getMonth() + 1, 1);
-    const start = Date.UTC(next.getFullYear(), next.getMonth(), 1);
-    const end = Date.UTC(
-      next.getFullYear(),
-      next.getMonth() + 1,
-      0,
-      23,
-      59,
-      59,
-      999,
-    );
+    const { start, end } = getNextMonthSlotRange(date);
+
     queryClient.prefetchQuery({
       queryKey: ['slots-month', doctorId, start, end],
       queryFn: () => getSlotsByDoctorAndMonth(doctorId, start, end),
     });
   };
 
-  const availableDays = useMemo(() => {
-    const daysSet = new Set<number>();
-    const now = Date.now();
+  const availableDays = useMemo(() => getAvailableSlotDays(slots), [slots]);
 
-    slots.forEach(slot => {
-      if (!slot.isBooked && slot.startTime > now) {
-        const slotDate = new Date(slot.startTime);
-        daysSet.add(slotDate.getDate());
-      }
-    });
-    return Array.from(daysSet);
-  }, [slots]);
-
-  const availableSlots = useMemo(() => {
-    const now = Date.now();
-
-    return slots.filter(slot => {
-      const dateYear = selectedDate.getFullYear();
-      const dateMonth = selectedDate.getMonth();
-      const dateDay = selectedDate.getDate();
-      const startOfDayUTC = Date.UTC(dateYear, dateMonth, dateDay, 0, 0, 0);
-      const endOfDayUTC = Date.UTC(dateYear, dateMonth, dateDay + 1, 0, 0, 0);
-      return (
-        slot.startTime >= startOfDayUTC &&
-        slot.startTime < endOfDayUTC &&
-        slot.startTime > now &&
-        !slot.isBooked
-      );
-    });
-  }, [slots, selectedDate]);
+  const availableSlots = useMemo(
+    () => getAvailableSlotsForDate(slots, selectedDate),
+    [slots, selectedDate],
+  );
 
   const formattedTimes = availableSlots.map(slot => ({
     label: formatTime(slot.startTime),
@@ -195,13 +167,11 @@ const SelectDateScreen = () => {
           />
 
           {isMonthLoading ? (
-            <View style={{ alignItems: 'center', marginTop: 20 }}>
+            <View style={styles.monthLoader}>
               <ActivityIndicator />
             </View>
           ) : formattedTimes.length === 0 ? (
-            <Text style={{ textAlign: 'center', marginTop: 20 }}>
-              No available slots
-            </Text>
+            <Text style={styles.emptySlotsText}>No available slots</Text>
           ) : (
             <TimeSlots
               times={formattedTimes}

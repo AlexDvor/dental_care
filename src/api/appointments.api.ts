@@ -8,106 +8,26 @@ import {
 } from '@react-native-firebase/firestore';
 
 import { COLLECTION_NAME } from '../constants/collections';
-import { MedicationForm } from '../interfaces/medication';
+import {
+  Appointment,
+  CancelAppointmentPayload,
+  CreateAppointmentPayload,
+  MarkAppointmentCompletedPayload,
+  MarkAppointmentPayload,
+} from '../interfaces/appointment.types';
+import { getAppointmentPolicyDates } from '../utils/Appointment/appointmentPolicy';
+import { sortAppointmentsByNewest } from '../utils/Appointment/appointmentSort';
 import { getDb, initializeFirebaseApp } from './firebase';
-import { VisitRecordPayload } from './visitRecords.api';
 
-const DAY_IN_MS = 24 * 60 * 60 * 1000;
-const HOUR_IN_MS = 60 * 60 * 1000;
-
-export type AppointmentStatus =
-  | 'upcoming'
-  | 'completed'
-  | 'cancelled'
-  | 'missed';
-
-export type Appointment = {
-  id: string;
-  userId: string;
-  doctorId: string;
-  slotId: string;
-  doctorName: string;
-  doctorImage?: string;
-  serviceType: string[];
-  totalPrice: number;
-  startTime: number;
-  endTime: number;
-  status: AppointmentStatus;
-  cancelAllowedUntil: number;
-  refundEligibleUntil: number;
-  missedNonRefundable: boolean;
-  cancelledAt?: number;
-  cancelledBy?: 'patient' | 'clinic';
-  missedMarkedAt?: number;
-  missedMarkedBy?: string;
-  completedAt?: number;
-  completedBy?: string;
-  createdAt: number;
-  updatedAt: number;
-};
-
-export type CreateAppointmentPayload = {
-  slotId: string;
-  userId: string;
-  doctorId: string;
-  doctorName: string;
-  doctorImage?: string;
-  serviceType: string[];
-  totalPrice: number;
-};
-
-export type CancelAppointmentPayload = {
-  appointmentId: string;
-  slotId: string;
-  userId: string;
-};
-
-export type MarkAppointmentPayload = {
-  appointmentId: string;
-  actorId: string;
-};
-
-export type CompletedTreatmentPlanPayload = {
-  appointmentId: string;
-  userId: string;
-  doctorId: string;
-  title: string;
-  diagnosis: string;
-  prescribedBy: string;
-  medicationName: string;
-  strength: string;
-  doseAmount: string;
-  form: MedicationForm;
-  startDate: string;
-  endDate: string;
-  times: string[];
-  instructions?: string;
-};
-
-export type MarkAppointmentCompletedPayload = MarkAppointmentPayload & {
-  visitRecord?: Omit<VisitRecordPayload, 'appointmentId' | 'createdBy'>;
-  treatmentPlans?: Array<
-    Omit<CompletedTreatmentPlanPayload, 'appointmentId' | 'userId' | 'doctorId'>
-  >;
-};
-
-export const getAppointmentPolicyDates = (startTime: number) => ({
-  refundEligibleUntil: startTime - 7 * DAY_IN_MS,
-  cancelAllowedUntil: startTime - 48 * HOUR_IN_MS,
-});
-
-export const sortAppointmentsByNewest = (
-  appointments: Appointment[],
-): Appointment[] => [...appointments].sort((a, b) => b.startTime - a.startTime);
-
-export const getNextUpcomingAppointment = (
-  appointments: Appointment[],
-  now = Date.now(),
-): Appointment | null =>
-  appointments
-    .filter(appointment => appointment.status === 'upcoming')
-    .filter(appointment => appointment.startTime >= now)
-    .sort((a, b) => a.startTime - b.startTime)[0] ?? null;
+export type {
+  Appointment,
+  AppointmentStatus,
+  CancelAppointmentPayload,
+  CompletedTreatmentPlanPayload,
+  CreateAppointmentPayload,
+  MarkAppointmentCompletedPayload,
+  MarkAppointmentPayload,
+} from '../interfaces/appointment.types';
 
 export const getUserAppointments = async (
   userId: string,
