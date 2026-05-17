@@ -1,168 +1,166 @@
 # Dental Care App
 
-Dental Care App — це мобільний застосунок на **React Native CLI**, створений як MVP-рішення для стоматологічної клініки. Основна мета застосунку — підвищити конверсію пацієнтів у реальні записи на прийом, спростити взаємодію між пацієнтом і клінікою та зробити процес лікування більш зручним і контрольованим.
+**Language:** English | [Українська](README.ua.md)
 
-Застосунок допомагає користувачу керувати стоматологічним доглядом: переглядати лікарів, обирати стоматологічні послуги, бронювати прийом, переглядати історію візитів і контролювати план прийому ліків після лікування. Це покращує користувацький досвід і допомагає пацієнту краще дотримуватися рекомендацій лікаря після процедури.
+## 1. Project Overview
 
-У майбутньому проєкт планується розширити CRM web-версією для стоматологічної клініки. Вона дозволить адміністраторам і лікарям керувати записами, переглядати статистику роботи клініки, контролювати завантаженість лікарів і аналізувати ефективність взаємодії з пацієнтами.
+Dental Care App is a **React Native CLI** mobile application created as an MVP for a dental clinic. It helps patients move through the main care journey in one place: onboarding, authentication, service selection, doctor booking, appointment history, and post-treatment medication tracking.
 
----
+The goal of the project is to make dental care easier to manage for patients and more structured for the clinic. Users can browse doctors, choose dental services, book appointments, review previous visits, and follow a prescribed medication plan after treatment.
 
-## 1. Аналіз наявного застосунку
-
-Застосунок уже має повноцінну структуру з авторизацією, навігацією, головним екраном, записом до лікаря, профілем користувача та історією візитів.
-
-### Ключові функції
-
-- **Onboarding** — перші екрани знайомства із застосунком.
-- **Авторизація та реєстрація** — вхід, реєстрація та підтвердження OTP.
-- **Головний екран** — статистика візитів, найближчий запис, швидкі дії, банери та блок довіри.
-- **Запис до лікаря** — вибір послуги, лікаря, дати, часу та підтвердження бронювання.
-- **Профіль лікаря** — інформація про лікаря, рейтинг, освіта, відгуки та кнопка запису.
-- **Історія візитів** — перегляд минулих та майбутніх записів.
-- **Профіль користувача** — персональні дані та основні дії акаунта.
-
-### Основні сценарії використання
-
-1. Користувач відкриває застосунок, проходить onboarding та авторизується.
-2. На головному екрані користувач бачить коротку статистику, найближчий запис та швидкі дії.
-3. Користувач переходить до запису, обирає стоматологічну послугу, лікаря, дату та час.
-4. Після підтвердження запис зберігається і відображається в історії візитів.
-5. Якщо для користувача створено план лікування, він бачить нагадування про ліки та може відмічати прийом препарату.
-
-### Зони для розширення функціональності
-
-1. **Покращення навігації**  
-   Швидкі дії на головному екрані мають вести користувача до потрібних розділів: бронювання, чату, історії візитів.
-
-2. **Додавання секції Medications**  
-   Користувач може бачити план лікування, список ліків, дозування, час прийому та прогрес за день.
-
-3. **Покращення UX/UI**  
-   Застосунок використовує єдину дизайн-систему: кольори, відступи, картки, іконки, кнопки, закруглення та тіні.
+The product can later be expanded with a CRM web version for clinic staff, where administrators and doctors would manage schedules, appointments, patients, treatment plans, and clinic performance statistics.
 
 ---
 
-## 2. Розширення функціоналу
+## 2. Analysis of the Existing Application
 
-### Додана функціональність: Medications
+The application already has a complete mobile flow with authentication, navigation, a home dashboard, appointment booking, a user profile, visit history, and a medication tracking section.
 
-Було додано секцію **Medications**, яка показує активний план лікування користувача після стоматологічної процедури.
+### Key Features
 
-Функціональність включає:
+- **Onboarding** - introductory screens that present the purpose of the application.
+- **Authentication and Registration** - login, registration, and OTP confirmation.
+- **Home Screen** - visit statistics, upcoming appointment, quick actions, banners, and a trust block.
+- **Appointment Booking** - service, doctor, date, time, and booking confirmation flow.
+- **Doctor Profile** - doctor information, rating, education, reviews, and a booking action.
+- **Visit History** - past and upcoming appointments with access to visit details.
+- **Medications** - treatment plan overview, daily medication schedule, and progress tracking.
+- **User Profile** - personal account information and account actions.
 
-- період лікування;
-- поточний день лікування;
-- прогрес лікування;
-- список ліків на сьогодні;
-- дозування та час прийому;
-- можливість відмітити препарат як прийнятий;
-- перегляд повного плану лікування.
+### Main User Scenarios
 
-Ця функція покращує користувацький досвід, тому що користувач не лише записується до лікаря, а й може контролювати процес лікування після візиту.
+1. The user opens the application, completes onboarding, and signs in.
+2. The user checks the home screen for visit statistics, upcoming appointments, and quick actions.
+3. The user starts the booking flow, selects a service, chooses a doctor, and picks a date and time.
+4. After confirmation, the appointment is saved and displayed in visit history.
+5. If a treatment plan exists, the user can track medications and mark doses as taken.
 
-### Покращення навігації Quick Actions
+### Areas for Functional Expansion
 
-На головному екрані блок швидких дій був розширений callback-функціями:
-
-- **Book Appointment** → перехід до бронювання;
-- **Find Doctor** → перехід до розділу бронювання/пошуку лікаря;
-- **Chat Support** → перехід до чату;
-- **View Records** → перехід до історії візитів.
-
-Це робить головний екран більш практичним, тому що користувач може швидко перейти до основних сценаріїв застосунку.
+- **Navigation improvement** - make quick actions lead directly to core flows such as booking, chat support, and visit history.
+- **Support and FAQ section** - expand the chat tab into a practical help area for common patient questions.
+- **Clinic-side CRM** - add a future web interface for managing doctors, schedules, patients, appointments, and analytics.
 
 ---
 
-## 3. Керування станом
+## 3. Functionality Expansion
 
-У застосунку використано кілька підходів до стану, залежно від типу даних.
+### Added Functionality: Medications
+
+The **Medications** section was added to help patients follow a treatment plan after a dental procedure.
+
+The feature includes:
+
+- treatment period;
+- current treatment day;
+- overall treatment progress;
+- list of medicines scheduled for today;
+- dosage and intake time;
+- ability to mark a medicine as taken;
+- full treatment plan overview.
+
+This improves the user experience because the application supports not only appointment booking but also the post-visit recovery process.
+
+### Quick Actions Navigation
+
+The home screen includes quick action cards for the main user tasks:
+
+- **Book Appointment** - entry point to appointment booking;
+- **Find Doctor** - entry point to doctor selection;
+- **Chat Support** - entry point to help and support;
+- **View Records** - entry point to visit history.
+
+These actions make the home dashboard more practical and reduce the number of steps needed to reach important sections.
+
+---
+
+## 4. State Management
+
+The application uses different state management approaches depending on the type of data.
 
 ### Context API
 
-**Context API** використовується для глобального стану, який потрібен у різних частинах застосунку:
+**Context API** is used for global application state:
 
-- `AuthContext` — стан авторизації, профіль користувача, login/logout, OTP-реєстрація;
-- `ThemeContext` — поточна тема та можливість її перемикання.
+- `AuthContext` - authentication state, user profile, login/logout, and OTP registration flow;
+- `ThemeContext` - current theme state and theme switching.
 
-Context API обрано тому, що ці дані мають глобальний характер і не потребують складної Redux-архітектури.
+Context API is suitable here because these values are shared across the application but do not require a complex Redux architecture.
 
 ### React Query
 
-Для серверних даних використано **TanStack React Query**:
+**TanStack React Query** is used for server-side data:
 
-- лікарі;
-- записи;
-- слоти;
-- історія візитів;
-- плани лікування;
-- прийом ліків.
+- doctors;
+- appointments;
+- available slots;
+- visit history;
+- treatment plans;
+- medication intake.
 
-React Query підходить для цього краще, ніж Redux, тому що він автоматично працює з кешуванням, завантаженням, помилками та оновленням серверних даних.
-
----
-
-## 4. Компонентний підхід
-
-Проєкт побудований за компонентним принципом. Кожен великий елемент інтерфейсу винесений в окремий файл або окрему папку.
-
-### Приклади компонентів
-
-- `AppointmentCard` — картка найближчого запису;
-- `EmptyAppointmentCard` — стан, коли записів немає;
-- `MedicationReminder` — коротке нагадування про ліки на головному екрані;
-- `MedicationItem` — елемент списку ліків;
-- `DoctorCard` — картка лікаря;
-- `ServiceCard` — картка стоматологічної послуги;
-- `QuickActionCard` — швидка дія на головному екрані;
-- `CustomBtn` — кастомна кнопка з різними станами;
-- `TrustBlock` — блок довіри та безпеки.
-
-Така структура робить код більш зрозумілим, модульним і зручним для підтримки.
+React Query is a good fit for this project because it handles caching, loading states, errors, and server data updates without adding unnecessary global client-state complexity.
 
 ---
 
-## 5. UX/UI вдосконалення
+## 5. Component-Based Approach
 
-У застосунку покращено користувацький досвід за рахунок:
+The project follows a component-based structure. Reusable interface elements are separated into individual files or folders, which makes the code easier to maintain and extend.
 
-- зрозумілої нижньої навігації;
-- плавної анімації header на головному екрані;
-- візуально відокремлених карток;
-- єдиної палітри кольорів;
-- зрозумілих станів loading/empty/content;
-- передачі параметрів між екранами, наприклад:
-  - `DoctorList` → `DoctorProfile`;
-  - `DoctorProfile` → `SelectDate`;
-  - `SelectDate` → `BookingConfirm`;
-  - `VisitHistory` → `VisitDetails`.
+### Component Examples
+
+- `AppointmentCard` - displays the upcoming appointment.
+- `EmptyAppointmentCard` - displays the empty state when there are no upcoming appointments.
+- `MedicationReminder` - shows a short medication summary on the home screen.
+- `MedicationItem` - renders a medication schedule item.
+- `DoctorCard` - displays doctor information in the booking flow.
+- `ServiceCard` - displays a dental service option.
+- `QuickActionCard` - renders a shortcut action on the home screen.
+- `CustomBtn` - reusable button with different visual states.
+- `TrustBlock` - displays trust and security information.
 
 ---
 
-## 6. Структура проєкту
+## 6. UX/UI Improvements
+
+The application improves the user experience through:
+
+- clear bottom tab navigation;
+- smooth animated header behavior on the home screen;
+- reusable cards for appointments, doctors, services, and medications;
+- consistent color palette, spacing, shadows, and rounded elements;
+- loading, empty, and content states for data-driven screens;
+- typed parameter passing between screens, for example:
+  - `DoctorList` -> `DoctorProfile`;
+  - `DoctorProfile` -> `SelectDate`;
+  - `SelectDate` -> `BookingConfirm`;
+  - `VisitHistory` -> `VisitDetails`.
+
+---
+
+## 7. Project Structure
 
 ```txt
 src/
-  api/                 # Firebase API та запити до даних
-  assets/              # іконки, зображення, скріншоти
-  components/          # великі повторно використовувані компоненти
-  constants/           # маршрути, тема, колекції, статичні дані
+  api/                 # Firebase API and data requests
+  assets/              # icons, images, screenshots
+  components/          # large reusable components
+  constants/           # routes, theme, collections, static data
   context/             # AuthContext, ThemeContext
-  hook/                # кастомні hooks
-  interfaces/          # TypeScript типи
-  layout/              # спільні layout-компоненти
-  mockData/            # локальні тестові дані
-  navigation/          # Root, Tab та Stack навігація
-  screens/             # екрани застосунку
-  ui/                  # маленькі UI-компоненти
-  utils/               # допоміжні функції
+  hook/                # custom hooks
+  interfaces/          # TypeScript types
+  layout/              # shared layout components
+  mockData/            # local test data
+  navigation/          # Root, Tab, and Stack navigation
+  screens/             # application screens
+  ui/                  # small UI components
+  utils/               # helper functions
 ```
 
 ---
 
-## 7. Скріншоти
+## 8. Screenshots
 
-### Onboarding та авторизація
+### Onboarding and Authentication
 
 | Onboarding 1                                                   | Onboarding 2                                                   | Login                                             |
 | -------------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------- |
@@ -172,13 +170,13 @@ src/
 | ------------------------------------------------------- | -------------------------------------------- |
 | ![Register](src/assets/screenshots/register_screen.png) | ![OTP](src/assets/screenshots/otp_sreen.png) |
 
-### Основні екрани
+### Main Screens
 
 | Home                                                 | Home Empty                                                  | Profile                                               |
 | ---------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------- |
 | ![Home](src/assets/screenshots/home_full_screen.png) | ![Home Empty](src/assets/screenshots/home_empty_screen.png) | ![Profile](src/assets/screenshots/profile_screen.png) |
 
-### Запис до лікаря
+### Doctor Appointment Booking
 
 | Services                                               | Doctors                                                   | Doctor Profile                                                     |
 | ------------------------------------------------------ | --------------------------------------------------------- | ------------------------------------------------------------------ |
@@ -188,7 +186,7 @@ src/
 | ------------------------------------------------------------- | -------------------------------------------------------------------- |
 | ![Select Date](src/assets/screenshots/select_date_screen.png) | ![Confirm Booking](src/assets/screenshots/confim_booking_screen.png) |
 
-### Історія та лікування
+### History and Treatment
 
 | Visit History                                                     | Visit Details                                                    | Medications                                                  |
 | ----------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------ |
@@ -196,42 +194,27 @@ src/
 
 ---
 
-### Слайд 1. Основна ідея
+## 9. Presentation Overview
 
-Dental Care App — це застосунок для організації стоматологічного догляду: від вибору лікаря до контролю лікування після візиту.
-
-### Слайд 2. Ключові функції
-
-- авторизація користувача;
-- запис до стоматолога;
-- перегляд лікарів;
-- вибір дати та часу;
-- історія візитів;
-- профіль користувача;
-- нагадування про прийом ліків.
-
-### Слайд 3. Нововведення
-
-Головне розширення — секція **Medications**, яка дозволяє користувачу контролювати план лікування, бачити прогрес і відмічати прийом препаратів.
-
-### Слайд 4. Структура та зручність
-
-Застосунок має модульну структуру: окремі екрани, компоненти, hooks, API-шар, контексти та утиліти. Це полегшує підтримку, розширення та повторне використання коду.
+- **Slide 1: Main Idea** - Dental Care App organizes the patient journey from choosing a doctor to tracking treatment after a visit.
+- **Slide 2: Key Features** - authentication, doctor browsing, appointment booking, date and time selection, visit history, user profile, and medication reminders.
+- **Slide 3: New Functionality** - the Medications section helps users follow a treatment plan, view progress, and mark medicines as taken.
+- **Slide 4: Structure and Usability** - the modular structure separates screens, components, hooks, API logic, contexts, and utilities, making the project easier to maintain and extend.
 
 ---
 
+## 10. Future Functionality
+
+The application can be expanded with features that improve the experience for both patients and the dental clinic:
+
+- **Push notifications** - reminders for medication intake and upcoming doctor appointments.
+- **FAQ / Chat Support** - a help section with answers to common patient questions before and after a visit.
+- **AI time recommendations** - suggested appointment slots based on doctor workload, procedure duration, and patient context.
+- **CRM web version** - a clinic-side dashboard for managing patients, doctors, schedules, appointments, and statistics.
+- **Treatment analytics** - tracking how consistently patients follow medication plans and post-treatment recommendations.
+
 ---
 
-## 8. Майбутній функціонал
+## 11. Conclusion
 
-У подальшому застосунок можна розширити додатковими можливостями, які зроблять сервіс більш корисним як для пацієнтів, так і для стоматологічної клініки.
-
-Планується додати **push-нотифікації**, які будуть нагадувати користувачу про час прийому ліків і майбутній візит до лікаря без необхідності відкривати застосунок.
-
-Також у розділі вибору дати та часу можна реалізувати AI-рекомендації. Наприклад, при виборі часу візиту система зможе позначати рекомендовані години, враховуючи завантаженість лікаря, середню тривалість обраної процедури та попередні дані, які пацієнт вказав під час реєстрації або вибору лікування.
-
-Ще одним напрямком розвитку є створення CRM web-версії для клініки. Вона дозволить керувати пацієнтами, записами, лікарями, графіками прийому та статистикою роботи клініки.
-
-## 9. Висновок
-
-У результаті застосунок було розширено новою функціональністю для контролю прийому ліків, покращено навігацію швидких дій, описано архітектуру, стан, компоненти та UX/UI рішення. Проєкт став більш завершеним і краще відповідає реальному сценарію використання стоматологічного застосунку.
+Dental Care App was expanded with medication tracking, structured documentation, reusable components, clear state management, and a consistent UI approach. The project now better represents a real patient-facing dental care application and has a clear direction for future growth.
