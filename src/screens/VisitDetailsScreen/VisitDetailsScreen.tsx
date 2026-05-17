@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Image,
   ScrollView,
   Text,
   TextInput,
@@ -57,6 +58,29 @@ const VisitDetailsScreen = () => {
   const { data: existingReview, isLoading: isReviewLoading } =
     useAppointmentReview(appointmentId, userProfile?.id);
   const createReview = useCreateDoctorReview();
+
+  const summaryItems = useMemo(
+    () => [
+      {
+        label: 'Diagnosis',
+        value: visitRecord?.diagnosis || 'No diagnosis recorded yet.',
+      },
+      {
+        label: 'Procedures',
+        value:
+          visitRecord?.procedures?.join(', ') || 'No procedures recorded yet.',
+      },
+      {
+        label: 'Teeth',
+        value: visitRecord?.toothNumbers || [],
+      },
+      {
+        label: 'Doctor notes',
+        value: visitRecord?.notes || 'No notes recorded yet.',
+      },
+    ],
+    [visitRecord],
+  );
 
   const isLoading =
     isAppointmentsLoading ||
@@ -127,39 +151,88 @@ const VisitDetailsScreen = () => {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>{appointment.doctorName}</Text>
-            <Text style={styles.mutedText}>
-              {formatDateTime(appointment.startTime)}
-            </Text>
-            <Text style={styles.mutedText}>
-              {appointment.serviceType.join(', ')}
-            </Text>
+          <View style={styles.appointmentCard}>
+            <View style={styles.appointmentTop}>
+              <Image
+                source={
+                  appointment.doctorImage
+                    ? { uri: appointment.doctorImage }
+                    : require('../../assets/images/doctor.jpg')
+                }
+                style={styles.doctorAvatar}
+                resizeMode="cover"
+              />
+
+              <View style={styles.appointmentTextBlock}>
+                <Text style={styles.doctorName} numberOfLines={1}>
+                  {appointment.doctorName}
+                </Text>
+                <Text style={styles.mutedText} numberOfLines={2}>
+                  {appointment.serviceType.join(', ')}
+                </Text>
+              </View>
+
+              <View style={styles.completedBadge}>
+                <Text style={styles.completedBadgeText}>Completed</Text>
+              </View>
+            </View>
+
+            <View style={styles.appointmentMetaRow}>
+              <View style={styles.metaIconBox}>
+                <Icon
+                  name="schedule"
+                  size={16}
+                  color={Theme.colors.icon.primary}
+                />
+              </View>
+              <Text style={styles.appointmentMetaText}>
+                {formatDateTime(appointment.startTime)}
+              </Text>
+            </View>
           </View>
 
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Treatment summary</Text>
-            <Text style={styles.label}>Diagnosis</Text>
-            <Text style={styles.value}>
-              {visitRecord?.diagnosis || 'No diagnosis recorded yet.'}
-            </Text>
+            <Text style={styles.cardTitle}>Clinical notes</Text>
 
-            <Text style={styles.label}>Procedures</Text>
-            <Text style={styles.value}>
-              {visitRecord?.procedures?.join(', ') ||
-                'No procedures recorded yet.'}
-            </Text>
+            <View style={styles.clinicalTimeline}>
+              {summaryItems.map((item, index) => {
+                const isTeeth = item.label === 'Teeth';
+                const teeth = Array.isArray(item.value) ? item.value : [];
 
-            <Text style={styles.label}>Teeth</Text>
-            <Text style={styles.value}>
-              {visitRecord?.toothNumbers?.join(', ') ||
-                'No tooth numbers recorded.'}
-            </Text>
+                return (
+                  <View key={item.label} style={styles.timelineItem}>
+                    <View style={styles.timelineRail}>
+                      {index < summaryItems.length - 1 && (
+                        <View style={styles.timelineLine} />
+                      )}
+                      <View style={styles.timelineDot} />
+                    </View>
 
-            <Text style={styles.label}>Doctor notes</Text>
-            <Text style={styles.value}>
-              {visitRecord?.notes || 'No notes recorded yet.'}
-            </Text>
+                    <View style={styles.timelineContent}>
+                      <Text style={styles.label}>{item.label}</Text>
+
+                      {isTeeth ? (
+                        teeth.length > 0 ? (
+                          <View style={styles.chipRow}>
+                            {teeth.map(tooth => (
+                              <View key={tooth} style={styles.toothChip}>
+                                <Text style={styles.toothChipText}>{tooth}</Text>
+                              </View>
+                            ))}
+                          </View>
+                        ) : (
+                          <Text style={styles.value}>
+                            No tooth numbers recorded.
+                          </Text>
+                        )
+                      ) : (
+                        <Text style={styles.value}>{item.value}</Text>
+                      )}
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
           </View>
 
           <View style={styles.card}>
@@ -167,21 +240,43 @@ const VisitDetailsScreen = () => {
             {treatmentPlans.length === 0 ? (
               <Text style={styles.value}>No medication plan was prescribed.</Text>
             ) : (
-              treatmentPlans.map(plan => (
-                <View key={plan.id} style={styles.treatmentItem}>
-                  <Text style={styles.treatmentTitle}>{plan.title}</Text>
-                  <Text style={styles.value}>
-                    {plan.medicationName} - {plan.strength} -{' '}
-                    {plan.doseAmount}
-                  </Text>
-                  <Text style={styles.mutedText}>
-                    {plan.startDate} - {plan.endDate} at {plan.times.join(', ')}
-                  </Text>
-                  {!!plan.instructions && (
-                    <Text style={styles.value}>{plan.instructions}</Text>
-                  )}
-                </View>
-              ))
+              <View style={styles.treatmentTimeline}>
+                {treatmentPlans.map((plan, index) => (
+                  <View key={plan.id} style={styles.timelineItem}>
+                    <View style={styles.timelineRail}>
+                      {index < treatmentPlans.length - 1 && (
+                        <View style={styles.timelineLine} />
+                      )}
+                      <View style={styles.timelineDot} />
+                    </View>
+
+                    <View style={styles.timelineContent}>
+                      <Text style={styles.treatmentTitle}>{plan.title}</Text>
+                      <Text style={styles.value}>
+                        {plan.medicationName} - {plan.strength} -{' '}
+                        {plan.doseAmount}
+                      </Text>
+                      <Text style={styles.mutedText}>
+                        {plan.startDate} - {plan.endDate}
+                      </Text>
+
+                      <View style={styles.chipRow}>
+                        {plan.times.map(time => (
+                          <View key={`${plan.id}-${time}`} style={styles.timeChip}>
+                            <Text style={styles.timeChipText}>{time}</Text>
+                          </View>
+                        ))}
+                      </View>
+
+                      {!!plan.instructions && (
+                        <Text style={styles.instructions}>
+                          {plan.instructions}
+                        </Text>
+                      )}
+                    </View>
+                  </View>
+                ))}
+              </View>
             )}
           </View>
 
@@ -216,6 +311,7 @@ const VisitDetailsScreen = () => {
                   value={reviewText}
                   onChangeText={setReviewText}
                   placeholder="Share your experience"
+                  placeholderTextColor={Theme.colors.text.placeholder}
                   multiline
                   style={styles.reviewInput}
                 />

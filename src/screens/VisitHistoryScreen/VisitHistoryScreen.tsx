@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
   FlatList,
   Image,
+  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -12,7 +13,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { Appointment } from '../../api/appointments.api';
+import { Appointment, AppointmentStatus } from '../../api/appointments.api';
 import { Theme } from '../../constants/theme';
 import { useAuth } from '../../hook/useAuth';
 import { useCancelAppointment } from '../../hook/useCancelAppointment';
@@ -26,6 +27,15 @@ import { Icon } from '../../ui/Icon/Icon';
 import { styles } from './VisitHistoryScreen.style';
 
 type Navigation = NativeStackNavigationProp<RootStackParamList, 'VisitHistory'>;
+type VisitStatusFilter = AppointmentStatus | 'all';
+
+const STATUS_FILTERS: Array<{ label: string; value: VisitStatusFilter }> = [
+  { label: 'All', value: 'all' },
+  { label: 'Upcoming', value: 'upcoming' },
+  { label: 'Completed', value: 'completed' },
+  { label: 'Cancelled', value: 'cancelled' },
+  { label: 'Missed', value: 'missed' },
+];
 
 const formatVisitDate = (timestamp: number) =>
   new Intl.DateTimeFormat('en', {
@@ -63,9 +73,41 @@ const getStatusStyle = (status: Appointment['status']) => {
   return styles.statusUpcoming;
 };
 
+const getStatusTextStyle = (status: Appointment['status']) => {
+  if (status === 'missed') {
+    return styles.statusTextMissed;
+  }
+
+  if (status === 'cancelled') {
+    return styles.statusTextCancelled;
+  }
+
+  if (status === 'completed') {
+    return styles.statusTextCompleted;
+  }
+
+  return styles.statusTextUpcoming;
+};
+
+const getTimelineMarkerStyle = (status: Appointment['status']) => {
+  if (status === 'missed') {
+    return styles.timelineMarkerMissed;
+  }
+
+  if (status === 'cancelled') {
+    return styles.timelineMarkerCancelled;
+  }
+
+  if (status === 'completed') {
+    return styles.timelineMarkerCompleted;
+  }
+
+  return styles.timelineMarkerUpcoming;
+};
+
 const getStatusLabel = (status: Appointment['status']) => {
   if (status === 'missed') {
-    return 'Missed appointment';
+    return 'Missed';
   }
 
   return status;
@@ -74,6 +116,8 @@ const getStatusLabel = (status: Appointment['status']) => {
 const VisitHistoryScreen = () => {
   const navigation = useNavigation<Navigation>();
   const { userProfile } = useAuth();
+  const [selectedStatus, setSelectedStatus] =
+    useState<VisitStatusFilter>('all');
 
   const {
     data: appointments = [],
@@ -83,6 +127,38 @@ const VisitHistoryScreen = () => {
   } = useUserAppointments(userProfile?.id);
 
   const cancelMutation = useCancelAppointment();
+
+  const statusCounts = useMemo(
+    () =>
+      STATUS_FILTERS.reduce<Record<VisitStatusFilter, number>>(
+        (counts, filter) => {
+          counts[filter.value] =
+            filter.value === 'all'
+              ? appointments.length
+              : appointments.filter(
+                  appointment => appointment.status === filter.value,
+                ).length;
+
+          return counts;
+        },
+        {
+          all: 0,
+          upcoming: 0,
+          completed: 0,
+          cancelled: 0,
+          missed: 0,
+        },
+      ),
+    [appointments],
+  );
+
+  const filteredAppointments = useMemo(
+    () =>
+      selectedStatus === 'all'
+        ? appointments
+        : appointments.filter(appointment => appointment.status === selectedStatus),
+    [appointments, selectedStatus],
+  );
 
   const handleCancel = (appointment: Appointment) => {
     if (!userProfile) {
@@ -132,102 +208,119 @@ const VisitHistoryScreen = () => {
     const isCompleted = item.status === 'completed';
 
     return (
-      <TouchableOpacity
-        activeOpacity={isCompleted ? 0.85 : 1}
-        style={styles.card}
-        disabled={!isCompleted}
-        onPress={() =>
-          navigation.navigate('VisitDetails', { appointmentId: item.id })
-        }
-      >
-        <View style={styles.cardTop}>
-          <View style={styles.avatarContainer}>
-            <Image
-              source={
-                item.doctorImage
-                  ? { uri: item.doctorImage }
-                  : require('../../assets/images/doctor.jpg')
-              }
-              style={styles.doctorAvatar}
-              resizeMode="cover"
-            />
-          </View>
-
-          <View style={styles.cardContent}>
-            <View style={styles.cardHeader}>
-              <View style={styles.cardTitleBlock}>
-                <Text style={styles.doctorName} numberOfLines={1}>
-                  {item.doctorName}
-                </Text>
-
-                <Text style={styles.services} numberOfLines={2}>
-                  {item.serviceType.join(', ')}
-                </Text>
-              </View>
-
-              <View style={[styles.statusBadge, getStatusStyle(item.status)]}>
-                <Text style={styles.statusText}>
-                  {getStatusLabel(item.status)}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.metaRow}>
-              <View style={styles.metaIconBox}>
-                <Icon
-                  name="schedule"
-                  size={16}
-                  color={Theme.colors.icon.primary}
-                />
-              </View>
-
-              <Text style={styles.metaText}>
-                {formatVisitDate(item.startTime)}
-              </Text>
-
-              <Text style={styles.metaDivider}>•</Text>
-
-              <Text style={styles.metaText}>
-                {formatVisitTime(item.startTime)}
-              </Text>
-            </View>
-          </View>
+      <View style={styles.timelineRow}>
+        <View style={styles.timelineRail}>
+          <View style={styles.timelineLine} />
+          <View
+            style={[styles.timelineMarker, getTimelineMarkerStyle(item.status)]}
+          />
         </View>
 
-        {item.status === 'upcoming' && isRefundEligible && (
-          <Text style={styles.helperText}>
-            Refund eligible if cancelled before{' '}
-            {formatPolicyDate(item.refundEligibleUntil)}.
-          </Text>
-        )}
+        <TouchableOpacity
+          activeOpacity={isCompleted ? 0.85 : 1}
+          style={styles.card}
+          disabled={!isCompleted}
+          onPress={() =>
+            navigation.navigate('VisitDetails', { appointmentId: item.id })
+          }
+        >
+          <View style={styles.cardTop}>
+            <View style={styles.avatarContainer}>
+              <Image
+                source={
+                  item.doctorImage
+                    ? { uri: item.doctorImage }
+                    : require('../../assets/images/doctor.jpg')
+                }
+                style={styles.doctorAvatar}
+                resizeMode="cover"
+              />
+            </View>
 
-        {item.status === 'upcoming' && isRefundCutoffExpired && canCancel && (
-          <Text style={styles.warningText}>
-            Refund may no longer be available according to clinic policy.
-          </Text>
-        )}
+            <View style={styles.cardContent}>
+              <View style={styles.cardHeader}>
+                <View style={styles.cardTitleBlock}>
+                  <Text style={styles.doctorName} numberOfLines={1}>
+                    {item.doctorName}
+                  </Text>
 
-        {item.status === 'upcoming' && canCancel && (
-          <TouchableOpacity
-            activeOpacity={0.85}
-            style={[styles.cancelButton, isCancelling && styles.disabledButton]}
-            onPress={() => handleCancel(item)}
-            disabled={isCancelling}
-          >
-            <Text style={styles.cancelButtonText}>
-              {isCancelling ? 'Cancelling...' : 'Cancel Appointment'}
-            </Text>
-          </TouchableOpacity>
-        )}
+                  <Text style={styles.services} numberOfLines={2}>
+                    {item.serviceType.join(', ')}
+                  </Text>
+                </View>
 
-        {item.status === 'upcoming' && !canCancel && (
-          <View style={styles.contactClinicBox}>
-            <Text style={styles.contactClinicText}>
-              Contact clinic to make changes.
-            </Text>
+                <View style={[styles.statusBadge, getStatusStyle(item.status)]}>
+                  <Text
+                    style={[
+                      styles.statusText,
+                      getStatusTextStyle(item.status),
+                    ]}
+                  >
+                    {getStatusLabel(item.status)}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.metaRow}>
+                <View style={styles.metaIconBox}>
+                  <Icon
+                    name="schedule"
+                    size={16}
+                    color={Theme.colors.icon.primary}
+                  />
+                </View>
+
+                <Text style={styles.metaText}>
+                  {formatVisitDate(item.startTime)}
+                </Text>
+
+                <Text style={styles.metaDivider}>-</Text>
+
+                <Text style={styles.metaText}>
+                  {formatVisitTime(item.startTime)}
+                </Text>
+              </View>
+            </View>
           </View>
-        )}
-      </TouchableOpacity>
+
+          {item.status === 'upcoming' && isRefundEligible && (
+            <Text style={styles.helperText}>
+              Refund eligible if cancelled before{' '}
+              {formatPolicyDate(item.refundEligibleUntil)}.
+            </Text>
+          )}
+
+          {item.status === 'upcoming' && isRefundCutoffExpired && canCancel && (
+            <Text style={styles.warningText}>
+              Refund may no longer be available according to clinic policy.
+            </Text>
+          )}
+
+          {item.status === 'upcoming' && canCancel && (
+            <TouchableOpacity
+              activeOpacity={0.85}
+              style={[
+                styles.cancelButton,
+                isCancelling && styles.disabledButton,
+              ]}
+              onPress={() => handleCancel(item)}
+              disabled={isCancelling}
+            >
+              <Text style={styles.cancelButtonText}>
+                {isCancelling ? 'Cancelling...' : 'Cancel Appointment'}
+              </Text>
+            </TouchableOpacity>
+          )}
+
+          {item.status === 'upcoming' && !canCancel && (
+            <View style={styles.contactClinicBox}>
+              <Text style={styles.contactClinicText}>
+                Contact clinic to make changes.
+              </Text>
+            </View>
+          )}
+        </TouchableOpacity>
+      </View>
     );
   };
 
@@ -255,14 +348,68 @@ const VisitHistoryScreen = () => {
         </View>
       ) : (
         <FlatList
-          data={appointments}
+          ListHeaderComponent={
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.filterList}
+            >
+              {STATUS_FILTERS.map(filter => {
+                const isActive = selectedStatus === filter.value;
+
+                return (
+                  <TouchableOpacity
+                    key={filter.value}
+                    activeOpacity={0.85}
+                    style={[
+                      styles.filterChip,
+                      isActive && styles.filterChipActive,
+                    ]}
+                    onPress={() => setSelectedStatus(filter.value)}
+                  >
+                    <Text
+                      style={[
+                        styles.filterText,
+                        isActive && styles.filterTextActive,
+                      ]}
+                    >
+                      {filter.label}
+                    </Text>
+
+                    <View
+                      style={[
+                        styles.filterCount,
+                        isActive && styles.filterCountActive,
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          styles.filterCountText,
+                          isActive && styles.filterCountTextActive,
+                        ]}
+                      >
+                        {statusCounts[filter.value]}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+          }
+          data={filteredAppointments}
           keyExtractor={item => item.id}
           renderItem={renderAppointment}
           ListEmptyComponent={
             <View style={styles.emptyCard}>
-              <Text style={styles.emptyTitle}>No visits yet</Text>
+              <Text style={styles.emptyTitle}>
+                {selectedStatus === 'all'
+                  ? 'No visits yet'
+                  : `No ${selectedStatus} visits`}
+              </Text>
               <Text style={styles.emptyText}>
-                Your appointments will appear here after booking.
+                {selectedStatus === 'all'
+                  ? 'Your appointments will appear here after booking.'
+                  : 'Visits with this status will appear here when available.'}
               </Text>
             </View>
           }
