@@ -161,8 +161,6 @@ src/
 
 ---
 
-## 7. Screenshots
-
 ### Onboarding and Authentication
 
 | Onboarding 1                                                   | Onboarding 2                                                   | Login                                             |
@@ -174,7 +172,6 @@ src/
 | ![Register](src/assets/screenshots/register_screen.png) | ![OTP](src/assets/screenshots/otp_sreen.png) |
 
 ### Main Screens
-
 | Home                                                 | Home Empty                                                  | Profile                                               |
 | ---------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------- |
 | ![Home](src/assets/screenshots/home_full_screen.png) | ![Home Empty](src/assets/screenshots/home_empty_screen.png) | ![Profile](src/assets/screenshots/profile_screen.png) |
