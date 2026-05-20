@@ -21,46 +21,65 @@ const CustomBtn = ({
   isLoading = false,
 }: CustomBtnProps) => {
   const isPrimary = type === 'primary';
-  const isButtonDisabled = isDisabled || isLoading;
+  const isLoadingState = isLoading;
+  const isDisabledState = isDisabled && !isLoading;
+  const isPressDisabled = isDisabled || isLoading;
 
-  const gradientColors = isButtonDisabled
-    ? [Theme.colors.border.default, Theme.colors.border.default]
-    : isPrimary
+  const gradientColors = isPrimary
     ? [Theme.colors.background.accentSoftGreen, Theme.colors.background.accent]
     : [Theme.colors.background.soft, Theme.colors.background.main];
 
-  const textColor = isPrimary
+  const disabledGradientColors = [
+    Theme.colors.border.default,
+    Theme.colors.border.default,
+  ];
+
+  const buttonGradientColors = isDisabledState
+    ? disabledGradientColors
+    : gradientColors;
+
+  const activeTextColor = isPrimary
     ? Theme.colors.text.inverted
     : Theme.colors.text.badge;
 
-  const iconColor = isPrimary
+  const activeIconColor = isPrimary
     ? Theme.colors.text.inverted
     : Theme.colors.icon.primary;
 
+  const textColor = isDisabledState
+    ? Theme.colors.text.placeholder
+    : activeTextColor;
+
+  const iconColor = isDisabledState
+    ? Theme.colors.text.placeholder
+    : activeIconColor;
+
   const loaderColor = isPrimary
-    ? Theme.colors.text.badge
+    ? Theme.colors.text.inverted
     : Theme.colors.text.badge;
+  const buttonShadow =
+    !isPressDisabled && isPrimary ? Theme.shadow.small : undefined;
 
   return (
     <TouchableOpacity
       activeOpacity={0.85}
       onPress={onPress}
-      disabled={isButtonDisabled}
-      style={[
-        styles.touchable,
-        isPrimary && !isButtonDisabled && Theme.shadow.small,
-
-        style,
-      ]}
+      disabled={isPressDisabled}
+      style={[styles.touchable, buttonShadow, style]}
     >
       <LinearGradient
-        colors={gradientColors}
+        colors={buttonGradientColors}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
-        style={[styles.gradient, isButtonDisabled && styles.disabled]}
+        style={[
+          styles.gradient,
+          isDisabledState && styles.disabled,
+          !isPrimary && isDisabledState && styles.secondaryDisabled,
+          isLoadingState && styles.loading,
+        ]}
       >
         <View style={styles.content}>
-          {isLoading && (
+          {isLoadingState && (
             <ActivityIndicator
               size="small"
               color={loaderColor}
@@ -68,7 +87,7 @@ const CustomBtn = ({
             />
           )}
 
-          {!isLoading && icon && iconPosition === 'left' && (
+          {!isLoadingState && icon && iconPosition === 'left' && (
             <Icon
               name={icon}
               size={iconSize}
@@ -89,7 +108,7 @@ const CustomBtn = ({
             {title}
           </Text>
 
-          {!isLoading && icon && iconPosition === 'right' && (
+          {!isLoadingState && icon && iconPosition === 'right' && (
             <Icon
               name={icon}
               size={iconSize}

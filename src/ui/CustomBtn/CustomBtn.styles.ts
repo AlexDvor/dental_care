@@ -21,6 +21,15 @@ export const styles = StyleSheet.create({
     opacity: 1,
   },
 
+  secondaryDisabled: {
+    borderWidth: 1,
+    borderColor: Theme.colors.border.default,
+  },
+
+  loading: {
+    opacity: 1,
+  },
+
   content: {
     flexDirection: 'row',
     alignItems: 'center',
