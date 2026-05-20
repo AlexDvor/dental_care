@@ -1,11 +1,4 @@
-import {
-  ActivityIndicator,
-  Alert,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import {
   CommonActions,
@@ -136,14 +129,8 @@ const BookingConfirmScreen = () => {
             onPress={handleConfirm}
             iconPosition="left"
             icon="lock"
-            isDisabled={isPending}
+            isLoading={isPending}
           />
-
-          {isPending && (
-            <View style={styles.confirmLoader}>
-              <ActivityIndicator />
-            </View>
-          )}
         </View>
       </ScrollView>
     </ScreenLayout>
@@ -179,9 +166,6 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
 
-  confirmLoader: {
-    marginTop: Theme.spacing.md,
-  },
 });
 
 export default BookingConfirmScreen;

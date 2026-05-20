@@ -294,7 +294,7 @@ const VisitDetailsScreen = () => {
                 <CustomBtn
                   title={createReview.isPending ? 'Submitting...' : 'Submit'}
                   onPress={handleSubmitReview}
-                  isDisabled={createReview.isPending}
+                  isLoading={createReview.isPending}
                 />
               </View>
             )}

@@ -214,7 +214,7 @@ const RegisterScreen = ({ navigation }: Props) => {
             }
             onPress={handleSubmit(handleCreateAccount)}
             style={styles.button}
-            isDisabled={isSubmitting}
+            isLoading={isSubmitting}
           />
 
           <View style={styles.secondaryRow}>

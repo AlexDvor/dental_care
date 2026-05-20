@@ -15,4 +15,5 @@ export interface CustomBtnProps {
   iconColor?: string;
   type?: 'primary' | 'secondary';
   isDisabled?: boolean;
+  isLoading?: boolean;
 }

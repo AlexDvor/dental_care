@@ -139,10 +139,12 @@ const LoginScreen = ({ navigation }: Props) => {
 
         <View style={styles.footer}>
           <CustomBtn
-            title={isSubmitting ? 'Logging in...' : authContent.login.buttonTitle}
+            title={
+              isSubmitting ? 'Logging in...' : authContent.login.buttonTitle
+            }
             onPress={handleSubmit(handleLogin)}
             style={styles.button}
-            isDisabled={isSubmitting}
+            isLoading={isSubmitting}
           />
 
           <View style={styles.secondaryRow}>

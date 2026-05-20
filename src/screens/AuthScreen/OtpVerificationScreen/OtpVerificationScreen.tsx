@@ -181,7 +181,7 @@ const OtpVerificationScreen = () => {
             }
             onPress={handleSubmit(handleConfirmCode)}
             style={styles.button}
-            isDisabled={isSubmitting}
+            isLoading={isSubmitting}
           />
 
           <Pressable

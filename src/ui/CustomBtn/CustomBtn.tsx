@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { Theme } from '../../constants/theme';
@@ -18,10 +18,12 @@ const CustomBtn = ({
   iconSize = 20,
   type = 'primary',
   isDisabled = false,
+  isLoading = false,
 }: CustomBtnProps) => {
   const isPrimary = type === 'primary';
+  const isButtonDisabled = isDisabled || isLoading;
 
-  const gradientColors = isDisabled
+  const gradientColors = isButtonDisabled
     ? [Theme.colors.border.default, Theme.colors.border.default]
     : isPrimary
     ? [Theme.colors.background.accentSoftGreen, Theme.colors.background.accent]
@@ -35,14 +37,18 @@ const CustomBtn = ({
     ? Theme.colors.text.inverted
     : Theme.colors.icon.primary;
 
+  const loaderColor = isPrimary
+    ? Theme.colors.text.badge
+    : Theme.colors.text.badge;
+
   return (
     <TouchableOpacity
       activeOpacity={0.85}
       onPress={onPress}
-      disabled={isDisabled}
+      disabled={isButtonDisabled}
       style={[
         styles.touchable,
-        isPrimary && !isDisabled && Theme.shadow.small,
+        isPrimary && !isButtonDisabled && Theme.shadow.small,
 
         style,
       ]}
@@ -51,10 +57,18 @@ const CustomBtn = ({
         colors={gradientColors}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
-        style={[styles.gradient, isDisabled && styles.disabled]}
+        style={[styles.gradient, isButtonDisabled && styles.disabled]}
       >
         <View style={styles.content}>
-          {icon && iconPosition === 'left' && (
+          {isLoading && (
+            <ActivityIndicator
+              size="small"
+              color={loaderColor}
+              style={styles.loader}
+            />
+          )}
+
+          {!isLoading && icon && iconPosition === 'left' && (
             <Icon
               name={icon}
               size={iconSize}
@@ -75,7 +89,7 @@ const CustomBtn = ({
             {title}
           </Text>
 
-          {icon && iconPosition === 'right' && (
+          {!isLoading && icon && iconPosition === 'right' && (
             <Icon
               name={icon}
               size={iconSize}

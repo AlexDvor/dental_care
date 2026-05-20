@@ -41,7 +41,7 @@ const ProfileScreen = () => {
             style={styles.logoutButton}
             icon="logout"
             iconSize={23}
-            isDisabled={isSubmitting}
+            isLoading={isSubmitting}
           />
         </View>
       </ScrollView>

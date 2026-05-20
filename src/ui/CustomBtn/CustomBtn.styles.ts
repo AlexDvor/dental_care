@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   },
 
   disabled: {
-    opacity: 0.7,
+    opacity: 1,
   },
 
   content: {
@@ -31,6 +31,10 @@ export const styles = StyleSheet.create({
     color: Theme.colors.text.inverted,
     fontSize: Theme.typography.size.body,
     fontWeight: Theme.typography.fontWeight.semibold,
+  },
+
+  loader: {
+    marginRight: Theme.spacing.sm,
   },
 
   leftIcon: {
